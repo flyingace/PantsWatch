@@ -35,16 +35,16 @@ var PantsListRow = React.createClass({
                     source={require('../../assets/pants01.png')}
                     style={styles.pantsThumb}/>
                 <Text style={styles.pantsName}>
-                    {this.props.pantsName}
+                    {this.props.name}
                 </Text>
                 <Text style={styles.colorName}>
-                    {this.props.colorName}
+                    {this.props.color}
                 </Text>
                 <Text style={styles.styleName}>
-                    {this.props.styleName}
+                    {this.props.style}
                 </Text>
                 <Text style={styles.wearLimit}>
-                    {this.props.wearLimit}
+                    {this.props.wear_limit}
                 </Text>
             </View>
         );
