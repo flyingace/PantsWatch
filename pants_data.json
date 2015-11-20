@@ -1,0 +1,58 @@
+[
+    {
+        "image_url": "/assets/pants01.png",
+        "name": "Stiff Jeans",
+        "color": "Blue",
+        "style": "Casual",
+        "brand": "Gap",
+        "wear_limit": 6
+    },
+    {
+        "image_url": "/assets/pants02.png",
+        "name": "Black Khakis",
+        "color": "Black",
+        "style": "Work Casual",
+        "brand": "Banana Republic",
+        "wear_limit": 6
+    },
+    {
+        "image_url": "/assets/pants03.png",
+        "name": "Carharts",
+        "color": "Tan",
+        "style": "Casual",
+        "brand": "Carhart",
+        "wear_limit": 6
+    },
+    {
+        "image_url": "/assets/pants04.png",
+        "name": "Black Dress Pants",
+        "color": "Black",
+        "style": "Formal",
+        "brand": "Banana Republic",
+        "wear_limit": 6
+    },
+    {
+        "image_url": "/assets/pants05.png",
+        "name": "Green Jeans",
+        "color": "Green",
+        "style": "Casual",
+        "brand": "Gap",
+        "wear_limit": 6
+    },
+    {
+        "image_url": "/assets/pants06.png",
+        "name": "Tan Jeans",
+        "color": "Tan",
+        "style": "Casual",
+        "brand": "Gap",
+        "wear_limit": 6
+    },
+    {
+        "image_url": "/assets/pants07.png",
+        "name": "Faded Jeans",
+        "color": "Light Blue",
+        "style": "Casual",
+        "brand": "Levi's",
+        "wear_limit": 6
+    }
+]
