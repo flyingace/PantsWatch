@@ -56,8 +56,12 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
-        backgroundColor: 'lightblue',
-        alignSelf: 'stretch'
+        backgroundColor: 'white',
+        alignSelf: 'stretch',
+        borderTopColor: '#EEEEEE',
+        borderBottomColor: '#CCCCCC',
+        borderTopWidth: 1,
+        borderBottomWidth: 1
     },
     pantsThumb: {
         width: 50,

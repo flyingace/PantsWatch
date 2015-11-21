@@ -5,9 +5,7 @@
 var React = require('react-native');
 const {
     StyleSheet,
-    View,
     ListView,
-    ListViewDataSource
     } = React;
 const PantsListRow = require('../PantsListRow/PantsListRow');
 
@@ -39,20 +37,8 @@ var PantsListView = React.createClass({
     componentDidMount: function () {
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(pantsData.pants),
-            loaded: true,
+            loaded: true
         });
-    },
-
-    fetchData: function () {
-        // fetch(pantsData)
-        //    .then((response) => response.json())
-        //    .then((responseData) => {
-        //        this.setState({
-        //            dataSource: this.state.dataSource.cloneWithRows(pantsData.pants),
-        //            loaded: true
-        //        });
-        //    })
-        //    .done();
     },
 
     renderPantsList: function (pants) {
@@ -62,50 +48,27 @@ var PantsListView = React.createClass({
     },
 
     render: function () {
-        // if (!this.state.loaded) {
-        //    return false;
-        // }
+        if (!this.state.loaded) {
+            return false;
+        }
 
-        console.log(this.state.dataSource);
         return (
             <ListView
                 dataSource={this.state.dataSource}
                 renderRow={this.renderPantsList}
+                style={styles.pantsList}
             />
         );
     }
 });
 
 var styles = StyleSheet.create({
-    pantsRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'lightblue',
+    pantsList: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
         alignSelf: 'stretch'
-    },
-    pantsThumb: {
-        width: 50,
-        height: 50
-    },
-    pantsName: {
-        fontSize: 20,
-        textAlign: 'center'
-    },
-    colorName: {
-        fontSize: 14,
-        textAlign: 'center'
-    },
-    styleName: {
-        fontSize: 14,
-        textAlign: 'center',
-        color: '#333333'
-    },
-    wearLimit: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'red'
-    }
-});
+    }});
 
 module.exports = PantsListView;

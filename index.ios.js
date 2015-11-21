@@ -6,13 +6,13 @@ var {
     StyleSheet,
     View
     } = React;
-var PantsListView = require('./components/PantsListView/PantsListView')
+var PantsForm = require('./components/PantsForm/PantsForm');
 
 var PantsWatch = React.createClass({
     render: function () {
         return (
             <View style={styles.container}>
-                <PantsListView />
+                <PantsForm />
             </View>
         );
     }
