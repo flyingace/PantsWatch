@@ -68,16 +68,17 @@ var styles = StyleSheet.create({
         height: 50
     },
     pantsName: {
+        flex: 1,
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'left'
     },
     colorName: {
         fontSize: 14,
-        textAlign: 'center'
+        textAlign: 'left'
     },
     styleName: {
         fontSize: 14,
-        textAlign: 'center',
+        textAlign: 'left',
         color: '#333333'
     },
     wearLimit: {

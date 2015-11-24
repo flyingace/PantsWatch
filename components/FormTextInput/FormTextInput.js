@@ -2,7 +2,6 @@
 
 const React = require('react-native');
 const {
-    DropDown,
     StyleSheet,
     Text,
     TextInput,
@@ -14,43 +13,35 @@ const FormTextInput = React.createClass({
     displayName: 'FormItem',
 
     propTypes: {
-        itemType: React.PropTypes.string,
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.array,
         placeholderText: React.PropTypes.string
     },
 
     getDefaultProps: function () {
-        return {
-            itemType: 'textInput'
-        };
+        return null;
     },
 
     render: function () {
         return (
-            <View style={styles.formItemWrapper}>
+            <View>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>
-                <TextInput style={styles.textInput} placeholder={this.props.placeholderText} />
+                <TextInput style={styles.textInput} placeholder={this.props.placeholderText}/>
             </View>
         );
     }
 });
 
 var styles = StyleSheet.create({
-    formItemWrapper: {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
+    formLabel: {
+        height: 30,
+        backgroundColor: '#CCCCCC',
         alignSelf: 'stretch'
     },
-    formLabel: {},
     textInput: {
-        backgroundColor: '#FF00FF',
-        width: 300,
-        height: 50
+        backgroundColor: '#DDDDDD',
+        height: 30
     },
-    dropDownMenu: {}
 });
 
 module.exports = FormTextInput;
