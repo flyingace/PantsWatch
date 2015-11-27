@@ -10,25 +10,21 @@ const {
     TouchableNativeFeedback
     } = React;
 
-let TouchableElement = TouchableHighlight;
+const TouchableElement = (Platform.OS === 'android') ? TouchableNativeFeedback : TouchableHighlight;
 
-if (Platform.OS === 'android') {
-    TouchableElement = TouchableNativeFeedback;
-}
-
-var Button = React.createClass({
+const Button = React.createClass({
 
     displayName: 'Button',
 
     propTypes: {
-        onButtonPress: React.PropTypes.any,
-        buttonText: React.PropTypes.string
+        buttonText: React.PropTypes.string,
+        onButtonPress: React.PropTypes.any
     },
 
     getDefaultProps: function () {
         return {
-            onButtonPress: this.handleButtonPress,
-            buttonText: 'Click me'
+            buttonText: 'Click me',
+            onButtonPress: this.handleButtonPress
         };
     },
 

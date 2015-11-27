@@ -13,20 +13,29 @@ const FormTextInput = React.createClass({
     displayName: 'FormItem',
 
     propTypes: {
+        inputRef: React.PropTypes.string,
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.array,
+        onSubmit: React.PropTypes.any,
         placeholderText: React.PropTypes.string
     },
 
     getDefaultProps: function () {
-        return null;
+        return {
+            onSubmit: this.handleSubmitEditing
+        };
+    },
+
+    handleSubmitEditing: function () {
+
     },
 
     render: function () {
         return (
             <View>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>
-                <TextInput style={styles.textInput} placeholder={this.props.placeholderText}/>
+                <TextInput style={styles.textInput} placeholder={this.props.placeholderText}
+                           onSubmitEditing={this.props.onSubmit} ref={this.props.inputRef} />
             </View>
         );
     }
