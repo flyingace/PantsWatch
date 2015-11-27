@@ -8,6 +8,8 @@ const {
     ListView,
     } = React;
 const PantsListRow = require('../PantsListRow/PantsListRow');
+const DB = require('../../db.js');
+const DBEvents = require('react-native-db-models').DBEvents;
 
 var pantsData = require('../../pants_data.json');
 
@@ -35,9 +37,13 @@ var PantsListView = React.createClass({
     },
 
     componentDidMount: function () {
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(pantsData.pants),
-            loaded: true
+        var self = this;
+        DB.pants.get_all(function (result) {
+            self.setState({
+                dataSource: self.state.dataSource.cloneWithRows(result.rows),
+                loaded: true
+            });
+            console.log(result);
         });
     },
 

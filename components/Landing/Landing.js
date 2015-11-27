@@ -26,11 +26,11 @@ const Landing = React.createClass({
         return (
             <View style={styles.bitches}>
                 <Text style={styles.bitchesText}>
-                    Pants Watch, bitches.
+                    Pants Watch.
                 </Text>
                 <Image source={require('../../assets/landing-pants.png')} style={styles.landingPants}/>
                 <Text style={styles.bitchesText}>
-                    Get some.
+                    Get you some.
                 </Text>
             </View>
         );

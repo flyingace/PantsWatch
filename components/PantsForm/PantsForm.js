@@ -1,142 +1,141 @@
 var React = require('react-native');
 const {
-    StyleSheet,
-    Text,
-    TextInput,
-    View
+    ScrollView,
+    StyleSheet
     } = React;
 const Button = require('../Button/Button');
-const FormTextInput = require('../FormTextInput/FormTextInput');
-const FormDropDown = require('../FormDropDown/FormDropDown');
+const t = require('tcomb-form-native');
 const DB = require('../../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
 
-// const pantsData = { name: '', color: '', brand: '', style: '', maxWears: '', addedOn: '', notes: '' };
+var Form = t.form.Form;
 
+var PantsColors = t.enums({
+    blue: 'Blue',
+    green: 'Green',
+    black: 'Black',
+    red: 'Red',
+    khaki: 'Khaki',
+    tan: 'Tan',
+    white: 'White'
+});
 
+// here we are: define your domain model
+var PantsRecord = t.struct({
+    name: t.String,             // a required string
+    color: t.maybe(t.String),
+    // color: t.maybe(PantsColors),
+    brand: t.maybe(t.String),   // an optional string
+    style: t.maybe(t.String),
+    maxWears: t.Number,
+    lastWornDate: t.maybe(t.String),
+    // addedOnDate: t.maybe(t.String),
+    // lastWornDate: t.maybe(t.Date),
+    // addedOnDate: t.maybe(t.Date),
+    notes: t.maybe(t.String)
+});
+
+var pantsOptions = {
+    //auto: 'placeholders',
+    fields: {
+        maxWears: {
+            label: 'Max Wears'
+        },
+        lastWornDate: {
+            label: 'Last Worn On',
+            mode: 'date'
+        },
+        addedOnDate: {
+            label: 'Added On',
+            mode: 'date'
+        }
+    }
+};
 const PantsForm = React.createClass({
 
     propTypes: {
         pantsData: React.PropTypes.object
     },
 
-    // pantsData: { name: '', color: '', brand: '', style: '', maxWears: '', addedOn: '', notes: '' },
-
     getDefaultProps() {
         return null;
     },
 
     getInitialState: function () {
-        return {
-            pantsName: '',
-            pantsColor: '',
-            pantsBrand: '',
-            pantsStyle: '',
-            maxWears: '',
-            lastWornDate: '',
-            addedOnDate: '',
-            notes: ''
-        };
-    },
-
-    resetDefaultState: function () {
-        this.setState({
-            pantsName: '',
-            pantsColor: '',
-            pantsBrand: '',
-            pantsStyle: '',
-            maxWears: '',
-            lastWornDate: '',
-            addedOnDate: '',
-            notes: ''
-        });
+        return null;
     },
 
     componentDidMount: function () {
     },
 
     submitFormData: function () {
+        var value = this.refs.pantsForm.getValue();
+        console.log(value);
         DB.pants.add({
-            name: this.state.pantsName,
-            color: this.state.pantsColor,
-            brand: this.state.pantsBrand,
-            style: this.state.pantsStyle,
-            maxWears: this.state.maxWears,
-            lastWorn: this.state.lastWornDate,
-            addedOn: this.state.addedOnDate,
-            notes: this.state.notes
+            name: value.name,
+            color: value.color,
+            brand: value.brand,
+            style: value.style,
+            maxWears: value.maxWears,
+            lastWorn: value.lastWornDate,
+            addedOn: value.addedOnDate,
+            notes: value.notes
         }, function (updatedTable) {
             console.log(updatedTable);
-            this.resetDefaultState();
         });
     },
 
     render: function () {
         return (
-            <View style={ styles.formWrapper }>
-                <Text style={styles.formLabel}>Name</Text>
-                <TextInput style={ styles.textInput } ref='pantsName'
-                           onChangeText={(pantsName) => this.setState({ pantsName })}
-                           value={this.state.pantsName} defaultValue='What do you want to call your pants?'/>
-
-                <Text style={styles.formLabel}>Color</Text>
-                <TextInput style={ styles.textInput } ref='pantsColor'
-                           onChangeText={(pantsColor) => this.setState({ pantsColor })}
-                           value={this.state.pantsColor} defaultValue='What color are your pants?'/>
-
-                <Text style={styles.formLabel}>Brand</Text>
-                <TextInput style={ styles.textInput } ref='pantsBrand'
-                           onChangeText={(pantsBrand) => this.setState({ pantsBrand })}
-                           value={this.state.pantsBrand} defaultValue='What brand are your pants?'/>
-
-                <Text style={styles.formLabel}>Style</Text>
-                <TextInput style={ styles.textInput } ref='pantsStyle'
-                           onChangeText={(pantsStyle) => this.setState({ pantsStyle })}
-                           value={this.state.pantsStyle} defaultValue='What style are your pants?'/>
-
-                <Text style={styles.formLabel}>Max Wears</Text>
-                <TextInput style={ styles.textInput } ref='maxWears'
-                           onChangeText={(maxWears) => this.setState({ maxWears })}
-                           value={this.state.maxWears}/>
-
-                <Text style={styles.formLabel}>Last Worn On</Text>
-                <TextInput style={ styles.textInput } ref='lastWornDate'
-                           onChangeText={(lastWornDate) => this.setState({ lastWornDate })}
-                           value={this.state.lastWornDate}/>
-
-                <Text style={styles.formLabel}>Added On</Text>
-                <TextInput style={ styles.textInput } ref='addedOnDate'
-                           onChangeText={(addedOnDate) => this.setState({ addedOnDate })}
-                           value={this.state.addedOnDate}/>
-
-                <Text style={styles.formLabel}>Notes</Text>
-                <TextInput style={ styles.textInput } ref='Notes'
-                           onChangeText={(notes) => this.setState({ notes })}
-                           value={this.state.notes}/>
-
-                <Button buttonText="Submit Your Pants" onButtonPress={this.submitFormData}/>
-            </View>
+            <ScrollView contentContainerStyle={ styles.formWrapper }>
+                <Form
+                    ref='pantsForm'
+                    type={PantsRecord}
+                    options={pantsOptions}
+                />
+                <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
+            </ScrollView>
         );
     }
 });
 
 var styles = StyleSheet.create({
     formWrapper: {
-        backgroundColor: '#000FFF',
-        flexDirection: 'column',
-        alignItems: 'stretch',
-        alignSelf: 'stretch'
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        padding: 20,
+        backgroundColor: '#ffffff'
     },
-    formLabel: {
-        height: 30,
-        backgroundColor: '#CCCCCC',
-        alignSelf: 'stretch'
+    title: {
+        fontSize: 30,
+        alignSelf: 'center',
+        marginBottom: 5
     },
     textInput: {
         backgroundColor: '#DDDDDD',
         height: 30
+    },
+    button: {
+        height: 30
     }
 });
+/* buttonText: {
+ fontSize: 18,
+ color: 'white',
+ alignSelf: 'center'
+ },
+ button: {
+ height: 36,
+ backgroundColor: '#48BBEC',
+ borderColor: '#48BBEC',
+ borderWidth: 1,
+ borderRadius: 8,
+ marginBottom: 10,
+ alignSelf: 'stretch',
+ justifyContent: 'center'
+ }
+ */
 
 module.exports = PantsForm;
 
