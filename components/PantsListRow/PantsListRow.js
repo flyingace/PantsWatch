@@ -16,7 +16,7 @@ var PantsListRow = React.createClass({
         pantsName: React.PropTypes.string,
         colorName: React.PropTypes.string,
         styleName: React.PropTypes.string,
-        wearLimit: React.PropTypes.number
+        maxWears: React.PropTypes.number
     },
 
     getDefaultProps() {
@@ -24,7 +24,7 @@ var PantsListRow = React.createClass({
             pantsName: 'Favorite Pants',
             colorName: 'Blue',
             styleName: 'Casual',
-            wearLimit: 0
+            maxWears: 0
         };
     },
 
@@ -43,8 +43,8 @@ var PantsListRow = React.createClass({
                 <Text style={styles.styleName}>
                     {this.props.style}
                 </Text>
-                <Text style={styles.wearLimit}>
-                    {this.props.wear_limit}
+                <Text style={styles.maxWears}>
+                    {this.props.maxWears}
                 </Text>
             </View>
         );
@@ -81,7 +81,7 @@ var styles = StyleSheet.create({
         textAlign: 'left',
         color: '#333333'
     },
-    wearLimit: {
+    maxWears: {
         fontSize: 16,
         fontWeight: 'bold',
         color: 'red'

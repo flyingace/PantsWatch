@@ -55,9 +55,18 @@ const Button = React.createClass({
 
 const styles = StyleSheet.create({
     button: {
-        height: 30
+        backgroundColor: '#66d8ff',
+        borderRadius: 4,
+        height: 36,
+        justifyContent: 'center',
+        marginTop: 10
     },
-    buttonText: {}
+    buttonText: {
+        alignSelf: 'center',
+        color: '#FFFFFF',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    }
 });
 
 module.exports = Button;

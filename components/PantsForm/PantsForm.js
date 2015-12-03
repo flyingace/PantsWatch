@@ -1,7 +1,9 @@
 var React = require('react-native');
 const {
     ScrollView,
-    StyleSheet
+    StyleSheet,
+    Text,
+    View
     } = React;
 const Button = require('../Button/Button');
 const t = require('tcomb-form-native');
@@ -38,8 +40,12 @@ var PantsRecord = t.struct({
 var pantsOptions = {
     //auto: 'placeholders',
     fields: {
+        name: {
+            error: 'Please choose a name for your pants.'
+        },
         maxWears: {
-            label: 'Max Wears'
+            label: 'Max Wears',
+            error: 'Please choose how many times you want to wear these pants before they need to be washed.'
         },
         lastWornDate: {
             label: 'Last Worn On',
@@ -71,23 +77,29 @@ const PantsForm = React.createClass({
     submitFormData: function () {
         var value = this.refs.pantsForm.getValue();
         console.log(value);
-        DB.pants.add({
-            name: value.name,
-            color: value.color,
-            brand: value.brand,
-            style: value.style,
-            maxWears: value.maxWears,
-            lastWorn: value.lastWornDate,
-            addedOn: value.addedOnDate,
-            notes: value.notes
-        }, function (updatedTable) {
-            console.log(updatedTable);
-        });
+
+        if (value) {
+            DB.pants.add({
+                name: value.name,
+                color: value.color,
+                brand: value.brand,
+                style: value.style,
+                maxWears: value.maxWears,
+                lastWorn: value.lastWornDate,
+                addedOn: value.addedOnDate,
+                notes: value.notes
+            }, function (updatedTable) {
+                console.log(updatedTable);
+            });
+        }
     },
 
     render: function () {
         return (
             <ScrollView contentContainerStyle={ styles.formWrapper }>
+                <View style={{ borderBottomWidth: 1, borderColor: '#000000', marginBottom: 10 }}>
+                    <Text style={styles.pageTitle}>Add Some Pants To Your Life</Text>
+                </View>
                 <Form
                     ref='pantsForm'
                     type={PantsRecord}
@@ -107,17 +119,11 @@ var styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#ffffff'
     },
-    title: {
-        fontSize: 30,
-        alignSelf: 'center',
-        marginBottom: 5
-    },
-    textInput: {
-        backgroundColor: '#DDDDDD',
-        height: 30
-    },
-    button: {
-        height: 30
+    pageTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        borderBottomWidth: 1,
+        borderColor: '#000000'
     }
 });
 /* buttonText: {

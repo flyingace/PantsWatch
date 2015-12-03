@@ -11,9 +11,9 @@ const PantsListRow = require('../PantsListRow/PantsListRow');
 const DB = require('../../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
 
-var pantsData = require('../../pants_data.json');
+let pantsData = require('../../pants_data.json');
 
-var PantsListView = React.createClass({
+const PantsListView = React.createClass({
 
     propTypes: {
         pantsData: React.PropTypes.object
@@ -30,13 +30,23 @@ var PantsListView = React.createClass({
 
     getInitialState: function () {
         return {
-            dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2,
-    }),
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2) => row1 !== row2
+            }),
             loaded: true
         };
     },
 
     componentDidMount: function () {
+        let self = this;
+        DBEvents.on('all', function () {
+            self.getAllPants();
+        });
+
+        this.getAllPants();
+    },
+
+    getAllPants: function () {
         var self = this;
         DB.pants.get_all(function (result) {
             self.setState({
@@ -75,6 +85,7 @@ var styles = StyleSheet.create({
         bottom: 0,
         left: 0,
         alignSelf: 'stretch'
-    }});
+    }
+});
 
 module.exports = PantsListView;
