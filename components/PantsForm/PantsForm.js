@@ -75,7 +75,9 @@ const PantsForm = React.createClass({
     },
 
     submitFormData: function () {
-        var value = this.refs.pantsForm.getValue();
+        const self = this;
+        let pantsForm = this.refs.pantsForm,
+            value = pantsForm.getValue();
         console.log(value);
 
         if (value) {
@@ -89,9 +91,15 @@ const PantsForm = React.createClass({
                 addedOn: value.addedOnDate,
                 notes: value.notes
             }, function (updatedTable) {
+                self.resetForm(pantsForm);
                 console.log(updatedTable);
             });
         }
+    },
+
+    resetForm: function (targetForm) {
+        targetForm.refs.input.setState({value: null});
+        targetForm.getComponent('name').refs.input.focus();
     },
 
     render: function () {
