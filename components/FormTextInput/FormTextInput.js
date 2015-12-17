@@ -32,25 +32,36 @@ const FormTextInput = React.createClass({
 
     render: function () {
         return (
-            <View>
+            <View style={styles.formFieldWrapper}>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>
                 <TextInput style={styles.textInput} placeholder={this.props.placeholderText}
-                           onSubmitEditing={this.props.onSubmit} ref={this.props.inputRef} />
+                           onSubmitEditing={this.props.onSubmit} ref={this.props.inputRef}/>
             </View>
         );
     }
 });
 
 var styles = StyleSheet.create({
+    formFieldWrapper: {
+        backgroundColor: 'rgba(255,255,255,.5)',
+        borderRadius: 3,
+        flexDirection: 'row',
+        padding: 4
+    },
     formLabel: {
-        height: 30,
-        backgroundColor: '#CCCCCC',
-        alignSelf: 'stretch'
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 30,
+        marginRight: 4,
+        marginLeft: 4
     },
     textInput: {
-        backgroundColor: '#DDDDDD',
-        height: 30
-    },
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 30,
+        backgroundColor: 'rgba(255,255,255,.3)',
+        borderRadius: 3,
+        padding: 4,
+        flex: 1
+    }
 });
 
 module.exports = FormTextInput;

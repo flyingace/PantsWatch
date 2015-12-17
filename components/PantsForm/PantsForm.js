@@ -1,4 +1,4 @@
-var React = require('react-native');
+const React = require('react-native');
 const {
     ScrollView,
     StyleSheet,
@@ -7,12 +7,19 @@ const {
     } = React;
 const Button = require('../Button/Button');
 const t = require('tcomb-form-native');
+const FormText = require('../FormTextInput/FormTextInput.js');
 const DB = require('../../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
+const PantsWatchStyles = require('../../PantsWatchStyles.js');
+const PantsWatchTemplates = require('../../templates/pantsWatchTemplates/');
 
-var Form = t.form.Form;
+const Form = t.form.Form;
+Form.stylesheet = PantsWatchStyles;
+Form.templates = PantsWatchTemplates;
 
-var PantsColors = t.enums({
+const placeholderTextColor = '#FFFFFF';
+
+const PantsColors = t.enums({
     blue: 'Blue',
     green: 'Green',
     black: 'Black',
@@ -23,7 +30,7 @@ var PantsColors = t.enums({
 });
 
 // here we are: define your domain model
-var PantsRecord = t.struct({
+const PantsRecord = t.struct({
     name: t.String,             // a required string
     color: t.maybe(t.String),
     // color: t.maybe(PantsColors),
@@ -37,23 +44,42 @@ var PantsRecord = t.struct({
     notes: t.maybe(t.String)
 });
 
-var pantsOptions = {
-    //auto: 'placeholders',
+const pantsOptions = {
+    auto: 'placeholders',
     fields: {
         name: {
-            error: 'Please choose a name for your pants.'
+            error: 'Bro. Name your pants, bro.',
+            placeholderTextColor: placeholderTextColor
+        },
+        color: {
+            placeholderTextColor: placeholderTextColor
+        },
+        brand: {
+            placeholderTextColor: placeholderTextColor
+        },
+        style: {
+            placeholderTextColor: placeholderTextColor
         },
         maxWears: {
-            label: 'Max Wears',
-            error: 'Please choose how many times you want to wear these pants before they need to be washed.'
+            placeholder: 'Max Wears',
+            error: 'You\'ll need to wash them eventually.',
+            placeholderTextColor: placeholderTextColor
+
         },
         lastWornDate: {
-            label: 'Last Worn On',
-            mode: 'date'
+            placeholder: 'Last Worn On',
+            mode: 'date',
+            placeholderTextColor: placeholderTextColor
+
         },
         addedOnDate: {
-            label: 'Added On',
-            mode: 'date'
+            placeholder: 'Added On',
+            mode: 'date',
+            placeholderTextColor: placeholderTextColor
+
+        },
+        notes: {
+            placeholderTextColor: placeholderTextColor
         }
     }
 };
@@ -103,16 +129,13 @@ const PantsForm = React.createClass({
     },
 
     render: function () {
+        const white = '#FFFFFF';
+
         return (
             <ScrollView contentContainerStyle={ styles.formWrapper }>
                 <View style={{ borderBottomWidth: 1, borderColor: '#000000', marginBottom: 10 }}>
-                    <Text style={styles.pageTitle}>Add Some Pants To Your Life</Text>
+                    <FormText labelText='Name:' placeholderText='Name Your Pants' />
                 </View>
-                <Form
-                    ref='pantsForm'
-                    type={PantsRecord}
-                    options={pantsOptions}
-                />
                 <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
             </ScrollView>
         );
@@ -125,7 +148,7 @@ var styles = StyleSheet.create({
         bottom: 0,
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#0000CC'
     },
     pageTitle: {
         fontSize: 24,
