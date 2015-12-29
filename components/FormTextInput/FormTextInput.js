@@ -46,7 +46,8 @@ var styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,.5)',
         borderRadius: 3,
         flexDirection: 'row',
-        padding: 4
+        padding: 4,
+        marginBottom: 10
     },
     formLabel: {
         fontFamily: 'HappyFox-Condensed',

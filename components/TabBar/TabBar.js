@@ -39,12 +39,10 @@ var TabBar = React.createClass({
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     systemIcon="history"
-                    badge={this.state.notifCount > 0 ? this.state.notifCount : undefined}
                     selected={this.state.selectedTab === 'redTab'}
                     onPress={() => {
                         this.setState({
-                            selectedTab: 'redTab',
-                            notifCount: this.state.notifCount + 1
+                            selectedTab: 'redTab'
                         });
                     }}>
                     <PantsForm />
@@ -55,8 +53,7 @@ var TabBar = React.createClass({
                     selected={this.state.selectedTab === 'greenTab'}
                     onPress={() => {
                         this.setState({
-                            selectedTab: 'greenTab',
-                            presses: this.state.presses + 1
+                            selectedTab: 'greenTab'
                         });
                     }}>
                     <PantsListView />

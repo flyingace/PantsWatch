@@ -7,8 +7,8 @@ var {
     StyleSheet,
     View
     } = React;
-const PantsForm = require('./components/PantsForm/PantsForm');
-const TabBar = require('./components/TabBar/TabBar');
+const SideMenu = require('react-native-side-menu');
+const Application = require('./components/Application/Application');
 
 var PantsWatch = React.createClass({
 
@@ -18,9 +18,7 @@ var PantsWatch = React.createClass({
 
     render: function () {
         return (
-            <View style={styles.container}>
-                <TabBar/>
-            </View>
+                <Application />
         );
     }
 });

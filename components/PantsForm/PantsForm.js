@@ -3,7 +3,8 @@ const {
     ScrollView,
     StyleSheet,
     Text,
-    View
+    View,
+    Image
     } = React;
 const Button = require('../Button/Button');
 const t = require('tcomb-form-native');
@@ -12,6 +13,8 @@ const DB = require('../../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
 const PantsWatchStyles = require('../../PantsWatchStyles.js');
 const PantsWatchTemplates = require('../../templates/pantsWatchTemplates/');
+const BackgroundImage = require('../../assets/backgrounds/redPlaid.png');
+const PageTitle = require('../../assets/page_titles/addFormTitle.png');
 
 const Form = t.form.Form;
 Form.stylesheet = PantsWatchStyles;
@@ -129,30 +132,50 @@ const PantsForm = React.createClass({
     },
 
     render: function () {
-        const white = '#FFFFFF';
 
         return (
-            <ScrollView contentContainerStyle={ styles.formWrapper }>
-                <View style={{ borderBottomWidth: 1, borderColor: '#000000', marginBottom: 10 }}>
-                    <FormText labelText='Name:' placeholderText='Name Your Pants' />
-                </View>
-                <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
-            </ScrollView>
+            <View>
+                <Image source={BackgroundImage} style={styles.backgroundImage}/>
+                <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
+                    <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
+                    <Text style={styles.formTitle}>Add Some Pants</Text>
+                    <FormText labelText='Name:' placeholderText='Name Your Pants' inputRef='name'/>
+                    <FormText labelText='Color:' placeholderText='Pick A Color' inputRef='color'/>
+                    <FormText labelText='Style:' placeholderText='Pick A Style' inputRef='style'/>
+                    <FormText labelText='Brand:' placeholderText='Pick A Brand' inputRef='brand'/>
+                    <FormText labelText='Wear Limit:' placeholderText='6' inputRef='wearLimit'/>
+                    <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
+                </ScrollView>
+            </View>
         );
     }
 });
 
 var styles = StyleSheet.create({
+    transparent: {
+        backgroundColor: 'rgba(0,0,0,0)'
+    },
+    backgroundImage: {
+        flex: 1,
+        position: 'absolute'
+    },
     formWrapper: {
         top: 0,
         bottom: 0,
         justifyContent: 'center',
-        padding: 20,
-        backgroundColor: '#0000CC'
+        paddingLeft: 20,
+        paddingRight: 20,
+        backgroundColor: 'rgba(0,0,0,0)'
     },
     pageTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        marginTop: 12,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+    },
+    formTitle: {
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 45,
+        color: '#FFFFFF',
         borderBottomWidth: 1,
         borderColor: '#000000'
     }
