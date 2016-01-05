@@ -40,17 +40,17 @@ const RouterConfig = React.createClass({
         return (
             <Router hideNavBar={true} initialRoutes={['landing']}>
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>
-                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FloatFromRight}/>
+                <Schema name="default" sceneConfig={Navigator.SceneConfigs.FadeAndroid}/>
                 <Schema name="withoutAnimation"/>
 
-                <Route name="landing" component={Landing} wrapRouter={true} title="Launch" hideNavBar={true}/>
-                <Route name="choosePants" component={PantsListView} title="Choose Your Pants" type="replace"/>
-                <Route name="seePants" component={PantsListView} title="See Your Pants" type="replace"/>
-                <Route name="addPants" component={PantsForm} title="Add Some Pants"/>
-                <Route name="editPants" component={PantsForm} title="Alter Your Pants" type="replace"/>
-                <Route name="washPants" component={PantsForm} title="Wash Your Pants" type="replace"/>
-                <Route name="patches" component={Patches} title="Patches" type="replace"/>
-                <Route name="appSettings" component={Settings} title="Settings" type="replace"/>
+                <Route name="landing" component={Landing} title="Launch" hideNavBar={true}/>
+                <Route name="choosePants" component={PantsListView} title="Choose Your Pants"/>
+                <Route name="seePants" component={PantsListView} title="See Your Pants"/>
+                <Route name="addPants" component={PantsForm} title="Add Some Pants" type="switch"/>
+                <Route name="editPants" component={PantsForm} title="Alter Your Pants"/>
+                <Route name="washPants" component={PantsForm} title="Wash Your Pants"/>
+                <Route name="patches" component={Patches} title="Patches"/>
+                <Route name="appSettings" component={Settings} title="Settings"/>
             </Router>
         );
     }

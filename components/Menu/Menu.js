@@ -32,16 +32,23 @@ const Menu = React.createClass({
     componentWillUnmount: function () {
     },
 
+    onMenuItemPress: function (itemName) {
+        console.log(itemName);
+        this.props.onItemPress();
+        Actions[itemName]();
+    },
+
     render: function () {
 
         return (
             <ScrollView style={styles.menu}>
-                <Text style={styles.item} onPress={Actions.choosePants}>Choose Pants</Text>
-                <Text style={styles.item} onPress={Actions.addPants}>Add Pants</Text>
-                <Text style={styles.item} onPress={Actions.editPants}>Edit Pants</Text>
-                <Text style={styles.item} onPress={Actions.washPants}>Wash Pants</Text>
-                <Text style={styles.item} onPress={Actions.patches}>Patches</Text>
-                <Text style={styles.item} onPress={Actions.appSettings}>Settings</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('landing')}>Home</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('choosePants')}>Choose Pants</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('addPants')}>Add Pants</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('editPants')}>Edit Pants</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('washPants')}>Wash Pants</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('patches')}>Patches</Text>
+                <Text style={styles.item} onPress={() => this.onMenuItemPress('appSettings')}>Settings</Text>
             </ScrollView>
         );
     }

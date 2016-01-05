@@ -48,9 +48,11 @@ const PantsListView = React.createClass({
 
     getAllPants: function () {
         var self = this;
+        var rowSource;
         DB.pants.get_all(function (result) {
+            rowSource = (result.length > 0) ? result.rows : pantsData.pants;
             self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(result.rows),
+                dataSource: self.state.dataSource.cloneWithRows(rowSource),
                 loaded: true
             });
             console.log(result);

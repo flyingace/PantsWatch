@@ -42,7 +42,11 @@ const Application = React.createClass({
     },
 
     updateMenuState: function (isOpen) {
-        this.setState({isOpen,});
+        this.setState({isOpen});
+    },
+
+    closeMenu: function () {
+        this.setState({isOpen: false});
     },
 
     render: function () {
@@ -50,7 +54,7 @@ const Application = React.createClass({
         const navigator = Navigator.navigator;
         return (
             <SideMenu
-                menu={<Menu />}
+                menu={<Menu onItemPress={this.toggle} />}
                 isOpen={this.state.isOpen}
                 onChange={(isOpen) => this.updateMenuState(isOpen)}>
                 <RouterConfig />
