@@ -1,5 +1,3 @@
-/*globals */
-
 'use strict';
 
 var React = require('react-native');
@@ -7,11 +5,12 @@ const {
     StyleSheet,
     ListView,
     } = React;
-const PantsListRow = require('../PantsListRow/PantsListRow');
-const DB = require('../../db.js');
+const PantsListRow = require('./PantsListRow');
+
+const DB = require('../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
 
-let pantsData = require('../../pants_data.json');
+let pantsData = require('../pants_data.json');
 
 const PantsListView = React.createClass({
 

@@ -11,11 +11,11 @@ const {
     Animations
     } = require('react-native-router-flux');
 
-const Landing = require('../Landing/Landing');
-const PantsForm = require('../PantsForm/PantsForm');
-const PantsListView = require('../PantsListView/PantsListView');
-const Patches = require('../Patches/Patches');
-const Settings = require('../Settings/Settings');
+const Landing = require('../Landing');
+const PantsForm = require('../PantsForm');
+const PantsListView = require('../PantsListView');
+const Patches = require('../Patches');
+const Settings = require('../Settings');
 
 const RouterConfig = React.createClass({
 

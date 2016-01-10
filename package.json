@@ -8,6 +8,7 @@
   "dependencies": {
     "react-native": "^0.15.0",
     "react-native-db-models": "^0.1.2",
+    "react-native-drawer": "^1.10.2",
     "react-native-router-flux": "^1.0.9",
     "react-native-side-menu": "^0.17.0",
     "tcomb-form-native": "^0.3.1"
