@@ -6,15 +6,15 @@ const {
     View,
     Image
     } = React;
-const Button = require('../Button/Button');
 const t = require('tcomb-form-native');
-const FormText = require('../FormTextInput/FormTextInput.js');
-const DB = require('../../db.js');
+const Button = require('./Button');
+const FormText = require('./FormTextInput');
+const DB = require('../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
-const PantsWatchStyles = require('../../PantsWatchStyles.js');
-const PantsWatchTemplates = require('../../templates/pantsWatchTemplates/');
-const BackgroundImage = require('../../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../../assets/page_titles/addFormTitle.png');
+const PantsWatchStyles = require('../PantsWatchStyles.js');
+const PantsWatchTemplates = require('../templates/pantsWatchTemplates/index');
+const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
+const PageTitle = require('../assets/page_titles/addFormTitle.png');
 
 const Form = t.form.Form;
 Form.stylesheet = PantsWatchStyles;

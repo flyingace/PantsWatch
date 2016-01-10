@@ -24,7 +24,8 @@ var PantsListRow = React.createClass({
             pantsName: 'Favorite Pants',
             colorName: 'Blue',
             styleName: 'Casual',
-            maxWears: 0
+            maxWears: 0,
+            pantsImgSrc: require('../assets/pants01.png')
         };
     },
 
@@ -32,7 +33,7 @@ var PantsListRow = React.createClass({
         return (
             <View style={styles.pantsRow}>
                 <Image
-                    source={require('../../assets/pants01.png')}
+                    source={this.props.pantsImgSrc}
                     style={styles.pantsThumb}/>
                 <Text style={styles.pantsName}>
                     {this.props.name}

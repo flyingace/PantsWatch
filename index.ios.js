@@ -8,7 +8,7 @@ var {
     View
     } = React;
 const SideMenu = require('react-native-side-menu');
-const Application = require('./components/Application/Application');
+const Application = require('./components/Application');
 
 var PantsWatch = React.createClass({
 

@@ -2,9 +2,9 @@
 
 var React = require('react-native');
 var { StyleSheet, TabBarIOS, View, Text } = React;
-const PantsForm = require('../PantsForm/PantsForm');
-const Landing = require('../Landing/Landing');
-const PantsListView = require('../PantsListView/PantsListView');
+const PantsForm = require('../PantsForm');
+const Landing = require('../Landing');
+const PantsListView = require('../PantsListView');
 
 var TabBar = React.createClass({
 
