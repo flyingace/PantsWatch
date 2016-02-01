@@ -1,60 +1,116 @@
 {
     "pants": [
         {
-            "image_url": "/assets/pants01.png",
-            "name": "Stiff Jeans",
-            "color": "Blue",
-            "style": "Casual",
-            "brand": "Gap",
-            "wear_limit": 6
+            "img_url": "../assets/pants01.png",
+            "pantsName": "Stiff Jeans",
+            "pantsColor": "Blue",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Gap",
+            "maxWears": 6
         },
         {
-            "image_url": "/assets/pants02.png",
-            "name": "Black Khakis",
-            "color": "Black",
-            "style": "Work Casual",
-            "brand": "Banana Republic",
-            "wear_limit": 6
+            "img_url": "../assets/pants02.png",
+            "pantsName": "Black Khakis",
+            "pantsColor": "Black",
+            "pantsStyle": "Work Casual",
+            "pantsBrand": "Banana Republic",
+            "maxWears": 66
         },
         {
-            "image_url": "/assets/pants03.png",
-            "name": "Carharts",
-            "color": "Tan",
-            "style": "Casual",
-            "brand": "Carhart",
-            "wear_limit": 6
+            "img_url": "../assets/pants03.png",
+            "pantsName": "Carharts",
+            "pantsColor": "Tan",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Carhart",
+            "maxWears": 6
         },
         {
-            "image_url": "/assets/pants04.png",
-            "name": "Black Dress Pants",
-            "color": "Black",
-            "style": "Formal",
-            "brand": "Banana Republic",
-            "wear_limit": 6
+            "img_url": "../assets/pants04.png",
+            "pantsName": "Black Dress Pants",
+            "pantsColor": "Black",
+            "pantsStyle": "Formal",
+            "pantsBrand": "Banana Republic",
+            "maxWears": 6
         },
         {
-            "image_url": "/assets/pants05.png",
-            "name": "Green Jeans",
-            "color": "Green",
-            "style": "Casual",
-            "brand": "Gap",
-            "wear_limit": 6
+            "img_url": "../assets/pants05.png",
+            "pantsName": "Green Jeans",
+            "pantsColor": "Green",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Gap",
+            "maxWears": 6
         },
         {
-            "image_url": "/assets/pants06.png",
-            "name": "Tan Jeans",
-            "color": "Tan",
-            "style": "Casual",
-            "brand": "Gap",
-            "wear_limit": 6
+            "img_url": "../assets/pants06.png",
+            "pantsName": "Tan Jeans",
+            "pantsColor": "Tan",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Gap",
+            "maxWears": 6
         },
         {
-            "image_url": "/assets/pants07.png",
-            "name": "Faded Jeans",
-            "color": "Light Blue",
-            "style": "Casual",
-            "brand": "Levi's",
-            "wear_limit": 6
+            "img_url": "../assets/pants07.png",
+            "pantsName": "Faded Jeans",
+            "pantsColor": "Light Blue",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Levi's",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants01.png",
+            "pantsName": "Striped Jeans",
+            "pantsColor": "Blue",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Gap",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants02.png",
+            "pantsName": "Black Khakis",
+            "pantsColor": "Black",
+            "pantsStyle": "Work Casual",
+            "pantsBrand": "Banana Republic",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants03.png",
+            "pantsName": "Carharts",
+            "pantsColor": "Tan",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Carhart",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants04.png",
+            "pantsName": "Black Dress Pants",
+            "pantsColor": "Black",
+            "pantsStyle": "Formal",
+            "pantsBrand": "Banana Republic",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants05.png",
+            "pantsName": "Green Jeans",
+            "pantsColor": "Green",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Gap",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants06.png",
+            "pantsName": "Tan Jeans",
+            "pantsColor": "Tannish",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Gap",
+            "maxWears": 6
+        },
+        {
+            "img_url": "../assets/pants07.png",
+            "pantsName": "Faded Jeans",
+            "pantsColor": "Light Blue",
+            "pantsStyle": "Casual",
+            "pantsBrand": "Levi's",
+            "maxWears": 6
         }
     ]
 }

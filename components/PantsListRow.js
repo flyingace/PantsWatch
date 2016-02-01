@@ -9,83 +9,128 @@ const {
     Text,
     View
     } = React;
+const MaxWearsBox = require('./MaxWearsBox');
 
 var PantsListRow = React.createClass({
 
     propTypes: {
         pantsName: React.PropTypes.string,
-        colorName: React.PropTypes.string,
-        styleName: React.PropTypes.string,
-        maxWears: React.PropTypes.number
+        pantsColor: React.PropTypes.string,
+        pantsBrand: React.PropTypes.string,
+        pantsStyle: React.PropTypes.string,
+        maxWears: React.PropTypes.number,
+        pantsImgSrc: React.PropTypes.any
     },
 
     getDefaultProps() {
         return {
             pantsName: 'Favorite Pants',
-            colorName: 'Blue',
-            styleName: 'Casual',
+            pantsColor: 'Blue',
+            pantsStyle: 'Casual',
+            pantsBrand: 'Levis',
             maxWears: 0,
-            pantsImgSrc: require('../assets/pants01.png')
+            pantsImgSrc: require('../assets/pants01.png'),
+            lastWornDate: '12/23/15'
         };
     },
 
     render: function () {
         return (
-            <View style={styles.pantsRow}>
+            <View style={rowStyles.pantsRow}>
                 <Image
                     source={this.props.pantsImgSrc}
-                    style={styles.pantsThumb}/>
-                <Text style={styles.pantsName}>
-                    {this.props.name}
-                </Text>
-                <Text style={styles.colorName}>
-                    {this.props.color}
-                </Text>
-                <Text style={styles.styleName}>
-                    {this.props.style}
-                </Text>
-                <Text style={styles.maxWears}>
-                    {this.props.maxWears}
-                </Text>
+                    style={rowStyles.thumb}/>
+                <View style={rowStyles.middleCol}>
+                    <Text style={rowStyles.name}>
+                        {this.props.pantsName}
+                    </Text>
+                    <View style={rowStyles.middleColBottom}>
+                        <Text style={rowStyles.color}>{this.props.pantsColor} • </Text>
+                        <Text style={rowStyles.brand}>{this.props.pantsBrand} • </Text>
+                        <Text style={rowStyles.style}>{this.props.pantsStyle}</Text>
+                    </View>
+                </View>
+                <View style={rowStyles.rightCol}>
+                    <MaxWearsBox wearsCount={this.props.wearsCount} maxWears={this.props.maxWears}/>
+                    <View style={rowStyles.rightColBottom}>
+                        <Text style={rowStyles.lastWornOn}>
+                            Last Worn On:
+                        </Text>
+                        <Text style={rowStyles.lastWornOn}>
+                            {this.props.lastWornDate}
+                        </Text>
+                    </View>
+                </View>
             </View>
         );
     }
 });
 
-var styles = StyleSheet.create({
+var rowStyles = StyleSheet.create({
     pantsRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        alignSelf: 'stretch',
-        borderTopColor: '#EEEEEE',
-        borderBottomColor: '#CCCCCC',
-        borderTopWidth: 1,
-        borderBottomWidth: 1
-    },
-    pantsThumb: {
-        width: 50,
-        height: 50
-    },
-    pantsName: {
         flex: 1,
-        fontSize: 20,
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255,255,255,.6)',
+        borderTopColor: '#EEEEEE',
+        borderTopWidth: 1,
+        height: 76,
+        padding: 3,
+        overflow: 'hidden'
+    },
+    thumb: {
+        width: 70,
+        height: 70,
+        alignSelf: 'flex-start'
+    },
+    middleCol: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'space-between',
+        marginHorizontal: 8
+    },
+    name: {
+        fontSize: 40,
+        fontFamily: 'HappyFox-Condensed',
+        textAlign: 'left'
+
+    },
+    middleColBottom: {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent: 'space-between'
+    },
+    color: {
+        flex: 1,
+        fontSize: 18,
+        fontFamily: 'HappyFox-Condensed',
         textAlign: 'left'
     },
-    colorName: {
-        fontSize: 14,
+    style: {
+        flex: 1,
+        fontSize: 18,
+        fontFamily: 'HappyFox-Condensed',
         textAlign: 'left'
     },
-    styleName: {
-        fontSize: 14,
-        textAlign: 'left',
-        color: '#333333'
+    brand: {
+        flex: 1,
+        fontSize: 18,
+        fontFamily: 'HappyFox-Condensed',
+        textAlign: 'left'
     },
-    maxWears: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'red'
+    rightCol: {
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    rightColBottom: {
+        alignItems: 'center'
+    },
+    lastWornOn: {
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 14,
+        lineHeight: 14,
+        textAlign: 'center'
     }
 });
 

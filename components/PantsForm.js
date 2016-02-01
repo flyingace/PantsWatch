@@ -6,86 +6,20 @@ const {
     View,
     Image
     } = React;
-const t = require('tcomb-form-native');
+const _ = require('lodash');
 const Button = require('./Button');
 const FormText = require('./FormTextInput');
+const PantsListView = require('./PantsListView');
 const DB = require('../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
 const PantsWatchStyles = require('../PantsWatchStyles.js');
-const PantsWatchTemplates = require('../templates/pantsWatchTemplates/index');
 const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
 const PageTitle = require('../assets/page_titles/addFormTitle.png');
 
-const Form = t.form.Form;
-Form.stylesheet = PantsWatchStyles;
-Form.templates = PantsWatchTemplates;
+//TODO: I'm not sure that using state here to hold and pass the form values is really
+//the best way to go about doing this. Would it be better to just use a regular object {} ?
 
-const placeholderTextColor = '#FFFFFF';
 
-const PantsColors = t.enums({
-    blue: 'Blue',
-    green: 'Green',
-    black: 'Black',
-    red: 'Red',
-    khaki: 'Khaki',
-    tan: 'Tan',
-    white: 'White'
-});
-
-// here we are: define your domain model
-const PantsRecord = t.struct({
-    name: t.String,             // a required string
-    color: t.maybe(t.String),
-    // color: t.maybe(PantsColors),
-    brand: t.maybe(t.String),   // an optional string
-    style: t.maybe(t.String),
-    maxWears: t.Number,
-    lastWornDate: t.maybe(t.String),
-    // addedOnDate: t.maybe(t.String),
-    // lastWornDate: t.maybe(t.Date),
-    // addedOnDate: t.maybe(t.Date),
-    notes: t.maybe(t.String)
-});
-
-const pantsOptions = {
-    auto: 'placeholders',
-    fields: {
-        name: {
-            error: 'Bro. Name your pants, bro.',
-            placeholderTextColor: placeholderTextColor
-        },
-        color: {
-            placeholderTextColor: placeholderTextColor
-        },
-        brand: {
-            placeholderTextColor: placeholderTextColor
-        },
-        style: {
-            placeholderTextColor: placeholderTextColor
-        },
-        maxWears: {
-            placeholder: 'Max Wears',
-            error: 'You\'ll need to wash them eventually.',
-            placeholderTextColor: placeholderTextColor
-
-        },
-        lastWornDate: {
-            placeholder: 'Last Worn On',
-            mode: 'date',
-            placeholderTextColor: placeholderTextColor
-
-        },
-        addedOnDate: {
-            placeholder: 'Added On',
-            mode: 'date',
-            placeholderTextColor: placeholderTextColor
-
-        },
-        notes: {
-            placeholderTextColor: placeholderTextColor
-        }
-    }
-};
 const PantsForm = React.createClass({
 
     propTypes: {
@@ -93,45 +27,68 @@ const PantsForm = React.createClass({
     },
 
     getDefaultProps() {
-        return null;
+        return {
+            pantsName: null,
+            pantsColor: null,
+            pantsStyle: null,
+            pantsBrand: null,
+            pantsWearLimit: null
+        }
     },
 
     getInitialState: function () {
-        return null;
+        return {
+            pantsName: this.props.name,
+            pantsColor: this.props.pantsColor,
+            pantsStyle: this.props.pantsStyle,
+            pantsBrand: this.props.pantsBrand,
+            pantsWearLimit: this.props.pantsWearLimit
+        };
     },
 
     componentDidMount: function () {
     },
 
     submitFormData: function () {
+        let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
+        let value = {};
         const self = this;
-        let pantsForm = this.refs.pantsForm,
-            value = pantsForm.getValue();
-        console.log(value);
 
-        if (value) {
-            DB.pants.add({
-                name: value.name,
-                color: value.color,
-                brand: value.brand,
-                style: value.style,
-                maxWears: value.maxWears,
-                lastWorn: value.lastWornDate,
-                addedOn: value.addedOnDate,
-                notes: value.notes
-            }, function (updatedTable) {
-                self.resetForm(pantsForm);
-                console.log(updatedTable);
-            });
-        }
+        //add step for validation
+
+        //break out submission into separate function
+        DB.pants.add({
+            name: pantsName,
+            color: pantsColor,
+            brand: pantsBrand,
+            style: pantsStyle,
+            maxWears: pantsWearLimit,
+            lastWorn: value.lastWornDate,
+            addedOn: value.addedOnDate,
+            notes: value.notes
+        }, function (updatedTable) {
+            self.resetForm();
+            self.navigateToPantsList();
+            console.log(updatedTable);
+        });
     },
 
-    resetForm: function (targetForm) {
-        targetForm.refs.input.setState({value: null});
-        targetForm.getComponent('name').refs.input.focus();
+    resetForm: function () {
+        let stateObject = this.state;
+        const self = this;
+        _.forEach(stateObject, function(n, key) {
+            self.setState({key: null});
+        })
     },
 
+    navigateToPantsList: function () {
+        //TODO: Add check to see if "add multiple pairs of pants" is checked and
+        //if yes, do not navigate away but reset focus to first field.
+        //TODO: Add Flux architecture to handle updating the navigator, no?
+        this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
+    },
     render: function () {
+        let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
 
         return (
             <View>
@@ -139,11 +96,42 @@ const PantsForm = React.createClass({
                 <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
                     <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
                     <Text style={styles.formTitle}>Add Some Pants</Text>
-                    <FormText labelText='Name:' placeholderText='Name Your Pants' inputRef='name'/>
-                    <FormText labelText='Color:' placeholderText='Pick A Color' inputRef='color'/>
-                    <FormText labelText='Style:' placeholderText='Pick A Style' inputRef='style'/>
-                    <FormText labelText='Brand:' placeholderText='Pick A Brand' inputRef='brand'/>
-                    <FormText labelText='Wear Limit:' placeholderText='6' inputRef='wearLimit'/>
+                    <FormText
+                        labelText='Name:'
+                        placeholderText='Name Your Pants'
+                        inputRef='pantsName'
+                        value={pantsName}
+                        onChangeTxt={text => this.setState({pantsName: text})}
+                    />
+
+                    <FormText
+                        labelText='Color:'
+                        placeholderText='Pick A Color'
+                        inputRef='color'
+                        value={pantsColor}
+                        onChangeTxt={text => this.setState({pantsColor: text})}
+                    />
+                    <FormText
+                        labelText='Style:'
+                        placeholderText='Pick A Style'
+                        inputRef='style'
+                        value={pantsStyle}
+                        onChangeTxt={text => this.setState({pantsStyle: text})}
+                    />
+                    <FormText
+                        labelText='Brand:'
+                        placeholderText='Pick A Brand'
+                        inputRef='brand'
+                        value={pantsBrand}
+                        onChangeTxt={text => this.setState({pantsBrand: text})}
+                    />
+                    <FormText
+                        labelText='Wear Limit:'
+                        placeholderText='6'
+                        inputRef='wearLimit'
+                        value={pantsWearLimit}
+                        onChangeTxt={text => this.setState({pantsWearLimit: text})}
+                    />
                     <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
                 </ScrollView>
             </View>

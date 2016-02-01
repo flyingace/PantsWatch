@@ -6,12 +6,17 @@ const {
     TouchableOpacity,
     View,
     } = React;
+const Dimensions = require('Dimensions');
+
+const windowDims = Dimensions.get('window');
 
 const Pane = React.createClass({
 
     displayName: 'Pane',
 
-    propTypes: {},
+    propTypes: {
+        paneStyle: View.propTypes.style
+    },
 
     getDefaultProps: function () {
         return {
@@ -38,7 +43,7 @@ const Pane = React.createClass({
     render: function () {
         return (
                 <TouchableOpacity onPress={this.props.onPress} style={styles.wrapper}>
-                    <Image source={this.props.imageURL} />
+                    <Image source={this.props.imageURL} resizeMode={Image.resizeMode.cover} style={this.props.paneStyle} />
                     <Text style={styles.label}>{this.props.paneLabel}</Text>
                 </TouchableOpacity>
         );
@@ -48,12 +53,13 @@ const Pane = React.createClass({
 var styles = StyleSheet.create(
     {
         wrapper: {
-            alignItems: 'center'
+            marginBottom: 8
         },
         label: {
             fontFamily: 'HappyFox-Condensed',
             fontSize: 18,
-            textAlign: 'right'
+            textAlign: 'center',
+            alignSelf: 'center'
         },
         title: {
 

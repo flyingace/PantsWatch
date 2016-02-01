@@ -16,7 +16,7 @@ const FormTextInput = React.createClass({
         inputRef: React.PropTypes.string,
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.array,
-        onSubmit: React.PropTypes.any,
+        onChangeTxt: React.PropTypes.any,
         placeholderText: React.PropTypes.string
     },
 
@@ -27,15 +27,19 @@ const FormTextInput = React.createClass({
     },
 
     handleSubmitEditing: function () {
-
+        console.log('submitted')
     },
 
     render: function () {
         return (
             <View style={styles.formFieldWrapper}>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>
-                <TextInput style={styles.textInput} placeholder={this.props.placeholderText}
-                           onSubmitEditing={this.props.onSubmit} ref={this.props.inputRef}/>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder={this.props.placeholderText}
+                    onChangeText={this.props.onChangeTxt}
+                    ref={this.props.inputRef}
+                    value={this.props.value}/>
             </View>
         );
     }

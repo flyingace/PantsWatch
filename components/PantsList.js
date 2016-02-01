@@ -2,32 +2,32 @@
 
 var React = require('react-native');
 const {
-    Image,
-    ListView,
     StyleSheet,
-    View
+    TouchableOpacity,
+    ListView
     } = React;
-const Dimensions = require('Dimensions');
-const PantsList = require('./PantsList');
-
-const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../assets/page_titles/addFormTitle.png');
-const windowDims = Dimensions.get('window');
-const titleHeight = 125;
+const PantsListRow = require('./PantsListRow');
 
 const DB = require('../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
 
 let pantsData = require('../pants_data.json');
 
-const PantsListView = React.createClass({
+const PantsList = React.createClass({
+
+    displayName: 'MaxWearsBox',
 
     propTypes: {
         pantsData: React.PropTypes.object
     },
 
     getDefaultProps() {
-        return null
+        return {
+            pantsName: 'Favorite Pants',
+            colorName: 'Blue',
+            styleName: 'Casual',
+            wearLimit: 0
+        };
     },
 
     getInitialState: function () {
@@ -61,40 +61,38 @@ const PantsListView = React.createClass({
         });
     },
 
+    onRowPress: function () {
+        console.log('press')
+    },
+
+    renderPantsList: function (pants) {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={this.onRowPress}>
+                <PantsListRow {...pants} style={{overflow: 'hidden'}}/>
+            </TouchableOpacity>
+        );
+    },
+
     render: function () {
         if (!this.state.loaded) {
             return false;
         }
 
         return (
-            <View style="">
-                <Image source={BackgroundImage} style={styles.backgroundImage}/>
-                <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
-                <PantsList
-                    height={windowDims.height - titleHeight}
-                    dataSource={this.state.dataSource}
-                    style={styles.pantsList}
-                />
-            </View>
+            <ListView
+                removeClippedSubviews={true}
+                dataSource={this.state.dataSource}
+                renderRow={this.renderPantsList}
+                style={{height: this.props.height}}
+            />
         );
     }
 });
 
-var styles = StyleSheet.create({
-    wrapper: {
-        justifyContent: 'space-between'
-    },
-    backgroundImage: {
-        position: 'absolute'
-    },
-    pageTitle: {
-        marginTop: 12,
-        alignSelf: 'center',
-        resizeMode: 'contain',
-        height: titleHeight
-    },
-    pantsList: {
-    }
+var pantsListStyles = StyleSheet.create({
+    pantsList: {}
 });
 
-module.exports = PantsListView;
+module.exports = PantsList;
