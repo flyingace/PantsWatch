@@ -14,23 +14,24 @@ const MaxWearsBox = require('./MaxWearsBox');
 var PantsListRow = React.createClass({
 
     propTypes: {
-        pantsName: React.PropTypes.string,
-        pantsColor: React.PropTypes.string,
-        pantsBrand: React.PropTypes.string,
-        pantsStyle: React.PropTypes.string,
-        maxWears: React.PropTypes.number,
-        pantsImgSrc: React.PropTypes.any
+        pantName: React.PropTypes.string,
+        pantColor: React.PropTypes.string,
+        pantStyle: React.PropTypes.string,
+        pantBrand: React.PropTypes.string,
+        pantWearLimit: React.PropTypes.string,
+        pantImgSrc: React.PropTypes.any,
+        pantLastWornOn: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
-            pantsName: 'Favorite Pants',
-            pantsColor: 'Blue',
-            pantsStyle: 'Casual',
-            pantsBrand: 'Levis',
-            maxWears: 0,
-            pantsImgSrc: require('../assets/pants01.png'),
-            lastWornDate: '12/23/15'
+            pantName: 'Favorite Pants',
+            pantColor: 'Blue',
+            pantStyle: 'Casual',
+            pantBrand: 'Levis',
+            pantWearLimit: '0',
+            pantImgSrc: require('../assets/pants01.png'),
+            pantLastWornOn: '12/23/15'
         };
     },
 
@@ -38,26 +39,26 @@ var PantsListRow = React.createClass({
         return (
             <View style={rowStyles.pantsRow}>
                 <Image
-                    source={this.props.pantsImgSrc}
+                    source={this.props.pantImgSrc}
                     style={rowStyles.thumb}/>
                 <View style={rowStyles.middleCol}>
                     <Text style={rowStyles.name}>
-                        {this.props.pantsName}
+                        {this.props.pantName}
                     </Text>
                     <View style={rowStyles.middleColBottom}>
-                        <Text style={rowStyles.color}>{this.props.pantsColor} • </Text>
-                        <Text style={rowStyles.brand}>{this.props.pantsBrand} • </Text>
-                        <Text style={rowStyles.style}>{this.props.pantsStyle}</Text>
+                        <Text style={rowStyles.color}>{this.props.pantColor} • </Text>
+                        <Text style={rowStyles.brand}>{this.props.pantBrand} • </Text>
+                        <Text style={rowStyles.style}>{this.props.pantStyle}</Text>
                     </View>
                 </View>
                 <View style={rowStyles.rightCol}>
-                    <MaxWearsBox wearsCount={this.props.wearsCount} maxWears={this.props.maxWears}/>
+                    <MaxWearsBox wearsCount={this.props.pantWearsCount} maxWears={this.props.pantWearLimit}/>
                     <View style={rowStyles.rightColBottom}>
                         <Text style={rowStyles.lastWornOn}>
                             Last Worn On:
                         </Text>
                         <Text style={rowStyles.lastWornOn}>
-                            {this.props.lastWornDate}
+                            {this.props.pantLastWornOn}
                         </Text>
                     </View>
                 </View>

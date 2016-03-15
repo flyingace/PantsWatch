@@ -6,7 +6,8 @@
     "start": "$NVM_BIN/react-native start"
   },
   "dependencies": {
-    "react-native": "^0.18.1",
+    "lodash": "^4.6.1",
+    "react-native": "^0.21.0",
     "react-native-db-models": "^0.1.2",
     "react-native-drawer": "^1.10.2",
     "react-native-router-flux": "^1.0.9",

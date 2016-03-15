@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
     menu: {
         width: panelWidth,
-        backgroundColor: 'lightBlue',
+        backgroundColor: 'lightblue',
         padding: 20
     },
     item: {
