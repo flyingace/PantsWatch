@@ -1,4 +1,7 @@
 const React = require('react-native');
+const t = require('tcomb-form-native');
+const Form = t.form.Form;
+
 const {
     ScrollView,
     StyleSheet,
@@ -8,7 +11,6 @@ const {
 } = React;
 const _ = require('lodash');
 const Button = require('./Button');
-const FormText = require('./FormTextInput');
 const Landing = require('./Landing');
 const DB = require('../db.js');
 const DBEvents = require('react-native-db-models').DBEvents;
@@ -18,6 +20,23 @@ const PageTitle = require('../assets/page_titles/addFormTitle.png');
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
+
+const settingsForm = t.struct({
+    settingsDefaultWearLimit: t.Number,
+    settingsWhichPrompt: t.Boolean,
+    settingsRepeatPrompt: t.Boolean,
+    settingsPromptTime: t.String,
+    settingsOutOfPantsWarning: t.Boolean
+});
+
+const settingsOptions = {
+    fields: {
+        settingsPromptTime: {
+            onFocus: this.onTimeFocus().bind(this)
+        }
+    }
+    //The options that convert the settingsPromptTime to a time will go here
+}
 
 
 const Settings = React.createClass({
@@ -48,6 +67,11 @@ const Settings = React.createClass({
 
     componentDidMount: function () {
     },
+
+    onTimeFocus: function () {
+        alert('this should be a date picker revealing itself')
+    },
+
 
     submitFormData: function () {
         let {settingsDefaultWearLimit, settingsWhichPrompt, settingsRepeatPrompt, settingsPromptTime, settingsOutOfPantsWarning} = this.state;
@@ -94,40 +118,9 @@ const Settings = React.createClass({
                 <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
                     <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
                     <Text style={styles.formTitle}>Settings</Text>
-                    <FormText
-                        labelText='Default Wear Limit:'
-                        placeholderText='6'
-                        inputRef='defaultWearLimit'
-                        value={settingsDefaultWearLimit}
-                        onChangeTxt={text => this.setState({settingsDefaultWearLimit: text})}
-                    />
-                    <FormText
-                        labelText="Ask Which Pants I'm Wearing Daily:"
-                        placeholderText='Pick A Color'
-                        inputRef='whichPrompt'
-                        value={settingsWhichPrompt}
-                        onChangeTxt={text => this.setState({settingsWhichPrompt: text})}
-                    />
-                    <FormText
-                        labelText="Ask Again If I Don't Respond"
-                        placeholderText=''
-                        inputRef='promptAgain'
-                        value={settingsRepeatPrompt}
-                        onChangeTxt={text => this.setState({settingsRepeatPrompt: text})}
-                    />
-                    <FormText
-                        labelText='Ask Me At'
-                        placeholderText=''
-                        inputRef='askTime'
-                        value={settingsPromptTime}
-                        onChangeTxt={text => this.setState({settingsPromptTime: text})}
-                    />
-                    <FormText
-                        labelText="Warn Me If I'm Low On Clean Pants"
-                        placeholderText='6'
-                        inputRef='warning'
-                        value={settingsOutOfPantsWarning}
-                        onChangeTxt={text => this.setState({settingsOutOfPantsWarning: text})}
+                    <Form ref='settingsForm'
+                          type={settingsForm}
+                          options={settingsOptions}
                     />
                     <Button buttonText="Save" onButtonPress={this.submitFormData}/>
                 </ScrollView>
