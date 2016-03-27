@@ -15,8 +15,7 @@ const PageTitle = require('../assets/page_titles/addFormTitle.png');
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
-const DB = require('../db.js');
-const DBEvents = require('react-native-db-models').DBEvents;
+const realm = require('../realm.js');
 
 let pantsData = require('../pants_data.json');
 

@@ -7,11 +7,12 @@
   },
   "dependencies": {
     "lodash": "^4.6.1",
-    "react-native": "^0.21.0",
-    "react-native-db-models": "^0.1.2",
+    "react": "^0.14.7",
+    "react-native": "^0.22.2",
     "react-native-drawer": "^1.10.2",
     "react-native-router-flux": "^1.0.9",
     "react-native-side-menu": "^0.17.0",
+    "realm": "^0.11.0",
     "tcomb-form-native": "^0.4.0"
   }
 }

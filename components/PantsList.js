@@ -7,9 +7,7 @@ const {
     ListView
     } = React;
 const PantsListRow = require('./PantsListRow');
-
-const DB = require('../db.js');
-const DBEvents = require('react-native-db-models').DBEvents;
+const realm = require('../realm.js');
 
 let pantsData = require('../pants_data.json');
 

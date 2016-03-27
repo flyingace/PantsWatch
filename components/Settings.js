@@ -12,8 +12,7 @@ const {
 const _ = require('lodash');
 const Button = require('./Button');
 const Landing = require('./Landing');
-const DB = require('../db.js');
-const DBEvents = require('react-native-db-models').DBEvents;
+const realm = require('../realm.js');
 const PantsWatchStyles = require('../PantsWatchStyles.js');
 const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
 const PageTitle = require('../assets/page_titles/addFormTitle.png');
