@@ -1,42 +1,22 @@
-const React = require('react-native');
-const t = require('tcomb-form-native');
-const Form = t.form.Form;
-
-const {
+import React, {
     ScrollView,
     StyleSheet,
     Text,
     View,
     Image
-} = React;
-const _ = require('lodash');
-const Button = require('./Button');
-const Landing = require('./Landing');
-const realm = require('../realm.js');
-const PantsWatchStyles = require('../PantsWatchStyles.js');
-const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../assets/page_titles/addFormTitle.png');
+} from 'react-native';
+import t from 'tcomb-form-native';
+
+import { forEach } from 'lodash';
+import Button from './Button';
+import Landing from './Landing';
+import realm from '../realm.js';
+import PantsWatchStyles from '../PantsWatchStyles.js';
+import BackgroundImage from '../assets/backgrounds/redPlaid.png';
+import PageTitle from '../assets/page_titles/addFormTitle.png';
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
-
-const settingsForm = t.struct({
-    settingsDefaultWearLimit: t.Number,
-    settingsWhichPrompt: t.Boolean,
-    settingsRepeatPrompt: t.Boolean,
-    settingsPromptTime: t.String,
-    settingsOutOfPantsWarning: t.Boolean
-});
-
-const settingsOptions = {
-    fields: {
-        settingsPromptTime: {
-            onFocus: this.onTimeFocus().bind(this)
-        }
-    }
-    //The options that convert the settingsPromptTime to a time will go here
-}
-
 
 const Settings = React.createClass({
 
@@ -46,70 +26,93 @@ const Settings = React.createClass({
 
     getDefaultProps() {
         return {
-            settingsDefaultWearLimit: '6',
-            settingsWhichPrompt: 'true',
-            settingsRepeatPrompt: 'true',
-            settingsPromptTime: '0900',
-            settingsOutOfPantsWarning: 'true'
+            defaultWearLimit: 6,
+            promptWhich: true,
+            promptTime: '0900',
+            promptRepeat: true,
+            promptRepeatInterval: 60,
+            outOfPantsWarning: true
         }
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
-            settingsDefaultWearLimit: this.props.settingsDefaultWearLimit,
-            settingsWhichPrompt: this.props.settingsWhichPrompt,
-            settingsRepeatPrompt: this.props.settingsRepeatPrompt,
-            settingsPromptTime: this.props.settingsPromptTime,
+            defaultWearLimit: this.props.defaultWearLimit,
+            promptWhich: this.props.promptWhich,
+            promptTime: this.props.promptTime,
+            promptRepeat: this.props.promptRepeat,
+            promptRepeatInterval: this.props.promptRepeatInterval,
             settingsOutOfPantsWarning: this.props.settingsOutOfPantsWarning
         };
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    onTimeFocus: function () {
+    onTimeFocus() {
         alert('this should be a date picker revealing itself')
     },
 
 
-    submitFormData: function () {
-        let {settingsDefaultWearLimit, settingsWhichPrompt, settingsRepeatPrompt, settingsPromptTime, settingsOutOfPantsWarning} = this.state;
+    submitFormData() {
+        let { defaultWearLimit, promptWhich, promptTime, promptRepeat, promptRepeatInterval, outOfPantsWarning } = this.state;
         let value = {};
-        const self = this;
 
         //TODO: add step for validation
 
-        //TODO: break out submission into separate function
-        DB.settings.add({
-            settingsDefaultWearLimit: settingsDefaultWearLimit,
-            settingsWhichPrompt: settingsWhichPrompt,
-            settingsPromptTime: settingsPromptTime,
-            settingsRepeatPrompt: settingsRepeatPrompt,
-            settingsOutOfPantsWarning: settingsOutOfPantsWarning
-        }, function (updatedTable) {
-            self.resetForm();
-            self.navigateToMainScreen();
-            console.log(updatedTable);
+        realm.write(() => {
+            realm.create('Settings', {
+                defaultWearLimit: defaultWearLimit,
+                promptWhich: promptWhich,
+                promptTime: promptTime,
+                promptRepeat: promptRepeat,
+                promptRepeatInterval: promptRepeatInterval,
+                outOfPantsWarning: outOfPantsWarning
+                // }, function (updatedTable) {
+                //     self.resetForm();
+                //     self.navigateToMainScreen();
+                //     console.log(updatedTable);
+            });
         });
     },
 
-    resetForm: function () {
+    resetForm() {
         let stateObject = this.state;
         const self = this;
-        _.forEach(stateObject, function(n, key) {
+        forEach(stateObject, function(n, key) {
             self.setState({key: null});
         })
     },
 
-    navigateToMainScreen: function () {
+    navigateToMainScreen() {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
         //TODO: Add Flux architecture to handle updating the navigator, no?
         this.props.navigator.replace({component: Landing, name: 'Home'});
     },
 
-    render: function () {
+    render() {
+        const Form = t.form.Form;
         let {settingsDefaultWearLimit, settingsWhichPrompt, settingsRepeatPrompt, settingsPromptTime, settingsOutOfPantsWarning} = this.state;
+        const settingsForm = t.struct({
+            defaultWearLimit: t.Number,
+            promptWhich: t.Boolean,
+            promptTime: t.String,
+            promptRepeat: t.Boolean,
+            promptRepeatInterval: t.Number,
+            outOfPantsWarning: t.Boolean
+        });
+
+        let settingsOptions = {
+            fields: {
+                promptTime: {
+                    onFocus: () => {
+                        this.onTimeFocus();
+                    }
+                }
+            }
+            //The options that convert the settingsPromptTime to a time will go here
+        };
 
         return (
             <View>

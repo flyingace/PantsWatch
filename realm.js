@@ -26,7 +26,7 @@ Color.schema = {
         id: 'int',
         styleName: 'string'
     }
-},
+};
 class Style {}
 Style.schema = {
     name: 'Style',

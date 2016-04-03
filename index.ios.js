@@ -3,7 +3,7 @@
 var React = require('react-native');
 var {
     AppRegistry,
-    StatusBarIOS,
+    StatusBar,
     StyleSheet,
     View
     } = React;
@@ -13,7 +13,7 @@ const Application = require('./components/Application');
 var PantsWatch = React.createClass({
 
     componentWillMount: function () {
-        StatusBarIOS.setHidden(true);
+        StatusBar.setHidden(true);
     },
 
     render: function () {

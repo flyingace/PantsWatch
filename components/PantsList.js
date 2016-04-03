@@ -7,12 +7,14 @@ const {
     ListView
     } = React;
 const PantsListRow = require('./PantsListRow');
-const realm = require('../realm.js');
+
+import realm from '../realm.js';
 
 let pantsData = require('../pants_data.json');
 
 const PantsList = React.createClass({
 
+    
     displayName: 'MaxWearsBox',
 
     propTypes: {
@@ -34,7 +36,7 @@ const PantsList = React.createClass({
 
     componentDidMount: function () {
         let self = this;
-        DBEvents.on('all', function () {
+        realm.addListener('change', () => {
             self.getAllPants();
         });
 
@@ -43,15 +45,14 @@ const PantsList = React.createClass({
 
     getAllPants: function () {
         var self = this;
-        var rowSource;
-        DB.pants.get_all(function (result) {
-            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
-                loaded: true
-            });
-            console.log(result);
+        let pants = realm.objects('Pants');
+        let rowSource = (pants.length > 0) ? pants.rows : pantsData.pants;
+
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(rowSource),
+            loaded: true
         });
+        console.log(pants);
     },
 
     onRowPress: function () {
