@@ -2,16 +2,15 @@
 
 'use strict';
 
-var React = require('react-native');
-const {
+import React, {
     Image,
     StyleSheet,
     Text,
     View
-    } = React;
-const MaxWearsBox = require('./MaxWearsBox');
+} from 'react-native';
+import MaxWearsBox from './MaxWearsBox';
 
-var PantsListRow = React.createClass({
+const PantsListRow = React.createClass({
 
     propTypes: {
         pantsName: React.PropTypes.string,
@@ -35,7 +34,7 @@ var PantsListRow = React.createClass({
         };
     },
 
-    render: function () {
+    render() {
         return (
             <View style={rowStyles.pantsRow}>
                 <Image

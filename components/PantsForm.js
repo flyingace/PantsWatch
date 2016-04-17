@@ -1,19 +1,24 @@
-const React = require('react-native');
-const {
+import React, {
+    Dimensions,
     ScrollView,
     StyleSheet,
     Text,
     View,
     Image
-    } = React;
-const _ = require('lodash');
-const Button = require('./Button');
-const FormText = require('./FormTextInput');
-const PantsListView = require('./PantsListView');
-const realm = require('../realm.js');
-const PantsWatchStyles = require('../PantsWatchStyles.js');
-const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../assets/page_titles/addFormTitle.png');
+} from 'react-native';
+import t from 'tcomb-form-native';
+import {forEach} from 'lodash';
+import Button from './Button';
+import FormText from './FormTextInput';
+import PantsListView from './PantsListView';
+import realm from './realm.js';
+import PantsWatchStyles from '../PantsWatchStyles.js';
+import BackgroundImage from '../assets/backgrounds/redPlaid.png';
+import PageTitle from '../assets/page_titles/addFormTitle.png';
+
+const windowDims = Dimensions.get('window');
+const titleHeight = 125;
+
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
@@ -36,7 +41,7 @@ const PantsForm = React.createClass({
         }
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             pantsImg: this.props.pantsImg,
             pantsName: this.props.pantsName,
@@ -47,10 +52,10 @@ const PantsForm = React.createClass({
         };
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    submitFormData: function () {
+    submitFormData() {
         let {pantImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
         let value = {};
         const self = this;
@@ -69,11 +74,11 @@ const PantsForm = React.createClass({
                 pantLastWornDate: value.lastWornDate,
                 addedOn: value.addedOnDate
             })
-        })
+        });
         /*
-        This is the old callback.
-        Could this be attached to a listener that notes when the form data has been successfully been submitted?
-        OR do I just add these as part of the 
+         This is the old callback.
+         Could this be attached to a listener that notes when the form data has been successfully been submitted?
+         OR do I just add these as part of the
          function (updatedTable) {
          self.resetForm();
          self.navigateToPantsList();
@@ -82,69 +87,54 @@ const PantsForm = React.createClass({
          */
     },
 
-    resetForm: function () {
+    resetForm() {
+        //this can be done with t.comb
         let stateObject = this.state;
         const self = this;
-        _.forEach(stateObject, function(n, key) {
+        forEach(stateObject, function (n, key) {
             self.setState({key: null});
         })
     },
 
-    navigateToPantsList: function () {
+    navigateToPantsList() {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
         //TODO: Add Flux architecture to handle updating the navigator, no?
         this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
     },
 
-    render: function () {
+    render() {
         //not sure about this var, using state?
+        const Form = t.form.Form;
         let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
+        const addPantsForm = t.struct({
+            pantsName: t.String,
+            pantsColor: t.String,
+            pantsStyle: t.String,
+            pantsBrand: t.String,
+            wearLimit: t.Number,
+            dateAdded: t.Date,
+            lastWorn: t.Date
+        });
+
+        let addPantsOptions = {};
 
         return (
             <View>
                 <Image source={BackgroundImage} style={styles.backgroundImage}/>
-                <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
-                    <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
-                    <Text style={styles.formTitle}>Add Some Pants</Text>
-                    <FormText
-                        labelText='Name:'
-                        placeholderText='Name Your Pants'
-                        inputRef='pantsName'
-                        value={pantsName}
-                        onChangeTxt={text => this.setState({pantsName: text})}
-                    />
+                <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
+                <View style={{height: windowDims.height - titleHeight}}>
+                    <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }
+                                keyboardShouldPersistTaps={true}>
+                        <Text style={styles.formTitle}>Add Some Pants</Text>
 
-                    <FormText
-                        labelText='Color:'
-                        placeholderText='Pick A Color'
-                        inputRef='color'
-                        value={pantsColor}
-                        onChangeTxt={text => this.setState({pantsColor: text})}
-                    />
-                    <FormText
-                        labelText='Style:'
-                        placeholderText='Pick A Style'
-                        inputRef='style'
-                        value={pantsStyle}
-                        onChangeTxt={text => this.setState({pantsStyle: text})}
-                    />
-                    <FormText
-                        labelText='Brand:'
-                        placeholderText='Pick A Brand'
-                        inputRef='brand'
-                        value={pantsBrand}
-                        onChangeTxt={text => this.setState({pantsBrand: text})}
-                    />
-                    <FormText
-                        labelText='Wear Limit:'
-                        placeholderText='6'
-                        inputRef='wearLimit'
-                        value={pantsWearLimit}
-                        onChangeTxt={text => this.setState({pantsWearLimit: text})}
-                    />
-                    <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
-                </ScrollView>
+                        <Form ref='addPantsForm'
+                              type={addPantsForm}
+                              options={addPantsOptions}
+                        />
+                        <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
+                    </ScrollView>
+                </View>
             </View>
         );
     }
@@ -179,40 +169,5 @@ var styles = StyleSheet.create({
         borderColor: '#000000'
     }
 });
-/* buttonText: {
- fontSize: 18,
- color: 'white',
- alignSelf: 'center'
- },
- button: {
- height: 36,
- backgroundColor: '#48BBEC',
- borderColor: '#48BBEC',
- borderWidth: 1,
- borderRadius: 8,
- marginBottom: 10,
- alignSelf: 'stretch',
- justifyContent: 'center'
- }
- */
 
 module.exports = PantsForm;
-
-/*
- render() {
- return (
- <Button
- style={{fontSize: 20, color: 'green'}}
- styleDisabled={{color: 'red'}}
- onPress={this._handlePress}
- >
- Press Me!
- </Button>
- );
- },
-
- _handlePress(event) {
- console.log('Pressed!');
- },
-
- */

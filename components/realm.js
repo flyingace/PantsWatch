@@ -8,7 +8,7 @@ Pants.schema = {
     primaryKey: 'id',
     properties: {
         id: 'int',
-        pantsImg: {type: 'string', default: "../assets/pants01.png"},
+        pantsImg: {type: 'string', default: '../assets/pants01.png'},
         pantsName: 'string',
         pantsColor: 'Color',
         pantsStyle: 'Style',
@@ -16,7 +16,7 @@ Pants.schema = {
         wearLimit: {type: 'int', default: 6},
         dateAdded: 'date',
         lastWorn: 'date'
-    },
+    }
 };
 class Color {}
 Color.schema = {
@@ -51,10 +51,10 @@ Settings.schema = {
     properties: {
         defaultWearLimit: {type: 'int', default: 6},
         promptWhich: {type: 'bool', default: true},
-        promptTime: {type: 'date', default: true},
+        promptTime: {type: 'string', default: true},
         promptRepeat: {type: 'bool', default: true},
         promptRepeatInterval: {type: 'int', default: 30},
         outOfPantsWarning: {type: 'bool', default: true},
     },
 };
-export default new Realm({schema: [Pants, Color, Style, Brand, Settings]});
+export default new Realm({schema: [Pants, Color, Style, Brand, Settings], schemaVersion: 1});

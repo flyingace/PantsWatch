@@ -1,12 +1,11 @@
 /*globals */
 
-const React = require('react-native');
-const {
+import React, {
     StyleSheet,
     Text,
     TextInput,
     View
-    } = React;
+} from 'react-native';
 
 const FormTextInput = React.createClass({
 
@@ -20,17 +19,17 @@ const FormTextInput = React.createClass({
         placeholderText: React.PropTypes.string
     },
 
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             onSubmit: this.handleSubmitEditing
         };
     },
 
-    handleSubmitEditing: function () {
+    handleSubmitEditing() {
         console.log('submitted')
     },
 
-    render: function () {
+    render() {
         return (
             <View style={styles.formFieldWrapper}>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>

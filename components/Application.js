@@ -1,5 +1,4 @@
-const React = require('react-native');
-const {
+import React, {
     Navigator,
     NavigatorSceneConfigs,
     StyleSheet,
@@ -7,10 +6,10 @@ const {
     View,
     Image,
     TouchableOpacity
-    } = React;
-const Dimensions = require('Dimensions');
-const Menu = require('./Menu');
-const Landing = require('./Landing');
+} from 'react-native';
+import Dimensions from 'Dimensions';
+import Menu from './Menu';
+import Landing from './Landing';
 
 const window = Dimensions.get('window');
 
@@ -20,32 +19,32 @@ const Application = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             isOpen: false
         }
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    toggle: function () {
+    toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     },
 
-    updateMenuState: function (isOpen) {
+    updateMenuState(isOpen) {
         this.setState({isOpen});
     },
 
-    closeMenu: function () {
+    closeMenu() {
         this.setState({isOpen: false});
     },
 
@@ -56,7 +55,7 @@ const Application = React.createClass({
         );
     },
 
-    render: function () {
+    render() {
 
         return (
             <Navigator

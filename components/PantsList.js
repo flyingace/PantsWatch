@@ -1,20 +1,18 @@
 'use strict';
 
-var React = require('react-native');
-const {
+import React, {
     StyleSheet,
     TouchableOpacity,
     ListView
-    } = React;
-const PantsListRow = require('./PantsListRow');
+} from 'react-native';
+import PantsListRow from './PantsListRow';
 
-import realm from '../realm.js';
+import realm from './realm.js';
 
-let pantsData = require('../pants_data.json');
+// import pantsData from '../pants_data.json';
 
 const PantsList = React.createClass({
 
-    
     displayName: 'MaxWearsBox',
 
     propTypes: {
@@ -25,7 +23,7 @@ const PantsList = React.createClass({
         return null
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
@@ -34,19 +32,19 @@ const PantsList = React.createClass({
         };
     },
 
-    componentDidMount: function () {
-        let self = this;
+    componentDidMount() {
         realm.addListener('change', () => {
-            self.getAllPants();
+            this.getAllPants();
         });
 
         this.getAllPants();
     },
 
-    getAllPants: function () {
+    getAllPants() {
         var self = this;
-        let pants = realm.objects('Pants');
-        let rowSource = (pants.length > 0) ? pants.rows : pantsData.pants;
+
+        let pants = (realm.objects('Pants'));
+        let rowSource = (pants) ? pants : pantsData.pants;
 
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(rowSource),
@@ -55,11 +53,11 @@ const PantsList = React.createClass({
         console.log(pants);
     },
 
-    onRowPress: function () {
+    onRowPress() {
         console.log('press')
     },
 
-    renderPantsList: function (pants) {
+    renderPantsList(pants) {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
@@ -69,7 +67,7 @@ const PantsList = React.createClass({
         );
     },
 
-    render: function () {
+    render() {
         if (!this.state.loaded) {
             return false;
         }

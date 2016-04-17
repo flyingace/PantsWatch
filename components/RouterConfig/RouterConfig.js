@@ -1,21 +1,19 @@
-const React = require('react-native');
-const {
+import React, {
     Navigator,
     View
-    } = React;
-
-const {
+} from 'react-native';
+import {
     Router,
     Route,
     Schema,
     Animations
-    } = require('react-native-router-flux');
+} from 'react-native-router-flux';
 
-const Landing = require('../Landing');
-const PantsForm = require('../PantsForm');
-const PantsListView = require('../PantsListView');
-const Patches = require('../Patches');
-const Settings = require('../Settings');
+import Landing from '../Landing';
+import PantsForm from '../PantsForm';
+import PantsListView from '../PantsListView';
+import Patches from '../Patches';
+import Settings from '../Settings';
 
 const RouterConfig = React.createClass({
 
@@ -23,20 +21,20 @@ const RouterConfig = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return null;
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    render: function () {
+    render() {
         return (
             <Router hideNavBar={true} initialRoutes={['landing']}>
                 <Schema name="modal" sceneConfig={Navigator.SceneConfigs.FloatFromBottom}/>

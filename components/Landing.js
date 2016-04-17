@@ -1,24 +1,23 @@
 /*globals */
 
-const React = require('react-native');
-const { Image, LayoutAnimation, StyleSheet, Text, View } = React;
-const Dimensions = require('Dimensions');
-const Pane = require('./Pane');
+import React, { Image, LayoutAnimation, StyleSheet, Text, View } from 'react-native';
+import Dimensions from 'Dimensions';
+import Pane from './Pane';
 
-const PantsListView = require('./PantsListView');
-const PantsForm = require('./PantsForm');
-const Patches = require('./Patches');
-const Settings = require('./Settings');
+import PantsListView from './PantsListView';
+import PantsForm from './PantsForm';
+import Patches from './Patches';
+import Settings from './Settings';
 
-const landingBanner = require('../assets/banners/landing_banner.png');
-const scribblePrompt = require('../assets/scribblePrompt.png');
+import landingBanner from '../assets/banners/landing_banner.png';
+import scribblePrompt from '../assets/scribblePrompt.png';
 
-const seePantsImg = require('../assets/landing/see_pants.png');
-const addPantsImg = require('../assets/landing/add_pants.png');
-const alterPantsImg = require('../assets/landing/alter_pants.png');
-const washPantsImg = require('../assets/landing/wash_pants.png');
-const patchesImg = require('../assets/landing/patches.png');
-const settingsImg = require('../assets/landing/settings.png');
+import seePantsImg from '../assets/landing/see_pants.png';
+import addPantsImg from '../assets/landing/add_pants.png';
+import alterPantsImg from '../assets/landing/alter_pants.png';
+import washPantsImg from '../assets/landing/wash_pants.png';
+import patchesImg from '../assets/landing/patches.png';
+import settingsImg from '../assets/landing/settings.png';
 
 const windowDims = Dimensions.get('window');
 const windowHeight = windowDims.height;
@@ -36,20 +35,20 @@ const Landing = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             questionText: 'What Pants Are You Going\nTo Wear Today?',
             menu: 'hidden'
         }
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    onPanePress: function (itemName) {
+    onPanePress(itemName) {
         const nav = this.props.navigator;
 
         console.log(itemName);
@@ -82,7 +81,7 @@ const Landing = React.createClass({
         }
     },
 
-    render: function () {
+    render() {
         let landingStyles = (windowIsTall) ? tallStyles : shortStyles;
         let paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
         console.log(windowHeight);

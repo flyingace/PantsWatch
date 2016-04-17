@@ -1,23 +1,21 @@
 'use strict';
 
-var React = require('react-native');
-const {
+import React, {
     Image,
     ListView,
     StyleSheet,
     View
-    } = React;
-const Dimensions = require('Dimensions');
-const PantsList = require('./PantsList');
+} from 'react-native';
+import Dimensions from 'Dimensions';
+import PantsList from './PantsList';
+import realm from './realm.js';
 
-const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../assets/page_titles/addFormTitle.png');
+import BackgroundImage from '../assets/backgrounds/redPlaid.png';
+import PageTitle from '../assets/page_titles/addFormTitle.png';
+import pantsData from '../pants_data.json';
+
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
-
-const realm = require('../realm.js');
-
-let pantsData = require('../pants_data.json');
 
 const PantsListView = React.createClass({
 
@@ -29,7 +27,7 @@ const PantsListView = React.createClass({
         return null
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
@@ -38,29 +36,24 @@ const PantsListView = React.createClass({
         };
     },
 
-    componentDidMount: function () {
-        let self = this;
-        DBEvents.on('all', function () {
-            self.getAllPants();
+    componentDidMount() {
+        realm.addListener('change', () => {
+            this.getAllPants();
         });
 
         this.getAllPants();
     },
 
-    getAllPants: function () {
-        var self = this;
-        var rowSource;
-        DB.pants.get_all(function (result) {
-            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
+    getAllPants() {
+        const pants = realm.objects('Pants');
+            let rowSource = (pants.totalrows > 0) ? pants.rows : pantsData.pants;
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(rowSource),
                 loaded: true
             });
-            console.log(result);
-        });
     },
 
-    render: function () {
+    render() {
         if (!this.state.loaded) {
             return false;
         }

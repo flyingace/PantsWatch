@@ -1,8 +1,7 @@
-const React = require('react-native');
-const {
+import React, {
     Text,
     View
-    } = React;
+} from 'react-native';
 
 const Patches = React.createClass({
 
@@ -10,20 +9,20 @@ const Patches = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return null;
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    render: function () {
+    render() {
         return (
             <View>
                 <Text>Patches</Text>

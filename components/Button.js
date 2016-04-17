@@ -1,14 +1,12 @@
 /*globals */
 
-const React = require('react-native');
-
-const {
+import React, {
     Platform,
     StyleSheet,
     Text,
     TouchableHighlight,
     TouchableNativeFeedback
-    } = React;
+} from 'react-native';
 
 const TouchableElement = (Platform.OS === 'android') ? TouchableNativeFeedback : TouchableHighlight;
 
@@ -21,28 +19,28 @@ const Button = React.createClass({
         onButtonPress: React.PropTypes.any
     },
 
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             buttonText: 'Click me',
             onButtonPress: this.handleButtonPress
         };
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return null;
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    handleButtonPress: function () {
+    handleButtonPress() {
         console.log('button pressed');
     },
 
-    render: function () {
+    render() {
         return (
             <TouchableElement
                 style={styles.button}

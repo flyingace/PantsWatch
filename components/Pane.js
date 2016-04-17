@@ -1,12 +1,11 @@
-const React = require('react-native');
-const {
+import React, {
     Image,
     StyleSheet,
     Text,
     TouchableOpacity,
-    View,
-    } = React;
-const Dimensions = require('Dimensions');
+    View
+} from 'react-native';
+import Dimensions from 'Dimensions';
 
 const windowDims = Dimensions.get('window');
 
@@ -18,7 +17,7 @@ const Pane = React.createClass({
         paneStyle: View.propTypes.style
     },
 
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             onPress: this._onPress,
             paneLabel: 'Pants Pane',
@@ -26,21 +25,21 @@ const Pane = React.createClass({
         };
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return null;
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    _onPress: function () {
+    _onPress() {
         console.log('pane pressed')
     },
 
-    render: function () {
+    render() {
         return (
                 <TouchableOpacity onPress={this.props.onPress} style={styles.wrapper}>
                     <Image source={this.props.imageURL} resizeMode={Image.resizeMode.cover} style={this.props.paneStyle} />

@@ -1,6 +1,4 @@
-const React = require('react-native');
-const Dimensions = require('Dimensions');
-const {
+import React, {
     Image,
     ScrollView,
     StyleSheet,
@@ -8,13 +6,14 @@ const {
     TouchableOpacity,
     View,
     LayoutAnimation
-    } = React;
-const Landing = require('./Landing');
-const PantsListView = require('./PantsListView');
-const PantsForm = require('./PantsForm');
-const Patches = require('./Patches');
-const Settings = require('./Settings');
-const Button = require('./Button');
+} from 'react-native';
+import Dimensions from 'Dimensions';
+import Landing from './Landing';
+import PantsListView from './PantsListView';
+import PantsForm from './PantsForm';
+import Patches from './Patches';
+import Settings from './Settings';
+import Button from './Button';
 
 const window = Dimensions.get('window');
 const panelWidth = window.width * .5;
@@ -25,34 +24,34 @@ const Menu = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             left: panelWidth * -1,
             menu: 'hidden'
         }
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    showMenu: function () {
+    showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({left: 0, menu: 'shown', overlayWidth: window.width})
 
     },
 
-    hideMenu: function () {
+    hideMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({left: panelWidth * -1, menu: 'hidden', overlayWidth: 0})
     },
 
-    toggleMenu: function () {
+    toggleMenu() {
         if (this.state.menu === 'shown') {
             this.hideMenu();
         } else {
@@ -62,7 +61,7 @@ const Menu = React.createClass({
 
 
     //TODO: Make this its own component?
-    onMenuItemPress: function (itemName) {
+    onMenuItemPress(itemName) {
         const nav = this.props.navigator;
 
         console.log(itemName);
@@ -96,7 +95,7 @@ const Menu = React.createClass({
         this.hideMenu();
     },
 
-    render: function () {
+    render() {
 
         return (<View style={[styles.wrapper, {left: this.state.left}]}>
                 <ScrollView style={styles.menu}>

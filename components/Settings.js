@@ -10,7 +10,7 @@ import t from 'tcomb-form-native';
 import { forEach } from 'lodash';
 import Button from './Button';
 import Landing from './Landing';
-import realm from '../realm.js';
+import realm from './realm.js';
 import PantsWatchStyles from '../PantsWatchStyles.js';
 import BackgroundImage from '../assets/backgrounds/redPlaid.png';
 import PageTitle from '../assets/page_titles/addFormTitle.png';
@@ -42,7 +42,7 @@ const Settings = React.createClass({
             promptTime: this.props.promptTime,
             promptRepeat: this.props.promptRepeat,
             promptRepeatInterval: this.props.promptRepeatInterval,
-            settingsOutOfPantsWarning: this.props.settingsOutOfPantsWarning
+            outOfPantsWarning: this.props.outOfPantsWarning
         };
     },
 
@@ -52,14 +52,18 @@ const Settings = React.createClass({
     onTimeFocus() {
         alert('this should be a date picker revealing itself')
     },
-
-
+    
     submitFormData() {
         let { defaultWearLimit, promptWhich, promptTime, promptRepeat, promptRepeatInterval, outOfPantsWarning } = this.state;
         let value = {};
 
+        realm.addListener('change', function(e) {
+            console.log(e);
+        });
+
         //TODO: add step for validation
 
+        //add primary keys and change this to an update in order to keep only one set of values
         realm.write(() => {
             realm.create('Settings', {
                 defaultWearLimit: defaultWearLimit,
@@ -93,13 +97,13 @@ const Settings = React.createClass({
 
     render() {
         const Form = t.form.Form;
-        let {settingsDefaultWearLimit, settingsWhichPrompt, settingsRepeatPrompt, settingsPromptTime, settingsOutOfPantsWarning} = this.state;
+        let {settingsDefaultWearLimit, settingsWhichPrompt, settingsRepeatPrompt, settingsPromptTime, outOfPantsWarning} = this.state;
         const settingsForm = t.struct({
             defaultWearLimit: t.Number,
-            promptWhich: t.Boolean,
+            // promptWhich: t.Boolean,
             promptTime: t.String,
             promptRepeat: t.Boolean,
-            promptRepeatInterval: t.Number,
+            // promptRepeatInterval: t.Number,
             outOfPantsWarning: t.Boolean
         });
 
