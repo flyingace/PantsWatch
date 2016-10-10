@@ -28,21 +28,21 @@ const PantsForm = React.createClass({
 
     getDefaultProps() {
         return {
-            pantName: null,
-            pantColor: null,
-            pantStyle: null,
-            pantBrand: null,
-            pantWearLimit: null
+            pantsName: null,
+            pantsColor: null,
+            pantsStyle: null,
+            pantsBrand: null,
+            pantsWearLimit: null
         }
     },
 
     getInitialState: function () {
         return {
-            pantName: this.props.pantName,
-            pantColor: this.props.pantColor,
-            pantStyle: this.props.pantStyle,
-            pantBrand: this.props.pantBrand,
-            pantWearLimit: this.props.pantWearLimit
+            pantsName: this.props.name,
+            pantsColor: this.props.pantsColor,
+            pantsStyle: this.props.pantsStyle,
+            pantsBrand: this.props.pantsBrand,
+            pantsWearLimit: this.props.pantsWearLimit
         };
     },
 
@@ -50,20 +50,20 @@ const PantsForm = React.createClass({
     },
 
     submitFormData: function () {
-        let {pantName, pantColor, pantStyle, pantBrand, pantWearLimit} = this.state;
+        let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
         let value = {};
         const self = this;
 
-        //TODO: add step for validation
+        //add step for validation
 
-        //TODO: break out submission into separate function
+        //break out submission into separate function
         DB.pants.add({
-            pantName: pantName,
-            pantColor: pantColor,
-            pantBrand: pantBrand,
-            pantStyle: pantStyle,
-            pantWearLimit: pantWearLimit,
-            pantLastWornDate: value.lastWornDate,
+            name: pantsName,
+            color: pantsColor,
+            brand: pantsBrand,
+            style: pantsStyle,
+            maxWears: pantsWearLimit,
+            lastWorn: value.lastWornDate,
             addedOn: value.addedOnDate,
             notes: value.notes
         }, function (updatedTable) {
@@ -87,9 +87,8 @@ const PantsForm = React.createClass({
         //TODO: Add Flux architecture to handle updating the navigator, no?
         this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
     },
-
     render: function () {
-        let {pantName, pantColor, pantStyle, pantBrand, pantWearLimit} = this.state;
+        let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
 
         return (
             <View>
@@ -100,38 +99,38 @@ const PantsForm = React.createClass({
                     <FormText
                         labelText='Name:'
                         placeholderText='Name Your Pants'
-                        inputRef='pantName'
-                        value={pantName}
-                        onChangeTxt={text => this.setState({pantName: text})}
+                        inputRef='pantsName'
+                        value={pantsName}
+                        onChangeTxt={text => this.setState({pantsName: text})}
                     />
 
                     <FormText
                         labelText='Color:'
                         placeholderText='Pick A Color'
                         inputRef='color'
-                        value={pantColor}
-                        onChangeTxt={text => this.setState({pantColor: text})}
+                        value={pantsColor}
+                        onChangeTxt={text => this.setState({pantsColor: text})}
                     />
                     <FormText
                         labelText='Style:'
                         placeholderText='Pick A Style'
                         inputRef='style'
-                        value={pantStyle}
-                        onChangeTxt={text => this.setState({pantStyle: text})}
+                        value={pantsStyle}
+                        onChangeTxt={text => this.setState({pantsStyle: text})}
                     />
                     <FormText
                         labelText='Brand:'
                         placeholderText='Pick A Brand'
                         inputRef='brand'
-                        value={pantBrand}
-                        onChangeTxt={text => this.setState({pantBrand: text})}
+                        value={pantsBrand}
+                        onChangeTxt={text => this.setState({pantsBrand: text})}
                     />
                     <FormText
                         labelText='Wear Limit:'
                         placeholderText='6'
                         inputRef='wearLimit'
-                        value={pantWearLimit}
-                        onChangeTxt={text => this.setState({pantWearLimit: text})}
+                        value={pantsWearLimit}
+                        onChangeTxt={text => this.setState({pantsWearLimit: text})}
                     />
                     <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
                 </ScrollView>

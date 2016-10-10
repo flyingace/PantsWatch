@@ -129,7 +129,6 @@ dependencies {
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
-<<<<<<< HEAD
 }
 
 // Run this once to be able to run the application with BUCK
@@ -137,6 +136,4 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
   from configurations.compile
   into 'libs'
-=======
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 }

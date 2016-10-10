@@ -97,8 +97,8 @@ const Landing = React.createClass({
                 </View>
                 <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'} />
                 <View style={landingStyles.panels}>
-                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('choosePants')}/>
-                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('addPants')}/>
+                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={[paneStyle.pane, this.props.style]} onPress={() => this.onPanePress('choosePants')}/>
+                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={[paneStyle.pane, this.props.style]} onPress={() => this.onPanePress('addPants')}/>
                     <Pane paneLabel="Alter Your Pants" imageURL={alterPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('editPants')}/>
                     <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('washPants')}/>
                     <Pane paneLabel="Patches" imageURL={patchesImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('patches')}/>

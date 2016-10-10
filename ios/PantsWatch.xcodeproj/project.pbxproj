@@ -23,11 +23,7 @@
 		140ED2AC1D01E1AD002B40FF /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
-<<<<<<< HEAD
 		9F1978D01D97868100A20B2A /* HappyFox-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9F1978CF1D97868100A20B2A /* HappyFox-Condensed.otf */; };
-=======
-		9FB8BD521C962A4E0006210D /* HappyFox-Condensed.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9FB8BD511C962A4E0006210D /* HappyFox-Condensed.otf */; };
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,11 +128,7 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		9F1978CF1D97868100A20B2A /* HappyFox-Condensed.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HappyFox-Condensed.otf"; sourceTree = "<group>"; };
-=======
-		9FB8BD511C962A4E0006210D /* HappyFox-Condensed.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HappyFox-Condensed.otf"; sourceTree = "<group>"; };
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,11 +291,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				9F1978CF1D97868100A20B2A /* HappyFox-Condensed.otf */,
-=======
-				9FB8BD511C962A4E0006210D /* HappyFox-Condensed.otf */,
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 				13B07FAE1A68108700A75B9A /* PantsWatch */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* PantsWatchTests */,
@@ -367,11 +355,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-<<<<<<< HEAD
 				LastUpgradeCheck = 0800;
-=======
-				LastUpgradeCheck = 0720;
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -527,11 +511,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-<<<<<<< HEAD
 				9F1978D01D97868100A20B2A /* HappyFox-Condensed.otf in Resources */,
-=======
-				9FB8BD521C962A4E0006210D /* HappyFox-Condensed.otf in Resources */,
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -640,15 +620,11 @@
 				);
 				INFOPLIST_FILE = PantsWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-<<<<<<< HEAD
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-=======
-				OTHER_LDFLAGS = "-ObjC";
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PantsWatch;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -667,15 +643,11 @@
 				);
 				INFOPLIST_FILE = PantsWatch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-<<<<<<< HEAD
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-=======
-				OTHER_LDFLAGS = "-ObjC";
->>>>>>> b81af6e72ecb74b31252d754467a7d8404d71e71
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = PantsWatch;
 				VERSIONING_SYSTEM = "apple-generic";
