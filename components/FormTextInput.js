@@ -1,12 +1,13 @@
 /*globals */
 
-const React = require('react-native');
+const React = require('react');
 const {
+    PropTypes,
     StyleSheet,
     Text,
     TextInput,
     View
-    } = React;
+    } = require('react-native');
 
 const FormTextInput = React.createClass({
 

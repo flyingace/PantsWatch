@@ -1,7 +1,7 @@
 /*globals */
 
-var React = require('react-native');
-var { StyleSheet, TabBarIOS, View, Text } = React;
+var React = require('react');
+var { StyleSheet, TabBarIOS, View, Text } = require('react-native');
 const PantsForm = require('../PantsForm');
 const Landing = require('../Landing');
 const PantsListView = require('../PantsListView');

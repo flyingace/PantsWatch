@@ -1,11 +1,11 @@
-const React = require('react-native');
+const React = require('react');
 const {
     ScrollView,
     StyleSheet,
     Text,
     View,
     Image
-    } = React;
+    } = require('react-native');
 const _ = require('lodash');
 const Button = require('./Button');
 const FormText = require('./FormTextInput');

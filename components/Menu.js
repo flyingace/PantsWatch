@@ -1,4 +1,4 @@
-const React = require('react-native');
+const React = require('react');
 const Dimensions = require('Dimensions');
 const {
     Image,
@@ -8,7 +8,7 @@ const {
     TouchableOpacity,
     View,
     LayoutAnimation
-    } = React;
+    } = require('react-native');
 const Landing = require('./Landing');
 const PantsListView = require('./PantsListView');
 const PantsForm = require('./PantsForm');
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
     menu: {
         width: panelWidth,
-        backgroundColor: 'lightBlue',
+        backgroundColor: '#ffffcc',
         padding: 20
     },
     item: {

@@ -1,11 +1,12 @@
 /*globals */
 
-const React = require('react-native');
+const React = require('react');
 const {
+    PropTypes,
     StyleSheet,
     Text,
     View
-    } = React;
+    } = require('react-native');
 
 const DropDown = require('react-native-dropdown');
 const {

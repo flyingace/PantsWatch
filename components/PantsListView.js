@@ -1,12 +1,12 @@
 'use strict';
 
-var React = require('react-native');
+var React = require('react');
 const {
     Image,
     ListView,
     StyleSheet,
     View
-    } = React;
+    } = require('react-native');
 const Dimensions = require('Dimensions');
 const PantsList = require('./PantsList');
 

@@ -1,9 +1,9 @@
-const React = require('react-native');
+const React = require('react');
 const {
     StyleSheet,
     Text,
     View
-    } = React;
+    } = require('react-native');
 
 const MaxWearsBox = React.createClass({
 

@@ -1,14 +1,15 @@
 /*globals */
 
-const React = require('react-native');
+const React = require('react');
 
 const {
     Platform,
+    PropTypes,
     StyleSheet,
     Text,
     TouchableHighlight,
     TouchableNativeFeedback
-    } = React;
+    } = require('react-native');
 
 const TouchableElement = (Platform.OS === 'android') ? TouchableNativeFeedback : TouchableHighlight;
 

@@ -1,19 +1,19 @@
 'use strict';
 
-var React = require('react-native');
+var React = require('react');
 var {
     AppRegistry,
-    StatusBarIOS,
+    StatusBar,
     StyleSheet,
     View
-    } = React;
+    } = require('react-native');
 const SideMenu = require('react-native-side-menu');
 const Application = require('./components/Application');
 
 var PantsWatch = React.createClass({
 
     componentWillMount: function () {
-        StatusBarIOS.setHidden(true);
+        StatusBar.setHidden(true);
     },
 
     render: function () {

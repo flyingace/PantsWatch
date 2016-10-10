@@ -1,4 +1,4 @@
-const React = require('react-native');
+const React = require('react');
 const {
     Navigator,
     NavigatorSceneConfigs,
@@ -7,7 +7,7 @@ const {
     View,
     Image,
     TouchableOpacity
-    } = React;
+    } = require('react-native');
 const Dimensions = require('Dimensions');
 const Menu = require('./Menu');
 const Landing = require('./Landing');

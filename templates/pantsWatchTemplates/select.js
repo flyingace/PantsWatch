@@ -1,5 +1,5 @@
-var React = require('react-native');
-var { View, Text, PickerIOS } = React;
+var React = require('react');
+var { View, Text, PickerIOS } = require('react-native');
 
 function select(locals) {
 

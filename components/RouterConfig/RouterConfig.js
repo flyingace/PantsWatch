@@ -1,8 +1,8 @@
-const React = require('react-native');
+const React = require('react');
 const {
     Navigator,
     View
-    } = React;
+    } = require('react-native');
 
 const {
     Router,

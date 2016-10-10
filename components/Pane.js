@@ -1,11 +1,5 @@
-const React = require('react-native');
-const {
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
-    } = React;
+const React = require('react');
+const { Image, PropTypes, StyleSheet, Text, TouchableOpacity, View } = require('react-native');
 const Dimensions = require('Dimensions');
 
 const windowDims = Dimensions.get('window');
@@ -15,15 +9,14 @@ const Pane = React.createClass({
     displayName: 'Pane',
 
     propTypes: {
-        paneStyle: View.propTypes.style
+        // paneStyle: React.PropTypes.object
     },
 
     getDefaultProps: function () {
         return {
             onPress: this._onPress,
             paneLabel: 'Pants Pane',
-            imageURL: require('../assets/PantsThumb.png')
-        };
+            imageURL: require('../assets/PantsThumb.png')        };
     },
 
     getInitialState: function () {
@@ -65,6 +58,6 @@ var styles = StyleSheet.create(
 
         }
     }
-)
+);
 
 module.exports = Pane;

@@ -1,7 +1,7 @@
 /*globals */
 
-const React = require('react-native');
-const { Image, LayoutAnimation, StyleSheet, Text, View } = React;
+const React = require('react');
+const { Image, LayoutAnimation, StyleSheet, Text, View } = require('react-native');
 const Dimensions = require('Dimensions');
 const Pane = require('./Pane');
 
@@ -87,6 +87,8 @@ const Landing = React.createClass({
         let paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
         console.log(windowHeight);
         console.log(gridHeight);
+        console.log(paneStyle);
+        console.log(paneStyle.pane);
 
         return (
             <View style={commonStyles.container}>

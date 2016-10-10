@@ -2,13 +2,13 @@
 
 'use strict';
 
-var React = require('react-native');
+var React = require('react');
 const {
     Image,
     StyleSheet,
     Text,
     View
-    } = React;
+    } = require('react-native');
 const MaxWearsBox = require('./MaxWearsBox');
 
 var PantsListRow = React.createClass({

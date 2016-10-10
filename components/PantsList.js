@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react-native');
+var React = require('react');
 const {
     StyleSheet,
     TouchableOpacity,
     ListView
-    } = React;
+    } = require('react-native');
 const PantsListRow = require('./PantsListRow');
 
 const DB = require('../db.js');
