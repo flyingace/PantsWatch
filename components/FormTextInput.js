@@ -64,6 +64,7 @@ var styles = StyleSheet.create({
         fontFamily: 'HappyFox-Condensed',
         fontSize: 30,
         backgroundColor: 'rgba(255,255,255,.3)',
+        height: 36,
         borderRadius: 3,
         padding: 4,
         flex: 1

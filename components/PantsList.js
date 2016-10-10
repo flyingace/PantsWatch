@@ -22,12 +22,7 @@ const PantsList = React.createClass({
     },
 
     getDefaultProps() {
-        return {
-            pantsName: 'Favorite Pants',
-            colorName: 'Blue',
-            styleName: 'Casual',
-            wearLimit: 0
-        };
+        return null
     },
 
     getInitialState: function () {
@@ -52,7 +47,7 @@ const PantsList = React.createClass({
         var self = this;
         var rowSource;
         DB.pants.get_all(function (result) {
-            rowSource = (result.length > 0) ? result.rows : pantsData.pants;
+            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
             self.setState({
                 dataSource: self.state.dataSource.cloneWithRows(rowSource),
                 loaded: true
