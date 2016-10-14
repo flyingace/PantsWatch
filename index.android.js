@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 
-class PantsWatch extends Component {
+export default class PantsWatch extends Component {
   render() {
     return (
       <View style={styles.container}>
