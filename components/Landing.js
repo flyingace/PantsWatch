@@ -23,7 +23,7 @@ const settingsImg = require('../assets/landing/settings.png');
 const windowDims = Dimensions.get('window');
 const windowHeight = windowDims.height;
 const windowWidth = windowDims.width;
-const windowIsTall = (windowDims.height > 500);
+const windowIsTall = windowDims.height > 500;
 
 const bannerHeight = 85;
 const contentHeight = windowHeight - bannerHeight;
@@ -97,8 +97,8 @@ const Landing = React.createClass({
                 </View>
                 <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'} />
                 <View style={landingStyles.panels}>
-                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={[paneStyle.pane, this.props.style]} onPress={() => this.onPanePress('choosePants')}/>
-                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={[paneStyle.pane, this.props.style]} onPress={() => this.onPanePress('addPants')}/>
+                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('choosePants')}/>
+                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('addPants')}/>
                     <Pane paneLabel="Alter Your Pants" imageURL={alterPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('editPants')}/>
                     <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('washPants')}/>
                     <Pane paneLabel="Patches" imageURL={patchesImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('patches')}/>
@@ -134,16 +134,41 @@ const commonStyles = StyleSheet.create(
     }
 );
 
+/*
+class AlignItemsBasics extends Component {
+  render() {
+    return (
+      <View style={{
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'stretch',
+            flexWrap: 'wrap'
+      }}>
+        <View style={{width: 125, backgroundColor: 'powderblue'}} />
+        <View style={{width: 125, backgroundColor: 'skyblue'}} />
+        <View style={{width: 125, backgroundColor: 'steelblue'}} />
+        <View style={{width: 125, backgroundColor: 'powderblue'}} />
+        <View style={{width: 125, backgroundColor: 'skyblue'}} />
+        <View style={{width: 125, backgroundColor: 'steelblue'}} />
+      </View>
+    );
+  }
+};
+ */
 const tallStyles = StyleSheet.create(
     {
         panels: {
+            flex: 1,
             flexDirection: 'row',
             flexWrap: 'wrap',
+            justifyContent: 'space-around',
+            alignItems: 'flex-start',
             width: windowWidth,
+            borderBottomColor: '#000000',
             paddingTop: 8,
             paddingLeft: 12,
-            paddingRight: 12,
-            justifyContent: 'space-around'
+            paddingRight: 12
         }
     }
 );
