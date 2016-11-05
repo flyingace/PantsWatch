@@ -1,14 +1,16 @@
 'use strict';
 
-const React = require('react');
-const {
+import React from 'react';
+import {
     StyleSheet,
     TouchableOpacity,
-    ListView
-    } = require('react-native');
-const PantsListRow = require('./PantsListRow');
+    ListView,
+    View
+} from 'react-native';
+import PantsListRow from './PantsListRow';
+import PantsSelectionModal from './PantsSelectionModal';
 
-import realm from './realm';
+// import realm from './realm';
 
 const PantsList = React.createClass({
 
@@ -75,12 +77,15 @@ const PantsList = React.createClass({
         }
 
         return (
-            <ListView
-                removeClippedSubviews={true}
-                dataSource={this.state.dataSource}
-                renderRow={this.renderPantsList}
-                style={{height: this.props.height}}
-            />
+            <View>
+                <ListView
+                    removeClippedSubviews={true}
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderPantsList}
+                    style={{height: this.props.height}}
+                />
+                <PantsSelectionModal />
+            </View>
         );
     }
 });

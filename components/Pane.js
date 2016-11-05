@@ -1,6 +1,13 @@
-const React = require('react');
-const { Image, PropTypes, StyleSheet, Text, TouchableOpacity, View } = require('react-native');
-const Dimensions = require('Dimensions');
+import React from 'react';
+import {
+    Image,
+    PropTypes,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import Dimensions from 'Dimensions';
 
 const windowDims = Dimensions.get('window');
 
@@ -12,38 +19,39 @@ const Pane = React.createClass({
         // paneStyle: React.PropTypes.object
     },
 
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             onPress: this._onPress,
             paneLabel: 'Pants Pane',
-            imageURL: require('../assets/PantsThumb.png')        };
+            imageURL: require('../assets/PantsThumb.png')
+        };
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return null;
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    _onPress: function () {
+    _onPress() {
         console.log('pane pressed')
     },
 
-    render: function () {
+    render() {
         return (
-                <TouchableOpacity onPress={this.props.onPress} style={styles.wrapper}>
-                    <Image source={this.props.imageURL} resizeMode={Image.resizeMode.cover} style={this.props.paneStyle} />
-                    <Text style={styles.label}>{this.props.paneLabel}</Text>
-                </TouchableOpacity>
+            <TouchableOpacity onPress={this.props.onPress} style={styles.wrapper}>
+                <Image source={this.props.imageURL} resizeMode={Image.resizeMode.cover} style={this.props.paneStyle}/>
+                <Text style={styles.label}>{this.props.paneLabel}</Text>
+            </TouchableOpacity>
         );
     }
 });
 
-var styles = StyleSheet.create(
+const styles = StyleSheet.create(
     {
         wrapper: {
             marginBottom: 8
@@ -54,9 +62,7 @@ var styles = StyleSheet.create(
             textAlign: 'center',
             alignSelf: 'center'
         },
-        title: {
-
-        }
+        title: {}
     }
 );
 

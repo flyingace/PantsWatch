@@ -1,14 +1,18 @@
-var React = require('react');
-var { View, Text, TextInput } = require('react-native');
+import React from 'react';
+import {
+    View,
+    Text,
+    TextInput
+} from 'react-native';
 
 function textbox(locals) {
 
-    var stylesheet = locals.stylesheet;
-    var formGroupStyle = stylesheet.formGroup.normal;
-    var controlLabelStyle = stylesheet.controlLabel.normal;
-    var textboxStyle = stylesheet.textbox.normal;
-    var helpBlockStyle = stylesheet.helpBlock.normal;
-    var errorBlockStyle = stylesheet.errorBlock;
+    const stylesheet = locals.stylesheet;
+    let formGroupStyle = stylesheet.formGroup.normal;
+    let controlLabelStyle = stylesheet.controlLabel.normal;
+    let textboxStyle = stylesheet.textbox.normal;
+    let helpBlockStyle = stylesheet.helpBlock.normal;
+    const errorBlockStyle = stylesheet.errorBlock;
 
     if (locals.hasError) {
         formGroupStyle = stylesheet.formGroup.error;
@@ -21,9 +25,9 @@ function textbox(locals) {
         textboxStyle = stylesheet.textbox.notEditable;
     }
 
-    var label = locals.label ? <Text style={controlLabelStyle}>{locals.label}</Text> : null;
-    var help = locals.help ? <Text style={helpBlockStyle}>{locals.help}</Text> : null;
-    var error = locals.hasError && locals.error ? <Text style={errorBlockStyle}>{locals.error}</Text> : null;
+    const label = locals.label ? <Text style={controlLabelStyle}>{locals.label}</Text> : null;
+    const help = locals.help ? <Text style={helpBlockStyle}>{locals.help}</Text> : null;
+    const error = locals.hasError && locals.error ? <Text style={errorBlockStyle}>{locals.error}</Text> : null;
 
     return (
         <View>

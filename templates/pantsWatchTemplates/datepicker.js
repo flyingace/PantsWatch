@@ -1,5 +1,5 @@
-var React = require('react');
-var { View, Text, DatePickerIOS } = require('react-native');
+import React from 'react';
+import { View, Text, DatePickerIOS } from 'react-native';
 
 function datepicker(locals) {
 

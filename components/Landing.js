@@ -1,24 +1,22 @@
 /*globals */
 
-const React = require('react');
-const { Image, LayoutAnimation, StyleSheet, Text, View } = require('react-native');
-const Dimensions = require('Dimensions');
-const Pane = require('./Pane');
+import React from 'react';
+import {Image, LayoutAnimation, StyleSheet, Text, View} from 'react-native';
+import Dimensions from 'Dimensions';
+import Pane from './Pane';
+import PantsListView from './PantsListView';
+import PantsForm from './PantsForm';
+import Patches from './Patches';
+import Settings from './Settings';
 
-const PantsListView = require('./PantsListView');
-const PantsForm = require('./PantsForm');
-const Patches = require('./Patches');
-const Settings = require('./Settings');
-
-const landingBanner = require('../assets/banners/landing_banner.png');
-const scribblePrompt = require('../assets/scribblePrompt.png');
-
-const seePantsImg = require('../assets/landing/see_pants.png');
-const addPantsImg = require('../assets/landing/add_pants.png');
-const alterPantsImg = require('../assets/landing/alter_pants.png');
-const washPantsImg = require('../assets/landing/wash_pants.png');
-const patchesImg = require('../assets/landing/patches.png');
-const settingsImg = require('../assets/landing/settings.png');
+import landingBanner from '../assets/banners/landing_banner.png';
+import scribblePrompt from '../assets/scribblePrompt.png';
+import seePantsImg from '../assets/landing/see_pants.png';
+import addPantsImg from '../assets/landing/add_pants.png';
+import alterPantsImg from '../assets/landing/alter_pants.png';
+import washPantsImg from '../assets/landing/wash_pants.png';
+import patchesImg from '../assets/landing/patches.png';
+import settingsImg from '../assets/landing/settings.png';
 
 const windowDims = Dimensions.get('window');
 const windowHeight = windowDims.height;
@@ -36,20 +34,20 @@ const Landing = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             questionText: 'What Pants Are You Going\nTo Wear Today?',
             menu: 'hidden'
         }
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    onPanePress: function (itemName) {
+    onPanePress(itemName) {
         const nav = this.props.navigator;
 
         console.log(itemName);
@@ -82,7 +80,7 @@ const Landing = React.createClass({
         }
     },
 
-    render: function () {
+    render() {
         let landingStyles = (windowIsTall) ? tallStyles : shortStyles;
         let paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
         console.log(windowHeight);
@@ -93,16 +91,26 @@ const Landing = React.createClass({
         return (
             <View style={commonStyles.container}>
                 <View style={commonStyles.banner}>
-                    <Image source={landingBanner} />
+                    <Image source={landingBanner}/>
                 </View>
-                <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'} />
+                <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'}/>
                 <View style={landingStyles.panels}>
-                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('choosePants')}/>
-                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('addPants')}/>
-                    <Pane paneLabel="Alter Your Pants" imageURL={alterPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('editPants')}/>
-                    <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('washPants')}/>
-                    <Pane paneLabel="Patches" imageURL={patchesImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('patches')}/>
-                    <Pane paneLabel="Settings" imageURL={settingsImg} paneStyle={paneStyle.pane} onPress={() => this.onPanePress('appSettings')}/>
+                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane}
+                          onPress={() => this.onPanePress('choosePants')}/>
+                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane}
+                          onPress={() => this.onPanePress('addPants')}/>
+                    <Pane paneLabel="Alter Your Pants" imageURL={alterPantsImg} paneStyle={paneStyle.pane}
+                        /* onPress={() => this.onPanePress('editPants')} */
+                    />
+                    <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane}
+                        /* onPress={() => this.onPanePress('washPants')} */
+                    />
+                    <Pane paneLabel="Patches" imageURL={patchesImg} paneStyle={paneStyle.pane}
+                        /* onPress={() => this.onPanePress('patches')} */
+                    />
+                    <Pane paneLabel="Settings" imageURL={settingsImg} paneStyle={paneStyle.pane}
+                        /* onPress={() => this.onPanePress('appSettings')} */
+                    />
                 </View>
             </View>
         );
@@ -134,28 +142,6 @@ const commonStyles = StyleSheet.create(
     }
 );
 
-/*
-class AlignItemsBasics extends Component {
-  render() {
-    return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-            flexWrap: 'wrap'
-      }}>
-        <View style={{width: 125, backgroundColor: 'powderblue'}} />
-        <View style={{width: 125, backgroundColor: 'skyblue'}} />
-        <View style={{width: 125, backgroundColor: 'steelblue'}} />
-        <View style={{width: 125, backgroundColor: 'powderblue'}} />
-        <View style={{width: 125, backgroundColor: 'skyblue'}} />
-        <View style={{width: 125, backgroundColor: 'steelblue'}} />
-      </View>
-    );
-  }
-};
- */
 const tallStyles = StyleSheet.create(
     {
         panels: {

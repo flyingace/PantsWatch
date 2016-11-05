@@ -1,18 +1,17 @@
 /*globals */
 
-const React = require('react');
-const {
+import React from 'react';
+import {
     PropTypes,
     StyleSheet,
     Text,
     View
-    } = require('react-native');
+} from 'react-native';
 
-const DropDown = require('react-native-dropdown');
-const {
+import {
     Select,
     OptionList
-    } = DropDown;
+} from 'react-native-dropdown';
 
 const FormDropDown = React.createClass({
 
@@ -24,7 +23,7 @@ const FormDropDown = React.createClass({
         defaultValue: React.PropTypes.string
     },
 
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             itemType: 'textInput'
         };
@@ -34,7 +33,7 @@ const FormDropDown = React.createClass({
         return this.refs.OPTIONLIST;
     },
 
-    render: function () {
+    render() {
         return (
             <View style={styles.formItemWrapper}>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>
@@ -64,7 +63,7 @@ const FormDropDown = React.createClass({
     }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     formItemWrapper: {
         top: 0,
         right: 0,
@@ -81,17 +80,3 @@ var styles = StyleSheet.create({
 });
 
 module.exports = FormDropDown;
-
-/*
-<Select
-    width={250}
-    ref="SELECT2"
-    optionListRef={this._getOptionList.bind(this)}
-    defaultValue="Select a State in USA ..."
-    onSelect={this._usa.bind(this)}>
-    <option>Alabama</option>
-    <option>Alaska</option>
-    <option>Arizona</option>
-
-</Select>
-*/

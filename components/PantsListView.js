@@ -1,22 +1,22 @@
 'use strict';
 
-const React = require('react');
-const {
+import React from 'react';
+import {
     Image,
     ListView,
     StyleSheet,
     View
-    } = require('react-native');
-const Dimensions = require('Dimensions');
-const PantsList = require('./PantsList');
+} from 'react-native';
+import Dimensions from 'Dimensions';
+import PantsList from './PantsList';
+import BackgroundImage from '../assets/backgrounds/redPlaid.png';
+import PageTitle from '../assets/page_titles/addFormTitle.png';
+import pantsData from '../pants_data.json';
 
-const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../assets/page_titles/addFormTitle.png');
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
 
-let pantsData = require('../pants_data.json');
 
 const PantsListView = React.createClass({
 
@@ -52,7 +52,7 @@ const PantsListView = React.createClass({
         }
 
         return (
-            <View style="">
+            <View>
                 <Image source={BackgroundImage} style={styles.backgroundImage}/>
                 <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
                 <PantsList
@@ -78,8 +78,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         height: titleHeight
     },
-    pantsList: {
-    }
+    pantsList: {}
 });
 
 module.exports = PantsListView;

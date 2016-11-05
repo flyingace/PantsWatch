@@ -1,11 +1,11 @@
 'use strict';
 
-const React = require('react');
-const {
+import React from 'react';
+import {
     AppRegistry,
     StatusBar
-} = require('react-native');
-const Application = require('./components/Application');
+} from 'react-native';
+import Application from './components/Application';
 
 const PantsWatch = React.createClass({
 

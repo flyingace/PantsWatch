@@ -1,6 +1,6 @@
 'use strict';
 
-const Realm = require('realm');
+import Realm from 'realm';
 
 const PantsSchema = {
     name: 'Pants',
@@ -26,6 +26,7 @@ const ColorSchema = {
         styleName: 'string'
     }
 };
+
 const StyleSchema = {
     name: 'Style',
     primaryKey: 'id',
@@ -56,4 +57,6 @@ const SettingsSchema = {
     },
 };
 
-export default new Realm({schema: [PantsSchema, ColorSchema, StyleSchema, BrandSchema, SettingsSchema], schemaVersion: 1});
+let realm = new Realm({
+    schema: [PantsSchema, ColorSchema, StyleSchema, BrandSchema, SettingsSchema], schemaVersion: 1
+});

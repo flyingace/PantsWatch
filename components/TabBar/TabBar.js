@@ -1,27 +1,32 @@
 /*globals */
 
-var React = require('react');
-var { StyleSheet, TabBarIOS, View, Text } = require('react-native');
-const PantsForm = require('../PantsForm');
-const Landing = require('../Landing');
-const PantsListView = require('../PantsListView');
+import React from 'react';
+import {
+    StyleSheet,
+    TabBarIOS,
+    View,
+    Text
+} from 'react-native';
+import PantsForm from '../PantsForm';
+import Landing from '../Landing';
+import PantsListView from '../PantsListView';
 
-var TabBar = React.createClass({
+const TabBar = React.createClass({
 
     displayName: 'TabBar',
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             selectedTab: 'homeTab'
         };
     },
 
-    render: function () {
+    render() {
         return (
             <TabBarIOS
                 tintColor="white"
@@ -64,7 +69,7 @@ var TabBar = React.createClass({
     }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     tabContent: {
         alignSelf: 'stretch',
         height: 200,
