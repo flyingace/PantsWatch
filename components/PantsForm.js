@@ -1,5 +1,6 @@
 const React = require('react');
 const {
+    Button,
     ScrollView,
     StyleSheet,
     Text,
@@ -7,11 +8,9 @@ const {
     Image
     } = require('react-native');
 const _ = require('lodash');
-const Button = require('./Button');
 const FormText = require('./FormTextInput');
 const PantsListView = require('./PantsListView');
-const DB = require('../db.js');
-const DBEvents = require('react-native-db-models').DBEvents;
+const realm = require('./realm.js');
 const PantsWatchStyles = require('../PantsWatchStyles.js');
 const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
 const PageTitle = require('../assets/page_titles/addFormTitle.png');
@@ -26,8 +25,9 @@ const PantsForm = React.createClass({
         pantsData: React.PropTypes.object
     },
 
-    getDefaultProps() {
+    getDefaultProps () {
         return {
+            pantsImg: null,
             pantsName: null,
             pantsColor: null,
             pantsStyle: null,
@@ -36,9 +36,10 @@ const PantsForm = React.createClass({
         }
     },
 
-    getInitialState: function () {
+    getInitialState () {
         return {
-            pantsName: this.props.name,
+            pantsImg: this.props.pantsImg,
+            pantsName: this.props.pantsName,
             pantsColor: this.props.pantsColor,
             pantsStyle: this.props.pantsStyle,
             pantsBrand: this.props.pantsBrand,
@@ -46,48 +47,57 @@ const PantsForm = React.createClass({
         };
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    submitFormData: function () {
-        let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
+    submitFormData () {
+        let {pantsImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
         let value = {};
         const self = this;
 
-        //add step for validation
+        //TODO: add step for validation
 
-        //break out submission into separate function
-        DB.pants.add({
-            name: pantsName,
-            color: pantsColor,
-            brand: pantsBrand,
-            style: pantsStyle,
-            maxWears: pantsWearLimit,
-            lastWorn: value.lastWornDate,
-            addedOn: value.addedOnDate,
-            notes: value.notes
-        }, function (updatedTable) {
-            self.resetForm();
-            self.navigateToPantsList();
-            console.log(updatedTable);
+        //TODO: break out submission into separate function
+        realm.write(() => {
+            realm.create('Pants', {
+                pantsImg: pantImg,
+                pantsName: pantsName,
+                pantsColor: pantsColor,
+                pantsBrand: pantsBrand,
+                pantsStyle: pantsStyle,
+                pantsWearLimit: pantsWearLimit,
+                pantLastWornDate: value.lastWornDate,
+                addedOn: value.addedOnDate
+            })
         });
+        /*
+         This is the old callback.
+         Could this be attached to a listener that notes when the form data has been successfully been submitted?
+         OR do I just add these as part of the
+         function (updatedTable) {
+         self.resetForm();
+         self.navigateToPantsList();
+         console.log(updatedTable);
+         }
+         */
     },
 
-    resetForm: function () {
+    resetForm () {
+        //this can be done with t.comb
         let stateObject = this.state;
         const self = this;
-        _.forEach(stateObject, function(n, key) {
+        forEach(stateObject, function (n, key) {
             self.setState({key: null});
         })
     },
 
-    navigateToPantsList: function () {
+    navigateToPantsList () {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
         //TODO: Add Flux architecture to handle updating the navigator, no?
         this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
     },
-    render: function () {
+    render () {
         let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
 
         return (
@@ -132,14 +142,19 @@ const PantsForm = React.createClass({
                         value={pantsWearLimit}
                         onChangeTxt={text => this.setState({pantsWearLimit: text})}
                     />
-                    <Button buttonText="Submit My Pants" onButtonPress={this.submitFormData}/>
+                    <Button
+                        onPress={this.submitFormData}
+                        title="Submit My Pants"
+                        color="#66d8ff"
+                        accessibilityLabel="Add your pants to the database"
+                    />
                 </ScrollView>
             </View>
         );
     }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     transparent: {
         backgroundColor: 'rgba(0,0,0,0)'
     },
@@ -168,40 +183,5 @@ var styles = StyleSheet.create({
         borderColor: '#000000'
     }
 });
-/* buttonText: {
- fontSize: 18,
- color: 'white',
- alignSelf: 'center'
- },
- button: {
- height: 36,
- backgroundColor: '#48BBEC',
- borderColor: '#48BBEC',
- borderWidth: 1,
- borderRadius: 8,
- marginBottom: 10,
- alignSelf: 'stretch',
- justifyContent: 'center'
- }
- */
 
 module.exports = PantsForm;
-
-/*
- render() {
- return (
- <Button
- style={{fontSize: 20, color: 'green'}}
- styleDisabled={{color: 'red'}}
- onPress={this._handlePress}
- >
- Press Me!
- </Button>
- );
- },
-
- _handlePress(event) {
- console.log('Pressed!');
- },
-
- */

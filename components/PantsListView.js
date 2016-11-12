@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 const {
     Image,
     ListView,
@@ -15,8 +15,6 @@ const PageTitle = require('../assets/page_titles/addFormTitle.png');
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
-const DB = require('../db.js');
-const DBEvents = require('react-native-db-models').DBEvents;
 
 let pantsData = require('../pants_data.json');
 
@@ -30,7 +28,7 @@ const PantsListView = React.createClass({
         return null
     },
 
-    getInitialState: function () {
+    getInitialState () {
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
@@ -39,29 +37,16 @@ const PantsListView = React.createClass({
         };
     },
 
-    componentDidMount: function () {
-        let self = this;
-        DBEvents.on('all', function () {
-            self.getAllPants();
-        });
-
-        this.getAllPants();
-    },
-
-    getAllPants: function () {
-        var self = this;
-        var rowSource;
-        DB.pants.get_all(function (result) {
-            rowSource = (result.length > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
-                loaded: true
-            });
-            console.log(result);
+    getAllPants () {
+        const pants = realm.objects('Pants');
+        let rowSource = (pants.totalrows > 0) ? pants.rows : pantsData.pants;
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(rowSource),
+            loaded: true
         });
     },
 
-    render: function () {
+    render() {
         if (!this.state.loaded) {
             return false;
         }
@@ -80,7 +65,7 @@ const PantsListView = React.createClass({
     }
 });
 
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
     wrapper: {
         justifyContent: 'space-between'
     },

@@ -191,8 +191,8 @@ const shortStyles = StyleSheet.create(
 const tallPaneStyle = StyleSheet.create(
     {
         pane: {
-            width: gridHeight * .26,
-            height: gridHeight * .26
+            width: gridHeight * .27,
+            height: gridHeight * .27
         }
     }
 );
