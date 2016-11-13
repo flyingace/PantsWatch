@@ -36,11 +36,15 @@ const FormTextInput = React.createClass({
             <View style={styles.formFieldWrapper}>
                 <Text style={styles.formLabel}>{this.props.labelText}</Text>
                 <TextInput
+                    autoCapitalize={'words'}
+                    autoCorrect={false}
+                    underlineColorAndroid="transparent"
                     style={styles.textInput}
                     placeholder={this.props.placeholderText}
                     onChangeText={this.props.onChangeTxt}
                     ref={this.props.inputRef}
-                    value={this.props.value}/>
+                    value={this.props.value}
+                />
             </View>
         );
     }
@@ -65,6 +69,7 @@ var styles = StyleSheet.create({
         fontSize: 30,
         backgroundColor: 'rgba(255,255,255,.3)',
         borderRadius: 3,
+        borderWidth: 0,
         padding: 4,
         flex: 1
     }

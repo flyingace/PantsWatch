@@ -14,7 +14,6 @@ const PantsListView = require('./PantsListView');
 const PantsForm = require('./PantsForm');
 const Patches = require('./Patches');
 const Settings = require('./Settings');
-const Button = require('./Button');
 
 const window = Dimensions.get('window');
 const panelWidth = window.width * .5;

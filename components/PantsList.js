@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 const {
     StyleSheet,
     TouchableOpacity,
@@ -8,10 +8,7 @@ const {
     } = require('react-native');
 const PantsListRow = require('./PantsListRow');
 
-const DB = require('../db.js');
-const DBEvents = require('react-native-db-models').DBEvents;
-
-let pantsData = require('../pants_data.json');
+import realm from './realm';
 
 const PantsList = React.createClass({
 
@@ -30,7 +27,7 @@ const PantsList = React.createClass({
         };
     },
 
-    getInitialState: function () {
+    getInitialState () {
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
@@ -39,33 +36,30 @@ const PantsList = React.createClass({
         };
     },
 
-    componentDidMount: function () {
-        let self = this;
-        DBEvents.on('all', function () {
-            self.getAllPants();
+    componentDidMount() {
+        realm.addListener('change', () => {
+            this.getAllPants();
         });
 
         this.getAllPants();
     },
 
-    getAllPants: function () {
-        var self = this;
-        var rowSource;
-        DB.pants.get_all(function (result) {
-            rowSource = (result.length > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
-                loaded: true
-            });
-            console.log(result);
+    getAllPants() {
+        let pants = (realm.objects('Pants'));
+        let rowSource = (pants) ? pants : pantsData.pants;
+
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(rowSource),
+            loaded: true
         });
+        console.log(pants);
     },
 
-    onRowPress: function () {
+    onRowPress () {
         console.log('press')
     },
 
-    renderPantsList: function (pants) {
+    renderPantsList (pants) {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
@@ -75,7 +69,7 @@ const PantsList = React.createClass({
         );
     },
 
-    render: function () {
+    render () {
         if (!this.state.loaded) {
             return false;
         }
@@ -91,7 +85,7 @@ const PantsList = React.createClass({
     }
 });
 
-var pantsListStyles = StyleSheet.create({
+const pantsListStyles = StyleSheet.create({
     pantsList: {}
 });
 

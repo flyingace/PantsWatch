@@ -5,21 +5,21 @@
  */
 'use strict';
 
-var LABEL_COLOR = '#000000';
-var INPUT_COLOR = '#000000';
-var ERROR_COLOR = '#FF0000';
-var HELP_COLOR = '#999999';
-var BORDER_COLOR = '#CCCCCC';
-var DISABLED_COLOR = '#777777';
-var DISABLED_BACKGROUND_COLOR = '#EEEEEE';
-var FONT_SIZE = 17;
-var ERROR_FONT_SIZE = 12;
-var FONT_WEIGHT = '500';
-var LIGHT_BLUE = '#668fff';
-var LIGHT_RED = '#FFF5F5';
-var DARK_BLUE = '#001966';
+const LABEL_COLOR = '#000000';
+const INPUT_COLOR = '#000000';
+const ERROR_COLOR = '#FF0000';
+const HELP_COLOR = '#999999';
+const BORDER_COLOR = '#CCCCCC';
+const DISABLED_COLOR = '#777777';
+const DISABLED_BACKGROUND_COLOR = '#EEEEEE';
+const FONT_SIZE = 17;
+const ERROR_FONT_SIZE = 12;
+const FONT_WEIGHT = '500';
+const LIGHT_BLUE = '#668fff';
+const LIGHT_RED = '#FFF5F5';
+const DARK_BLUE = '#001966';
 
-var stylesheet = Object.freeze({
+const stylesheet = Object.freeze({
     fieldset: {},
     // the style applied to the container of all inputs
     formGroup: {
