@@ -1,22 +1,80 @@
-const React = require('react');
-const {
+import React from 'react';
+import {
     Button,
     ScrollView,
     StyleSheet,
     Text,
     View,
     Image
-    } = require('react-native');
-const _ = require('lodash');
-const FormText = require('./FormTextInput');
-const PantsListView = require('./PantsListView');
-const realm = require('./realm.js');
-const PantsWatchStyles = require('../PantsWatchStyles.js');
-const BackgroundImage = require('../assets/backgrounds/redPlaid.png');
-const PageTitle = require('../assets/page_titles/addFormTitle.png');
+} from 'react-native';
+import FormText from './FormTextInput';
+import PantsListView from './PantsListView';
+import Realm from 'realm';
+import PantsWatchStyles from '../PantsWatchStyles.js';
+import BackgroundImage from '../assets/backgrounds/redPlaid.png';
+import PageTitle from '../assets/page_titles/addFormTitle.png';
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
+
+const PantsSchema = {
+    name: 'Pants',
+    primaryKey: 'id',
+    properties: {
+        id: 'int',
+        pantsImg: {type: 'string', default: '../assets/pants01.png'},
+        pantsName: 'string',
+        pantsColor: 'string',
+        pantsStyle: 'string',
+        pantsBrand: 'string',
+        wearLimit: {type: 'string', default: '6'},
+        dateAdded: 'date',
+        lastWorn: 'date'
+    }
+};
+
+const ColorSchema = {
+    name: 'Color',
+    primaryKey: 'id',
+    properties: {
+        id: 'int',
+        styleName: 'string'
+    }
+};
+
+const StyleSchema = {
+    name: 'Style',
+    primaryKey: 'id',
+    properties: {
+        id: 'int',
+        styleName: 'string'
+    },
+};
+
+const BrandSchema = {
+    name: 'Brand',
+    primaryKey: 'id',
+    properties: {
+        id: 'int',
+        brandName: 'string'
+    },
+};
+
+const SettingsSchema = {
+    name: 'Settings',
+    properties: {
+        defaultWearLimit: {type: 'int', default: 6},
+        promptWhich: {type: 'bool', default: true},
+        promptTime: {type: 'string', default: true},
+        promptRepeat: {type: 'bool', default: true},
+        promptRepeatInterval: {type: 'int', default: 30},
+        outOfPantsWarning: {type: 'bool', default: true},
+    },
+};
+
+let realm = new Realm({
+    schema: [PantsSchema, ColorSchema, StyleSchema, BrandSchema, SettingsSchema], schemaVersion: 3
+});
 
 
 const PantsForm = React.createClass({
@@ -51,22 +109,24 @@ const PantsForm = React.createClass({
     },
 
     submitFormData () {
+        //TODO: The big problem here is that you're not ever setting the state or the values that you've just put
+        // into the fields!
         let {pantsImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
         let value = {};
-        const self = this;
+        value.addedOnDate = new Date();
 
         //TODO: add step for validation
 
         //TODO: break out submission into separate function
         realm.write(() => {
             realm.create('Pants', {
-                pantsImg: pantImg,
+                pantsImg: pantsImg,
                 pantsName: pantsName,
                 pantsColor: pantsColor,
                 pantsBrand: pantsBrand,
                 pantsStyle: pantsStyle,
                 pantsWearLimit: pantsWearLimit,
-                pantLastWornDate: value.lastWornDate,
+                // pantLastWornDate: value.lastWornDate,
                 addedOn: value.addedOnDate
             })
         });
@@ -113,7 +173,6 @@ const PantsForm = React.createClass({
                         value={pantsName}
                         onChangeTxt={text => this.setState({pantsName: text})}
                     />
-
                     <FormText
                         labelText='Color:'
                         placeholderText='Pick A Color'

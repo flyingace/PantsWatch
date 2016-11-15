@@ -1,5 +1,5 @@
-const React = require('react');
-const {
+import React from 'react';
+import {
     Navigator,
     NavigatorSceneConfigs,
     StyleSheet,
@@ -7,10 +7,10 @@ const {
     View,
     Image,
     TouchableOpacity
-    } = require('react-native');
-const Dimensions = require('Dimensions');
-const Menu = require('./Menu');
-const Landing = require('./Landing');
+} from 'react-native';
+import Dimensions from 'Dimensions';
+import Menu from './Menu';
+import Landing from './Landing';
 
 const window = Dimensions.get('window');
 
@@ -20,50 +20,50 @@ const Application = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             isOpen: false
         }
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    toggle: function () {
+    toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
     },
 
-    updateMenuState: function (isOpen) {
+    updateMenuState(isOpen) {
         this.setState({isOpen});
     },
 
-    closeMenu: function () {
+    closeMenu() {
         this.setState({isOpen: false});
     },
 
     _renderScene(route, navigator) {
-        var Component = route.component;
+        const Component = route.component;
         return (
             <Component {...route.props} navigator={navigator} route={route}/>
         );
     },
 
-    render: function () {
+    render() {
 
         return (
             <Navigator
                 initialRoute={{
                     component: Landing,
                     name: 'Landing'
-                    }}
+                }}
                 style={styles.navigator}
                 configureScene={() => {
                     return Navigator.SceneConfigs.FloatFromRight;

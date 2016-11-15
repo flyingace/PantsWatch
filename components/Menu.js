@@ -1,6 +1,6 @@
-const React = require('react');
-const Dimensions = require('Dimensions');
-const {
+import React from 'react';
+import Dimensions from 'Dimensions';
+import {
     Image,
     ScrollView,
     StyleSheet,
@@ -8,12 +8,12 @@ const {
     TouchableOpacity,
     View,
     LayoutAnimation
-    } = require('react-native');
-const Landing = require('./Landing');
-const PantsListView = require('./PantsListView');
-const PantsForm = require('./PantsForm');
-const Patches = require('./Patches');
-const Settings = require('./Settings');
+} from 'react-native';
+import Landing from './Landing';
+import PantsListView from './PantsListView';
+import PantsForm from './PantsForm';
+import Patches from './Patches';
+import Settings from './Settings';
 
 const window = Dimensions.get('window');
 const panelWidth = window.width * .5;
@@ -24,34 +24,34 @@ const Menu = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return {
             left: panelWidth * -1,
             menu: 'hidden'
         }
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    showMenu: function () {
+    showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({left: 0, menu: 'shown', overlayWidth: window.width})
 
     },
 
-    hideMenu: function () {
+    hideMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         this.setState({left: panelWidth * -1, menu: 'hidden', overlayWidth: 0})
     },
 
-    toggleMenu: function () {
+    toggleMenu() {
         if (this.state.menu === 'shown') {
             this.hideMenu();
         } else {
@@ -61,7 +61,7 @@ const Menu = React.createClass({
 
 
     //TODO: Make this its own component?
-    onMenuItemPress: function (itemName) {
+    onMenuItemPress(itemName) {
         const nav = this.props.navigator;
 
         console.log(itemName);
@@ -76,16 +76,16 @@ const Menu = React.createClass({
                 nav.replace({component: PantsForm, name: 'Add Pants'});
                 break;
             case 'editPants':
-                nav.replace({component: PantsForm, name: 'Edit Pants'});
+                //nav.replace({component: PantsForm, name: 'Edit Pants'});
                 break;
             case 'washPants':
-                nav.replace({component: PantsListView, name: 'Wash Pants'});
+                //nav.replace({component: PantsListView, name: 'Wash Pants'});
                 break;
             case 'patches':
-                nav.replace({component: Patches, name: 'Wash Pants'});
+                //nav.replace({component: Patches, name: 'Wash Pants'});
                 break;
             case 'appSettings':
-                nav.replace({component: Settings, name: 'Wash Pants'});
+                //nav.replace({component: Settings, name: 'Wash Pants'});
                 break;
             default:
                 nav.replace({component: Landing, name: 'Home'});
@@ -95,7 +95,7 @@ const Menu = React.createClass({
         this.hideMenu();
     },
 
-    render: function () {
+    render() {
 
         return (<View style={[styles.wrapper, {left: this.state.left}]}>
                 <ScrollView style={styles.menu}>

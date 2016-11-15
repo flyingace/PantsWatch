@@ -1,9 +1,9 @@
-const React = require('react');
-const {
+import React from 'react';
+import {
     StyleSheet,
     Text,
     View
-    } = require('react-native');
+} from 'react-native';
 
 const MaxWearsBox = React.createClass({
 
@@ -11,24 +11,24 @@ const MaxWearsBox = React.createClass({
 
     propTypes: {},
 
-    getDefaultProps: function () {
+    getDefaultProps() {
         return {
             wearsCount: 33,
             maxWears: 66
         }
     },
 
-    getInitialState: function () {
+    getInitialState() {
         return null;
     },
 
-    componentDidMount: function () {
+    componentDidMount() {
     },
 
-    componentWillUnmount: function () {
+    componentWillUnmount() {
     },
 
-    render: function () {
+    render() {
         return (
             <View style={maxWearsStyles.maxWearsBox}>
                 <Text style={maxWearsStyles.countText}>{this.props.wearsCount}/{this.props.maxWears}</Text>
@@ -37,7 +37,7 @@ const MaxWearsBox = React.createClass({
     }
 });
 
-var maxWearsStyles = StyleSheet.create({
+const maxWearsStyles = StyleSheet.create({
     maxWearsBox: {
         width: 58,
         borderColor: '#008800',

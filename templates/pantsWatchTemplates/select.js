@@ -1,43 +1,47 @@
-var React = require('react');
-var { View, Text, PickerIOS } = require('react-native');
+import React from 'react';
+import {
+    View,
+    Text,
+    PickerIOS
+} from 'react-native';
 
 function select(locals) {
 
-  var stylesheet = locals.stylesheet;
-  var formGroupStyle = stylesheet.formGroup.normal;
-  var controlLabelStyle = stylesheet.controlLabel.normal;
-  var selectStyle = stylesheet.select.normal;
-  var helpBlockStyle = stylesheet.helpBlock.normal;
-  var errorBlockStyle = stylesheet.errorBlock;
+    const stylesheet = locals.stylesheet;
+    let formGroupStyle = stylesheet.formGroup.normal;
+    let controlLabelStyle = stylesheet.controlLabel.normal;
+    let selectStyle = stylesheet.select.normal;
+    let helpBlockStyle = stylesheet.helpBlock.normal;
+    const errorBlockStyle = stylesheet.errorBlock;
 
-  if (locals.hasError) {
-    formGroupStyle = stylesheet.formGroup.error;
-    controlLabelStyle = stylesheet.controlLabel.error;
-    selectStyle = stylesheet.select.error;
-    helpBlockStyle = stylesheet.helpBlock.error;
-  }
+    if (locals.hasError) {
+        formGroupStyle = stylesheet.formGroup.error;
+        controlLabelStyle = stylesheet.controlLabel.error;
+        selectStyle = stylesheet.select.error;
+        helpBlockStyle = stylesheet.helpBlock.error;
+    }
 
-  var label = locals.label ? <Text style={controlLabelStyle}>{locals.label}</Text> : null;
-  var help = locals.help ? <Text style={helpBlockStyle}>{locals.help}</Text> : null;
-  var error = locals.hasError && locals.error ? <Text style={errorBlockStyle}>{locals.error}</Text> : null;
+    const label = locals.label ? <Text style={controlLabelStyle}>{locals.label}</Text> : null;
+    const help = locals.help ? <Text style={helpBlockStyle}>{locals.help}</Text> : null;
+    const error = locals.hasError && locals.error ? <Text style={errorBlockStyle}>{locals.error}</Text> : null;
 
-  var options = locals.options.map(({value, text}) => <PickerIOS.Item key={value} value={value} label={text} />);
+    const options = locals.options.map(({value, text}) => <PickerIOS.Item key={value} value={value} label={text}/>);
 
-  return (
-    <View style={formGroupStyle}>
-      {label}
-      <PickerIOS
-        ref="input"
-        style={selectStyle}
-        selectedValue={locals.value}
-        onValueChange={locals.onChange}
-      >
-        {options}
-      </PickerIOS>
-      {help}
-      {error}
-    </View>
-  );
+    return (
+        <View style={formGroupStyle}>
+            {label}
+            <PickerIOS
+                ref="input"
+                style={selectStyle}
+                selectedValue={locals.value}
+                onValueChange={locals.onChange}
+            >
+                {options}
+            </PickerIOS>
+            {help}
+            {error}
+        </View>
+    );
 }
 
 module.exports = select;

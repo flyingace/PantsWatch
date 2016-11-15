@@ -1,5 +1,5 @@
-var React = require('react');
-var { View, Text, SwitchIOS } = require('react-native');
+import React from 'react';
+import { View, Text, SwitchIOS } from 'react-native';
 
 function checkbox(locals) {
 
