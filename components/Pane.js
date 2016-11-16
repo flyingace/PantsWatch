@@ -8,6 +8,7 @@ import {
     View
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import PantsThumb from '../assets/PantsThumb.png';
 
 const windowDims = Dimensions.get('window');
 
@@ -23,7 +24,7 @@ const Pane = React.createClass({
         return {
             onPress: this._onPress,
             paneLabel: 'Pants Pane',
-            imageURL: require('../assets/PantsThumb.png')
+            imageURL: {PantsThumb}
         };
     },
 

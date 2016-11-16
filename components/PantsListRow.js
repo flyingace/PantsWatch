@@ -10,6 +10,7 @@ import {
     View
 } from 'react-native';
 import MaxWearsBox from './MaxWearsBox';
+import defaultPantsImgSrc from '../assets/pants01.png'
 
 const PantsListRow = React.createClass({
 
@@ -29,7 +30,7 @@ const PantsListRow = React.createClass({
             pantsStyle: 'Casual',
             pantsBrand: 'Levis',
             maxWears: 0,
-            pantsImgSrc: require('../assets/pants01.png'),
+            pantsImgSrc: {defaultPantsImgSrc},
             lastWornDate: '12/23/15'
         };
     },
