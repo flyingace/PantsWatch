@@ -13,9 +13,11 @@ import BackgroundImage from '../assets/backgrounds/redPlaid.png';
 import PageTitle from '../assets/page_titles/addFormTitle.png';
 import pantsData from '../pants_data.json';
 
+import DB from '../db.js';
+import { DBEvents } from 'react-native-db-models';
+
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
-
 
 
 const PantsListView = React.createClass({
@@ -37,12 +39,25 @@ const PantsListView = React.createClass({
         };
     },
 
-    getAllPants () {
-        const pants = realm.objects('Pants');
-        let rowSource = (pants.totalrows > 0) ? pants.rows : pantsData.pants;
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(rowSource),
-            loaded: true
+    componentDidMount: function () {
+        let self = this;
+        DBEvents.on('all', function () {
+            self.getAllPants();
+        });
+
+        this.getAllPants();
+    },
+
+    getAllPants: function () {
+        const self = this;
+        let rowSource;
+        DB.pants.get_all(function (result) {
+            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
+            self.setState({
+                dataSource: self.state.dataSource.cloneWithRows(rowSource),
+                loaded: true
+            });
+            console.log(result);
         });
     },
 

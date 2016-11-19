@@ -10,7 +10,8 @@ import {
 import PantsListRow from './PantsListRow';
 import PantsSelectionModal from './PantsSelectionModal';
 
-import realm from './realm';
+import DB from '../db.js';
+import { DBEvents } from 'react-native-db-models';
 
 const PantsList = React.createClass({
 
@@ -38,23 +39,26 @@ const PantsList = React.createClass({
         };
     },
 
-    componentDidMount() {
-        realm.addListener('change', () => {
-            this.getAllPants();
+    componentDidMount () {
+        let self = this;
+        DBEvents.on('all', function () {
+            self.getAllPants();
         });
 
         this.getAllPants();
     },
 
-    getAllPants() {
-        let pants = (realm.objects('Pants'));
-        let rowSource = (pants) ? pants : pantsData.pants;
-
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(rowSource),
-            loaded: true
+    getAllPants () {
+        const self = this;
+        let rowSource;
+        DB.pants.get_all(function (result) {
+            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
+            self.setState({
+                dataSource: self.state.dataSource.cloneWithRows(rowSource),
+                loaded: true
+            });
+            console.log(result);
         });
-        console.log(pants);
     },
 
     onRowPress () {
