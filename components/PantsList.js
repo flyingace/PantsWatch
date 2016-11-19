@@ -10,7 +10,7 @@ import {
 import PantsListRow from './PantsListRow';
 import PantsSelectionModal from './PantsSelectionModal';
 
-// import realm from './realm';
+import realm from './realm';
 
 const PantsList = React.createClass({
 

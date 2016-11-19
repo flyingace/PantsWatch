@@ -4,17 +4,17 @@ import Realm from 'realm';
 
 const PantsSchema = {
     name: 'Pants',
-    primaryKey: 'id',
+    // primaryKey: 'id',
     properties: {
-        id: 'int',
+        id: {type: 'int', optional: true},
         pantsImg: {type: 'string', default: '../assets/pants01.png'},
-        pantsName: 'string',
-        pantsColor: 'Color',
-        pantsStyle: 'Style',
-        pantsBrand: 'Brand',
+        pantsName: {type: 'string', optional: true},
+        pantsColor: {type: 'string', optional: true},
+        pantsStyle: {type: 'string', optional: true},
+        pantsBrand: {type: 'string', optional: true},
         wearLimit: {type: 'int', default: 6},
-        dateAdded: 'date',
-        lastWorn: 'date'
+        dateAdded: {type: 'date', optional: true},
+        lastWorn: {type: 'date', optional: true}
     }
 };
 
@@ -57,6 +57,6 @@ const SettingsSchema = {
     },
 };
 
-let realm = new Realm({
-    schema: [PantsSchema, ColorSchema, StyleSchema, BrandSchema, SettingsSchema], schemaVersion: 1
+export default new Realm({
+    schema: [PantsSchema, ColorSchema, StyleSchema, BrandSchema, SettingsSchema]
 });
