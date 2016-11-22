@@ -10,7 +10,7 @@ import {
     View
 } from 'react-native';
 import MaxWearsBox from './MaxWearsBox';
-import defaultPantsImgSrc from '../assets/pants01.png'
+import defaultPantsImgSrc from '../../assets/pants01.png'
 
 const PantsListRow = React.createClass({
 
@@ -19,7 +19,7 @@ const PantsListRow = React.createClass({
         pantsColor: React.PropTypes.string,
         pantsBrand: React.PropTypes.string,
         pantsStyle: React.PropTypes.string,
-        maxWears: React.PropTypes.number,
+        maxWears: React.PropTypes.string,
         pantsImgSrc: React.PropTypes.any
     },
 
@@ -27,9 +27,9 @@ const PantsListRow = React.createClass({
         return {
             pantsName: 'Favorite Pants',
             pantsColor: 'Blue',
-            pantsStyle: 'Casual',
             pantsBrand: 'Levis',
-            maxWears: 0,
+            pantsStyle: 'Casual',
+            maxWears: '0',
             pantsImgSrc: {defaultPantsImgSrc},
             lastWornDate: '12/23/15'
         };

@@ -9,14 +9,14 @@ import PantsForm from './PantsForm';
 import Patches from './Patches';
 import Settings from './Settings';
 
-import landingBanner from '../assets/banners/landing_banner.png';
-import scribblePrompt from '../assets/scribblePrompt.png';
-import seePantsImg from '../assets/landing/see_pants.png';
-import addPantsImg from '../assets/landing/add_pants.png';
-import alterPantsImg from '../assets/landing/alter_pants.png';
-import washPantsImg from '../assets/landing/wash_pants.png';
-import patchesImg from '../assets/landing/patches.png';
-import settingsImg from '../assets/landing/settings.png';
+import landingBanner from '../../assets/banners/landing_banner.png';
+import scribblePrompt from '../../assets/scribblePrompt.png';
+import seePantsImg from '../../assets/landing/see_pants.png';
+import addPantsImg from '../../assets/landing/add_pants.png';
+import alterPantsImg from '../../assets/landing/alter_pants.png';
+import washPantsImg from '../../assets/landing/wash_pants.png';
+import patchesImg from '../../assets/landing/patches.png';
+import settingsImg from '../../assets/landing/settings.png';
 
 const windowDims = Dimensions.get('window');
 const windowHeight = windowDims.height;

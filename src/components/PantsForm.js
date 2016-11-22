@@ -8,13 +8,13 @@ import {
     Image
 } from 'react-native';
 import _ from 'lodash';
-import DB from '../db.js';
+import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
 import FormText from './FormTextInput';
 import PantsListView from './PantsListView';
-import PantsWatchStyles from '../PantsWatchStyles.js';
-import BackgroundImage from '../assets/backgrounds/redPlaid.png';
-import PageTitle from '../assets/page_titles/addFormTitle.png';
+import PantsWatchStyles from '../styles/PantsWatchStyles.js';
+import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
+import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
@@ -23,7 +23,9 @@ import PageTitle from '../assets/page_titles/addFormTitle.png';
 const PantsForm = React.createClass({
 
     propTypes: {
-        pantsData: React.PropTypes.object
+        pantsData: React.PropTypes.object,
+        validateForm: React.PropTypes.func,
+        submitForm: React.PropTypes.func
     },
 
     getDefaultProps () {
@@ -51,7 +53,10 @@ const PantsForm = React.createClass({
     componentDidMount() {
     },
 
-    submitFormData () {
+    onFormSubmit () {
+        //First Step Should Be To Validate
+        //Then if validated, to update the database
+        //And then to go to the pants list page
         let {pantsImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
         let value = {};
         const self = this;
@@ -135,7 +140,7 @@ const PantsForm = React.createClass({
                         onChangeTxt={text => this.setState({pantsWearLimit: text})}
                     />
                     <Button
-                        onPress={this.submitFormData}
+                        onPress={this.onFormSubmit}
                         title="Submit My Pants"
                         color="#66d8ff"
                         accessibilityLabel="Add your pants to the database"

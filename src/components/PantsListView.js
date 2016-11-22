@@ -2,32 +2,33 @@
 
 import React from 'react';
 import {
-    StyleSheet,
-    TouchableOpacity,
+    Image,
     ListView,
+    StyleSheet,
     View
 } from 'react-native';
-import PantsListRow from './PantsListRow';
-import PantsSelectionModal from './PantsSelectionModal';
+import Dimensions from 'Dimensions';
+import PantsList from './PantsList';
+import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
+import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-import DB from '../db.js';
+import pantsData from '../../pants_data.json';
+
+import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
 
-const PantsList = React.createClass({
+const windowDims = Dimensions.get('window');
+const titleHeight = 125;
 
-    displayName: 'MaxWearsBox',
+
+const PantsListView = React.createClass({
 
     propTypes: {
         pantsData: React.PropTypes.object
     },
 
     getDefaultProps() {
-        return {
-            pantsName: 'Favorite Pants',
-            colorName: 'Blue',
-            styleName: 'Casual',
-            wearLimit: 0
-        };
+        return null
     },
 
     getInitialState () {
@@ -39,7 +40,7 @@ const PantsList = React.createClass({
         };
     },
 
-    componentDidMount () {
+    componentDidMount: function () {
         let self = this;
         DBEvents.on('all', function () {
             self.getAllPants();
@@ -48,7 +49,7 @@ const PantsList = React.createClass({
         this.getAllPants();
     },
 
-    getAllPants () {
+    getAllPants: function () {
         const self = this;
         let rowSource;
         DB.pants.get_all(function (result) {
@@ -61,41 +62,39 @@ const PantsList = React.createClass({
         });
     },
 
-    onRowPress () {
-        console.log('press')
-    },
-
-    renderPantsList (pants) {
-        return (
-            <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={this.onRowPress}>
-                <PantsListRow {...pants} style={{overflow: 'hidden'}}/>
-            </TouchableOpacity>
-        );
-    },
-
-    render () {
+    render() {
         if (!this.state.loaded) {
             return false;
         }
 
         return (
             <View>
-                <ListView
-                    removeClippedSubviews={true}
+                <Image source={BackgroundImage} style={styles.backgroundImage}/>
+                <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
+                <PantsList
+                    height={windowDims.height - titleHeight}
                     dataSource={this.state.dataSource}
-                    renderRow={this.renderPantsList}
-                    style={{height: this.props.height}}
+                    style={styles.pantsList}
                 />
-                <PantsSelectionModal />
             </View>
         );
     }
 });
 
-const pantsListStyles = StyleSheet.create({
+const styles = StyleSheet.create({
+    wrapper: {
+        justifyContent: 'space-between'
+    },
+    backgroundImage: {
+        position: 'absolute'
+    },
+    pageTitle: {
+        marginTop: 12,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+        height: titleHeight
+    },
     pantsList: {}
 });
 
-module.exports = PantsList;
+module.exports = PantsListView;
