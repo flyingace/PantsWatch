@@ -15,7 +15,7 @@ import { DBEvents } from 'react-native-db-models';
 
 const PantsList = React.createClass({
 
-    displayName: 'MaxWearsBox',
+    displayName: 'PantsList',
 
     propTypes: {
         pantsData: React.PropTypes.object
@@ -26,7 +26,7 @@ const PantsList = React.createClass({
             pantsName: 'Favorite Pants',
             colorName: 'Blue',
             styleName: 'Casual',
-            wearLimit: 0
+            wearLimit: 6
         };
     },
 
@@ -52,9 +52,9 @@ const PantsList = React.createClass({
         const self = this;
         let rowSource;
         DB.pants.get_all(function (result) {
-            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
+            // rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
             self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
+                dataSource: self.state.dataSource.cloneWithRows(result.rows),
                 loaded: true
             });
             console.log(result);

@@ -19,7 +19,7 @@ const PantsListRow = React.createClass({
         pantsColor: React.PropTypes.string,
         pantsBrand: React.PropTypes.string,
         pantsStyle: React.PropTypes.string,
-        maxWears: React.PropTypes.string,
+        maxWears: React.PropTypes.number,
         pantsImgSrc: React.PropTypes.any
     },
 
@@ -29,7 +29,7 @@ const PantsListRow = React.createClass({
             pantsColor: 'Blue',
             pantsBrand: 'Levis',
             pantsStyle: 'Casual',
-            maxWears: '0',
+            maxWears: 6,
             pantsImgSrc: {defaultPantsImgSrc},
             lastWornDate: '12/23/15'
         };
