@@ -16,7 +16,7 @@ const PantsSelectionModal = React.createClass({
 
     getInitialState() {
         return {
-            modalVisible: true
+            modalVisible: false
         }
     },
 

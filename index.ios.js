@@ -7,7 +7,7 @@ import {
     StyleSheet,
     View
 } from 'react-native';
-import Application from './components/Application';
+import Application from './src/components/Application';
 
 const PantsWatch = React.createClass({
 

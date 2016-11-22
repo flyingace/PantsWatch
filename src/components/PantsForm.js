@@ -8,12 +8,13 @@ import {
     Image
 } from 'react-native';
 import _ from 'lodash';
+import DB from '../../db.js';
+import { DBEvents } from 'react-native-db-models';
 import FormText from './FormTextInput';
 import PantsListView from './PantsListView';
-import realm from './realm';
-import PantsWatchStyles from '../PantsWatchStyles.js';
-import BackgroundImage from '../assets/backgrounds/redPlaid.png';
-import PageTitle from '../assets/page_titles/addFormTitle.png';
+import PantsWatchStyles from '../styles/PantsWatchStyles.js';
+import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
+import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
@@ -22,7 +23,9 @@ import PageTitle from '../assets/page_titles/addFormTitle.png';
 const PantsForm = React.createClass({
 
     propTypes: {
-        pantsData: React.PropTypes.object
+        pantsData: React.PropTypes.object,
+        validateForm: React.PropTypes.func,
+        submitForm: React.PropTypes.func
     },
 
     getDefaultProps () {
@@ -32,7 +35,7 @@ const PantsForm = React.createClass({
             pantsColor: null,
             pantsStyle: null,
             pantsBrand: null,
-            pantsWearLimit: null
+            pantsWearLimit: '6'
         }
     },
 
@@ -50,25 +53,30 @@ const PantsForm = React.createClass({
     componentDidMount() {
     },
 
-    submitFormData () {
+    onFormSubmit () {
+        //First Step Should Be To Validate
+        //Then if validated, to update the database
+        //And then to go to the pants list page
         let {pantsImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
         let value = {};
-        value.addedOnDate = new Date();
+        const self = this;
 
         //TODO: add step for validation
 
-        //TODO: break out submission into separate function
-        realm.write(() => {
-            realm.create('Pants', {
-                pantsImg: pantsImg,
-                pantsName: pantsName,
-                pantsColor: pantsColor,
-                pantsBrand: pantsBrand,
-                pantsStyle: pantsStyle,
-                pantsWearLimit: pantsWearLimit,
-                // pantLastWornDate: value.lastWornDate,
-                addedOn: value.addedOnDate
-            })
+        //break out submission into separate function
+        DB.pants.add({
+            name: pantsName,
+            color: pantsColor,
+            brand: pantsBrand,
+            style: pantsStyle,
+            maxWears: pantsWearLimit,
+            lastWorn: value.lastWornDate,
+            addedOn: value.addedOnDate,
+            notes: value.notes
+        }, function (updatedTable) {
+            self.resetForm();
+            self.navigateToPantsList();
+            console.log(updatedTable);
         });
     },
 
@@ -76,7 +84,7 @@ const PantsForm = React.createClass({
         //this can be done with t.comb
         let stateObject = this.state;
         const self = this;
-        forEach(stateObject, function (n, key) {
+        _.forEach(stateObject, function(n, key) {
             self.setState({key: null});
         })
     },
@@ -129,10 +137,10 @@ const PantsForm = React.createClass({
                         placeholderText='6'
                         inputRef='wearLimit'
                         value={pantsWearLimit}
-                        onChangeTxt={text => this.setState({pantsWearLimit: parseInt(text)})}
+                        onChangeTxt={text => this.setState({pantsWearLimit: text})}
                     />
                     <Button
-                        onPress={this.submitFormData}
+                        onPress={this.onFormSubmit}
                         title="Submit My Pants"
                         color="#66d8ff"
                         accessibilityLabel="Add your pants to the database"

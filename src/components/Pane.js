@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import PantsThumb from '../assets/PantsThumb.png';
+import PantsThumb from '../../assets/PantsThumb.png';
 
 const windowDims = Dimensions.get('window');
 

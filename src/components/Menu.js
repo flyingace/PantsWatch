@@ -14,7 +14,7 @@ import PantsListView from './PantsListView';
 import PantsForm from './PantsForm';
 import Patches from './Patches';
 import Settings from './Settings';
-import MenuTab from '../assets/menu_tab.png';
+import MenuTab from '../../assets/menu_tab.png';
 
 const window = Dimensions.get('window');
 const panelWidth = window.width * .5;
