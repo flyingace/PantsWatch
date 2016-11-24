@@ -19,7 +19,7 @@ const PantsListRow = React.createClass({
         pantsColor: React.PropTypes.string,
         pantsBrand: React.PropTypes.string,
         pantsStyle: React.PropTypes.string,
-        maxWears: React.PropTypes.number,
+        pantsWearLimit: React.PropTypes.number,
         pantsImgSrc: React.PropTypes.any
     },
 
@@ -29,13 +29,14 @@ const PantsListRow = React.createClass({
             pantsColor: 'Blue',
             pantsBrand: 'Levis',
             pantsStyle: 'Casual',
-            maxWears: 6,
+            pantsWearLimit: 9,
             pantsImgSrc: {defaultPantsImgSrc},
             lastWornDate: '12/23/15'
         };
     },
 
     render() {
+        console.log(this.props);
         return (
             <View style={rowStyles.pantsRow}>
                 <Image
@@ -52,7 +53,7 @@ const PantsListRow = React.createClass({
                     </View>
                 </View>
                 <View style={rowStyles.rightCol}>
-                    <MaxWearsBox wearsCount={this.props.wearsCount} maxWears={this.props.maxWears}/>
+                    <MaxWearsBox wearsCount={this.props.wearsCount} maxWears={this.props.pantsWearLimit}/>
                     <View style={rowStyles.rightColBottom}>
                         <Text style={rowStyles.lastWornOn}>
                             Last Worn On:

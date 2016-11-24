@@ -10,7 +10,7 @@ import {
 import t from 'tcomb-form-native';
 import _ from 'lodash';
 import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
+import {DBEvents} from 'react-native-db-models';
 import FormText from './FormTextInput';
 import PantsListView from './PantsListView';
 import PantsWatchStyles from '../styles/PantsWatchStyles.js';
@@ -30,6 +30,27 @@ const Pants = t.struct({
     pantsWearLimit: t.Number
 });
 
+const options = {
+    fields: {
+        pantsName: {
+            // stylesheet: myCustomStylesheet,
+            label: 'Name:'
+        },
+        pantsColor: {
+            label: 'Color:'
+        },
+        pantsStyle: {
+            label: 'Style:'
+        },
+        pantsBrand: {
+            label: 'Brand:'
+        },
+        pantsWearLimit: {
+            label: 'Wear Limit:'
+        }
+    }
+};
+
 
 const PantsForm = React.createClass({
 
@@ -46,7 +67,7 @@ const PantsForm = React.createClass({
             pantsColor: null,
             pantsStyle: null,
             pantsBrand: null,
-            pantsWearLimit: 6
+            pantsWearLimit: null
         }
     },
 
@@ -65,37 +86,25 @@ const PantsForm = React.createClass({
     },
 
     onFormSubmit () {
+        //First Step Should Be To Validate
+        //Then if validated, to update the database
+        //And then to go to the pants list page
+
         // call getValue() to get the values of the form
         const formData = this.refs.form.getValue();
         if (formData) { // if validation fails, value will be null
             console.log(formData);
             this.addPantsToDB(formData);
         }
-        //First Step Should Be To Validate
-        //Then if validated, to update the database
-        //And then to go to the pants list page
-        /*
-        let {pantsImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
-        let value = {};
-        const self = this;
-
-        //TODO: add step for validation
-
-        */
     },
 
     addPantsToDB (formData) {
-        DB.pants.erase_db(function(removed_data){
-            console.log(removed_data);
-        });
-
-        //break out submission into separate function
         DB.pants.add({
-            name: formData.pantsName,
-            color: formData.pantsColor,
-            brand: formData.pantsBrand,
-            style: formData.pantsStyle,
-            maxWears: formData.pantsWearLimit,
+            pantsName: formData.pantsName,
+            pantsColor: formData.pantsColor,
+            pantsBrand: formData.pantsBrand,
+            pantsStyle: formData.pantsStyle,
+            pantsWearLimit: formData.pantsWearLimit
             // lastWorn: value.lastWornDate,
             // addedOn: value.addedOnDate,
             // notes: value.notes
@@ -106,22 +115,15 @@ const PantsForm = React.createClass({
     },
 
     resetForm () {
-        //this can be done with t.comb
-        let stateObject = this.state;
-        const self = this;
-        _.forEach(stateObject, function(n, key) {
-            self.setState({key: null});
-        })
+        this.setState({value: null});
     },
 
     navigateToPantsList () {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
-        //TODO: Add Flux architecture to handle updating the navigator, no?
         this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
     },
     render () {
-        // let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
 
         return (
             <View>
@@ -132,6 +134,7 @@ const PantsForm = React.createClass({
                     <Form
                         ref="form"
                         type={Pants}
+                        options={options}
                     />
                     <Button
                         onPress={this.onFormSubmit}

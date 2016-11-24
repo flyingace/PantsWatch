@@ -13,52 +13,53 @@ import PantsSelectionModal from './PantsSelectionModal';
 import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
 
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 const PantsList = React.createClass({
 
     displayName: 'PantsList',
 
     propTypes: {
-        pantsData: React.PropTypes.object
+        dataSource: React.PropTypes.object
     },
 
     getDefaultProps() {
         return {
-            pantsName: 'Favorite Pants',
-            colorName: 'Blue',
-            styleName: 'Casual',
-            wearLimit: 6
+            // pantsName: 'Favorite Pants',
+            // pantsColor: 'Blue',
+            // pantsStyle: 'Casual',
+            // pantsBrand: 'Levis',
+            // pantsWearLimit: 6
         };
     },
 
     getInitialState () {
+
         return {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2
-            }),
             loaded: true
         };
     },
 
     componentDidMount () {
-        let self = this;
-        DBEvents.on('all', function () {
-            self.getAllPants();
-        });
-
-        this.getAllPants();
+        // let self = this;
+        // DBEvents.on('all', function () {
+        //     self.getAllPants();
+        // });
+        //
+        // this.getAllPants();
     },
 
     getAllPants () {
-        const self = this;
-        let rowSource;
-        DB.pants.get_all(function (result) {
-            // rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(result.rows),
-                loaded: true
-            });
-            console.log(result);
-        });
+        // const self = this;
+        // let rowSource;
+        // DB.pants.get_all(function (result) {
+        //     // rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
+        //     self.setState({
+        //         dataSource: ds.cloneWithRows(result.rows),
+        //         loaded: true
+        //     });
+        //     console.log(result.rows);
+        // });
     },
 
     onRowPress () {
