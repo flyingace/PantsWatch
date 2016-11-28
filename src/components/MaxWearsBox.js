@@ -13,8 +13,8 @@ const MaxWearsBox = React.createClass({
 
     getDefaultProps() {
         return {
-            wearsCount: 33,
-            maxWears: 66
+            wearsCount: 0,
+            maxWears: 6
         }
     },
 

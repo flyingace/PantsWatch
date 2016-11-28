@@ -14,19 +14,19 @@ import {
 
 const PantsSelectionModal = React.createClass({
 
-    getInitialState() {
+    propTypes: {
+        isOpen: React.PropTypes.bool,
+        onRequestClose: React.PropTypes.func
+    },
+
+    getDefaultProps() {
         return {
-            modalVisible: false
+            isOpen: false
         }
     },
 
     setPantsAsWorn() {
-        //other actions
-        this.setState({modalVisible: false});
-    },
-
-    setModalVisible(visible) {
-        this.setState({modalVisible: visible});
+        this.props.onRequestClose();
     },
 
     render() {
@@ -34,10 +34,8 @@ const PantsSelectionModal = React.createClass({
             <Modal
                 animationType={"slide"}
                 transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {
-                    alert("Modal has been closed.")
-                }}>
+                visible={this.props.isVisible}
+                onRequestClose={this.props.onRequestClose}>
                 <View style={{marginTop: 22}}>
                     <View>
                         <Text>Are you wearing these pants?</Text>

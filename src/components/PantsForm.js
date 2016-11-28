@@ -7,9 +7,10 @@ import {
     View,
     Image
 } from 'react-native';
+import t from 'tcomb-form-native';
 import _ from 'lodash';
 import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
+import {DBEvents} from 'react-native-db-models';
 import FormText from './FormTextInput';
 import PantsListView from './PantsListView';
 import PantsWatchStyles from '../styles/PantsWatchStyles.js';
@@ -18,6 +19,37 @@ import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
 //TODO: I'm not sure that using state here to hold and pass the form values is really
 //the best way to go about doing this. Would it be better to just use a regular object {} ?
+
+const Form = t.form.Form;
+
+const Pants = t.struct({
+    pantsName: t.String,
+    pantsColor: t.maybe(t.String),
+    pantsStyle: t.maybe(t.String),
+    pantsBrand: t.maybe(t.String),
+    pantsWearLimit: t.Number
+});
+
+const options = {
+    fields: {
+        pantsName: {
+            // stylesheet: myCustomStylesheet,
+            label: 'Name:'
+        },
+        pantsColor: {
+            label: 'Color:'
+        },
+        pantsStyle: {
+            label: 'Style:'
+        },
+        pantsBrand: {
+            label: 'Brand:'
+        },
+        pantsWearLimit: {
+            label: 'Wear Limit:'
+        }
+    }
+};
 
 
 const PantsForm = React.createClass({
@@ -35,7 +67,7 @@ const PantsForm = React.createClass({
             pantsColor: null,
             pantsStyle: null,
             pantsBrand: null,
-            pantsWearLimit: '6'
+            pantsWearLimit: null
         }
     },
 
@@ -57,46 +89,41 @@ const PantsForm = React.createClass({
         //First Step Should Be To Validate
         //Then if validated, to update the database
         //And then to go to the pants list page
-        let {pantsImg, pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
-        let value = {};
-        const self = this;
 
-        //TODO: add step for validation
+        // call getValue() to get the values of the form
+        const formData = this.refs.form.getValue();
+        if (formData) { // if validation fails, value will be null
+            console.log(formData);
+            this.addPantsToDB(formData);
+        }
+    },
 
-        //break out submission into separate function
+    addPantsToDB (formData) {
         DB.pants.add({
-            name: pantsName,
-            color: pantsColor,
-            brand: pantsBrand,
-            style: pantsStyle,
-            maxWears: pantsWearLimit,
-            lastWorn: value.lastWornDate,
-            addedOn: value.addedOnDate,
-            notes: value.notes
-        }, function (updatedTable) {
-            self.resetForm();
-            self.navigateToPantsList();
-            console.log(updatedTable);
+            pantsName: formData.pantsName,
+            pantsColor: formData.pantsColor,
+            pantsBrand: formData.pantsBrand,
+            pantsStyle: formData.pantsStyle,
+            pantsWearLimit: formData.pantsWearLimit
+            // lastWorn: value.lastWornDate,
+            // addedOn: value.addedOnDate,
+            // notes: value.notes
+        }, () => {
+            this.resetForm();
+            this.navigateToPantsList();
         });
     },
 
     resetForm () {
-        //this can be done with t.comb
-        let stateObject = this.state;
-        const self = this;
-        _.forEach(stateObject, function(n, key) {
-            self.setState({key: null});
-        })
+        this.setState({value: null});
     },
 
     navigateToPantsList () {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
-        //TODO: Add Flux architecture to handle updating the navigator, no?
         this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
     },
     render () {
-        let {pantsName, pantsColor, pantsStyle, pantsBrand, pantsWearLimit} = this.state;
 
         return (
             <View>
@@ -104,40 +131,10 @@ const PantsForm = React.createClass({
                 <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
                     <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
                     <Text style={styles.formTitle}>Add Some Pants</Text>
-                    <FormText
-                        labelText='Name:'
-                        placeholderText='Name Your Pants'
-                        inputRef='pantsName'
-                        value={pantsName}
-                        onChangeTxt={text => this.setState({pantsName: text})}
-                    />
-                    <FormText
-                        labelText='Color:'
-                        placeholderText='Pick A Color'
-                        inputRef='color'
-                        value={pantsColor}
-                        onChangeTxt={text => this.setState({pantsColor: text})}
-                    />
-                    <FormText
-                        labelText='Style:'
-                        placeholderText='Pick A Style'
-                        inputRef='style'
-                        value={pantsStyle}
-                        onChangeTxt={text => this.setState({pantsStyle: text})}
-                    />
-                    <FormText
-                        labelText='Brand:'
-                        placeholderText='Pick A Brand'
-                        inputRef='brand'
-                        value={pantsBrand}
-                        onChangeTxt={text => this.setState({pantsBrand: text})}
-                    />
-                    <FormText
-                        labelText='Wear Limit:'
-                        placeholderText='6'
-                        inputRef='wearLimit'
-                        value={pantsWearLimit}
-                        onChangeTxt={text => this.setState({pantsWearLimit: text})}
+                    <Form
+                        ref="form"
+                        type={Pants}
+                        options={options}
                     />
                     <Button
                         onPress={this.onFormSubmit}

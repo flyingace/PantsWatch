@@ -41,21 +41,21 @@ const PantsListView = React.createClass({
     },
 
     componentDidMount: function () {
-        let self = this;
-        DBEvents.on('all', function () {
-            self.getAllPants();
-        });
-
         this.getAllPants();
     },
 
+    addListeners () {
+        DBEvents.on('all', () => {
+            this.getAllPants();
+        });
+    },
+
     getAllPants: function () {
-        const self = this;
         let rowSource;
-        DB.pants.get_all(function (result) {
+        DB.pants.get_all( (result) => {
             rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
+            this.setState({
+                dataSource: this.state.dataSource.cloneWithRows(rowSource),
                 loaded: true
             });
             console.log(result);

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {
+    Alert,
     StyleSheet,
     TouchableOpacity,
     ListView,
@@ -13,56 +14,51 @@ import PantsSelectionModal from './PantsSelectionModal';
 import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
 
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
 const PantsList = React.createClass({
 
-    displayName: 'MaxWearsBox',
+    displayName: 'PantsList',
 
     propTypes: {
-        pantsData: React.PropTypes.object
+        dataSource: React.PropTypes.object
     },
 
     getDefaultProps() {
         return {
-            pantsName: 'Favorite Pants',
-            colorName: 'Blue',
-            styleName: 'Casual',
-            wearLimit: 0
+            // pantsName: 'Favorite Pants',
+            // pantsColor: 'Blue',
+            // pantsStyle: 'Casual',
+            // pantsBrand: 'Levis',
+            // pantsWearLimit: 6
         };
     },
 
     getInitialState () {
+
         return {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2
-            }),
-            loaded: true
+            loaded: true,
+            modalIsOpen: false
         };
     },
 
-    componentDidMount () {
-        let self = this;
-        DBEvents.on('all', function () {
-            self.getAllPants();
-        });
-
-        this.getAllPants();
-    },
-
-    getAllPants () {
-        const self = this;
-        let rowSource;
-        DB.pants.get_all(function (result) {
-            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-            self.setState({
-                dataSource: self.state.dataSource.cloneWithRows(rowSource),
-                loaded: true
-            });
-            console.log(result);
-        });
-    },
-
     onRowPress () {
-        console.log('press')
+        Alert.alert(
+            'Choose Your Pants',
+            'Are you wearing these pants today?',
+            [
+                {text: 'Nope', onPress: () => console.log('Not wearing pants'), style: 'cancel'},
+                {text: 'Absolutely', onPress: () => console.log('Absolutely wearing these pants today')},
+            ]
+        )
+    },
+
+    openModal () {
+        this.setState({modalIsOpen: true});
+    },
+
+    closeModal () {
+        this.setState({modalIsOpen: false});
     },
 
     renderPantsList (pants) {
@@ -88,7 +84,10 @@ const PantsList = React.createClass({
                     renderRow={this.renderPantsList}
                     style={{height: this.props.height}}
                 />
-                <PantsSelectionModal />
+                <PantsSelectionModal
+                    isVisible={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                />
             </View>
         );
     }
