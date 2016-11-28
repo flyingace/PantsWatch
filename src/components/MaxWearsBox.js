@@ -13,7 +13,7 @@ const MaxWearsBox = React.createClass({
 
     getDefaultProps() {
         return {
-            wearsCount: 33,
+            wearsCount: 0,
             maxWears: 6
         }
     },
@@ -29,10 +29,9 @@ const MaxWearsBox = React.createClass({
     },
 
     render() {
-        let maxWears = this.props.maxWears.toString();
         return (
             <View style={maxWearsStyles.maxWearsBox}>
-                <Text style={maxWearsStyles.countText}>{this.props.wearsCount}/{maxWears}</Text>
+                <Text style={maxWearsStyles.countText}>{this.props.wearsCount}/{this.props.maxWears}</Text>
             </View>
         );
     }

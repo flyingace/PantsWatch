@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {
+    Alert,
     StyleSheet,
     TouchableOpacity,
     ListView,
@@ -36,34 +37,28 @@ const PantsList = React.createClass({
     getInitialState () {
 
         return {
-            loaded: true
+            loaded: true,
+            modalIsOpen: false
         };
     },
 
-    componentDidMount () {
-        // let self = this;
-        // DBEvents.on('all', function () {
-        //     self.getAllPants();
-        // });
-        //
-        // this.getAllPants();
-    },
-
-    getAllPants () {
-        // const self = this;
-        // let rowSource;
-        // DB.pants.get_all(function (result) {
-        //     // rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-        //     self.setState({
-        //         dataSource: ds.cloneWithRows(result.rows),
-        //         loaded: true
-        //     });
-        //     console.log(result.rows);
-        // });
-    },
-
     onRowPress () {
-        console.log('press')
+        Alert.alert(
+            'Choose Your Pants',
+            'Are you wearing these pants today?',
+            [
+                {text: 'Nope', onPress: () => console.log('Not wearing pants'), style: 'cancel'},
+                {text: 'Absolutely', onPress: () => console.log('Absolutely wearing these pants today')},
+            ]
+        )
+    },
+
+    openModal () {
+        this.setState({modalIsOpen: true});
+    },
+
+    closeModal () {
+        this.setState({modalIsOpen: false});
     },
 
     renderPantsList (pants) {
@@ -89,7 +84,10 @@ const PantsList = React.createClass({
                     renderRow={this.renderPantsList}
                     style={{height: this.props.height}}
                 />
-                <PantsSelectionModal />
+                <PantsSelectionModal
+                    isVisible={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                />
             </View>
         );
     }
