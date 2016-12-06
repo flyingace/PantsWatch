@@ -5,7 +5,11 @@ import {
     AppRegistry,
     StatusBar
 } from 'react-native';
+import { Provider } from 'react-redux';
+import configureStore from './src/store/configureStore';
 import Application from './src/components/Application';
+
+const store = configureStore();
 
 const PantsWatch = React.createClass({
 
@@ -16,7 +20,9 @@ const PantsWatch = React.createClass({
 
     render: function () {
         return (
-            <Application />
+            <Provider store={store}>
+                <Application />
+            </Provider>
         );
     }
 });

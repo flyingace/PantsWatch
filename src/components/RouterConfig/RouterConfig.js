@@ -13,7 +13,7 @@ import {
 
 import Landing from '../Landing';
 import PantsForm from '../PantsForm';
-import PantsListView from '../PantsListView';
+import PantsListPage from '../../containers/PantsListPage';
 import Patches from '../Patches';
 import Settings from '../Settings';
 
@@ -44,8 +44,8 @@ const RouterConfig = React.createClass({
                 <Schema name="withoutAnimation"/>
 
                 <Route name="landing" component={Landing} title="Launch" hideNavBar={true}/>
-                <Route name="choosePants" component={PantsListView} title="Choose Your Pants"/>
-                <Route name="seePants" component={PantsListView} title="See Your Pants"/>
+                <Route name="choosePants" component={PantsListPage} title="Choose Your Pants"/>
+                <Route name="seePants" component={PantsListPage} title="See Your Pants"/>
                 <Route name="addPants" component={PantsForm} title="Add Some Pants" type="switch"/>
                 <Route name="editPants" component={PantsForm} title="Alter Your Pants"/>
                 <Route name="washPants" component={PantsForm} title="Wash Your Pants"/>
