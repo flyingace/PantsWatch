@@ -42,6 +42,7 @@ export default function pantsList(state = initialState, action) {
             state = assign({}, state, {
                 pantsData: action.state
             });
+            console.log(state);
             break;
 
         case FAILURE_PANTS_DATA:

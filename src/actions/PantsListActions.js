@@ -38,6 +38,10 @@ export function resetData() {
 //TODO: I think that perhaps what you need to do is to do the first load of the data
 //when the application loads, and then when the data is updated, update the pantsData
 //that exists in state and update the db separately
+//I THINK THIS IS WHERE YOUR PROBLEM IS
+//Perhaps it's b/c of asynchronicity or perhaps because of a need for promises
+//Except that the reducer, when logged, will show the data, it just never gets into the props!
+
 export function fetchPantsData() {
     return (dispatch) => {
         dispatch(requestPantsData());

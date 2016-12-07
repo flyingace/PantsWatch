@@ -46,12 +46,15 @@ const PantsListView = React.createClass({
     },
 
     componentDidMount () {
-        const rowSource = this.props.pantsList;
-        console.log('here');
-        this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(rowSource),
-            loaded: true
-        });
+        // const rowSource = this.props.pantsList;
+        // this.setState({
+        //     dataSource: this.state.dataSource.cloneWithRows(rowSource),
+        //     loaded: true
+        // });
+    },
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps);
     },
 
     getListDataSource () {
@@ -64,6 +67,7 @@ const PantsListView = React.createClass({
     },
 
     render() {
+        this.getListDataSource();
         // if (!this.state.loaded) {
         //     return false;
         // }
