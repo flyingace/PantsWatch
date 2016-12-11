@@ -1,14 +1,13 @@
 /*globals */
 
 import { combineReducers } from 'redux';
-// import { routerReducer as routing } from 'react-router-redux';
-import PantsListReducer from './PantsListReducer';
-import FormReducer from './FormReducer';
+import pantsListReducer from './PantsListReducer';
+import formReducer from './FormReducer';
 
 const rootReducer = combineReducers({
     // routing,
-    PantsListReducer,
-    FormReducer
+    pantsListReducer,
+    formReducer
 });
 
 export default rootReducer;

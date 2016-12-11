@@ -12,11 +12,6 @@ import PantsList from './PantsList';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-import pantsData from '../../pants_data.json';
-
-import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
-
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
@@ -25,7 +20,7 @@ const PantsListView = React.createClass({
 
     propTypes: {
         pantsList: React.PropTypes.object,
-        fetchPantsData: React.PropTypes.func,
+        fetchPantsData: React.PropTypes.func
     },
 
     getDefaultProps () {
@@ -36,8 +31,7 @@ const PantsListView = React.createClass({
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
-            }),
-            loaded: false
+            })
         };
     },
 
@@ -46,32 +40,28 @@ const PantsListView = React.createClass({
     },
 
     componentDidMount () {
-        // const rowSource = this.props.pantsList;
-        // this.setState({
-        //     dataSource: this.state.dataSource.cloneWithRows(rowSource),
-        //     loaded: true
-        // });
+        this.getListDataSource();
     },
 
     componentWillReceiveProps(newProps) {
-        console.log(newProps);
+        this.getListDataSource(newProps)
     },
 
-    getListDataSource () {
-        const rowSource = this.props.pantsList;
-        console.log('here');
+    getListDataSource (newProps) {
+        let rowSource;
+        if (newProps) {
+            rowSource = newProps.pantsList.pantsData.rows;
+        } else if (this.props.pantsList.pantsData.rows) {
+            rowSource = this.props.pantsList.pantsData.rows;
+        } else {
+            rowSource = {};
+        }
         this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(rowSource),
-            loaded: true
+            dataSource: this.state.dataSource.cloneWithRows(rowSource)
         });
     },
 
     render() {
-        this.getListDataSource();
-        // if (!this.state.loaded) {
-        //     return false;
-        // }
-
         return (
             <View>
                 <Image source={BackgroundImage} style={styles.backgroundImage}/>
@@ -83,6 +73,7 @@ const PantsListView = React.createClass({
                 />
             </View>
         );
+
     }
 });
 

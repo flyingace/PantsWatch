@@ -13,24 +13,7 @@ const initialState = {
     pantsData: {}
 };
 
-// function filterByLetter(state, letter) {
-//     const nameList = state.nameList;
-//     const filteredNames = {};
-//
-//     if (isUndefined(letter)) {
-//         return nameList;
-//     }
-//
-//     forEach(nameList, (listItem, key) => {
-//         if (toLower(listItem.name.charAt(0)) === toLower(letter)) {
-//             filteredNames[key] = listItem;
-//         }
-//     });
-//
-//     return filteredNames;
-// }
-
-export default function pantsList(state = initialState, action) {
+export default function pantsListReducer(state = initialState, action) {
     switch (action.type) {
         case SELECT_PANTS:
             break;
