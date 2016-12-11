@@ -11,11 +11,6 @@ import {
 import PantsListRow from './PantsListRow';
 import PantsSelectionModal from './PantsSelectionModal';
 
-import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
-
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
 const PantsList = React.createClass({
 
     displayName: 'PantsList',
@@ -24,20 +19,8 @@ const PantsList = React.createClass({
         dataSource: React.PropTypes.object
     },
 
-    getDefaultProps() {
-        return {
-            // pantsName: 'Favorite Pants',
-            // pantsColor: 'Blue',
-            // pantsStyle: 'Casual',
-            // pantsBrand: 'Levis',
-            // pantsWearLimit: 6
-        };
-    },
-
     getInitialState () {
-
         return {
-            loaded: true,
             modalIsOpen: false
         };
     },
@@ -72,10 +55,6 @@ const PantsList = React.createClass({
     },
 
     render () {
-        if (!this.state.loaded) {
-            return false;
-        }
-
         return (
             <View>
                 <ListView
@@ -83,6 +62,7 @@ const PantsList = React.createClass({
                     dataSource={this.props.dataSource}
                     renderRow={this.renderPantsList}
                     style={{height: this.props.height}}
+                    enableEmptySections={true}
                 />
                 <PantsSelectionModal
                     isVisible={this.state.modalIsOpen}
@@ -91,10 +71,6 @@ const PantsList = React.createClass({
             </View>
         );
     }
-});
-
-const pantsListStyles = StyleSheet.create({
-    pantsList: {}
 });
 
 module.exports = PantsList;

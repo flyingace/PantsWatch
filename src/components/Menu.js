@@ -10,7 +10,7 @@ import {
     LayoutAnimation
 } from 'react-native';
 import Landing from './Landing';
-import PantsListView from './PantsListView';
+import PantsListPage from '../containers/PantsListPage';
 import PantsForm from './PantsForm';
 import Patches from './Patches';
 import Settings from './Settings';
@@ -72,7 +72,7 @@ const Menu = React.createClass({
                 nav.replace({component: Landing, name: 'Home'});
                 break;
             case 'choosePants':
-                nav.replace({component: PantsListView, name: 'Choose Pants'});
+                nav.replace({component: PantsListPage, name: 'Choose Pants'});
                 break;
             case 'addPants':
                 nav.replace({component: PantsForm, name: 'Add Pants'});

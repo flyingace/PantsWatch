@@ -1,4 +1,4 @@
-import {push} from 'react-router-redux';
+// import {push} from 'react-router-redux';
 
 export const UPDATE_CURRENT_DESCRIPTION = 'UPDATE_CURRENT_DESCRIPTION';
 
@@ -7,7 +7,7 @@ export function updateCurrentDescription(data) {
 }
 
 export function goToDrawingPage() {
-    return (dispatch) => {
-        dispatch(push('/draw'));
-    }
+    // return (dispatch) => {
+    //     dispatch(push('/draw'));
+    // }
 }

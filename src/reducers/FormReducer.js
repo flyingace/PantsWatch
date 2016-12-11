@@ -8,7 +8,7 @@ const initialState = {
 };
 
 
-export default function form(state = initialState, action) {
+export default function formReducer(state = initialState, action) {
     switch (action.type) {
 
         case UPDATE_CURRENT_DESCRIPTION:

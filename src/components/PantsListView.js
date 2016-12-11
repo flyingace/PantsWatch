@@ -12,11 +12,6 @@ import PantsList from './PantsList';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-import pantsData from '../../pants_data.json';
-
-import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
-
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
@@ -24,10 +19,11 @@ const titleHeight = 125;
 const PantsListView = React.createClass({
 
     propTypes: {
-        pantsData: React.PropTypes.object
+        pantsList: React.PropTypes.object,
+        fetchPantsData: React.PropTypes.func
     },
 
-    getDefaultProps() {
+    getDefaultProps () {
         return null
     },
 
@@ -35,38 +31,37 @@ const PantsListView = React.createClass({
         return {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2) => row1 !== row2
-            }),
-            loaded: true
+            })
         };
     },
 
-    componentDidMount: function () {
-        this.getAllPants();
+    componentWillMount () {
+        this.props.fetchPantsData();
     },
 
-    addListeners () {
-        DBEvents.on('all', () => {
-            this.getAllPants();
-        });
+    componentDidMount () {
+        this.getListDataSource();
     },
 
-    getAllPants: function () {
+    componentWillReceiveProps(newProps) {
+        this.getListDataSource(newProps)
+    },
+
+    getListDataSource (newProps) {
         let rowSource;
-        DB.pants.get_all( (result) => {
-            rowSource = (result.totalrows > 0) ? result.rows : pantsData.pants;
-            this.setState({
-                dataSource: this.state.dataSource.cloneWithRows(rowSource),
-                loaded: true
-            });
-            console.log(result);
+        if (newProps) {
+            rowSource = newProps.pantsList.pantsData.rows;
+        } else if (this.props.pantsList.pantsData.rows) {
+            rowSource = this.props.pantsList.pantsData.rows;
+        } else {
+            rowSource = {};
+        }
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(rowSource)
         });
     },
 
     render() {
-        if (!this.state.loaded) {
-            return false;
-        }
-
         return (
             <View>
                 <Image source={BackgroundImage} style={styles.backgroundImage}/>
@@ -78,6 +73,7 @@ const PantsListView = React.createClass({
                 />
             </View>
         );
+
     }
 });
 

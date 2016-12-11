@@ -36,7 +36,6 @@ const PantsListRow = React.createClass({
     },
 
     render() {
-        console.log(this.props);
         return (
             <View style={rowStyles.pantsRow}>
                 <Image

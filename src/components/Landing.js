@@ -4,7 +4,7 @@ import React from 'react';
 import {Image, LayoutAnimation, StyleSheet, Text, View} from 'react-native';
 import Dimensions from 'Dimensions';
 import Pane from './Pane';
-import PantsListView from './PantsListView';
+import PantsListPage from '../containers/PantsListPage';
 import PantsForm from './PantsForm';
 import Patches from './Patches';
 import Settings from './Settings';
@@ -57,7 +57,7 @@ const Landing = React.createClass({
                 nav.push({component: Landing, name: 'Home'});
                 break;
             case 'choosePants':
-                nav.replace({component: PantsListView, name: 'Choose Pants'});
+                nav.replace({component: PantsListPage, name: 'Choose Pants'});
                 break;
             case 'addPants':
                 nav.replace({component: PantsForm, name: 'Add Pants'});
@@ -66,7 +66,7 @@ const Landing = React.createClass({
                 nav.replace({component: PantsForm, name: 'Edit Pants'});
                 break;
             case 'washPants':
-                nav.replace({component: PantsListView, name: 'Wash Pants'});
+                nav.replace({component: PantsListPage, name: 'Wash Pants'});
                 break;
             case 'patches':
                 nav.replace({component: Patches, name: 'Wash Pants'});
