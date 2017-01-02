@@ -5,16 +5,16 @@ import {
     View
 } from 'react-native';
 
-const MaxWearsBox = React.createClass({
+const wearLimitBox = React.createClass({
 
-    displayName: 'MaxWearsBox',
+    displayName: 'WearLimitBox',
 
     propTypes: {},
 
     getDefaultProps() {
         return {
-            wearsCount: 0,
-            maxWears: 6
+            pantsWearCount: 0,
+            pantsWearLimit: 6
         }
     },
 
@@ -30,15 +30,15 @@ const MaxWearsBox = React.createClass({
 
     render() {
         return (
-            <View style={maxWearsStyles.maxWearsBox}>
-                <Text style={maxWearsStyles.countText}>{this.props.wearsCount}/{this.props.maxWears}</Text>
+            <View style={pantsWearLimitStyles.pantsWearLimitBox}>
+                <Text style={pantsWearLimitStyles.countText}>{this.props.pantsWearCount}/{this.props.pantsWearLimit}</Text>
             </View>
         );
     }
 });
 
-const maxWearsStyles = StyleSheet.create({
-    maxWearsBox: {
+const pantsWearLimitStyles = StyleSheet.create({
+    pantsWearLimitBox: {
         width: 58,
         borderColor: '#008800',
         borderWidth: 4,
@@ -57,4 +57,4 @@ const maxWearsStyles = StyleSheet.create({
 });
 
 
-module.exports = MaxWearsBox;
+module.exports = wearLimitBox;

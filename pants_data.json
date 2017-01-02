@@ -6,7 +6,7 @@
             "pantsColor": "Blue",
             "pantsStyle": "Casual",
             "pantsBrand": "Gap",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants02.png",
@@ -14,7 +14,7 @@
             "pantsColor": "Black",
             "pantsStyle": "Work Casual",
             "pantsBrand": "Banana Republic",
-            "maxWears": 66
+            "pantsWearLimit": 66
         },
         {
             "img_url": "../assets/pants03.png",
@@ -22,7 +22,7 @@
             "pantsColor": "Tan",
             "pantsStyle": "Casual",
             "pantsBrand": "Carhart",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants04.png",
@@ -30,7 +30,7 @@
             "pantsColor": "Black",
             "pantsStyle": "Formal",
             "pantsBrand": "Banana Republic",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants05.png",
@@ -38,7 +38,7 @@
             "pantsColor": "Green",
             "pantsStyle": "Casual",
             "pantsBrand": "Gap",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants06.png",
@@ -46,7 +46,7 @@
             "pantsColor": "Tan",
             "pantsStyle": "Casual",
             "pantsBrand": "Gap",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants07.png",
@@ -54,7 +54,7 @@
             "pantsColor": "Light Blue",
             "pantsStyle": "Casual",
             "pantsBrand": "Levi's",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants01.png",
@@ -62,7 +62,7 @@
             "pantsColor": "Blue",
             "pantsStyle": "Casual",
             "pantsBrand": "Gap",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants02.png",
@@ -70,7 +70,7 @@
             "pantsColor": "Black",
             "pantsStyle": "Work Casual",
             "pantsBrand": "Banana Republic",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants03.png",
@@ -78,7 +78,7 @@
             "pantsColor": "Tan",
             "pantsStyle": "Casual",
             "pantsBrand": "Carhart",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants04.png",
@@ -86,7 +86,7 @@
             "pantsColor": "Black",
             "pantsStyle": "Formal",
             "pantsBrand": "Banana Republic",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants05.png",
@@ -94,7 +94,7 @@
             "pantsColor": "Green",
             "pantsStyle": "Casual",
             "pantsBrand": "Gap",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants06.png",
@@ -102,7 +102,7 @@
             "pantsColor": "Tannish",
             "pantsStyle": "Casual",
             "pantsBrand": "Gap",
-            "maxWears": 6
+            "pantsWearLimit": 6
         },
         {
             "img_url": "../assets/pants07.png",
@@ -110,7 +110,7 @@
             "pantsColor": "Light Blue",
             "pantsStyle": "Casual",
             "pantsBrand": "Levi's",
-            "maxWears": 6
+            "pantsWearLimit": 6
         }
     ]
 }
