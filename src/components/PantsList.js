@@ -16,6 +16,7 @@ const PantsList = React.createClass({
     displayName: 'PantsList',
 
     propTypes: {
+        selectPants: React.PropTypes.func,
         dataSource: React.PropTypes.object
     },
 
@@ -25,15 +26,20 @@ const PantsList = React.createClass({
         };
     },
 
-    onRowPress () {
+    onRowPress (pantsData) {
+        const pantsId = pantsData._id;
         Alert.alert(
             'Choose Your Pants',
             'Are you wearing these pants today?',
             [
                 {text: 'Nope', onPress: () => console.log('Not wearing pants'), style: 'cancel'},
-                {text: 'Absolutely', onPress: () => console.log('Absolutely wearing these pants today')},
+                {text: 'Absolutely', onPress: () => this.onPantsSelection(pantsId)},
             ]
         )
+    },
+
+    onPantsSelection (pantsId) {
+        this.props.selectPants(pantsId);
     },
 
     openModal () {
@@ -44,12 +50,12 @@ const PantsList = React.createClass({
         this.setState({modalIsOpen: false});
     },
 
-    renderPantsList (pants) {
+    renderPantsList (pantsData) {
         return (
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={this.onRowPress}>
-                <PantsListRow {...pants} style={{overflow: 'hidden'}}/>
+                onPress={() => this.onRowPress(pantsData)}>
+                <PantsListRow {...pantsData} style={{overflow: 'hidden'}}/>
             </TouchableOpacity>
         );
     },

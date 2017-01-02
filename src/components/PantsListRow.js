@@ -9,7 +9,7 @@ import {
     Text,
     View
 } from 'react-native';
-import MaxWearsBox from './MaxWearsBox';
+import WearLimitBox from './WearLimitBox';
 import defaultPantsImgSrc from '../../assets/pants01.png'
 
 const PantsListRow = React.createClass({
@@ -20,7 +20,8 @@ const PantsListRow = React.createClass({
         pantsBrand: React.PropTypes.string,
         pantsStyle: React.PropTypes.string,
         pantsWearLimit: React.PropTypes.number,
-        pantsImgSrc: React.PropTypes.any
+        pantsImgSrc: React.PropTypes.any,
+        selected: React.PropTypes.bool
     },
 
     getDefaultProps() {
@@ -31,13 +32,15 @@ const PantsListRow = React.createClass({
             pantsStyle: 'Casual',
             pantsWearLimit: 9,
             pantsImgSrc: {defaultPantsImgSrc},
+            selected: false,
             lastWornDate: '12/23/15'
         };
     },
 
     render() {
+        const rowStyle = (this.props.selected) ? rowStyles.selectedRow : rowStyles.pantsRow;
         return (
-            <View style={rowStyles.pantsRow}>
+            <View style={rowStyle}>
                 <Image
                     source={this.props.pantsImgSrc}
                     style={rowStyles.thumb}/>
@@ -52,7 +55,7 @@ const PantsListRow = React.createClass({
                     </View>
                 </View>
                 <View style={rowStyles.rightCol}>
-                    <MaxWearsBox wearsCount={this.props.wearsCount} maxWears={this.props.pantsWearLimit}/>
+                    <WearLimitBox pantsWearCount={this.props.pantsWearCount} pantsWearLimit={this.props.pantsWearLimit}/>
                     <View style={rowStyles.rightColBottom}>
                         <Text style={rowStyles.lastWornOn}>
                             Last Worn On:
@@ -78,6 +81,16 @@ const rowStyles = StyleSheet.create({
         padding: 3,
         overflow: 'hidden'
     },
+    selectedRow: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255,255,255,.85)',
+        borderTopColor: '#EEEEEE',
+        borderTopWidth: 1,
+        height: 76,
+        padding: 3,
+        overflow: 'hidden',
+    },
     thumb: {
         width: 70,
         height: 70,
@@ -93,7 +106,8 @@ const rowStyles = StyleSheet.create({
     name: {
         fontSize: 40,
         fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left'
+        textAlign: 'left',
+        color: 'black'
 
     },
     middleColBottom: {
@@ -103,21 +117,24 @@ const rowStyles = StyleSheet.create({
     },
     color: {
         flex: 1,
-        fontSize: 18,
+        fontSize: 24,
         fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left'
+        textAlign: 'left',
+        color: 'black'
     },
     style: {
         flex: 1,
-        fontSize: 18,
+        fontSize: 24,
         fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left'
+        textAlign: 'left',
+        color: 'black'
     },
     brand: {
         flex: 1,
-        fontSize: 18,
+        fontSize: 24,
         fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left'
+        textAlign: 'left',
+        color: 'black'
     },
     rightCol: {
         flexDirection: 'column',

@@ -20,7 +20,9 @@ const PantsListView = React.createClass({
 
     propTypes: {
         pantsList: React.PropTypes.object,
-        fetchPantsData: React.PropTypes.func
+        fetchPantsData: React.PropTypes.func,
+        selectPants: React.PropTypes.func,
+        deselectAllPants: React.PropTypes.func
     },
 
     getDefaultProps () {
@@ -70,6 +72,8 @@ const PantsListView = React.createClass({
                     height={windowDims.height - titleHeight}
                     dataSource={this.state.dataSource}
                     style={styles.pantsList}
+                    selectPants={this.props.selectPants}
+                    deselectAllPants={this.props.deselectAllPants}
                 />
             </View>
         );
