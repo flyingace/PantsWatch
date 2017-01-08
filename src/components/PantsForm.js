@@ -67,6 +67,7 @@ const PantsForm = React.createClass({
             pantsColor: null,
             pantsStyle: null,
             pantsBrand: null,
+            pantsWearCount: 0,
             pantsWearLimit: null
         }
     },
@@ -78,6 +79,7 @@ const PantsForm = React.createClass({
             pantsColor: this.props.pantsColor,
             pantsStyle: this.props.pantsStyle,
             pantsBrand: this.props.pantsBrand,
+            pantsWearCount: this.props.pantsWearCount,
             pantsWearLimit: this.props.pantsWearLimit
         };
     },
@@ -104,8 +106,9 @@ const PantsForm = React.createClass({
             pantsColor: formData.pantsColor,
             pantsBrand: formData.pantsBrand,
             pantsStyle: formData.pantsStyle,
-            pantsWearLimit: formData.pantsWearLimit
-            // lastWorn: value.lastWornDate,
+            pantsWearCount: 0,
+            pantsWearLimit: formData.pantsWearLimit,
+            lastWornDate: ''
             // addedOn: value.addedOnDate,
             // notes: value.notes
         }, () => {

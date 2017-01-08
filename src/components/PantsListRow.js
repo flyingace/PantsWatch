@@ -21,7 +21,8 @@ const PantsListRow = React.createClass({
         pantsStyle: React.PropTypes.string,
         pantsWearLimit: React.PropTypes.number,
         pantsImgSrc: React.PropTypes.any,
-        selected: React.PropTypes.bool
+        selected: React.PropTypes.bool,
+        lastWornDate: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -33,9 +34,21 @@ const PantsListRow = React.createClass({
             pantsWearLimit: 9,
             pantsImgSrc: {defaultPantsImgSrc},
             selected: false,
-            lastWornDate: '12/23/15'
+            lastWornDate: ''
         };
     },
+
+    maybeRenderLastWornDate() {
+        if (this.props.lastWornDate.length > 0) {
+            return (
+                <View style={rowStyles.rightColBottom}>
+                    <Text style={rowStyles.lastWornOn}>Last Worn On:</Text>
+                    <Text style={rowStyles.lastWornOn}>{this.props.lastWornDate}</Text>
+                </View>
+            );
+        }
+    },
+
 
     render() {
         const rowStyle = (this.props.selected) ? rowStyles.selectedRow : rowStyles.pantsRow;
@@ -56,14 +69,7 @@ const PantsListRow = React.createClass({
                 </View>
                 <View style={rowStyles.rightCol}>
                     <WearLimitBox pantsWearCount={this.props.pantsWearCount} pantsWearLimit={this.props.pantsWearLimit}/>
-                    <View style={rowStyles.rightColBottom}>
-                        <Text style={rowStyles.lastWornOn}>
-                            Last Worn On:
-                        </Text>
-                        <Text style={rowStyles.lastWornOn}>
-                            {this.props.lastWornDate}
-                        </Text>
-                    </View>
+                        {this.maybeRenderLastWornDate()}
                 </View>
             </View>
         );

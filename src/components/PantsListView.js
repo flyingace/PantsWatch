@@ -8,6 +8,7 @@ import {
     View
 } from 'react-native';
 import Dimensions from 'Dimensions';
+import {DBEvents} from 'react-native-db-models';
 import PantsList from './PantsList';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
@@ -43,6 +44,7 @@ const PantsListView = React.createClass({
 
     componentDidMount () {
         this.getListDataSource();
+        DBEvents.on('all', this.props.fetchPantsData);
     },
 
     componentWillReceiveProps(newProps) {
