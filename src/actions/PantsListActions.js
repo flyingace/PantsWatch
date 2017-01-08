@@ -1,6 +1,7 @@
 import {forEach} from 'lodash';
 import DB from '../../db.js';
 import {DBEvents} from 'react-native-db-models';
+import moment from 'moment';
 
 export const SELECT_PANTS = 'SELECT_PANTS';
 export const DESELECT_ALL_PANTS = 'DESELECT_ALL_PANTS';
@@ -24,13 +25,18 @@ export function deselectAllPants() {
 
 export function selectPants(pantsId) {
     return (dispatch) => {
-        DB.pants.update({selected: true}, {selected: false}, () => {
-            DB.pants.update_id(pantsId, {selected: true}, (data) => {
-                console.log(data);
-                dispatch(receivePantsData(data.pants));
+        DB.pants.update({selected:true}, {selected: false}, (results) => {
+            DB.pants.get_id(pantsId, (result) => {
+                const oldCount = result[0].pantsWearCount || 0;
+                const newCount = oldCount + 1;
+                const lastWorn = moment().format('L');
+
+                DB.pants.update_id(pantsId, {selected: true, pantsWearCount: newCount, lastWornDate: lastWorn}, (data) => {
+                    dispatch(receivePantsData(data.pants));
+                });
             });
         });
-    }
+    };
 }
 
 export function requestPantsData() {
@@ -38,6 +44,7 @@ export function requestPantsData() {
 }
 
 export function receivePantsData(data) {
+    console.log(data);
     return {type: RECEIVE_PANTS_DATA, state: data}
 }
 

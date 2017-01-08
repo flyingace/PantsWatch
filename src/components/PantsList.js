@@ -32,8 +32,8 @@ const PantsList = React.createClass({
             'Choose Your Pants',
             'Are you wearing these pants today?',
             [
-                {text: 'Nope', onPress: () => console.log('Not wearing pants'), style: 'cancel'},
-                {text: 'Absolutely', onPress: () => this.onPantsSelection(pantsId)},
+                {text: 'Nope', onPress: () => this.props.deselectAllPants(), style: 'cancel'},
+                {text: 'Absolutely', onPress: () => this.onPantsSelection(pantsId)}
             ]
         )
     },
