@@ -23,7 +23,9 @@ const PantsListView = React.createClass({
         pantsList: React.PropTypes.object,
         fetchPantsData: React.PropTypes.func,
         selectPants: React.PropTypes.func,
-        deselectAllPants: React.PropTypes.func
+        deletePants: React.PropTypes.func,
+        deselectAllPants: React.PropTypes.func,
+        resetWearCount: React.PropTypes.func
     },
 
     getDefaultProps () {
@@ -75,6 +77,8 @@ const PantsListView = React.createClass({
                     dataSource={this.state.dataSource}
                     style={styles.pantsList}
                     selectPants={this.props.selectPants}
+                    washPants={this.props.resetWearCount}
+                    deletePants={this.props.deletePants}
                     deselectAllPants={this.props.deselectAllPants}
                 />
             </View>
