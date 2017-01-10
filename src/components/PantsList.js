@@ -11,35 +11,44 @@ import {
 import PantsListRow from './PantsListRow';
 import PantsSelectionModal from './PantsSelectionModal';
 
+let pantsId;
+
 const PantsList = React.createClass({
 
     displayName: 'PantsList',
 
     propTypes: {
         selectPants: React.PropTypes.func,
+        washPants: React.PropTypes.func,
+        deletePants: React.PropTypes.func,
         dataSource: React.PropTypes.object
     },
 
     getInitialState () {
         return {
-            modalIsOpen: false
+            modalIsOpen: false,
+            selectedPants: ''
         };
     },
 
     onRowPress (pantsData) {
-        const pantsId = pantsData._id;
-        Alert.alert(
-            'Choose Your Pants',
-            'Are you wearing these pants today?',
-            [
-                {text: 'Nope', onPress: () => this.props.deselectAllPants(), style: 'cancel'},
-                {text: 'Absolutely', onPress: () => this.onPantsSelection(pantsId)}
-            ]
-        )
+        pantsId = pantsData._id;
+        this.setState({modalIsOpen: true});
     },
 
-    onPantsSelection (pantsId) {
+    onPantsSelection () {
         this.props.selectPants(pantsId);
+        this.closeModal();
+    },
+
+    onPantsWash () {
+        this.props.washPants(pantsId);
+        this.closeModal();
+    },
+
+    onPantsDelete () {
+        this.props.deletePants(pantsId);
+        this.closeModal();
     },
 
     openModal () {
@@ -72,6 +81,9 @@ const PantsList = React.createClass({
                 />
                 <PantsSelectionModal
                     isVisible={this.state.modalIsOpen}
+                    onPantsSelection = {this.onPantsSelection}
+                    onPantsWash = {this.onPantsWash}
+                    onPantsDelete = {this.onPantsDelete}
                     onRequestClose={this.closeModal}
                 />
             </View>

@@ -39,6 +39,20 @@ export function selectPants(pantsId) {
     };
 }
 
+export function resetWearCount(pantsId) {
+    return (dispatch) => {
+        DB.pants.update_id(pantsId, {pantsWearCount: 0}, (data) => {
+            dispatch(receivePantsData(data.pants));
+        });
+    }
+}
+
+export function deletePants(pantsId) {
+    return (dispatch) => {
+        DB.pants.remove_id(pantsId);
+    }
+}
+
 export function requestPantsData() {
     return {type: REQUEST_PANTS_DATA}
 }
@@ -63,8 +77,4 @@ export function fetchPantsData() {
             dispatch(receivePantsData(data));
         })
     }
-}
-
-export function filterNameList(letter) {
-    return {type: FILTER_NAME_LIST, letter};
 }
