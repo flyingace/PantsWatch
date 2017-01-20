@@ -1,5 +1,4 @@
 import React from 'react';
-import Dimensions from 'Dimensions';
 import {
     Image,
     ScrollView,
@@ -9,9 +8,10 @@ import {
     View,
     LayoutAnimation
 } from 'react-native';
+import Dimensions from 'Dimensions';
 import Landing from './Landing';
 import PantsListPage from '../containers/PantsListPage';
-import PantsForm from './PantsForm';
+import PantsFormPage from '../containers/PantsFormPage';
 import Patches from './Patches';
 import Settings from './Settings';
 import MenuTab from '../../assets/menu_tab.png';
@@ -75,7 +75,7 @@ const Menu = React.createClass({
                 nav.replace({component: PantsListPage, name: 'Choose Pants'});
                 break;
             case 'addPants':
-                nav.replace({component: PantsForm, name: 'Add Pants'});
+                nav.replace({component: PantsFormPage, name: 'Add Pants'});
                 break;
             case 'editPants':
                 //nav.replace({component: PantsForm, name: 'Edit Pants'});

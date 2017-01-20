@@ -18,6 +18,7 @@ const PantsSelectionModal = React.createClass({
         isOpen: React.PropTypes.bool,
         onRequestClose: React.PropTypes.func,
         onPantsSelection: React.PropTypes.func,
+        onPantsEdit: React.PropTypes.func,
         onPantsWash: React.PropTypes.func,
         onPantsDelete: React.PropTypes.func
     },
@@ -26,6 +27,10 @@ const PantsSelectionModal = React.createClass({
         return {
             isOpen: false
         }
+    },
+
+    goToEditPants () {
+        this.props.navigator.replace({component: PantsForm, name: 'Edit Pants'})
     },
 
     render() {
@@ -51,7 +56,7 @@ const PantsSelectionModal = React.createClass({
                             accessibilityLabel="You just washed these pants."
                         />
                         <Button
-                            onPress={this.props.onRequestClose}
+                            onPress={this.props.onPantsEdit}
                             title="I want to update the info about these pants"
                             color="#66d8ff"
                             accessibilityLabel="You want to update the info about these pants."

@@ -6,7 +6,7 @@ import PantsForm from '../components/PantsForm';
 
 function mapStateToProps(state) {
     return {
-        form: state.formReducer
+        pantsData: state.formReducer
     };
 }
 
