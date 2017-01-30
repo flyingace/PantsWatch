@@ -8,6 +8,7 @@ import {
     ListView,
     View
 } from 'react-native';
+import PantsFormPage from '../containers/PantsFormPage';
 import PantsListRow from './PantsListRow';
 import PantsSelectionModal from './PantsSelectionModal';
 
@@ -42,8 +43,12 @@ const PantsList = React.createClass({
     },
 
     onPantsWash () {
-        this.props.washPants(pantsId);
+        this.props.resetWearCount(pantsId);
         this.closeModal();
+    },
+
+    onPantsEdit () {
+        this.props.navigator.replace({component: PantsFormPage, name: 'Update Pants', updateId: pantsId})
     },
 
     onPantsDelete () {
@@ -83,6 +88,7 @@ const PantsList = React.createClass({
                     isVisible={this.state.modalIsOpen}
                     onPantsSelection = {this.onPantsSelection}
                     onPantsWash = {this.onPantsWash}
+                    onPantsEdit = {this.onPantsEdit}
                     onPantsDelete = {this.onPantsDelete}
                     onRequestClose={this.closeModal}
                 />

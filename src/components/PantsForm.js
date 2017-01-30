@@ -13,16 +13,13 @@ import DB from '../../db.js';
 import {DBEvents} from 'react-native-db-models';
 import FormText from './FormTextInput';
 import PantsListView from './PantsListView';
-import PantsWatchStyles from '../styles/PantsWatchStyles.js';
+import FormStyles from '../styles/FormStyles.js';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-//TODO: I'm not sure that using state here to hold and pass the form values is really
-//the best way to go about doing this. Would it be better to just use a regular object {} ?
-
 const Form = t.form.Form;
 
-const Pants = t.struct({
+const AddPants = t.struct({
     pantsName: t.String,
     pantsColor: t.maybe(t.String),
     pantsStyle: t.maybe(t.String),
@@ -30,10 +27,30 @@ const Pants = t.struct({
     pantsWearLimit: t.Number
 });
 
+const UpdatePants = t.struct({
+    _id: t.Number,
+    selected: t.Boolean,
+    pantsName: t.String,
+    pantsColor: t.maybe(t.String),
+    pantsStyle: t.maybe(t.String),
+    pantsBrand: t.maybe(t.String),
+    pantsWearCount: t.Number,
+    pantsWearLimit: t.Number,
+    lastWornDate: t.maybe(t.String)
+});
+
 const options = {
+    stylesheet: FormStyles,
+    // auto: 'placeholders',
+    autoCapitalize: true,
     fields: {
+        _id: {
+            hidden: true
+        },
+        selected: {
+            hidden: true
+        },
         pantsName: {
-            // stylesheet: myCustomStylesheet,
             label: 'Name:'
         },
         pantsColor: {
@@ -45,17 +62,24 @@ const options = {
         pantsBrand: {
             label: 'Brand:'
         },
+        pantsWearCount: {
+            label: 'Wear Count:'
+        },
         pantsWearLimit: {
             label: 'Wear Limit:'
+        },
+        lastWornDate: {
+            label: 'Last Worn On:'
         }
+
     }
 };
-
 
 const PantsForm = React.createClass({
 
     propTypes: {
         pantsData: React.PropTypes.object,
+        retrievePantsData: React.PropTypes.func,
         validateForm: React.PropTypes.func,
         submitForm: React.PropTypes.func
     },
@@ -74,47 +98,71 @@ const PantsForm = React.createClass({
 
     getInitialState () {
         return {
-            pantsImg: this.props.pantsImg,
-            pantsName: this.props.pantsName,
-            pantsColor: this.props.pantsColor,
-            pantsStyle: this.props.pantsStyle,
-            pantsBrand: this.props.pantsBrand,
-            pantsWearCount: this.props.pantsWearCount,
-            pantsWearLimit: this.props.pantsWearLimit
+            value: {}
         };
     },
 
-    componentDidMount() {
+    componentWillMount() {
+        if(this.props.route.updateId) {
+            this.props.retrievePantsData(this.props.route.updateId);
+        }
+    },
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.pantsData.formData.value) {
+            this.setState({'value': nextProps.pantsData.formData.value});
+        }
+    },
+
+    renderForm () {
+        if (!this.props.route.updateId) {
+            return (
+                <View>
+                    <Text style={styles.formTitle}>Add Some Pants</Text>
+                    <Form ref="addPantsForm" type={AddPants} options={options}/>
+                </View>
+            )
+        } else {
+            return (
+                <View>
+                    <Text style={styles.formTitle}>Update Your Pants</Text>
+                    <Form ref="updatePantsForm" type={UpdatePants} options={options} value={this.state.value}/>
+                </View>
+            )
+        }
     },
 
     onFormSubmit () {
+
         //First Step Should Be To Validate
         //Then if validated, to update the database
         //And then to go to the pants list page
 
         // call getValue() to get the values of the form
-        const formData = this.refs.form.getValue();
-        if (formData) { // if validation fails, value will be null
-            console.log(formData);
-            this.addPantsToDB(formData);
+        let formData;
+        if (!this.props.route.updateId) {
+            formData = this.refs.addPantsForm.getValue();
+            if (formData) {
+                this.addPantsToDB(formData);
+            }
+        } else {
+            formData = this.refs.updatePantsForm.getValue();
+            if (formData) {
+                this.updatePantsInDB(formData);
+            }
         }
     },
 
     addPantsToDB (formData) {
-        DB.pants.add({
-            pantsName: formData.pantsName,
-            pantsColor: formData.pantsColor,
-            pantsBrand: formData.pantsBrand,
-            pantsStyle: formData.pantsStyle,
-            pantsWearCount: 0,
-            pantsWearLimit: formData.pantsWearLimit,
-            lastWornDate: ''
-            // addedOn: value.addedOnDate,
-            // notes: value.notes
-        }, () => {
+        this.props.addPantsData(formData);
             this.resetForm();
             this.navigateToPantsList();
-        });
+    },
+
+    updatePantsInDB (formData) {
+        this.props.updatePantsData(formData);
+        // this.resetForm();
+        // this.navigateToPantsList();
     },
 
     resetForm () {
@@ -126,6 +174,7 @@ const PantsForm = React.createClass({
         //if yes, do not navigate away but reset focus to first field.
         this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
     },
+
     render () {
 
         return (
@@ -133,12 +182,7 @@ const PantsForm = React.createClass({
                 <Image source={BackgroundImage} style={styles.backgroundImage}/>
                 <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
                     <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
-                    <Text style={styles.formTitle}>Add Some Pants</Text>
-                    <Form
-                        ref="form"
-                        type={Pants}
-                        options={options}
-                    />
+                    {this.renderForm()}
                     <Button
                         onPress={this.onFormSubmit}
                         title="Submit My Pants"

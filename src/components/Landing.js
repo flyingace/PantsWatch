@@ -1,5 +1,3 @@
-/*globals */
-
 import React from 'react';
 import {Image, LayoutAnimation, StyleSheet, Text, View} from 'react-native';
 import Dimensions from 'Dimensions';

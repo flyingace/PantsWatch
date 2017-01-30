@@ -47,6 +47,10 @@ export function resetWearCount(pantsId) {
     }
 }
 
+export function editPantsData(pantsId) {
+
+}
+
 export function deletePants(pantsId) {
     return (dispatch) => {
         DB.pants.remove_id(pantsId);

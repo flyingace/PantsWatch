@@ -76,10 +76,7 @@ const PantsListView = React.createClass({
                     height={windowDims.height - titleHeight}
                     dataSource={this.state.dataSource}
                     style={styles.pantsList}
-                    selectPants={this.props.selectPants}
-                    washPants={this.props.resetWearCount}
-                    deletePants={this.props.deletePants}
-                    deselectAllPants={this.props.deselectAllPants}
+                    {...this.props}
                 />
             </View>
         );

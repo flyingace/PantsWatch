@@ -1,22 +1,27 @@
 import {
-    UPDATE_CURRENT_DESCRIPTION
+    ADD_PANTS,
+    UPDATE_PANTS,
+    SET_FORM_DATA
 } from '../actions/FormActions';
 import {assign} from 'lodash';
 
 const initialState = {
-    currentDescription: ''
+    formData: {}
 };
 
 
 export default function formReducer(state = initialState, action) {
     switch (action.type) {
 
-        case UPDATE_CURRENT_DESCRIPTION:
+        case ADD_PANTS:
+            break;
+        case UPDATE_PANTS:
+            break;
+        case SET_FORM_DATA:
             state = assign({}, state, {
-                currentDescription: action.state
+                formData: action.state
             });
             break;
-
         default:
             return state;
     }
