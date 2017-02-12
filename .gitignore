@@ -22,65 +22,36 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# Android/IJ
+# Android/IntelliJ
 #
-*.iml
+build/
 .idea
 .gradle
 local.properties
+*.iml
 
 # node.js
 #
 node_modules/
 npm-debug.log
+yarn-error.log
+
+# directory containing versions of graphics files, fonts, etc.
+Materials/
 
 # BUCK
 buck-out/
 \.buckd/
 android/app/libs
-android/keystores/debug.keystore
+*.keystore
 
-### JetBrains template
-# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
-# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
 
-# User-specific stuff:
-.idea/workspace.xml
-.idea/tasks.xml
-
-# Sensitive or high-churn files:
-.idea/dataSources/
-.idea/dataSources.ids
-.idea/dataSources.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
-.idea/uiDesigner.xml
-
-# Gradle:
-.idea/gradle.xml
-.idea/libraries
-
-# Mongo Explorer plugin:
-.idea/mongoSettings.xml
-
-## File-based project format:
-*.iws
-
-## Plugin-specific files:
-
-# IntelliJ
-/out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
-
-# JIRA plugin
-atlassian-ide-plugin.xml
-
-# Crashlytics plugin (for Android Studio and IntelliJ)
-com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
-
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
