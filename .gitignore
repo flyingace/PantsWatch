@@ -17,14 +17,11 @@ xcuserdata
 *.xccheckout
 *.moved-aside
 DerivedData
-*.hmap
 *.ipa
-*.xcuserstate
 project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
 .idea
 .gradle
 local.properties
