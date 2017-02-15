@@ -6,7 +6,8 @@ import {
     Text,
     TouchableOpacity,
     View,
-    LayoutAnimation
+    LayoutAnimation,
+    UIManager
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import Landing from './Landing';
@@ -18,6 +19,10 @@ import MenuTab from '../../assets/menu_tab.png';
 
 const window = Dimensions.get('window');
 const panelWidth = window.width * .5;
+
+// Must be set for Android in order to use LayoutAnimations
+UIManager.setLayoutAnimationEnabledExperimental &&
+UIManager.setLayoutAnimationEnabledExperimental(true);
 
 
 const Menu = React.createClass({
@@ -44,13 +49,13 @@ const Menu = React.createClass({
 
     showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({left: 0, menu: 'shown', overlayWidth: window.width})
+        this.setState({ left: 0, menu: 'shown', overlayWidth: window.width })
 
     },
 
     hideMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        this.setState({left: panelWidth * -1, menu: 'hidden', overlayWidth: 0})
+        this.setState({ left: panelWidth * -1, menu: 'hidden', overlayWidth: 0 })
     },
 
     toggleMenu() {
@@ -69,13 +74,13 @@ const Menu = React.createClass({
         console.log(itemName);
         switch (itemName) {
             case 'landing':
-                nav.replace({component: Landing, name: 'Home'});
+                nav.replace({ component: Landing, name: 'Home' });
                 break;
             case 'choosePants':
-                nav.replace({component: PantsListPage, name: 'Choose Pants'});
+                nav.replace({ component: PantsListPage, name: 'Choose Pants' });
                 break;
             case 'addPants':
-                nav.replace({component: PantsFormPage, name: 'Add Pants'});
+                nav.replace({ component: PantsFormPage, name: 'Add Pants' });
                 break;
             case 'editPants':
                 //nav.replace({component: PantsForm, name: 'Edit Pants'});
@@ -90,7 +95,7 @@ const Menu = React.createClass({
                 //nav.replace({component: Settings, name: 'Wash Pants'});
                 break;
             default:
-                nav.replace({component: Landing, name: 'Home'});
+                nav.replace({ component: Landing, name: 'Home' });
                 break;
         }
 
@@ -99,7 +104,7 @@ const Menu = React.createClass({
 
     render() {
 
-        return (<View style={[styles.wrapper, {left: this.state.left}]}>
+        return (<View style={[styles.wrapper, { left: this.state.left }]}>
                 <ScrollView style={styles.menu}>
                     <Text style={styles.item} onPress={() => this.onMenuItemPress('landing')}>Home</Text>
                     <Text style={styles.item} onPress={() => this.onMenuItemPress('choosePants')}>Choose Pants</Text>
@@ -110,7 +115,7 @@ const Menu = React.createClass({
                     <Text style={styles.item} onPress={() => this.onMenuItemPress('appSettings')}>Settings</Text>
                 </ScrollView>
                 <TouchableOpacity onPress={this.toggleMenu}>
-                    <View style={[styles.overlay, {width: this.state.overlayWidth}]}/>
+                    <View style={[styles.overlay, { width: this.state.overlayWidth }]}/>
                     <Image source={MenuTab} style={styles.labelButton}/>
                 </TouchableOpacity>
             </View>
