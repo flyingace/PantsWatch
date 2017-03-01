@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 const LABEL_COLOR = '#000000';
 const INPUT_COLOR = '#000000';
@@ -210,7 +210,70 @@ const FormStyles = Object.freeze({
         marginBottom: 10,
         alignSelf: 'stretch',
         justifyContent: 'center'
+    },
+    formFieldWrapper: {
+        backgroundColor: 'rgba(255,255,255,.5)',
+        borderRadius: 3,
+        flexDirection: 'column',
+        padding: 4,
+        marginBottom: 10
+    },
+    fieldIcon: {
+        width: 20,
+        height: 12,
+        position: 'absolute',
+        right: 10,
+        top: 16,
+        zIndex: 50
+    },
+    formLabel: {
+        color: 'rgba(0, 0, 0, .8)',
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 30,
+        marginRight: 4,
+        marginLeft: 4,
+    },
+    pickerField: {
+        // fontFamily: 'HappyFox-Condensed',
+        // fontSize: 30,
+        backgroundColor: 'rgba(255,255,255,.3)',
+        borderRadius: 3,
+        borderWidth: 0,
+        height: 40,
+        padding: 4,
+        flex: 1
+    },
+    textInput: {
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 30,
+        backgroundColor: 'rgba(255,255,255,.3)',
+        borderRadius: 3,
+        borderWidth: 0,
+        height: 40,
+        padding: 4,
+        flex: 1
+    },
+    majorMinor: {
+        flexDirection: 'row',
+    },
+    slider: {
+        alignSelf: 'center',
+        flex: 1
+    },
+    maxCount: {
+        color: 'rgba(0, 0, 0, .8)',
+        fontFamily: 'HappyFox-Condensed',
+        fontSize: 30,
+        textAlign: 'center',
+        backgroundColor: 'rgba(255,255,255,.3)',
+        borderRadius: 3,
+        borderWidth: 0,
+        height: 40,
+        padding: 4,
+        width: 40,
+        flex: 0
     }
+
 });
 
 module.exports = FormStyles;
