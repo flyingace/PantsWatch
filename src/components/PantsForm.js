@@ -3,77 +3,81 @@ import {
     Button,
     ScrollView,
     StyleSheet,
+    Slider,
     Text,
     View,
     Image
 } from 'react-native';
-import t from 'tcomb-form-native';
 import _ from 'lodash';
 import DB from '../../db.js';
-import {DBEvents} from 'react-native-db-models';
-import FormText from './FormTextInput';
+import { DBEvents } from 'react-native-db-models';
+import FormTextInput from './FormTextInput';
+import FormPicker from './FormPicker';
+import FormSlider from './FormSlider';
 import PantsListView from './PantsListView';
-import FormStyles from '../styles/FormStyles.js';
+import FormStyles from '../styles/FormStyles';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-const Form = t.form.Form;
+/*
+ const Form = t.form.Form;
 
-const AddPants = t.struct({
-    pantsName: t.String,
-    pantsColor: t.maybe(t.String),
-    pantsStyle: t.maybe(t.String),
-    pantsBrand: t.maybe(t.String),
-    pantsWearLimit: t.Number
-});
+ const AddPants = t.struct({
+ pantsName: t.String,
+ pantsColor: t.maybe(t.String),
+ pantsStyle: t.maybe(t.String),
+ pantsBrand: t.maybe(t.String),
+ pantsWearLimit: t.Number
+ });
 
-const UpdatePants = t.struct({
-    _id: t.Number,
-    selected: t.Boolean,
-    pantsName: t.String,
-    pantsColor: t.maybe(t.String),
-    pantsStyle: t.maybe(t.String),
-    pantsBrand: t.maybe(t.String),
-    pantsWearCount: t.Number,
-    pantsWearLimit: t.Number,
-    lastWornDate: t.maybe(t.String)
-});
+ const UpdatePants = t.struct({
+ _id: t.Number,
+ selected: t.Boolean,
+ pantsName: t.String,
+ pantsColor: t.maybe(t.String),
+ pantsStyle: t.maybe(t.String),
+ pantsBrand: t.maybe(t.String),
+ pantsWearCount: t.Number,
+ pantsWearLimit: t.Number,
+ lastWornDate: t.maybe(t.String)
+ });
 
-const options = {
-    stylesheet: FormStyles,
-    // auto: 'placeholders',
-    autoCapitalize: true,
-    fields: {
-        _id: {
-            hidden: true
-        },
-        selected: {
-            hidden: true
-        },
-        pantsName: {
-            label: 'Name:'
-        },
-        pantsColor: {
-            label: 'Color:'
-        },
-        pantsStyle: {
-            label: 'Style:'
-        },
-        pantsBrand: {
-            label: 'Brand:'
-        },
-        pantsWearCount: {
-            label: 'Wear Count:'
-        },
-        pantsWearLimit: {
-            label: 'Wear Limit:'
-        },
-        lastWornDate: {
-            label: 'Last Worn On:'
-        }
+ const options = {
+ stylesheet: FormStyles,
+ // auto: 'placeholders',
+ autoCapitalize: true,
+ fields: {
+ _id: {
+ hidden: true
+ },
+ selected: {
+ hidden: true
+ },
+ pantsName: {
+ label: 'Name:'
+ },
+ pantsColor: {
+ label: 'Color:'
+ },
+ pantsStyle: {
+ label: 'Style:'
+ },
+ pantsBrand: {
+ label: 'Brand:'
+ },
+ pantsWearCount: {
+ label: 'Wear Count:'
+ },
+ pantsWearLimit: {
+ label: 'Wear Limit:'
+ },
+ lastWornDate: {
+ label: 'Last Worn On:'
+ }
 
-    }
-};
+ }
+ };
+ */
 
 const PantsForm = React.createClass({
 
@@ -103,14 +107,14 @@ const PantsForm = React.createClass({
     },
 
     componentWillMount() {
-        if(this.props.route.updateId) {
+        if (this.props.route.updateId) {
             this.props.retrievePantsData(this.props.route.updateId);
         }
     },
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.pantsData.formData.value) {
-            this.setState({'value': nextProps.pantsData.formData.value});
+            this.setState({ 'value': nextProps.pantsData.formData.value });
         }
     },
 
@@ -118,15 +122,19 @@ const PantsForm = React.createClass({
         if (!this.props.route.updateId) {
             return (
                 <View>
-                    <Text style={styles.formTitle}>Add Some Pants</Text>
-                    <Form ref="addPantsForm" type={AddPants} options={options}/>
+                    <FormTextInput labelText="Pants Name"
+                                   required={true}
+                                   validation="Please enter a name for your pants"/>
+                    <FormPicker labelText="Pants Color"
+                                prompt="Choose A Color"/>
+                    <FormTextInput labelText="Pants Brand"/>
+                    <FormTextInput labelText="Pants Style"/>
+                    <FormSlider labelText="Wear Limit"/>
                 </View>
             )
         } else {
             return (
                 <View>
-                    <Text style={styles.formTitle}>Update Your Pants</Text>
-                    <Form ref="updatePantsForm" type={UpdatePants} options={options} value={this.state.value}/>
                 </View>
             )
         }
@@ -155,8 +163,8 @@ const PantsForm = React.createClass({
 
     addPantsToDB (formData) {
         this.props.addPantsData(formData);
-            this.resetForm();
-            this.navigateToPantsList();
+        this.resetForm();
+        this.navigateToPantsList();
     },
 
     updatePantsInDB (formData) {
@@ -166,13 +174,13 @@ const PantsForm = React.createClass({
     },
 
     resetForm () {
-        this.setState({value: null});
+        this.setState({ value: null });
     },
 
     navigateToPantsList () {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
-        this.props.navigator.replace({component: PantsListView, name: 'Choose Pants'});
+        this.props.navigator.replace({ component: PantsListView, name: 'Choose Pants' });
     },
 
     render () {
