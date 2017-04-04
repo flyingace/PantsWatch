@@ -3,7 +3,7 @@ import {
     UPDATE_PANTS,
     SET_FORM_DATA
 } from '../actions/FormActions';
-import {assign} from 'lodash';
+import { assign } from 'lodash';
 
 const initialState = {
     formData: {}
@@ -12,7 +12,6 @@ const initialState = {
 
 export default function formReducer(state = initialState, action) {
     switch (action.type) {
-
         case ADD_PANTS:
             break;
         case UPDATE_PANTS:

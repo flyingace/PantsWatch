@@ -2,8 +2,6 @@
 
 import React from 'react';
 import {
-    PropTypes,
-    StyleSheet,
     Text,
     TextInput,
     View
@@ -34,7 +32,7 @@ const FormTextInput = React.createClass({
     },
 
     handleSubmitEditing() {
-        console.log('submitted')
+        console.log('submitted');
     },
 
     render() {

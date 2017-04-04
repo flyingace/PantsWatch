@@ -1,13 +1,18 @@
 import DB from '../../db.js';
-import {DBEvents} from 'react-native-db-models';
+import { DBEvents } from 'react-native-db-models';
 
-export const ADD_PANTS = 'ADD_PANTS';
-export const UPDATE_PANTS = 'UPDATE_PANTS';
+export const ADDING_PANTS = 'ADDING_PANTS';
+export const UPDATING_PANTS = 'UPDATING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
 
+export function addingPants() {
+    return { type: ADDING_PANTS}
+}
+export function addPants(formData) {
 
-export function addPantsData(formData) {
     return (dispatch) => {
+        dispatch(addingPants());
+
         DB.pants.add({
             pantsName: formData.pantsName,
             pantsColor: formData.pantsColor,
@@ -21,19 +26,19 @@ export function addPantsData(formData) {
             // notes: value.notes
 
         });
-    }
+    };
 }
 
 export function retrievePantsData(pantsId) {
     return (dispatch) => {
         DB.pants.get_id(pantsId, (result) => {
-            dispatch(setFormData({value: result[0]}));
-        })
-    }
+            dispatch(setFormData({ value: result[0] }));
+        });
+    };
 }
 
 export function setFormData(formData) {
-    return {type: SET_FORM_DATA, state: formData}
+    return { type: SET_FORM_DATA, state: formData };
 }
 
 export function updatePantsData(formData) {
@@ -48,5 +53,5 @@ export function updatePantsData(formData) {
             lastWornDate: formData.lastWornDate,
             selected: formData.selected
         });
-    }
+    };
 }

@@ -97,7 +97,7 @@ const PantsForm = React.createClass({
             pantsBrand: null,
             pantsWearCount: 0,
             pantsWearLimit: null
-        }
+        };
     },
 
     getInitialState () {
@@ -121,22 +121,28 @@ const PantsForm = React.createClass({
     renderForm () {
         if (!this.props.route.updateId) {
             return (
-                <View>
+                <View ref="addPantsForm">
                     <FormTextInput labelText="Pants Name"
                                    required={true}
-                                   validation="Please enter a name for your pants"/>
-                    <FormPicker labelText="Pants Color"
-                                prompt="Choose A Color"/>
-                    <FormTextInput labelText="Pants Brand"/>
-                    <FormTextInput labelText="Pants Style"/>
-                    <FormSlider labelText="Wear Limit"/>
+                                   validation="Please enter a name for your pants"
+                                   inputRef="nameInput"/>
+                    {/*<FormPicker labelText="Pants Color"*/}
+                    {/*prompt="Choose A Color"/>*/}
+                    {/*<FormTextInput labelText="Pants Brand"/>*/}
+                    {/*<FormTextInput labelText="Pants Style"/>*/}
+                    {/*<FormSlider labelText="Wear Limit"/>*/}
                 </View>
-            )
+            );
         } else {
             return (
-                <View>
+                <View ref="updatePantsForm">
+                    <FormTextInput labelText="Pants Name"
+                                   required={true}
+                                   validation="Please enter a name for your pants"
+                                   value={this.props.pantsData.formData.value.pantsName}/>
+                    <FormSlider labelText="Wear Limit" value={this.props.pantsData.formData.value.pantsWearLimit}/>
                 </View>
-            )
+            );
         }
     },
 
@@ -149,7 +155,7 @@ const PantsForm = React.createClass({
         // call getValue() to get the values of the form
         let formData;
         if (!this.props.route.updateId) {
-            formData = this.refs.addPantsForm.getValue();
+            formData = this.refs.nameInput.value;
             if (formData) {
                 this.addPantsToDB(formData);
             }
