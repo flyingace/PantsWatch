@@ -21,14 +21,23 @@ const FormTextInput = React.createClass({
 
     getDefaultProps() {
         return {
-            inputRef: '',
+            text: '',
             labelText: 'Field Name',
             placeholderText: ''
         };
     },
 
-    onEndEditing() {
-        console.log('text changed');
+    componentWillMount() {
+        this.setState({text: ''})
+    },
+
+    onChangeText(text) {
+        this.setState({text});
+        console.log(this.state);
+    },
+
+    onEndEditing(data) {
+        this.setState({PantsName: ''})
     },
 
     handleSubmitEditing() {
@@ -45,9 +54,9 @@ const FormTextInput = React.createClass({
                     underlineColorAndroid="transparent"
                     style={FormStyles.textInput}
                     placeholder={this.props.placeholderText}
-                    onEndEditing={this.onEndEditing}
+                    onChangeText={this.onChangeText}
+                    value={this.state.text}
                     ref={this.props.inputRef}
-                    value={this.props.value}
                 />
             </View>
         );

@@ -155,7 +155,8 @@ const PantsForm = React.createClass({
         // call getValue() to get the values of the form
         let formData;
         if (!this.props.route.updateId) {
-            formData = this.refs.nameInput.value;
+            formData = this.state;
+            console.log(formData);
             if (formData) {
                 this.addPantsToDB(formData);
             }
