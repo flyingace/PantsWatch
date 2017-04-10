@@ -17,21 +17,22 @@ const FormTextInput = React.createClass({
     displayName: 'FormPicker',
 
     propTypes: {
-        onValueChange: React.PropTypes.func,
-        prompt: React.PropTypes.string,
-        selectedValue: React.PropTypes.string,
         inputRef: React.PropTypes.string,
+        fieldName: React.PropTypes.string,
         labelText: React.PropTypes.string,
-        placeholderText: React.PropTypes.string
+        onValueChange: React.PropTypes.func,
+        placeholderText: React.PropTypes.string,
+        prompt: React.PropTypes.string,
+        selectedValue: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
-            onValueChange: this.onValueChange,
-            selectedValue: '01',
             inputRef: '',
             labelText: 'Field Name',
-            placeholderText: ''
+            onValueChange: this.onValueChange,
+            placeholderText: '',
+            selectedValue: '01'
         };
     },
 
@@ -44,8 +45,8 @@ const FormTextInput = React.createClass({
 
     onValueChange (value, index) {
         if (value !== 'add') {
-            const newState = { 'selectedValue': value };
-            this.setState(newState);
+            this.setState({ [this.props.fieldName]: value });
+            console.log(this.state);
         } else {
             console.log('open dialog to edit color options');
         }
@@ -60,18 +61,18 @@ const FormTextInput = React.createClass({
             <View style={FormStyles.formFieldWrapper}>
                 <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
                 <View>
-                <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'} />
-                <Picker
-                    onValueChange={this.onValueChange}
-                    selectedValue={this.state.selectedValue}
-                    style={FormStyles.pickerField}
-                >
+                    <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
+                    <Picker
+                        onValueChange={this.onValueChange}
+                        selectedValue={this.props.value}
+                        style={FormStyles.pickerField}
+                    >
 
-                    <Picker.Item label="Blue" value="01"/>
-                    <Picker.Item label="Green" value="02"/>
-                    <Picker.Item label="Black" value="03"/>
-                    <Picker.Item label="Edit Color List" value="add"/>
-                </Picker>
+                        <Picker.Item label="Blue" value="01"/>
+                        <Picker.Item label="Green" value="02"/>
+                        <Picker.Item label="Black" value="03"/>
+                        <Picker.Item label="Edit Color List" value="add"/>
+                    </Picker>
                 </View>
             </View>
         );

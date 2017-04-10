@@ -13,8 +13,9 @@ const FormTextInput = React.createClass({
     displayName: 'FormTextInput',
 
     propTypes: {
-        value: React.PropTypes.string,
         inputRef: React.PropTypes.string,
+        fieldName: React.PropTypes.string,
+        value: React.PropTypes.string,
         labelText: React.PropTypes.string,
         placeholderText: React.PropTypes.string
     },
@@ -28,16 +29,18 @@ const FormTextInput = React.createClass({
     },
 
     componentWillMount() {
-        this.setState({text: ''})
+        // this.setState({texty: ''})
     },
 
     onChangeText(text) {
-        this.setState({text});
+        const dbFieldName = this.props.fieldName;
+        console.log(typeof dbFieldName);
+        this.setState({[dbFieldName]:text});
         console.log(this.state);
     },
 
     onEndEditing(data) {
-        this.setState({PantsName: ''})
+        this.setState({PantsName: data})
     },
 
     handleSubmitEditing() {
@@ -49,13 +52,13 @@ const FormTextInput = React.createClass({
             <View style={FormStyles.formFieldWrapper}>
                 <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
                 <TextInput
-                    autoCapitalize={'words'}
+                    autoCapitalize='words'
                     autoCorrect={false}
-                    underlineColorAndroid="transparent"
+                    underlineColorAndroid='transparent'
                     style={FormStyles.textInput}
                     placeholder={this.props.placeholderText}
                     onChangeText={this.onChangeText}
-                    value={this.state.text}
+                    value={this.props.value}
                     ref={this.props.inputRef}
                 />
             </View>
