@@ -50,6 +50,8 @@ const Landing = React.createClass({
 
         console.log(itemName);
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        console.disableYellowBox = true;
+
         switch (itemName) {
             case 'landing':
                 nav.push({component: Landing, name: 'Home'});

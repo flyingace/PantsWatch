@@ -4,6 +4,7 @@ import { DBEvents } from 'react-native-db-models';
 export const ADDING_PANTS = 'ADDING_PANTS';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
+export const ADD_PANTS_NAME = 'SET_PANTS_NAME';
 
 export function addingPants() {
     return { type: ADDING_PANTS}
@@ -28,6 +29,12 @@ export function addPants(formData) {
         });
     };
 }
+
+export function addPantsName(nameOfPants) {
+    return { type: ADD_PANTS_NAME, state: nameOfPants};
+}
+
+
 
 export function retrievePantsData(pantsId) {
     return (dispatch) => {

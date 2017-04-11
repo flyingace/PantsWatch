@@ -36,13 +36,6 @@ const FormTextInput = React.createClass({
         };
     },
 
-    //TODO: The action here whereby the picker updates the state needs to be changed to use redux
-    getInitialState() {
-        return {
-            selectedValue: '01'
-        }
-    },
-
     onValueChange (value, index) {
         if (value !== 'add') {
             this.setState({ [this.props.fieldName]: value });
@@ -64,7 +57,7 @@ const FormTextInput = React.createClass({
                     <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
                     <Picker
                         onValueChange={this.onValueChange}
-                        selectedValue={this.props.value}
+                        selectedValue={this.props.selectedValue}
                         style={FormStyles.pickerField}
                     >
 

@@ -13,6 +13,7 @@ const FormTextInput = React.createClass({
     displayName: 'FormTextInput',
 
     propTypes: {
+        addPantsName: React.PropTypes.func,
         inputRef: React.PropTypes.string,
         fieldName: React.PropTypes.string,
         value: React.PropTypes.string,
@@ -34,13 +35,8 @@ const FormTextInput = React.createClass({
 
     onChangeText(text) {
         const dbFieldName = this.props.fieldName;
-        console.log(typeof dbFieldName);
-        this.setState({[dbFieldName]:text});
+        this.props.addPantsName({[dbFieldName]:text});
         console.log(this.state);
-    },
-
-    onEndEditing(data) {
-        this.setState({PantsName: data})
     },
 
     handleSubmitEditing() {
