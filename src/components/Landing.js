@@ -3,7 +3,7 @@ import {Image, LayoutAnimation, StyleSheet, Text, View} from 'react-native';
 import Dimensions from 'Dimensions';
 import Pane from './Pane';
 import PantsListPage from '../containers/PantsListPage';
-import PantsForm from './PantsForm';
+import PantsFormPage from '../containers/PantsFormPage';
 import Patches from './Patches';
 import Settings from './Settings';
 
@@ -60,10 +60,10 @@ const Landing = React.createClass({
                 nav.replace({component: PantsListPage, name: 'Choose Pants'});
                 break;
             case 'addPants':
-                nav.replace({component: PantsForm, name: 'Add Pants'});
+                nav.replace({component: PantsFormPage, name: 'Add Pants'});
                 break;
             case 'editPants':
-                nav.replace({component: PantsForm, name: 'Edit Pants'});
+                nav.replace({component: PantsFormPage, name: 'Edit Pants'});
                 break;
             case 'washPants':
                 nav.replace({component: PantsListPage, name: 'Wash Pants'});

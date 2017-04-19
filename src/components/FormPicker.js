@@ -17,10 +17,10 @@ const FormTextInput = React.createClass({
     displayName: 'FormPicker',
 
     propTypes: {
+        addPantsColor: React.PropTypes.func,
         inputRef: React.PropTypes.string,
         fieldName: React.PropTypes.string,
         labelText: React.PropTypes.string,
-        onValueChange: React.PropTypes.func,
         placeholderText: React.PropTypes.string,
         prompt: React.PropTypes.string,
         selectedValue: React.PropTypes.string
@@ -30,16 +30,14 @@ const FormTextInput = React.createClass({
         return {
             inputRef: '',
             labelText: 'Field Name',
-            onValueChange: this.onValueChange,
             placeholderText: '',
-            selectedValue: '01'
+            selectedValue: 'blue'
         };
     },
 
     onValueChange (value, index) {
         if (value !== 'add') {
-            this.setState({ [this.props.fieldName]: value });
-            console.log(this.state);
+            this.props.addPantsColor(value);
         } else {
             console.log('open dialog to edit color options');
         }
@@ -57,13 +55,12 @@ const FormTextInput = React.createClass({
                     <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
                     <Picker
                         onValueChange={this.onValueChange}
-                        selectedValue={this.props.selectedValue}
+                        selectedValue={this.props[this.props.fieldName]}
                         style={FormStyles.pickerField}
                     >
-
-                        <Picker.Item label="Blue" value="01"/>
-                        <Picker.Item label="Green" value="02"/>
-                        <Picker.Item label="Black" value="03"/>
+                        <Picker.Item label="Blue" value="blue"/>
+                        <Picker.Item label="Green" value="green"/>
+                        <Picker.Item label="Black" value="black"/>
                         <Picker.Item label="Edit Color List" value="add"/>
                     </Picker>
                 </View>

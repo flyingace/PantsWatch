@@ -1,4 +1,5 @@
 import {
+    ADD_PANTS_COLOR,
     ADD_PANTS,
     UPDATE_PANTS,
     SET_FORM_DATA
@@ -6,13 +7,19 @@ import {
 import { assign } from 'lodash';
 
 const initialState = {
-    formData: {}
+    formData: {},
+    pantsColor: ''
 };
 
 
 export default function formReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_PANTS:
+            break;
+        case ADD_PANTS_COLOR:
+            state = assign({}, state, {
+                pantsColor: action.state
+            });
             break;
         case UPDATE_PANTS:
             break;
