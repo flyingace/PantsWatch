@@ -8,7 +8,9 @@ import {
 import { assign } from 'lodash';
 
 const initialState = {
-    formData: {}
+    formData: {},
+    pantsColor: '',
+    pantsName: ''
 };
 
 

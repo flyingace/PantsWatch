@@ -1,6 +1,6 @@
 /*globals */
 
-import  dsReact from 'react';
+import React from 'react';
 import {
     Image,
     PropTypes,

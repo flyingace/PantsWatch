@@ -114,9 +114,9 @@ const PantsForm = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.pantsData.formData.value) {
-            this.setState({ 'value': nextProps.pantsData.formData.value });
-        }
+        // if (nextProps.pantsData.formData.value) {
+        //     this.setState({ 'value': nextProps.pantsData.formData.value });
+        // }
     },
 
     renderForm () {
@@ -129,15 +129,15 @@ const PantsForm = React.createClass({
                                    fieldName="pantsName"
                                    inputRef="nameInput"
                                    addPantsName={this.props.addPantsName}
-                                   value={this.state.pantsName}/>
+                                   value={this.props.pantsName}/>
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
                                 addPantsColor={this.props.addPantsColor}
-                                selectedValue={this.state.pantsColor} />
-                    {/*<FormTextInput labelText="Pants Brand"/>*/}
-                    {/*<FormTextInput labelText="Pants Style"/>*/}
-                    {/*<FormSlider labelText="Wear Limit"/>*/}
+                                selectedValue={this.props.pantsColor} />
+                    <FormTextInput labelText="Pants Brand"/>
+                    <FormTextInput labelText="Pants Style"/>
+                    <FormSlider labelText="Wear Limit"/>
                 </View>
             );
         } else {
