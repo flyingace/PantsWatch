@@ -1,6 +1,6 @@
 /*globals */
 
-import React from 'react';
+import  dsReact from 'react';
 import {
     Image,
     PropTypes,
@@ -31,7 +31,7 @@ const FormTextInput = React.createClass({
             inputRef: '',
             labelText: 'Field Name',
             placeholderText: '',
-            selectedValue: 'blue'
+            selectedValue: 'black'
         };
     },
 
@@ -55,7 +55,7 @@ const FormTextInput = React.createClass({
                     <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
                     <Picker
                         onValueChange={this.onValueChange}
-                        selectedValue={this.props[this.props.fieldName]}
+                        selectedValue={this.props.selectedValue}
                         style={FormStyles.pickerField}
                     >
                         <Picker.Item label="Blue" value="blue"/>

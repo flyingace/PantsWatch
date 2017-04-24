@@ -23,7 +23,6 @@ const FormTextInput = React.createClass({
 
     getDefaultProps() {
         return {
-            text: '',
             labelText: 'Field Name',
             placeholderText: ''
         };
@@ -35,8 +34,7 @@ const FormTextInput = React.createClass({
 
     onChangeText(text) {
         const dbFieldName = this.props.fieldName;
-        this.props.addPantsName({[dbFieldName]:text});
-        console.log(this.state);
+        this.props.addPantsName(text);
     },
 
     handleSubmitEditing() {

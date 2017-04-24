@@ -91,10 +91,10 @@ const PantsForm = React.createClass({
     getDefaultProps () {
         return {
             pantsImg: null,
-            pantsName: null,
-            pantsColor: null,
-            pantsStyle: null,
-            pantsBrand: null,
+            pantsName: '',
+            pantsColor: '',
+            pantsStyle: '',
+            pantsBrand: '',
             pantsWearCount: 0,
             pantsWearLimit: null
         };
@@ -102,7 +102,8 @@ const PantsForm = React.createClass({
 
     getInitialState () {
         return {
-            value: {}
+            pantsName: '',
+            pantsColor: ''
         };
     },
 
@@ -113,9 +114,9 @@ const PantsForm = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
-        // if (nextProps.pantsData.formData.value) {
-        //     this.setState({ 'value': nextProps.pantsData.formData.value });
-        // }
+        if (nextProps.pantsData.formData.value) {
+            this.setState({ 'value': nextProps.pantsData.formData.value });
+        }
     },
 
     renderForm () {
@@ -127,11 +128,13 @@ const PantsForm = React.createClass({
                                    validation="Please enter a name for your pants"
                                    fieldName="pantsName"
                                    inputRef="nameInput"
-                                   addPantsName={this.props.addPantsName}/>
+                                   addPantsName={this.props.addPantsName}
+                                   value={this.state.pantsName}/>
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
-                                addPantsColor={this.props.addPantsColor}/>
+                                addPantsColor={this.props.addPantsColor}
+                                selectedValue={this.state.pantsColor} />
                     {/*<FormTextInput labelText="Pants Brand"/>*/}
                     {/*<FormTextInput labelText="Pants Style"/>*/}
                     {/*<FormSlider labelText="Wear Limit"/>*/}
