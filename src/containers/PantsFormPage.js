@@ -6,8 +6,10 @@ import PantsForm from '../components/PantsForm';
 
 function mapStateToProps(state) {
     return {
+        pantsBrand: state.formReducer.pantsBrand,
+        pantsColor: state.formReducer.pantsColor,
         pantsName: state.formReducer.pantsName,
-        pantsColor: state.formReducer.pantsColor
+        pantsStyle: state.formReducer.pantsStyle
     };
 }
 

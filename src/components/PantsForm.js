@@ -19,65 +19,12 @@ import FormStyles from '../styles/FormStyles';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-/*
- const Form = t.form.Form;
-
- const AddPants = t.struct({
- pantsName: t.String,
- pantsColor: t.maybe(t.String),
- pantsStyle: t.maybe(t.String),
- pantsBrand: t.maybe(t.String),
- pantsWearLimit: t.Number
- });
-
- const UpdatePants = t.struct({
- _id: t.Number,
- selected: t.Boolean,
- pantsName: t.String,
- pantsColor: t.maybe(t.String),
- pantsStyle: t.maybe(t.String),
- pantsBrand: t.maybe(t.String),
- pantsWearCount: t.Number,
- pantsWearLimit: t.Number,
- lastWornDate: t.maybe(t.String)
- });
-
- const options = {
- stylesheet: FormStyles,
- // auto: 'placeholders',
- autoCapitalize: true,
- fields: {
- _id: {
- hidden: true
- },
- selected: {
- hidden: true
- },
- pantsName: {
- label: 'Name:'
- },
- pantsColor: {
- label: 'Color:'
- },
- pantsStyle: {
- label: 'Style:'
- },
- pantsBrand: {
- label: 'Brand:'
- },
- pantsWearCount: {
- label: 'Wear Count:'
- },
- pantsWearLimit: {
- label: 'Wear Limit:'
- },
- lastWornDate: {
- label: 'Last Worn On:'
- }
-
- }
- };
- */
+const COLORS = [
+    { label: 'Blue', value: 'blue' },
+    { label: 'Green', value: 'green' },
+    { label: 'Black', value: 'black' }];
+// const BRANDS = [{ label: 'Levi\'s', { label: 'J. Crew', { label: 'Banana Republic', { label: 'GAP'];
+// const STYLES = [{ label: 'Casual', { label: 'Work', { label: 'Night Life', { label: 'Workout'];
 
 const PantsForm = React.createClass({
 
@@ -133,10 +80,23 @@ const PantsForm = React.createClass({
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
-                                addPantsColor={this.props.addPantsColor}
-                                selectedValue={this.props.pantsColor} />
-                    <FormTextInput labelText="Pants Brand"/>
-                    <FormTextInput labelText="Pants Style"/>
+                                menuOptions={COLORS}
+                                addPantsAttribute={this.props.addPantsColor}
+                                selectedValue={this.props.pantsColor}/>
+                    {/*<FormPicker labelText="Pants Brand"*/}
+                                {/*fieldName="pantsBrand"*/}
+                                {/*inputRef="brandPicker"*/}
+                                {/*menuOptions={BRANDS}*/}
+                                {/*addPantsAttribute={this.props.addPantsBrand}*/}
+                                {/*selectedValue={this.props.pantsBrand}/>*/}
+                    {/*<FormPicker labelText="Pants Style"*/}
+                                {/*fieldName="pantsStyle"*/}
+                                {/*inputRef="stylePicker"*/}
+                                {/*menuOptions={STYLES}*/}
+                                {/*addPantsAttribute={this.props.addPantsStyle}*/}
+                                {/*selectedValue={this.props.pantsStyle}/>*/}
+                    {/*<FormTextInput labelText="Pants Brand"/>*/}
+                    {/*<FormTextInput labelText="Pants Style"/>*/}
                     <FormSlider labelText="Wear Limit"/>
                 </View>
             );

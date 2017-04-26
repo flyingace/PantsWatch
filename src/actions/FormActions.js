@@ -1,8 +1,10 @@
 import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
 
+export const ADD_PANTS_BRAND = 'ADD_PANTS_BRAND';
 export const ADD_PANTS_COLOR = 'ADD_PANTS_COLOR';
 export const ADD_PANTS_NAME = 'SET_PANTS_NAME';
+export const ADD_PANTS_STYLE = 'ADD_PANTS_STYLE';
 export const ADDING_PANTS = 'ADDING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
@@ -37,6 +39,14 @@ export function addPantsName(nameOfPants) {
 
 export function addPantsColor(colorOfPants) {
     return { type:ADD_PANTS_COLOR, state: colorOfPants};
+}
+
+export function addPantsBrand(brandOfPants) {
+    return { type:ADD_PANTS_BRAND, state: brandOfPants};
+}
+
+export function addPantsStyle(styleOfPants) {
+    return { type:ADD_PANTS_STYLE, state: styleOfPants};
 }
 
 
