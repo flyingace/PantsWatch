@@ -49,12 +49,14 @@ const Menu = React.createClass({
 
     showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        console.disableYellowBox = true;
         this.setState({ left: 0, menu: 'shown', overlayWidth: window.width })
 
     },
 
     hideMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        console.disableYellowBox = true;
         this.setState({ left: panelWidth * -1, menu: 'hidden', overlayWidth: 0 })
     },
 

@@ -9,6 +9,7 @@ import {
     Picker,
     View
 } from 'react-native';
+import { map } from 'lodash';
 import FormStyles from '../styles/FormStyles';
 import DownArrow from '../../assets/down_arrow.png';
 
@@ -17,42 +18,48 @@ const FormTextInput = React.createClass({
     displayName: 'FormPicker',
 
     propTypes: {
-        onValueChange: React.PropTypes.func,
-        prompt: React.PropTypes.string,
-        selectedValue: React.PropTypes.string,
+        addPantsAttribute: React.PropTypes.func,
         inputRef: React.PropTypes.string,
+        fieldName: React.PropTypes.string,
         labelText: React.PropTypes.string,
-        placeholderText: React.PropTypes.string
+        menuOptions: React.PropTypes.array,
+        selectedValue: React.PropTypes.string,
+        isEditable: React.PropTypes.bool
     },
 
     getDefaultProps() {
         return {
-            onValueChange: this.onValueChange,
-            selectedValue: '01',
             inputRef: '',
             labelText: 'Field Name',
-            placeholderText: ''
+            placeholderText: '',
+            isEditable: false
         };
     },
 
-    //TODO: The action here whereby the picker updates the state needs to be changed to use redux
-    getInitialState() {
-        return {
-            selectedValue: '01'
+    addPickers() {
+        let pickers = map(this.props.menuOptions, function (option, index) {
+                return <Picker.Item label={option.label} key={option.value} value={option.value} />
+            }
+        );
+
+        if (this.props.isEditable) {
+            pickers.push(<Picker.Item label="Add to this list" key="add" value="add"/>);
         }
+
+        return pickers;
+    },
+
+    //unused, but keep for now to apply when new items are added to the db
+    formatForValue(label) {
+        return label.replace(/(\W)/, '').toLowerCase();
     },
 
     onValueChange (value, index) {
         if (value !== 'add') {
-            const newState = { 'selectedValue': value };
-            this.setState(newState);
+            this.props.addPantsAttribute(value);
         } else {
             console.log('open dialog to edit color options');
         }
-    },
-
-    onEndEditing() {
-        console.log('text changed');
     },
 
     render() {
@@ -60,18 +67,13 @@ const FormTextInput = React.createClass({
             <View style={FormStyles.formFieldWrapper}>
                 <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
                 <View>
-                <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'} />
-                <Picker
-                    onValueChange={this.onValueChange}
-                    selectedValue={this.state.selectedValue}
-                    style={FormStyles.pickerField}
-                >
-
-                    <Picker.Item label="Blue" value="01"/>
-                    <Picker.Item label="Green" value="02"/>
-                    <Picker.Item label="Black" value="03"/>
-                    <Picker.Item label="Edit Color List" value="add"/>
-                </Picker>
+                    <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
+                    <Picker
+                        onValueChange={this.onValueChange}
+                        selectedValue={this.props.selectedValue}
+                        style={FormStyles.pickerField}>
+                        {this.addPickers()}
+                    </Picker>
                 </View>
             </View>
         );

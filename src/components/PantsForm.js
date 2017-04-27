@@ -19,65 +19,21 @@ import FormStyles from '../styles/FormStyles';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-/*
- const Form = t.form.Form;
-
- const AddPants = t.struct({
- pantsName: t.String,
- pantsColor: t.maybe(t.String),
- pantsStyle: t.maybe(t.String),
- pantsBrand: t.maybe(t.String),
- pantsWearLimit: t.Number
- });
-
- const UpdatePants = t.struct({
- _id: t.Number,
- selected: t.Boolean,
- pantsName: t.String,
- pantsColor: t.maybe(t.String),
- pantsStyle: t.maybe(t.String),
- pantsBrand: t.maybe(t.String),
- pantsWearCount: t.Number,
- pantsWearLimit: t.Number,
- lastWornDate: t.maybe(t.String)
- });
-
- const options = {
- stylesheet: FormStyles,
- // auto: 'placeholders',
- autoCapitalize: true,
- fields: {
- _id: {
- hidden: true
- },
- selected: {
- hidden: true
- },
- pantsName: {
- label: 'Name:'
- },
- pantsColor: {
- label: 'Color:'
- },
- pantsStyle: {
- label: 'Style:'
- },
- pantsBrand: {
- label: 'Brand:'
- },
- pantsWearCount: {
- label: 'Wear Count:'
- },
- pantsWearLimit: {
- label: 'Wear Limit:'
- },
- lastWornDate: {
- label: 'Last Worn On:'
- }
-
- }
- };
- */
+const COLORS = [
+    { label: 'Blue', value: 'blue' },
+    { label: 'Green', value: 'green' },
+    { label: 'Black', value: 'black' }];
+const BRANDS = [
+    { label: 'Levi\'s', value: 'levis' },
+    { label: 'J. Crew', value: 'jcrew' },
+    { label: 'Banana Republic', value: 'bananarepublic' },
+    { label: 'GAP', value: 'gap' }];
+const STYLES = [
+    { label: 'Casual', value: 'casual' },
+    { label: 'Work', value: 'work' },
+    { label: 'Night Life', value: 'nightlife' },
+    { label: 'Workout', value: 'workout' }
+];
 
 const PantsForm = React.createClass({
 
@@ -91,18 +47,19 @@ const PantsForm = React.createClass({
     getDefaultProps () {
         return {
             pantsImg: null,
-            pantsName: null,
-            pantsColor: null,
-            pantsStyle: null,
-            pantsBrand: null,
+            pantsName: '',
+            pantsColor: '',
+            pantsStyle: '',
+            pantsBrand: '',
             pantsWearCount: 0,
             pantsWearLimit: null
-        }
+        };
     },
 
     getInitialState () {
         return {
-            value: {}
+            pantsName: '',
+            pantsColor: ''
         };
     },
 
@@ -113,30 +70,80 @@ const PantsForm = React.createClass({
     },
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.pantsData.formData.value) {
-            this.setState({ 'value': nextProps.pantsData.formData.value });
-        }
+        // if (nextProps.pantsData.formData.value) {
+        //     this.setState({ 'value': nextProps.pantsData.formData.value });
+        // }
     },
 
     renderForm () {
         if (!this.props.route.updateId) {
             return (
-                <View>
+                <View ref="addPantsForm">
                     <FormTextInput labelText="Pants Name"
                                    required={true}
-                                   validation="Please enter a name for your pants"/>
+                                   validation="Please enter a name for your pants"
+                                   fieldName="pantsName"
+                                   inputRef="nameInput"
+                                   addPantsName={this.props.addPantsName}
+                                   value={this.props.pantsName}/>
                     <FormPicker labelText="Pants Color"
-                                prompt="Choose A Color"/>
-                    <FormTextInput labelText="Pants Brand"/>
-                    <FormTextInput labelText="Pants Style"/>
+                                fieldName="pantsColor"
+                                inputRef="colorPicker"
+                                menuOptions={COLORS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsColor}
+                                selectedValue={this.props.pantsColor}/>
+                    <FormPicker labelText="Pants Brand"
+                                fieldName="pantsBrand"
+                                inputRef="brandPicker"
+                                menuOptions={BRANDS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsBrand}
+                                selectedValue={this.props.pantsBrand}/>
+                    <FormPicker labelText="Pants Style"
+                                fieldName="pantsStyle"
+                                inputRef="stylePicker"
+                                menuOptions={STYLES}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsStyle}
+                                selectedValue={this.props.pantsStyle}/>
                     <FormSlider labelText="Wear Limit"/>
                 </View>
-            )
+            );
         } else {
             return (
-                <View>
+                <View ref="updatePantsForm">
+                    <FormTextInput labelText="Pants Name"
+                                   required={true}
+                                   validation="Please enter a name for your pants"
+                                   fieldName="pantsName"
+                                   inputRef="nameInput"
+                                   addPantsName={this.props.addPantsName}
+                                   value={this.props.pantsName}/>
+                    <FormPicker labelText="Pants Color"
+                                fieldName="pantsColor"
+                                inputRef="colorPicker"
+                                menuOptions={COLORS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsColor}
+                                selectedValue={this.props.pantsColor}/>
+                    <FormPicker labelText="Pants Brand"
+                                fieldName="pantsBrand"
+                                inputRef="brandPicker"
+                                menuOptions={BRANDS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsBrand}
+                                selectedValue={this.props.pantsBrand}/>
+                    <FormPicker labelText="Pants Style"
+                                fieldName="pantsStyle"
+                                inputRef="stylePicker"
+                                menuOptions={STYLES}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsStyle}
+                                selectedValue={this.props.pantsStyle}/>
+                    <FormSlider labelText="Wear Limit"/>
                 </View>
-            )
+            );
         }
     },
 
@@ -149,7 +156,8 @@ const PantsForm = React.createClass({
         // call getValue() to get the values of the form
         let formData;
         if (!this.props.route.updateId) {
-            formData = this.refs.addPantsForm.getValue();
+            formData = this.state;
+            console.log(formData);
             if (formData) {
                 this.addPantsToDB(formData);
             }
@@ -161,8 +169,8 @@ const PantsForm = React.createClass({
         }
     },
 
-    addPantsToDB (formData) {
-        this.props.addPantsData(formData);
+    addPantsToDB () {
+        this.props.addPantsData();
         this.resetForm();
         this.navigateToPantsList();
     },
