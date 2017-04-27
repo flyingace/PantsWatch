@@ -23,8 +23,17 @@ const COLORS = [
     { label: 'Blue', value: 'blue' },
     { label: 'Green', value: 'green' },
     { label: 'Black', value: 'black' }];
-// const BRANDS = [{ label: 'Levi\'s', { label: 'J. Crew', { label: 'Banana Republic', { label: 'GAP'];
-// const STYLES = [{ label: 'Casual', { label: 'Work', { label: 'Night Life', { label: 'Workout'];
+const BRANDS = [
+    { label: 'Levi\'s', value: 'levis' },
+    { label: 'J. Crew', value: 'jcrew' },
+    { label: 'Banana Republic', value: 'bananarepublic' },
+    { label: 'GAP', value: 'gap' }];
+const STYLES = [
+    { label: 'Casual', value: 'casual' },
+    { label: 'Work', value: 'work' },
+    { label: 'Night Life', value: 'nightlife' },
+    { label: 'Workout', value: 'workout' }
+];
 
 const PantsForm = React.createClass({
 
@@ -81,22 +90,23 @@ const PantsForm = React.createClass({
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
                                 menuOptions={COLORS}
+                                isEditable={true}
                                 addPantsAttribute={this.props.addPantsColor}
                                 selectedValue={this.props.pantsColor}/>
-                    {/*<FormPicker labelText="Pants Brand"*/}
-                                {/*fieldName="pantsBrand"*/}
-                                {/*inputRef="brandPicker"*/}
-                                {/*menuOptions={BRANDS}*/}
-                                {/*addPantsAttribute={this.props.addPantsBrand}*/}
-                                {/*selectedValue={this.props.pantsBrand}/>*/}
-                    {/*<FormPicker labelText="Pants Style"*/}
-                                {/*fieldName="pantsStyle"*/}
-                                {/*inputRef="stylePicker"*/}
-                                {/*menuOptions={STYLES}*/}
-                                {/*addPantsAttribute={this.props.addPantsStyle}*/}
-                                {/*selectedValue={this.props.pantsStyle}/>*/}
-                    {/*<FormTextInput labelText="Pants Brand"/>*/}
-                    {/*<FormTextInput labelText="Pants Style"/>*/}
+                    <FormPicker labelText="Pants Brand"
+                                fieldName="pantsBrand"
+                                inputRef="brandPicker"
+                                menuOptions={BRANDS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsBrand}
+                                selectedValue={this.props.pantsBrand}/>
+                    <FormPicker labelText="Pants Style"
+                                fieldName="pantsStyle"
+                                inputRef="stylePicker"
+                                menuOptions={STYLES}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsStyle}
+                                selectedValue={this.props.pantsStyle}/>
                     <FormSlider labelText="Wear Limit"/>
                 </View>
             );
@@ -106,8 +116,32 @@ const PantsForm = React.createClass({
                     <FormTextInput labelText="Pants Name"
                                    required={true}
                                    validation="Please enter a name for your pants"
-                                   value={this.props.pantsData.formData.value.pantsName}/>
-                    <FormSlider labelText="Wear Limit" value={this.props.pantsData.formData.value.pantsWearLimit}/>
+                                   fieldName="pantsName"
+                                   inputRef="nameInput"
+                                   addPantsName={this.props.addPantsName}
+                                   value={this.props.pantsName}/>
+                    <FormPicker labelText="Pants Color"
+                                fieldName="pantsColor"
+                                inputRef="colorPicker"
+                                menuOptions={COLORS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsColor}
+                                selectedValue={this.props.pantsColor}/>
+                    <FormPicker labelText="Pants Brand"
+                                fieldName="pantsBrand"
+                                inputRef="brandPicker"
+                                menuOptions={BRANDS}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsBrand}
+                                selectedValue={this.props.pantsBrand}/>
+                    <FormPicker labelText="Pants Style"
+                                fieldName="pantsStyle"
+                                inputRef="stylePicker"
+                                menuOptions={STYLES}
+                                isEditable={true}
+                                addPantsAttribute={this.props.addPantsStyle}
+                                selectedValue={this.props.pantsStyle}/>
+                    <FormSlider labelText="Wear Limit"/>
                 </View>
             );
         }
@@ -135,8 +169,8 @@ const PantsForm = React.createClass({
         }
     },
 
-    addPantsToDB (formData) {
-        this.props.addPantsData(formData);
+    addPantsToDB () {
+        this.props.addPantsData();
         this.resetForm();
         this.navigateToPantsList();
     },

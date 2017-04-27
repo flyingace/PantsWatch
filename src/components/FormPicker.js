@@ -23,26 +23,35 @@ const FormTextInput = React.createClass({
         fieldName: React.PropTypes.string,
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.array,
-        selectedValue: React.PropTypes.string
+        selectedValue: React.PropTypes.string,
+        isEditable: React.PropTypes.bool
     },
 
     getDefaultProps() {
         return {
             inputRef: '',
             labelText: 'Field Name',
-            placeholderText: ''
+            placeholderText: '',
+            isEditable: false
         };
     },
 
     addPickers() {
-        let pickersList;
-
-        const pickers = map(this.props.menuOptions, function (option, index) {
-                return ( <Picker.Item label={option.label} key={option.value} value={option.value}/> )
+        let pickers = map(this.props.menuOptions, function (option, index) {
+                return <Picker.Item label={option.label} key={option.value} value={option.value} />
             }
         );
 
-        return (pickers);
+        if (this.props.isEditable) {
+            pickers.push(<Picker.Item label="Add to this list" key="add" value="add"/>);
+        }
+
+        return pickers;
+    },
+
+    //unused, but keep for now to apply when new items are added to the db
+    formatForValue(label) {
+        return label.replace(/(\W)/, '').toLowerCase();
     },
 
     onValueChange (value, index) {
@@ -64,10 +73,6 @@ const FormTextInput = React.createClass({
                         selectedValue={this.props.selectedValue}
                         style={FormStyles.pickerField}>
                         {this.addPickers()}
-                        {/*<Picker.Item label="Blue" value="blue"/>*/}
-                        {/*<Picker.Item label="Green" value="green"/>*/}
-                        {/*<Picker.Item label="Black" value="black"/>*/}
-                        <Picker.Item label="Add to this list" value="add"/>
                     </Picker>
                 </View>
             </View>

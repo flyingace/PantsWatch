@@ -12,7 +12,8 @@ export const UPDATING_PANTS = 'UPDATING_PANTS';
 export function addingPants() {
     return { type: ADDING_PANTS}
 }
-export function addPants(formData) {
+export function addPantsData() {
+    const formData = this.state.formReducer;
 
     return (dispatch) => {
         dispatch(addingPants());
@@ -48,7 +49,6 @@ export function addPantsBrand(brandOfPants) {
 export function addPantsStyle(styleOfPants) {
     return { type:ADD_PANTS_STYLE, state: styleOfPants};
 }
-
 
 
 export function retrievePantsData(pantsId) {
