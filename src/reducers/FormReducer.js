@@ -4,6 +4,7 @@ import {
     ADD_PANTS_COLOR,
     ADD_PANTS_NAME,
     ADD_PANTS_STYLE,
+    ADD_PANTS_WEAR_LIMIT,
     UPDATE_PANTS,
     SET_FORM_DATA
 } from '../actions/FormActions';
@@ -11,10 +12,11 @@ import { assign } from 'lodash';
 
 const initialState = {
     formData: {},
-    pantsBrand: '',
-    pantsColor: '',
+    pantsBrand: 'levis',
+    pantsColor: 'blue',
     pantsName: '',
-    pantsStyle: ''
+    pantsStyle: 'casual',
+    pantsWearLimit: 6
 };
 
 
@@ -40,6 +42,11 @@ export default function formReducer(state = initialState, action) {
         case ADD_PANTS_STYLE:
             state = assign({}, state, {
                 pantsStyle: action.state
+            });
+            break;
+        case ADD_PANTS_WEAR_LIMIT:
+            state = assign({}, state, {
+                pantsWearLimit: action.state
             });
             break;
         case UPDATE_PANTS:

@@ -107,7 +107,11 @@ const PantsForm = React.createClass({
                                 isEditable={true}
                                 addPantsAttribute={this.props.addPantsStyle}
                                 selectedValue={this.props.pantsStyle}/>
-                    <FormSlider labelText="Wear Limit"/>
+                    <FormSlider labelText="Wear Limit"
+                                fieldName="pantsWearLimit"
+                                inputRef="wearLimitSlider"
+                                onValueChange={this.props.addPantsWearLimit}
+                                value={this.props.pantsWearLimit} />
                 </View>
             );
         } else {
@@ -141,7 +145,12 @@ const PantsForm = React.createClass({
                                 isEditable={true}
                                 addPantsAttribute={this.props.addPantsStyle}
                                 selectedValue={this.props.pantsStyle}/>
-                    <FormSlider labelText="Wear Limit"/>
+                    <FormSlider labelText="Wear Limit"
+                                fieldName="pantsWearLimit"
+                                inputRef="wearLimitSlider"
+                                onValueChange={this.props.addPantsWearLimit}
+                                value={this.props.pantsWearLimit} />
+
                 </View>
             );
         }

@@ -17,29 +17,7 @@ const FormSlider = React.createClass({
     propTypes: {
         onValueChange: React.PropTypes.func,
         value: React.PropTypes.number,
-        inputRef: React.PropTypes.string,
-        labelText: React.PropTypes.string,
-        placeholderText: React.PropTypes.string
-    },
-
-    getDefaultProps() {
-        return {
-            value: 6,
-            inputRef: '',
-            labelText: 'Field Name',
-            placeholderText: '',
-            onValueChange: this.onValueChange
-        };
-    },
-
-    getInitialState() {
-        return {
-            value: this.props.value
-        }
-    },
-
-    onValueChange(newValue) {
-        this.setState({'value':newValue});
+        labelText: React.PropTypes.string
     },
 
     render() {
@@ -53,10 +31,10 @@ const FormSlider = React.createClass({
                         minimumValue={1}
                         maximumValue={10}
                         required={true}
-                        value={this.state.value}
-                        onValueChange={this.onValueChange}
+                        value={this.props.value}
+                        onValueChange={this.props.onValueChange}
                     />
-                    <Text style={FormStyles.maxCount}>{this.state.value}</Text>
+                    <Text style={FormStyles.maxCount}>{this.props.value}</Text>
                 </View>
             </View>
         );

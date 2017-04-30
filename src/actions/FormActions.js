@@ -5,6 +5,7 @@ export const ADD_PANTS_BRAND = 'ADD_PANTS_BRAND';
 export const ADD_PANTS_COLOR = 'ADD_PANTS_COLOR';
 export const ADD_PANTS_NAME = 'SET_PANTS_NAME';
 export const ADD_PANTS_STYLE = 'ADD_PANTS_STYLE';
+export const ADD_PANTS_WEAR_LIMIT = 'ADD_PANTS_WEAR_LIMIT';
 export const ADDING_PANTS = 'ADDING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
@@ -50,7 +51,9 @@ export function addPantsStyle(styleOfPants) {
     return { type:ADD_PANTS_STYLE, state: styleOfPants};
 }
 
-
+export function addPantsWearLimit(wearLimitofPants) {
+    return { type:ADD_PANTS_WEAR_LIMIT, state: wearLimitofPants};
+}
 export function retrievePantsData(pantsId) {
     return (dispatch) => {
         DB.pants.get_id(pantsId, (result) => {
