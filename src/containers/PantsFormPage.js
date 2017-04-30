@@ -9,7 +9,8 @@ function mapStateToProps(state) {
         pantsBrand: state.formReducer.pantsBrand,
         pantsColor: state.formReducer.pantsColor,
         pantsName: state.formReducer.pantsName,
-        pantsStyle: state.formReducer.pantsStyle
+        pantsStyle: state.formReducer.pantsStyle,
+        pantsWearLimit: state.formReducer.pantsWearLimit
     };
 }
 
