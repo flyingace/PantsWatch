@@ -1,60 +1,75 @@
 import {
-    ADD_PANTS,
-    ADD_PANTS_BRAND,
-    ADD_PANTS_COLOR,
-    ADD_PANTS_NAME,
-    ADD_PANTS_STYLE,
-    ADD_PANTS_WEAR_LIMIT,
+    SET_PANTS,
+    SET_PANTS_ID,
+    SET_PANTS_NAME,
+    SET_PANTS_COLOR,
+    SET_PANTS_BRAND,
+    SET_PANTS_STYLE,
+    SET_PANTS_WEAR_COUNT,
+    SET_PANTS_WEAR_LIMIT,
+    SET_PANTS_LAST_WORN_DATE,
     UPDATE_PANTS,
     SET_FORM_DATA
 } from '../actions/FormActions';
 import { assign } from 'lodash';
 
 const initialState = {
-    formData: {},
+    pantsId: null,
     pantsBrand: 'levis',
     pantsColor: 'blue',
     pantsName: '',
     pantsStyle: 'casual',
-    pantsWearLimit: 6
+    pantsWearCount: 0,
+    pantsWearLimit: 6,
+    lastWornDate: ''
 };
 
 
 export default function formReducer(state = initialState, action) {
     switch (action.type) {
-        case ADD_PANTS:
+        case SET_PANTS:
             break;
-        case ADD_PANTS_BRAND:
+        case SET_PANTS_ID:
+            state = assign({}, state, {
+                pantsId: action.state
+            });
+            break;
+        case SET_PANTS_BRAND:
             state = assign({}, state, {
                 pantsBrand: action.state
             });
             break;
-        case ADD_PANTS_COLOR:
+        case SET_PANTS_COLOR:
             state = assign({}, state, {
                 pantsColor: action.state
             });
             break;
-        case ADD_PANTS_NAME:
+        case SET_PANTS_NAME:
             state = assign({}, state, {
                 pantsName: action.state
             });
             break;
-        case ADD_PANTS_STYLE:
+        case SET_PANTS_STYLE:
             state = assign({}, state, {
                 pantsStyle: action.state
             });
             break;
-        case ADD_PANTS_WEAR_LIMIT:
+        case SET_PANTS_WEAR_COUNT:
+            state = assign({}, state, {
+                pantsWearCount: action.state
+            });
+            break;
+        case SET_PANTS_WEAR_LIMIT:
             state = assign({}, state, {
                 pantsWearLimit: action.state
             });
             break;
-        case UPDATE_PANTS:
-            break;
-        case SET_FORM_DATA:
+        case SET_PANTS_LAST_WORN_DATE:
             state = assign({}, state, {
-                formData: action.state
+                pantsLastWornDate: action.state
             });
+            break;
+        case UPDATE_PANTS:
             break;
         default:
             return state;

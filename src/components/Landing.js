@@ -83,10 +83,6 @@ const Landing = React.createClass({
     render() {
         let landingStyles = (windowIsTall) ? tallStyles : shortStyles;
         let paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
-        console.log(windowHeight);
-        console.log(gridHeight);
-        console.log(paneStyle);
-        console.log(paneStyle.pane);
 
         return (
             <View style={commonStyles.container}>
