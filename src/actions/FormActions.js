@@ -1,23 +1,26 @@
 import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
 
-export const ADD_PANTS_BRAND = 'ADD_PANTS_BRAND';
-export const ADD_PANTS_COLOR = 'ADD_PANTS_COLOR';
-export const ADD_PANTS_NAME = 'SET_PANTS_NAME';
-export const ADD_PANTS_STYLE = 'ADD_PANTS_STYLE';
-export const ADD_PANTS_WEAR_LIMIT = 'ADD_PANTS_WEAR_LIMIT';
-export const ADDING_PANTS = 'ADDING_PANTS';
+export const SET_PANTS_ID = 'SET_PANTS_ID';
+export const SET_PANTS_NAME = 'SET_PANTS_NAME';
+export const SET_PANTS_BRAND = 'SET_PANTS_BRAND';
+export const SET_PANTS_COLOR = 'SET_PANTS_COLOR';
+export const SET_PANTS_STYLE = 'SET_PANTS_STYLE';
+export const SET_PANTS_WEAR_COUNT = 'SET_PANTS_WEAR_COUNT';
+export const SET_PANTS_WEAR_LIMIT = 'SET_PANTS_WEAR_LIMIT';
+export const SET_PANTS_LAST_WORN_DATE = 'SET_PANTS_LAST_WORN_DATE';
+export const SETTING_PANTS = 'SETING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
 
-export function addingPants() {
-    return { type: ADDING_PANTS}
+export function settingPants() {
+    return { type: SETTING_PANTS }
 }
 
-export function addPantsData(formData) {
+export function setPantsData(formData) {
 
     return (dispatch) => {
-        dispatch(addingPants());
+        dispatch(settingPants());
 
         DB.pants.add({
             pantsName: formData.pantsName,
@@ -35,29 +38,49 @@ export function addPantsData(formData) {
     };
 }
 
-export function addPantsName(nameOfPants) {
-    return { type: ADD_PANTS_NAME, state: nameOfPants};
+export function setPantsId(idOfPants) {
+    return { type: SET_PANTS_ID, state: idOfPants };
 }
 
-export function addPantsColor(colorOfPants) {
-    return { type:ADD_PANTS_COLOR, state: colorOfPants};
+export function setPantsName(nameOfPants) {
+    return { type: SET_PANTS_NAME, state: nameOfPants };
 }
 
-export function addPantsBrand(brandOfPants) {
-    return { type:ADD_PANTS_BRAND, state: brandOfPants};
+export function setPantsColor(colorOfPants) {
+    return { type: SET_PANTS_COLOR, state: colorOfPants };
 }
 
-export function addPantsStyle(styleOfPants) {
-    return { type:ADD_PANTS_STYLE, state: styleOfPants};
+export function setPantsBrand(brandOfPants) {
+    return { type: SET_PANTS_BRAND, state: brandOfPants };
 }
 
-export function addPantsWearLimit(wearLimitofPants) {
-    return { type:ADD_PANTS_WEAR_LIMIT, state: wearLimitofPants};
+export function setPantsStyle(styleOfPants) {
+    return { type: SET_PANTS_STYLE, state: styleOfPants };
 }
+
+export function setPantsWearCount(wearCountOfPants) {
+    return { type: SET_PANTS_WEAR_COUNT, state: wearCountOfPants };
+}
+
+export function setPantsWearLimit(wearLimitOfPants) {
+    return { type: SET_PANTS_WEAR_LIMIT, state: wearLimitOfPants };
+}
+export function setLastWornDate(lastWornDateOfPants) {
+    return { type: SET_PANTS_LAST_WORN_DATE, state: lastWornDateOfPants };
+}
+
 export function retrievePantsData(pantsId) {
     return (dispatch) => {
         DB.pants.get_id(pantsId, (result) => {
-            dispatch(setFormData({ value: result[0] }));
+            let pantsData = result[0];
+            dispatch(setPantsId(pantsData._id));
+            dispatch(setPantsName(pantsData.pantsName));
+            dispatch(setPantsColor(pantsData.pantsColor));
+            dispatch(setPantsBrand(pantsData.pantsBrand));
+            dispatch(setPantsStyle(pantsData.pantsStyle));
+            dispatch(setPantsWearCount(pantsData.pantsWearCount));
+            dispatch(setPantsWearLimit(pantsData.pantsWearLimit));
+            dispatch(setLastWornDate(pantsData.lastWornDate));
         });
     };
 }
@@ -68,7 +91,7 @@ export function setFormData(formData) {
 
 export function updatePantsData(formData) {
     return (dispatch) => {
-        DB.pants.update_id(formData._id, {
+        DB.pants.update_id(formData.pantsId, {
             pantsName: formData.pantsName,
             pantsColor: formData.pantsColor,
             pantsBrand: formData.pantsBrand,

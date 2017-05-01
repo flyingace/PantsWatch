@@ -71,33 +71,33 @@ const PantsForm = React.createClass({
                                    validation="Please enter a name for your pants"
                                    fieldName="pantsName"
                                    inputRef="nameInput"
-                                   addPantsName={this.props.addPantsName}
+                                   setFieldValue={this.props.setPantsName}
                                    value={this.props.pantsName}/>
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
                                 menuOptions={COLORS}
                                 isEditable={true}
-                                addPantsAttribute={this.props.addPantsColor}
+                                setFieldValue={this.props.setPantsColor}
                                 selectedValue={this.props.pantsColor}/>
                     <FormPicker labelText="Pants Brand"
                                 fieldName="pantsBrand"
                                 inputRef="brandPicker"
                                 menuOptions={BRANDS}
                                 isEditable={true}
-                                addPantsAttribute={this.props.addPantsBrand}
+                                setFieldValue={this.props.setPantsBrand}
                                 selectedValue={this.props.pantsBrand}/>
                     <FormPicker labelText="Pants Style"
                                 fieldName="pantsStyle"
                                 inputRef="stylePicker"
                                 menuOptions={STYLES}
                                 isEditable={true}
-                                addPantsAttribute={this.props.addPantsStyle}
+                                setFieldValue={this.props.setPantsStyle}
                                 selectedValue={this.props.pantsStyle}/>
                     <FormSlider labelText="Wear Limit"
                                 fieldName="pantsWearLimit"
                                 inputRef="wearLimitSlider"
-                                onValueChange={this.props.addPantsWearLimit}
+                                onValueChange={this.props.setPantsWearLimit}
                                 value={this.props.pantsWearLimit}/>
                 </View>
             );
@@ -109,35 +109,45 @@ const PantsForm = React.createClass({
                                    validation="Please enter a name for your pants"
                                    fieldName="pantsName"
                                    inputRef="nameInput"
-                                   addPantsName={this.props.addPantsName}
+                                   setFieldValue={this.props.setPantsName}
                                    value={this.props.pantsName}/>
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
                                 menuOptions={COLORS}
                                 isEditable={true}
-                                addPantsAttribute={this.props.addPantsColor}
+                                setFieldValue={this.props.setPantsColor}
                                 selectedValue={this.props.pantsColor}/>
                     <FormPicker labelText="Pants Brand"
                                 fieldName="pantsBrand"
                                 inputRef="brandPicker"
                                 menuOptions={BRANDS}
                                 isEditable={true}
-                                addPantsAttribute={this.props.addPantsBrand}
+                                setFieldValue={this.props.setPantsBrand}
                                 selectedValue={this.props.pantsBrand}/>
                     <FormPicker labelText="Pants Style"
                                 fieldName="pantsStyle"
                                 inputRef="stylePicker"
                                 menuOptions={STYLES}
                                 isEditable={true}
-                                addPantsAttribute={this.props.addPantsStyle}
+                                setFieldValue={this.props.setPantsStyle}
                                 selectedValue={this.props.pantsStyle}/>
+                    <FormSlider labelText="Wear Count"
+                                fieldName="pantsWearCount"
+                                inputRef="wearCountSlider"
+                                onValueChange={this.props.setPantsWearCount}
+                                value={this.props.pantsWearCount}/>
                     <FormSlider labelText="Wear Limit"
                                 fieldName="pantsWearLimit"
                                 inputRef="wearLimitSlider"
-                                onValueChange={this.props.addPantsWearLimit}
+                                onValueChange={this.props.setPantsWearLimit}
                                 value={this.props.pantsWearLimit}/>
-
+                    <FormTextInput labelText="Last Worn Date"
+                                   required={true}
+                                   fieldName="lastWornDate"
+                                   inputRef="lastWornDateInput"
+                                   setFieldValue={this.props.setLastWornDate}
+                                   value={this.props.lastWornDate}/>
                 </View>
             );
         }
@@ -145,11 +155,15 @@ const PantsForm = React.createClass({
 
     compileFormData() {
         return {
+            //FIXME: This is working but I really don't like it
+            pantsId: this.props.pantsId || this.props.route.updateId,
             pantsName: this.props.pantsName,
             pantsColor: this.props.pantsColor,
             pantsBrand: this.props.pantsBrand,
             pantsStyle: this.props.pantsStyle,
-            pantsWearLimit: this.props.pantsWearLimit
+            pantsWearCount: this.props.pantsWearCount,
+            pantsWearLimit: this.props.pantsWearLimit,
+            lastWornDate: this.props.lastWornDate
         }
     },
 
@@ -159,20 +173,16 @@ const PantsForm = React.createClass({
         //And then to go to the pants list page
 
         // call getValue() to get the values of the form
-        let formData;
+        let formData = this.compileFormData();
         if (!this.props.route.updateId) {
-            formData = this.compileFormData();
             this.addPantsToDB(formData);
         } else {
-            formData = this.refs.updatePantsForm.getValue();
-            if (formData) {
-                this.updatePantsInDB(formData);
-            }
+            this.updatePantsInDB(formData);
         }
     },
 
     addPantsToDB (formData) {
-        this.props.addPantsData(formData);
+        this.props.setPantsData(formData);
         this.resetForm();
         this.navigateToPantsList();
     },

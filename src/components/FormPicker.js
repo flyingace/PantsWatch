@@ -18,7 +18,7 @@ const FormTextInput = React.createClass({
     displayName: 'FormPicker',
 
     propTypes: {
-        addPantsAttribute: React.PropTypes.func,
+        setFieldValue: React.PropTypes.func,
         inputRef: React.PropTypes.string,
         fieldName: React.PropTypes.string,
         labelText: React.PropTypes.string,
@@ -56,7 +56,7 @@ const FormTextInput = React.createClass({
 
     onValueChange (value, index) {
         if (value !== 'add') {
-            this.props.addPantsAttribute(value);
+            this.props.setFieldValue(value);
         } else {
             console.log('open dialog to edit color options');
         }
