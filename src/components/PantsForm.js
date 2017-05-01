@@ -56,23 +56,10 @@ const PantsForm = React.createClass({
         };
     },
 
-    getInitialState () {
-        return {
-            pantsName: '',
-            pantsColor: ''
-        };
-    },
-
     componentWillMount() {
         if (this.props.route.updateId) {
             this.props.retrievePantsData(this.props.route.updateId);
         }
-    },
-
-    componentWillReceiveProps(nextProps) {
-        // if (nextProps.pantsData.formData.value) {
-        //     this.setState({ 'value': nextProps.pantsData.formData.value });
-        // }
     },
 
     renderForm () {
@@ -111,7 +98,7 @@ const PantsForm = React.createClass({
                                 fieldName="pantsWearLimit"
                                 inputRef="wearLimitSlider"
                                 onValueChange={this.props.addPantsWearLimit}
-                                value={this.props.pantsWearLimit} />
+                                value={this.props.pantsWearLimit}/>
                 </View>
             );
         } else {
@@ -149,15 +136,24 @@ const PantsForm = React.createClass({
                                 fieldName="pantsWearLimit"
                                 inputRef="wearLimitSlider"
                                 onValueChange={this.props.addPantsWearLimit}
-                                value={this.props.pantsWearLimit} />
+                                value={this.props.pantsWearLimit}/>
 
                 </View>
             );
         }
     },
 
-    onFormSubmit () {
+    compileFormData() {
+        return {
+            pantsName: this.props.pantsName,
+            pantsColor: this.props.pantsColor,
+            pantsBrand: this.props.pantsBrand,
+            pantsStyle: this.props.pantsStyle,
+            pantsWearLimit: this.props.pantsWearLimit
+        }
+    },
 
+    onFormSubmit () {
         //First Step Should Be To Validate
         //Then if validated, to update the database
         //And then to go to the pants list page
@@ -165,11 +161,8 @@ const PantsForm = React.createClass({
         // call getValue() to get the values of the form
         let formData;
         if (!this.props.route.updateId) {
-            formData = this.state;
-            console.log(formData);
-            if (formData) {
-                this.addPantsToDB(formData);
-            }
+            formData = this.compileFormData();
+            this.addPantsToDB(formData);
         } else {
             formData = this.refs.updatePantsForm.getValue();
             if (formData) {
@@ -178,8 +171,8 @@ const PantsForm = React.createClass({
         }
     },
 
-    addPantsToDB () {
-        this.props.addPantsData();
+    addPantsToDB (formData) {
+        this.props.addPantsData(formData);
         this.resetForm();
         this.navigateToPantsList();
     },
@@ -197,7 +190,7 @@ const PantsForm = React.createClass({
     navigateToPantsList () {
         //TODO: Add check to see if "add multiple pairs of pants" is checked and
         //if yes, do not navigate away but reset focus to first field.
-        this.props.navigator.replace({ component: PantsListView, name: 'Choose Pants' });
+        // this.props.navigator.replace({ component: PantsListView, name: 'Choose Pants' });
     },
 
     render () {

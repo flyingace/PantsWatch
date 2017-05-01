@@ -13,8 +13,8 @@ export const UPDATING_PANTS = 'UPDATING_PANTS';
 export function addingPants() {
     return { type: ADDING_PANTS}
 }
-export function addPantsData() {
-    const formData = this.state.formReducer;
+
+export function addPantsData(formData) {
 
     return (dispatch) => {
         dispatch(addingPants());
