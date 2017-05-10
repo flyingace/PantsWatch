@@ -11,6 +11,7 @@ import {
 import _ from 'lodash';
 import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
+import AddOptionModal from './AddOptionModal';
 import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
 import FormSlider from './FormSlider';
@@ -99,6 +100,8 @@ const PantsForm = React.createClass({
                                 inputRef="wearLimitSlider"
                                 onValueChange={this.props.setPantsWearLimit}
                                 value={this.props.pantsWearLimit}/>
+                    <AddOptionModal
+                                />
                 </View>
             );
         } else {
