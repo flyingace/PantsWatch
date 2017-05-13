@@ -29,7 +29,8 @@ const AddOptionModal = React.createClass({
 
     getInitialState() {
         return {
-            modalVisible: true
+            modalVisible: true,
+            textFieldValue: ''
         }
     },
 
@@ -41,7 +42,12 @@ const AddOptionModal = React.createClass({
         this.setModalVisible(false);
     },
 
+    onTextChange(value) {
+        this.setState({'textFieldValue': value})
+    },
+
     onOkay() {
+        this.props.addOption('colors', this.state.textFieldValue);
         this.setModalVisible(false);
         console.log('okay');
     },
@@ -52,8 +58,9 @@ const AddOptionModal = React.createClass({
                 animationType={"fade"}
                 transparent={false}
                 visible={this.state.modalVisible}
-                onRequestClose={this.props.onRequestClose}>
-                <TextInput value=''/>
+                onRequestClose={() => {this.setModalVisible(false)}}>
+                <TextInput ref='newValue' value={this.state.textFieldValue}                         onChangeText={this.onTextChange}
+                />
                 <Button onPress={this.onCancel} title='Cancel'/>
                 <Button onPress={this.onOkay} title='Okay'/>
             </Modal>

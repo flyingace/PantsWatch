@@ -101,6 +101,7 @@ const PantsForm = React.createClass({
                                 onValueChange={this.props.setPantsWearLimit}
                                 value={this.props.pantsWearLimit}/>
                     <AddOptionModal
+                        addOption = {this.props.addOption}
                                 />
                 </View>
             );

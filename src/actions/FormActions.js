@@ -1,5 +1,6 @@
 import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
+import { toTitleCase, toDBReadyValue } from '../utils/appUtils';
 
 export const ADDING_OPTION = 'ADDING_OPTION';
 export const SET_PANTS_ID = 'SET_PANTS_ID';
@@ -16,10 +17,6 @@ export const UPDATING_PANTS = 'UPDATING_PANTS';
 
 export function settingPants() {
     return { type: SETTING_PANTS }
-}
-
-export function addingOption() {
-    return { type: ADDING_OPTION }
 }
 
 export function setPantsData(formData) {
@@ -40,18 +37,6 @@ export function setPantsData(formData) {
             // notes: value.notes
 
         });
-    };
-}
-
-export function addOption(option, category) {
-    return (dispatch) => {
-        dispatch(addingOption());
-
-        const targetDB = DB[option];
-
-        targetDB.add({
-            color: option
-        })
     };
 }
 
@@ -119,4 +104,44 @@ export function updatePantsData(formData) {
             selected: formData.selected
         });
     };
+}
+
+export function addOption(category, option) {
+    return (dispatch) => {
+        dispatch(addingOption());
+
+        const targetDB = DB[category];
+
+        targetDB.add({
+            label: toTitleCase(option), value: toDBReadyValue(option)
+        })
+    };
+}
+
+export function addingOption() {
+    return { type: ADDING_OPTION }
+}
+
+export function fetchBrandsData() {
+    return (dispatch) => {
+        return DB.brands.get_all((data) => {
+            console.log(data);
+        });
+    }
+}
+
+export function fetchColorsData() {
+    return (dispatch) => {
+        return DB.colors.get_all((data) => {
+            console.log(data);
+        });
+    }
+}
+
+export function fetchStylesData() {
+    return (dispatch) => {
+        return DB.styles.get_all((data) => {
+            console.log(data);
+        });
+    }
 }

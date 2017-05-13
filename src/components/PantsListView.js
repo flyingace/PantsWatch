@@ -22,6 +22,7 @@ const PantsListView = React.createClass({
     propTypes: {
         pantsList: React.PropTypes.object,
         fetchPantsData: React.PropTypes.func,
+        fetchColorsData: React.PropTypes.func,
         selectPants: React.PropTypes.func,
         deletePants: React.PropTypes.func,
         deselectAllPants: React.PropTypes.func,
@@ -42,10 +43,13 @@ const PantsListView = React.createClass({
 
     componentWillMount () {
         this.props.fetchPantsData();
+        this.props.fetchColorsData();
     },
 
     componentDidMount () {
         this.getListDataSource();
+        //TODO: This should be changed to a function
+        //which determines which db has been affected
         DBEvents.on('all', this.props.fetchPantsData);
     },
 
