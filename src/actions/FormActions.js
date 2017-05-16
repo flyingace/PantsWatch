@@ -3,6 +3,8 @@ import { DBEvents } from 'react-native-db-models';
 import { toTitleCase, toDBReadyValue } from '../utils/appUtils';
 
 export const ADDING_OPTION = 'ADDING_OPTION';
+export const RECEIVE_COLORS_DATA = 'RECEIVE_COLORS_DATA';
+export const REQUEST_COLORS_DATA = 'REQUEST_COLORS_DATA';
 export const SET_PANTS_ID = 'SET_PANTS_ID';
 export const SET_PANTS_NAME = 'SET_PANTS_NAME';
 export const SET_PANTS_BRAND = 'SET_PANTS_BRAND';
@@ -67,6 +69,7 @@ export function setPantsWearCount(wearCountOfPants) {
 export function setPantsWearLimit(wearLimitOfPants) {
     return { type: SET_PANTS_WEAR_LIMIT, state: wearLimitOfPants };
 }
+
 export function setLastWornDate(lastWornDateOfPants) {
     return { type: SET_PANTS_LAST_WORN_DATE, state: lastWornDateOfPants };
 }
@@ -111,9 +114,11 @@ export function addOption(category, option) {
         dispatch(addingOption());
 
         const targetDB = DB[category];
+        const newLabel = toTitleCase(option);
+        const newValue = toDBReadyValue(option);
 
         targetDB.add({
-            label: toTitleCase(option), value: toDBReadyValue(option)
+            label: newLabel, value: newValue
         })
     };
 }
@@ -132,10 +137,20 @@ export function fetchBrandsData() {
 
 export function fetchColorsData() {
     return (dispatch) => {
+        dispatch( requestColorsData() );
+
         return DB.colors.get_all((data) => {
-            console.log(data);
+            dispatch(receiveColorsData(data));
         });
     }
+}
+
+export function requestColorsData() {
+    return { type: REQUEST_COLORS_DATA };
+}
+
+export function receiveColorsData(data) {
+    return { type: RECEIVE_COLORS_DATA, state: data };
 }
 
 export function fetchStylesData() {
@@ -145,3 +160,4 @@ export function fetchStylesData() {
         });
     }
 }
+

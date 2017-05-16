@@ -9,7 +9,7 @@ import {
     Picker,
     View
 } from 'react-native';
-import { map } from 'lodash';
+import { forIn } from 'lodash';
 import FormStyles from '../styles/FormStyles';
 import DownArrow from '../../assets/down_arrow.png';
 
@@ -22,7 +22,7 @@ const FormTextInput = React.createClass({
         inputRef: React.PropTypes.string,
         fieldName: React.PropTypes.string,
         labelText: React.PropTypes.string,
-        menuOptions: React.PropTypes.array,
+        menuOptions: React.PropTypes.object,
         selectedValue: React.PropTypes.string,
         isEditable: React.PropTypes.bool
     },
@@ -37,8 +37,10 @@ const FormTextInput = React.createClass({
     },
 
     addPickers() {
-        let pickers = map(this.props.menuOptions, function (option, index) {
-                return <Picker.Item label={option.label} key={option.value} value={option.value} />
+        let pickers =[];
+
+        forIn(this.props.menuOptions.rows, function (option, key) {
+                pickers.push(<Picker.Item label={option.label} key={key} value={option.value} />);
             }
         );
 

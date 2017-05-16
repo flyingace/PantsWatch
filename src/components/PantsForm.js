@@ -39,7 +39,8 @@ const STYLES = [
 const PantsForm = React.createClass({
 
     propTypes: {
-        pantsData: React.PropTypes.object,
+        // pantsData: React.PropTypes.object,
+        fetchColorsData: React.PropTypes.func,
         retrievePantsData: React.PropTypes.func,
         validateForm: React.PropTypes.func,
         submitForm: React.PropTypes.func
@@ -61,6 +62,15 @@ const PantsForm = React.createClass({
         if (this.props.route.updateId) {
             this.props.retrievePantsData(this.props.route.updateId);
         }
+        this.props.fetchColorsData();
+    },
+
+    componentDidMount() {
+        DBEvents.on('all', this.props.fetchColorsData)
+    },
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps.colorValues);
     },
 
     renderForm () {
@@ -77,32 +87,31 @@ const PantsForm = React.createClass({
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
-                                menuOptions={COLORS}
-                                isEditable={true}
+                                menuOptions={this.props.colorValues}
+                                isEditable={false}
                                 setFieldValue={this.props.setPantsColor}
                                 selectedValue={this.props.pantsColor}/>
-                    <FormPicker labelText="Pants Brand"
-                                fieldName="pantsBrand"
-                                inputRef="brandPicker"
-                                menuOptions={BRANDS}
-                                isEditable={true}
-                                setFieldValue={this.props.setPantsBrand}
-                                selectedValue={this.props.pantsBrand}/>
-                    <FormPicker labelText="Pants Style"
-                                fieldName="pantsStyle"
-                                inputRef="stylePicker"
-                                menuOptions={STYLES}
-                                isEditable={true}
-                                setFieldValue={this.props.setPantsStyle}
-                                selectedValue={this.props.pantsStyle}/>
+                    {/*<FormPicker labelText="Pants Brand"*/}
+                                {/*fieldName="pantsBrand"*/}
+                                {/*inputRef="brandPicker"*/}
+                                {/*menuOptions={BRANDS}*/}
+                                {/*isEditable={true}*/}
+                                {/*setFieldValue={this.props.setPantsBrand}*/}
+                                {/*selectedValue={this.props.pantsBrand}/>*/}
+                    {/*<FormPicker labelText="Pants Style"*/}
+                                {/*fieldName="pantsStyle"*/}
+                                {/*inputRef="stylePicker"*/}
+                                {/*menuOptions={STYLES}*/}
+                                {/*isEditable={true}*/}
+                                {/*setFieldValue={this.props.setPantsStyle}*/}
+                                {/*selectedValue={this.props.pantsStyle}/>*/}
                     <FormSlider labelText="Wear Limit"
                                 fieldName="pantsWearLimit"
                                 inputRef="wearLimitSlider"
                                 onValueChange={this.props.setPantsWearLimit}
                                 value={this.props.pantsWearLimit}/>
                     <AddOptionModal
-                        addOption = {this.props.addOption}
-                                />
+                        addOption={this.props.addOption}/>
                 </View>
             );
         } else {

@@ -8,6 +8,7 @@ import {
     Image,
     TouchableOpacity
 } from 'react-native';
+import DB from '../../db';
 import Dimensions from 'Dimensions';
 import Menu from './Menu';
 import Landing from './Landing';
@@ -30,9 +31,34 @@ const Application = React.createClass({
     },
 
     componentDidMount() {
+        this.setDefaultDBValues();
     },
 
     componentWillUnmount() {
+    },
+
+    setDefaultDBValues() {
+        // if (!DB.brands.rows) {
+        //     DB.brands.add({ label: 'Levi\'s', value: 'levis' });
+        //     DB.brands.add({ label: 'J. Crew', value: 'jCrew' });
+        //     DB.brands.add({ label: 'Banana Republic', value: 'bananaRepublic' });
+        //     DB.brands.add({ label: 'GAP', value: 'gap' });
+        // }
+
+        DB.colors.erase_db();
+
+        // if (!DB.colors.rows) {
+        //     DB.colors.add({ label: 'Blue', value: 'blue' });
+        //     DB.colors.add({ label: 'Green', value: 'green' });
+        //     DB.colors.add({ label: 'Black', value: 'black' });
+        // }
+        if (!DB.styles.rows) {
+            DB.styles.add({ label: 'Casual', value: 'casual' });
+            DB.styles.add({ label: 'Work', value: 'work' });
+            DB.styles.add({ label: 'Night Life', value: 'nightLife' });
+            DB.styles.add({ label: 'Workout', value: 'workout' });
+        }
+
     },
 
     toggle() {
@@ -42,11 +68,11 @@ const Application = React.createClass({
     },
 
     updateMenuState(isOpen) {
-        this.setState({isOpen});
+        this.setState({ isOpen });
     },
 
     closeMenu() {
-        this.setState({isOpen: false});
+        this.setState({ isOpen: false });
     },
 
     _renderScene(route, navigator) {

@@ -2,6 +2,7 @@ import {
     RECEIVE_BRANDS_DATA,
     RECEIVE_COLORS_DATA,
     RECEIVE_STYLES_DATA,
+    REQUEST_COLORS_DATA,
     SET_PANTS,
     SET_PANTS_ID,
     SET_PANTS_NAME,
@@ -17,20 +18,10 @@ import {
 import { assign } from 'lodash';
 
 const initialState = {
-    brandValues: [
-        { label: 'Levi\'s', value: 'levis' },
-        { label: 'J. Crew', value: 'jCrew' },
-        { label: 'Banana Republic', value: 'bananaRepublic' },
-        { label: 'GAP', value: 'gap' }],
-    colorValues: [
-        { label: 'Blue', value: 'blue' },
-        { label: 'Green', value: 'green' },
-        { label: 'Black', value: 'black' }],
+    brandValues: {},
+    colorValues: {},
     styleValues: [
-        { label: 'Casual', value: 'casual' },
-        { label: 'Work', value: 'work' },
-        { label: 'Night Life', value: 'nightLife' },
-        { label: 'Workout', value: 'workout' }],
+],
     pantsId: null,
     pantsBrand: 'jCrew',
     pantsColor: 'blue',
@@ -53,6 +44,8 @@ export default function formReducer(state = initialState, action) {
             state = assign({}, state, {
                 colorValues: action.state
             });
+            break;
+        case REQUEST_COLORS_DATA:
             break;
         case RECEIVE_STYLES_DATA:
             state = assign({}, state, {
