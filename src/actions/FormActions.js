@@ -3,8 +3,12 @@ import { DBEvents } from 'react-native-db-models';
 import { toTitleCase, toDBReadyValue } from '../utils/appUtils';
 
 export const ADDING_OPTION = 'ADDING_OPTION';
+export const RECEIVE_BRANDS_DATA = 'RECEIVE_BRANDS_DATA';
+export const REQUEST_BRANDS_DATA = 'REQUEST_BRANDS_DATA';
 export const RECEIVE_COLORS_DATA = 'RECEIVE_COLORS_DATA';
 export const REQUEST_COLORS_DATA = 'REQUEST_COLORS_DATA';
+export const RECEIVE_STYLES_DATA = 'RECEIVE_STYLES_DATA';
+export const REQUEST_STYLES_DATA = 'REQUEST_STYLES_DATA';
 export const SET_PANTS_ID = 'SET_PANTS_ID';
 export const SET_PANTS_NAME = 'SET_PANTS_NAME';
 export const SET_PANTS_BRAND = 'SET_PANTS_BRAND';
@@ -127,17 +131,29 @@ export function addingOption() {
     return { type: ADDING_OPTION }
 }
 
+//Brands
 export function fetchBrandsData() {
     return (dispatch) => {
+        dispatch(requestBrandsData());
+
         return DB.brands.get_all((data) => {
-            console.log(data);
+            dispatch(receiveBrandsData(data));
         });
     }
 }
 
+export function requestBrandsData() {
+    return { type: REQUEST_BRANDS_DATA };
+}
+
+export function receiveBrandsData(data) {
+    return { type: RECEIVE_BRANDS_DATA, state: data };
+}
+
+//Colors
 export function fetchColorsData() {
     return (dispatch) => {
-        dispatch( requestColorsData() );
+        dispatch(requestColorsData());
 
         return DB.colors.get_all((data) => {
             dispatch(receiveColorsData(data));
@@ -153,11 +169,21 @@ export function receiveColorsData(data) {
     return { type: RECEIVE_COLORS_DATA, state: data };
 }
 
+//Styles
 export function fetchStylesData() {
     return (dispatch) => {
+        dispatch(requestStylesData());
+
         return DB.styles.get_all((data) => {
-            console.log(data);
+            dispatch(receiveStylesData(data));
         });
     }
 }
 
+export function requestStylesData() {
+    return { type: REQUEST_STYLES_DATA };
+}
+
+export function receiveStylesData(data) {
+    return { type: RECEIVE_STYLES_DATA, state: data };
+}

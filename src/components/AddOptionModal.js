@@ -29,7 +29,7 @@ const AddOptionModal = React.createClass({
 
     getInitialState() {
         return {
-            modalVisible: true,
+            modalVisible: false,
             textFieldValue: ''
         }
     },

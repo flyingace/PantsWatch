@@ -15,6 +15,23 @@ import Landing from './Landing';
 
 const window = Dimensions.get('window');
 
+//Remember that these will be added to the DB and returned as objects, not arrays
+const BRANDS = [
+    { label: 'GAP', value: 'gap' },
+    { label: 'Banana Republic', value: 'bananarepublic' },
+    { label: 'J. Crew', value: 'jcrew' },
+    { label: 'Levi\'s', value: 'levis' }];
+const COLORS = [
+    { label: 'Black', value: 'black' },
+    { label: 'Green', value: 'green' },
+    { label: 'Blue', value: 'blue' }];
+const STYLES = [
+    { label: 'Workout', value: 'workout' },
+    { label: 'Night Life', value: 'nightlife' },
+    { label: 'Work', value: 'work' },
+    { label: 'Casual', value: 'casual' }
+];
+
 const Application = React.createClass({
 
     displayName: 'Application',
@@ -37,28 +54,42 @@ const Application = React.createClass({
     componentWillUnmount() {
     },
 
+    /**
+     * Check to see if picker values are empty when app starts.
+     * If so, load default values.
+     */
     setDefaultDBValues() {
-        // if (!DB.brands.rows) {
-        //     DB.brands.add({ label: 'Levi\'s', value: 'levis' });
-        //     DB.brands.add({ label: 'J. Crew', value: 'jCrew' });
-        //     DB.brands.add({ label: 'Banana Republic', value: 'bananaRepublic' });
-        //     DB.brands.add({ label: 'GAP', value: 'gap' });
-        // }
+        // DB.brands.erase_db(function() {
+        //     DB.colors.erase_db(function() {
+        //         DB.styles.erase_db(function() {
+        //             console.log('all done');
+        //         });
+        //     });
+        // });
 
-        DB.colors.erase_db();
+        DB.brands.get_all(function (response) {
+            if (response.totalrows === 0) {
+                DB.brands.add_all(BRANDS, (addedValues) => {
+                    console.log(addedValues);
+                })
+            }
+        });
 
-        // if (!DB.colors.rows) {
-        //     DB.colors.add({ label: 'Blue', value: 'blue' });
-        //     DB.colors.add({ label: 'Green', value: 'green' });
-        //     DB.colors.add({ label: 'Black', value: 'black' });
-        // }
-        if (!DB.styles.rows) {
-            DB.styles.add({ label: 'Casual', value: 'casual' });
-            DB.styles.add({ label: 'Work', value: 'work' });
-            DB.styles.add({ label: 'Night Life', value: 'nightLife' });
-            DB.styles.add({ label: 'Workout', value: 'workout' });
-        }
+        DB.colors.get_all(function (response) {
+            if (response.totalrows === 0) {
+                DB.colors.add_all(COLORS, (addedValues) => {
+                    console.log(addedValues);
+                })
+            }
+        });
 
+        DB.styles.get_all(function (response) {
+            if (response.totalrows === 0) {
+                DB.styles.add_all(STYLES, (addedValues) => {
+                    console.log(addedValues);
+                })
+            }
+        });
     },
 
     toggle() {
