@@ -2,28 +2,24 @@ import React from 'react';
 import {
     Button,
     Modal,
-    PropTypes,
     StyleSheet,
-    TextInput,
-    View
+    Text,
+    TextInput
 } from 'react-native';
-
-import FormButton from './FormButton';
-import FormTextInput from './FormTextInput';
-
 
 const AddOptionModal = React.createClass({
 
     displayName: 'AddOptionModal',
 
     propTypes: {
-        // paneStyle: React.PropTypes.object
+        modalIsVisible: React.PropTypes.bool,
+        onSubmitEntry: React.PropTypes.func,
+        formFieldLabel: React.PropTypes.string
     },
 
     getDefaultProps() {
         return {
-            onPress: this._onPress,
-            paneLabel: 'Pants Pane',
+            modalIsVisible: false
         };
     },
 
@@ -31,36 +27,57 @@ const AddOptionModal = React.createClass({
         return {
             modalVisible: false,
             textFieldValue: ''
-        }
-    },
-
-    setModalVisible(isVisible) {
-        this.setState({modalVisible: isVisible})
-    },
-
-    onCancel() {
-        this.setModalVisible(false);
+        };
     },
 
     onTextChange(value) {
-        this.setState({'textFieldValue': value})
+        this.setState({ 'textFieldValue': value });
+    },
+
+    getDBName(optionType) {
+        let DBName;
+
+        switch (optionType) {
+            case 'pantsColor':
+                DBName = 'colors';
+                break;
+            case 'pantsBrand':
+                DBName = 'brands';
+                break;
+            case 'pantsStyle':
+                DBName = 'styles';
+                break;
+            default:
+                DBName = '';
+                break;
+        }
+
+        return DBName;
     },
 
     onOkay() {
-        this.props.addOption('colors', this.state.textFieldValue);
-        this.setModalVisible(false);
-        console.log('okay');
+        const dbName = this.getDBName(this.props.optionType);
+        this.props.addOption(dbName, this.state.textFieldValue);
+        this.onTextChange('');
+        this.props.toggleModalVisibility(false);
+    },
+
+    onCancel() {
+        this.onTextChange('');
+        this.props.toggleModalVisibility(false);
     },
 
     render() {
         return (
             <Modal
-                animationType={"fade"}
+                animationType={'slide'}
                 transparent={false}
-                visible={this.state.modalVisible}
-                onRequestClose={() => {this.setModalVisible(false)}}>
-                <TextInput ref='newValue' value={this.state.textFieldValue}                         onChangeText={this.onTextChange}
-                />
+                visible={this.props.modalIsVisible}
+                onRequestClose={() => {
+                    this.props.toggleModalVisibility(false);
+                }}>
+                <Text>Add an option</Text>
+                <TextInput ref='newOptionValue' value={this.state.textFieldValue} onChangeText={this.onTextChange}/>
                 <Button onPress={this.onCancel} title='Cancel'/>
                 <Button onPress={this.onOkay} title='Okay'/>
             </Modal>

@@ -1,12 +1,7 @@
 import React from 'react';
 import {
     Navigator,
-    NavigatorSceneConfigs,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    TouchableOpacity
+    StyleSheet
 } from 'react-native';
 import DB from '../../db';
 import Dimensions from 'Dimensions';
@@ -44,7 +39,7 @@ const Application = React.createClass({
     getInitialState() {
         return {
             isOpen: false
-        }
+        };
     },
 
     componentDidMount() {
@@ -59,19 +54,12 @@ const Application = React.createClass({
      * If so, load default values.
      */
     setDefaultDBValues() {
-        // DB.brands.erase_db(function() {
-        //     DB.colors.erase_db(function() {
-        //         DB.styles.erase_db(function() {
-        //             console.log('all done');
-        //         });
-        //     });
-        // });
 
         DB.brands.get_all(function (response) {
             if (response.totalrows === 0) {
                 DB.brands.add_all(BRANDS, (addedValues) => {
                     console.log(addedValues);
-                })
+                });
             }
         });
 
@@ -79,7 +67,7 @@ const Application = React.createClass({
             if (response.totalrows === 0) {
                 DB.colors.add_all(COLORS, (addedValues) => {
                     console.log(addedValues);
-                })
+                });
             }
         });
 
@@ -87,7 +75,7 @@ const Application = React.createClass({
             if (response.totalrows === 0) {
                 DB.styles.add_all(STYLES, (addedValues) => {
                     console.log(addedValues);
-                })
+                });
             }
         });
     },

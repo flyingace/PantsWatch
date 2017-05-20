@@ -1,5 +1,3 @@
-/*globals */
-
 import React from 'react';
 import {
     Image,
@@ -18,13 +16,14 @@ const FormTextInput = React.createClass({
     displayName: 'FormPicker',
 
     propTypes: {
-        setFieldValue: React.PropTypes.func,
-        inputRef: React.PropTypes.string,
         fieldName: React.PropTypes.string,
+        inputRef: React.PropTypes.string,
+        isEditable: React.PropTypes.bool,
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.object,
+        onAddOption: React.PropTypes.func,
         selectedValue: React.PropTypes.string,
-        isEditable: React.PropTypes.bool
+        setFieldValue: React.PropTypes.func
     },
 
     getDefaultProps() {
@@ -37,12 +36,11 @@ const FormTextInput = React.createClass({
     },
 
     addPickers() {
-        let pickers =[];
+        let pickers = [];
 
         forIn(this.props.menuOptions.rows, function (option, key) {
-                pickers.push(<Picker.Item label={option.label} key={key} value={option.value} />);
-            }
-        );
+            pickers.push(<Picker.Item label={option.label} key={key} value={option.value}/>);
+        });
 
         if (this.props.isEditable) {
             pickers.push(<Picker.Item label="Add to this list" key="add" value="add"/>);
@@ -60,6 +58,7 @@ const FormTextInput = React.createClass({
         if (value !== 'add') {
             this.props.setFieldValue(value);
         } else {
+            this.props.onAddOption(this.props.fieldName);
             console.log('open dialog to edit color options');
         }
     },
