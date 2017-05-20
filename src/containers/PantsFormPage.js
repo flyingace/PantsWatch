@@ -6,7 +6,9 @@ import PantsForm from '../components/PantsForm';
 
 function mapStateToProps(state) {
     return {
-
+        brandValues: state.formReducer.brandValues,
+        colorValues: state.formReducer.colorValues,
+        styleValues: state.formReducer.styleValues,
         pantsBrand: state.formReducer.pantsBrand,
         pantsColor: state.formReducer.pantsColor,
         pantsName: state.formReducer.pantsName,

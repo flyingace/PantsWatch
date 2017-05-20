@@ -3,45 +3,38 @@ import {
     Button,
     ScrollView,
     StyleSheet,
-    Slider,
-    Text,
     View,
     Image
 } from 'react-native';
-import _ from 'lodash';
-import DB from '../../db.js';
 import { DBEvents } from 'react-native-db-models';
+import AddOptionModal from './AddOptionModal';
 import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
 import FormSlider from './FormSlider';
-import PantsListView from './PantsListView';
 import FormStyles from '../styles/FormStyles';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
-const COLORS = [
-    { label: 'Blue', value: 'blue' },
-    { label: 'Green', value: 'green' },
-    { label: 'Black', value: 'black' }];
-const BRANDS = [
-    { label: 'Levi\'s', value: 'levis' },
-    { label: 'J. Crew', value: 'jcrew' },
-    { label: 'Banana Republic', value: 'bananarepublic' },
-    { label: 'GAP', value: 'gap' }];
-const STYLES = [
-    { label: 'Casual', value: 'casual' },
-    { label: 'Work', value: 'work' },
-    { label: 'Night Life', value: 'nightlife' },
-    { label: 'Workout', value: 'workout' }
-];
-
 const PantsForm = React.createClass({
 
+    getInitialState() {
+        return {
+            modalVisible: false,
+            optionType: ''
+        };
+    },
+
     propTypes: {
-        pantsData: React.PropTypes.object,
+        // pantsData: React.PropTypes.object,
+        fetchBrandsData: React.PropTypes.func,
+        fetchColorsData: React.PropTypes.func,
+        fetchStylesData: React.PropTypes.func,
         retrievePantsData: React.PropTypes.func,
         validateForm: React.PropTypes.func,
-        submitForm: React.PropTypes.func
+        submitForm: React.PropTypes.func,
+        brandValues: React.PropTypes.object,
+        colorValues: React.PropTypes.object,
+        styleValues: React.PropTypes.object
     },
 
     getDefaultProps () {
@@ -60,6 +53,31 @@ const PantsForm = React.createClass({
         if (this.props.route.updateId) {
             this.props.retrievePantsData(this.props.route.updateId);
         }
+
+        this.fetchPickerData();
+    },
+
+    componentDidMount() {
+        DBEvents.on('all', this.fetchPickerData);
+    },
+
+    componentWillReceiveProps(newProps) {
+        console.log(newProps.colorValues);
+    },
+
+    fetchPickerData() {
+        this.props.fetchBrandsData();
+        this.props.fetchColorsData();
+        this.props.fetchStylesData();
+    },
+
+    onAddOptionSelected(optionType) {
+        this.setState({ optionType: optionType });
+        this.toggleModalVisibility(true);
+    },
+
+    toggleModalVisibility(isVisible) {
+        this.setState({ modalVisible: isVisible });
     },
 
     renderForm () {
@@ -76,29 +94,39 @@ const PantsForm = React.createClass({
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
-                                menuOptions={COLORS}
+                                menuOptions={this.props.colorValues}
                                 isEditable={true}
                                 setFieldValue={this.props.setPantsColor}
-                                selectedValue={this.props.pantsColor}/>
+                                selectedValue={this.props.pantsColor}
+                                onAddOption={this.onAddOptionSelected}/>
                     <FormPicker labelText="Pants Brand"
                                 fieldName="pantsBrand"
                                 inputRef="brandPicker"
-                                menuOptions={BRANDS}
+                                menuOptions={this.props.brandValues}
                                 isEditable={true}
                                 setFieldValue={this.props.setPantsBrand}
-                                selectedValue={this.props.pantsBrand}/>
+                                selectedValue={this.props.pantsBrand}
+                                onAddOption={this.onAddOptionSelected}/>
                     <FormPicker labelText="Pants Style"
                                 fieldName="pantsStyle"
                                 inputRef="stylePicker"
-                                menuOptions={STYLES}
+                                menuOptions={this.props.styleValues}
                                 isEditable={true}
                                 setFieldValue={this.props.setPantsStyle}
-                                selectedValue={this.props.pantsStyle}/>
+                                selectedValue={this.props.pantsStyle}
+                                onAddOption={this.onAddOptionSelected}/>
                     <FormSlider labelText="Wear Limit"
                                 fieldName="pantsWearLimit"
                                 inputRef="wearLimitSlider"
                                 onValueChange={this.props.setPantsWearLimit}
                                 value={this.props.pantsWearLimit}/>
+                    <AddOptionModal
+                        toggleModalVisibility={this.toggleModalVisibility}
+                        addOption={this.props.addOption}
+                        modalIsVisible={this.state.modalVisible}
+                        onSubmitEntry={this.props.addOption}
+                        optionType={this.state.optionType}
+                    />
                 </View>
             );
         } else {
@@ -114,24 +142,27 @@ const PantsForm = React.createClass({
                     <FormPicker labelText="Pants Color"
                                 fieldName="pantsColor"
                                 inputRef="colorPicker"
-                                menuOptions={COLORS}
+                                menuOptions={this.props.colorValues}
                                 isEditable={true}
                                 setFieldValue={this.props.setPantsColor}
-                                selectedValue={this.props.pantsColor}/>
+                                selectedValue={this.props.pantsColor}
+                                onAddOption={this.onAddOptionSelected}/>
                     <FormPicker labelText="Pants Brand"
                                 fieldName="pantsBrand"
                                 inputRef="brandPicker"
-                                menuOptions={BRANDS}
+                                menuOptions={this.props.brandValues}
                                 isEditable={true}
                                 setFieldValue={this.props.setPantsBrand}
-                                selectedValue={this.props.pantsBrand}/>
+                                selectedValue={this.props.pantsBrand}
+                                onAddOption={this.onAddOptionSelected}/>
                     <FormPicker labelText="Pants Style"
                                 fieldName="pantsStyle"
                                 inputRef="stylePicker"
-                                menuOptions={STYLES}
+                                menuOptions={this.props.styleValues}
                                 isEditable={true}
                                 setFieldValue={this.props.setPantsStyle}
-                                selectedValue={this.props.pantsStyle}/>
+                                selectedValue={this.props.pantsStyle}
+                                onAddOption={this.onAddOptionSelected}/>
                     <FormSlider labelText="Wear Count"
                                 fieldName="pantsWearCount"
                                 inputRef="wearCountSlider"
@@ -148,6 +179,13 @@ const PantsForm = React.createClass({
                                    inputRef="lastWornDateInput"
                                    setFieldValue={this.props.setLastWornDate}
                                    value={this.props.lastWornDate}/>
+                    <AddOptionModal
+                        toggleModalVisibility={this.toggleModalVisibility}
+                        addOption={this.props.addOption}
+                        modalIsVisible={this.state.modalVisible}
+                        onSubmitEntry={this.props.addOption}
+                        optionType={this.state.optionType}
+                    />
                 </View>
             );
         }
@@ -164,7 +202,7 @@ const PantsForm = React.createClass({
             pantsWearCount: this.props.pantsWearCount,
             pantsWearLimit: this.props.pantsWearLimit,
             lastWornDate: this.props.lastWornDate
-        }
+        };
     },
 
     onFormSubmit () {
