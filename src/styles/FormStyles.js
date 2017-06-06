@@ -14,6 +14,7 @@ const HELP_COLOR = '#999999';
 const BORDER_COLOR = '#cccccc';
 const DISABLED_COLOR = '#777777';
 const DISABLED_BACKGROUND_COLOR = '#eeeeee';
+const MAIN_FONT = 'HappyFox-Condensed';
 const FONT_SIZE = 20;
 const FONT_WEIGHT = '500';
 
@@ -228,13 +229,13 @@ const FormStyles = Object.freeze({
     },
     formLabel: {
         color: 'rgba(0, 0, 0, .8)',
-        fontFamily: 'HappyFox-Condensed',
+        fontFamily: MAIN_FONT,
         fontSize: 30,
         marginRight: 4,
         marginLeft: 4,
     },
     pickerField: {
-        // fontFamily: 'HappyFox-Condensed',
+        // fontFamily: MAIN_FONT,
         // fontSize: 30,
         backgroundColor: 'rgba(255,255,255,.3)',
         borderRadius: 3,
@@ -244,7 +245,7 @@ const FormStyles = Object.freeze({
         flex: 1
     },
     textInput: {
-        fontFamily: 'HappyFox-Condensed',
+        fontFamily: MAIN_FONT,
         fontSize: 30,
         backgroundColor: 'rgba(255,255,255,.3)',
         borderRadius: 3,
@@ -262,7 +263,7 @@ const FormStyles = Object.freeze({
     },
     maxCount: {
         color: 'rgba(0, 0, 0, .8)',
-        fontFamily: 'HappyFox-Condensed',
+        fontFamily: MAIN_FONT,
         fontSize: 30,
         textAlign: 'center',
         backgroundColor: 'rgba(255,255,255,.3)',
@@ -272,7 +273,37 @@ const FormStyles = Object.freeze({
         padding: 4,
         width: 40,
         flex: 0
+    },
+
+//    Form Styles
+    transparentBkg: {
+        backgroundColor: 'rgba(0,0,0,0)'
+    },
+    backgroundImage: {
+        flex: 1,
+        position: 'absolute'
+    },
+    formWrapper: {
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+        backgroundColor: 'rgba(0,0,0,0)'
+    },
+    pageTitle: {
+        marginTop: 12,
+        alignSelf: 'center',
+        resizeMode: 'contain',
+    },
+    formTitle: {
+        fontFamily: MAIN_FONT,
+        fontSize: 45,
+        color: '#FFFFFF',
+        borderBottomWidth: 1,
+        borderColor: '#000000'
     }
+
 
 });
 

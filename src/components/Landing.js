@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, LayoutAnimation, StyleSheet, Text, View } from 'react-native';
+import { Image, LayoutAnimation, StyleSheet, View } from 'react-native';
 import Dimensions from 'Dimensions';
 import Pane from './Pane';
 import PantsListPage from '../containers/PantsListPage';

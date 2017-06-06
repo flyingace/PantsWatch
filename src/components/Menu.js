@@ -13,8 +13,6 @@ import Dimensions from 'Dimensions';
 import Landing from './Landing';
 import PantsListPage from '../containers/PantsListPage';
 import PantsFormPage from '../containers/PantsFormPage';
-import Patches from './Patches';
-import Settings from './Settings';
 import MenuTab from '../../assets/menu_tab.png';
 
 const window = Dimensions.get('window');

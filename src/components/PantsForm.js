@@ -2,7 +2,6 @@ import React from 'react';
 import {
     Button,
     ScrollView,
-    StyleSheet,
     View,
     Image
 } from 'react-native';
@@ -242,9 +241,9 @@ const PantsForm = React.createClass({
 
         return (
             <View>
-                <Image source={ BackgroundImage } style={ styles.backgroundImage }/>
-                <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
-                    <Image source={ PageTitle } style={ styles.pageTitle } resizeMode={ 'contain' }/>
+                <Image source={ BackgroundImage } style={ FormStyles.backgroundImage }/>
+                <ScrollView contentContainerStyle={ FormStyles.formWrapper } style={ FormStyles.transparentBkg }>
+                    <Image source={ PageTitle } style={ FormStyles.pageTitle } resizeMode={ 'contain' }/>
                     {this.renderForm()}
                     <Button
                         onPress={ this.onFormSubmit }
@@ -255,36 +254,6 @@ const PantsForm = React.createClass({
                 </ScrollView>
             </View>
         );
-    }
-});
-
-const styles = StyleSheet.create({
-    transparent: {
-        backgroundColor: 'rgba(0,0,0,0)'
-    },
-    backgroundImage: {
-        flex: 1,
-        position: 'absolute'
-    },
-    formWrapper: {
-        top: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        paddingLeft: 20,
-        paddingRight: 20,
-        backgroundColor: 'rgba(0,0,0,0)'
-    },
-    pageTitle: {
-        marginTop: 12,
-        alignSelf: 'center',
-        resizeMode: 'contain',
-    },
-    formTitle: {
-        fontFamily: 'HappyFox-Condensed',
-        fontSize: 45,
-        color: '#FFFFFF',
-        borderBottomWidth: 1,
-        borderColor: '#000000'
     }
 });
 
