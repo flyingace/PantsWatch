@@ -15,7 +15,7 @@ const wearLimitBox = React.createClass({
         return {
             pantsWearCount: 0,
             pantsWearLimit: 6
-        }
+        };
     },
 
     getInitialState() {
@@ -30,8 +30,8 @@ const wearLimitBox = React.createClass({
 
     render() {
         return (
-            <View style={pantsWearLimitStyles.pantsWearLimitBox}>
-                <Text style={pantsWearLimitStyles.countText}>{this.props.pantsWearCount}/{this.props.pantsWearLimit}</Text>
+            <View style={ pantsWearLimitStyles.pantsWearLimitBox }>
+                <Text style={ pantsWearLimitStyles.countText }>{this.props.pantsWearCount}/{this.props.pantsWearLimit}</Text>
             </View>
         );
     }

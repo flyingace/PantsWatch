@@ -34,33 +34,33 @@ const TabBar = React.createClass({
                 <TabBarIOS.Item
                     title="Home"
                     systemIcon="favorites"
-                    selected={this.state.selectedTab === 'homeTab'}
-                    onPress={() => {
+                    selected={ this.state.selectedTab === 'homeTab' }
+                    onPress={ () => {
                         this.setState({
                             selectedTab: 'homeTab'
                         });
-                    }}>
+                    } }>
                     <Landing />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     systemIcon="history"
-                    selected={this.state.selectedTab === 'redTab'}
-                    onPress={() => {
+                    selected={ this.state.selectedTab === 'redTab' }
+                    onPress={ () => {
                         this.setState({
                             selectedTab: 'redTab'
                         });
-                    }}>
+                    } }>
                     <PantsForm />
                 </TabBarIOS.Item>
                 <TabBarIOS.Item
                     title="More"
                     systemIcon="bookmarks"
-                    selected={this.state.selectedTab === 'greenTab'}
-                    onPress={() => {
+                    selected={ this.state.selectedTab === 'greenTab' }
+                    onPress={ () => {
                         this.setState({
                             selectedTab: 'greenTab'
                         });
-                    }}>
+                    } }>
                     <PantsListView />
                 </TabBarIOS.Item>
             </TabBarIOS>

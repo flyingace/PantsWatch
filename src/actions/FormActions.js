@@ -22,7 +22,7 @@ export const SET_FORM_DATA = 'SET_FORM_DATA';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
 
 export function settingPants() {
-    return { type: SETTING_PANTS }
+    return { type: SETTING_PANTS };
 }
 
 export function setPantsData(formData) {
@@ -123,12 +123,12 @@ export function addOption(category, option) {
 
         targetDB.add({
             label: newLabel, value: newValue
-        })
+        });
     };
 }
 
 export function addingOption() {
-    return { type: ADDING_OPTION }
+    return { type: ADDING_OPTION };
 }
 
 //Brands
@@ -139,7 +139,7 @@ export function fetchBrandsData() {
         return DB.brands.get_all((data) => {
             dispatch(receiveBrandsData(data));
         });
-    }
+    };
 }
 
 export function requestBrandsData() {
@@ -158,7 +158,7 @@ export function fetchColorsData() {
         return DB.colors.get_all((data) => {
             dispatch(receiveColorsData(data));
         });
-    }
+    };
 }
 
 export function requestColorsData() {
@@ -177,7 +177,7 @@ export function fetchStylesData() {
         return DB.styles.get_all((data) => {
             dispatch(receiveStylesData(data));
         });
-    }
+    };
 }
 
 export function requestStylesData() {

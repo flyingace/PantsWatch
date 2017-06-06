@@ -1,6 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import * as FormActions from '../actions/FormActions';
 import PantsForm from '../components/PantsForm';
 

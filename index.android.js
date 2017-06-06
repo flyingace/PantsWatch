@@ -20,7 +20,7 @@ const PantsWatch = React.createClass({
 
     render: function () {
         return (
-            <Provider store={store}>
+            <Provider store={ store }>
                 <Application />
             </Provider>
         );

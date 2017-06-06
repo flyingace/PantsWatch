@@ -1,6 +1,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import * as PantsListActions from '../actions/PantsListActions';
 import PantsListView from '../components/PantsListView';
 

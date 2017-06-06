@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, LayoutAnimation, StyleSheet, Text, View} from 'react-native';
+import { Image, LayoutAnimation, StyleSheet, Text, View } from 'react-native';
 import Dimensions from 'Dimensions';
 import Pane from './Pane';
 import PantsListPage from '../containers/PantsListPage';
@@ -39,7 +39,7 @@ const Landing = React.createClass({
         return {
             questionText: 'What Pants Are You Going\nTo Wear Today?',
             menu: 'hidden'
-        }
+        };
     },
 
     componentWillUnmount() {
@@ -54,28 +54,28 @@ const Landing = React.createClass({
 
         switch (itemName) {
             case 'landing':
-                nav.push({component: Landing, name: 'Home'});
+                nav.push({ component: Landing, name: 'Home' });
                 break;
             case 'choosePants':
-                nav.replace({component: PantsListPage, name: 'Choose Pants'});
+                nav.replace({ component: PantsListPage, name: 'Choose Pants' });
                 break;
             case 'addPants':
-                nav.replace({component: PantsFormPage, name: 'Add Pants'});
+                nav.replace({ component: PantsFormPage, name: 'Add Pants' });
                 break;
             case 'editPants':
-                nav.replace({component: PantsFormPage, name: 'Edit Pants'});
+                nav.replace({ component: PantsFormPage, name: 'Edit Pants' });
                 break;
             case 'washPants':
-                nav.replace({component: PantsListPage, name: 'Wash Pants'});
+                nav.replace({ component: PantsListPage, name: 'Wash Pants' });
                 break;
             case 'patches':
-                nav.replace({component: Patches, name: 'Wash Pants'});
+                nav.replace({ component: Patches, name: 'Wash Pants' });
                 break;
             case 'appSettings':
-                nav.replace({component: Settings, name: 'Wash Pants'});
+                nav.replace({ component: Settings, name: 'Wash Pants' });
                 break;
             default:
-                nav.replace({component: Landing, name: 'Home'});
+                nav.replace({ component: Landing, name: 'Home' });
                 break;
         }
     },
@@ -85,26 +85,26 @@ const Landing = React.createClass({
         let paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
 
         return (
-            <View style={commonStyles.container}>
-                <View style={commonStyles.banner}>
-                    <Image source={landingBanner}/>
+            <View style={ commonStyles.container }>
+                <View style={ commonStyles.banner }>
+                    <Image source={ landingBanner }/>
                 </View>
-                <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'}/>
-                <View style={landingStyles.panels}>
-                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane}
-                          onPress={() => this.onPanePress('choosePants')}/>
-                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane}
-                          onPress={() => this.onPanePress('addPants')}/>
-                    <Pane paneLabel="Alter Your Pants" imageURL={alterPantsImg} paneStyle={paneStyle.pane}
+                <Image style={ commonStyles.scribblePrompt } source={ scribblePrompt } resizeMode={ 'contain' }/>
+                <View style={ landingStyles.panels }>
+                    <Pane paneLabel="See Your Pants" imageURL={ seePantsImg } paneStyle={ paneStyle.pane }
+                          onPress={ () => this.onPanePress('choosePants') }/>
+                    <Pane paneLabel="Add Some Pants" imageURL={ addPantsImg } paneStyle={ paneStyle.pane }
+                          onPress={ () => this.onPanePress('addPants') }/>
+                    <Pane paneLabel="Alter Your Pants" imageURL={ alterPantsImg } paneStyle={ paneStyle.pane }
                         /* onPress={() => this.onPanePress('editPants')} */
                     />
-                    <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane}
+                    <Pane paneLabel="Wash Your Pants" imageURL={ washPantsImg } paneStyle={ paneStyle.pane }
                         /* onPress={() => this.onPanePress('washPants')} */
                     />
-                    <Pane paneLabel="Patches" imageURL={patchesImg} paneStyle={paneStyle.pane}
+                    <Pane paneLabel="Patches" imageURL={ patchesImg } paneStyle={ paneStyle.pane }
                         /* onPress={() => this.onPanePress('patches')} */
                     />
-                    <Pane paneLabel="Settings" imageURL={settingsImg} paneStyle={paneStyle.pane}
+                    <Pane paneLabel="Settings" imageURL={ settingsImg } paneStyle={ paneStyle.pane }
                         /* onPress={() => this.onPanePress('appSettings')} */
                     />
                 </View>

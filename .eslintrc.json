@@ -3,7 +3,7 @@
         "browser": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended"],
     "parserOptions": {
         "ecmaFeatures": {
             "experimentalObjectRestSpread": true,
@@ -15,12 +15,10 @@
         "react"
     ],
     "rules": {
-        "react/jsx-uses-vars": [
-            2
-        ],
         "indent": [
             "error",
-            4
+            4,
+            { "SwitchCase": 1 }
         ],
         "linebreak-style": [
             "error",
@@ -31,6 +29,21 @@
             "single"
         ],
         "semi": [
+            "error",
+            "always"
+        ],
+        "template-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "object-curly-spacing": [
+            "error",
+            "always"
+        ],
+        "react/jsx-uses-vars": [
+            "error"
+        ],
+        "react/jsx-curly-spacing": [
             "error",
             "always"
         ]

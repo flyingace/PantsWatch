@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 import Dimensions from 'Dimensions';
-import {DBEvents} from 'react-native-db-models';
+import { DBEvents } from 'react-native-db-models';
 import PantsList from './PantsList';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
@@ -30,7 +30,7 @@ const PantsListView = React.createClass({
     },
 
     getDefaultProps () {
-        return null
+        return null;
     },
 
     getInitialState () {
@@ -53,7 +53,7 @@ const PantsListView = React.createClass({
     },
 
     componentWillReceiveProps(newProps) {
-        this.getListDataSource(newProps)
+        this.getListDataSource(newProps);
     },
 
     getListDataSource (newProps) {
@@ -73,13 +73,13 @@ const PantsListView = React.createClass({
     render() {
         return (
             <View>
-                <Image source={BackgroundImage} style={styles.backgroundImage}/>
-                <Image source={PageTitle} style={styles.pageTitle} resizeMode={'contain'}/>
+                <Image source={ BackgroundImage } style={ styles.backgroundImage }/>
+                <Image source={ PageTitle } style={ styles.pageTitle } resizeMode={ 'contain' }/>
                 <PantsList
-                    height={windowDims.height - titleHeight}
-                    dataSource={this.state.dataSource}
-                    style={styles.pantsList}
-                    {...this.props}
+                    height={ windowDims.height - titleHeight }
+                    dataSource={ this.state.dataSource }
+                    style={ styles.pantsList }
+                    { ...this.props }
                 />
             </View>
         );
