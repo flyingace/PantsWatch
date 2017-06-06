@@ -2,7 +2,6 @@ import React from 'react';
 import {
     Button,
     ScrollView,
-    StyleSheet,
     View,
     Image
 } from 'react-native';
@@ -12,6 +11,7 @@ import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
 import FormSlider from './FormSlider';
 import FormStyles from '../styles/FormStyles';
+import PantsListPage from '../containers/PantsListPage';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
@@ -217,18 +217,16 @@ const PantsForm = React.createClass({
         } else {
             this.updatePantsInDB(formData);
         }
-    },
-
-    addPantsToDB (formData) {
-        this.props.setPantsData(formData);
         this.resetForm();
         this.navigateToPantsList();
     },
 
+    addPantsToDB (formData) {
+        this.props.setPantsData(formData);
+    },
+
     updatePantsInDB (formData) {
         this.props.updatePantsData(formData);
-        // this.resetForm();
-        // this.navigateToPantsList();
     },
 
     resetForm () {
@@ -236,18 +234,16 @@ const PantsForm = React.createClass({
     },
 
     navigateToPantsList () {
-        //TODO: Add check to see if "add multiple pairs of pants" is checked and
-        //if yes, do not navigate away but reset focus to first field.
-        // this.props.navigator.replace({ component: PantsListView, name: 'Choose Pants' });
+        this.props.navigator.replace({ component: PantsListPage, name: 'Choose Pants' });
     },
 
     render () {
 
         return (
             <View>
-                <Image source={ BackgroundImage } style={ styles.backgroundImage }/>
-                <ScrollView contentContainerStyle={ styles.formWrapper } style={ styles.transparent }>
-                    <Image source={ PageTitle } style={ styles.pageTitle } resizeMode={ 'contain' }/>
+                <Image source={ BackgroundImage } style={ FormStyles.backgroundImage }/>
+                <ScrollView contentContainerStyle={ FormStyles.formWrapper } style={ FormStyles.transparentBkg }>
+                    <Image source={ PageTitle } style={ FormStyles.pageTitle } resizeMode={ 'contain' }/>
                     {this.renderForm()}
                     <Button
                         onPress={ this.onFormSubmit }
@@ -258,36 +254,6 @@ const PantsForm = React.createClass({
                 </ScrollView>
             </View>
         );
-    }
-});
-
-const styles = StyleSheet.create({
-    transparent: {
-        backgroundColor: 'rgba(0,0,0,0)'
-    },
-    backgroundImage: {
-        flex: 1,
-        position: 'absolute'
-    },
-    formWrapper: {
-        top: 0,
-        bottom: 0,
-        justifyContent: 'center',
-        paddingLeft: 20,
-        paddingRight: 20,
-        backgroundColor: 'rgba(0,0,0,0)'
-    },
-    pageTitle: {
-        marginTop: 12,
-        alignSelf: 'center',
-        resizeMode: 'contain',
-    },
-    formTitle: {
-        fontFamily: 'HappyFox-Condensed',
-        fontSize: 45,
-        color: '#FFFFFF',
-        borderBottomWidth: 1,
-        borderColor: '#000000'
     }
 });
 
