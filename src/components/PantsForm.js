@@ -12,6 +12,7 @@ import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
 import FormSlider from './FormSlider';
 import FormStyles from '../styles/FormStyles';
+import PantsListPage from '../containers/PantsListPage';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
@@ -217,18 +218,16 @@ const PantsForm = React.createClass({
         } else {
             this.updatePantsInDB(formData);
         }
-    },
-
-    addPantsToDB (formData) {
-        this.props.setPantsData(formData);
         this.resetForm();
         this.navigateToPantsList();
     },
 
+    addPantsToDB (formData) {
+        this.props.setPantsData(formData);
+    },
+
     updatePantsInDB (formData) {
         this.props.updatePantsData(formData);
-        // this.resetForm();
-        // this.navigateToPantsList();
     },
 
     resetForm () {
@@ -236,9 +235,7 @@ const PantsForm = React.createClass({
     },
 
     navigateToPantsList () {
-        //TODO: Add check to see if "add multiple pairs of pants" is checked and
-        //if yes, do not navigate away but reset focus to first field.
-        // this.props.navigator.replace({ component: PantsListView, name: 'Choose Pants' });
+        this.props.navigator.replace({ component: PantsListPage, name: 'Choose Pants' });
     },
 
     render () {

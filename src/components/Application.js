@@ -10,23 +10,6 @@ import Landing from './Landing';
 
 const window = Dimensions.get('window');
 
-//Remember that these will be added to the DB and returned as objects, not arrays
-const BRANDS = [
-    { label: 'GAP', value: 'gap' },
-    { label: 'Banana Republic', value: 'bananarepublic' },
-    { label: 'J. Crew', value: 'jcrew' },
-    { label: 'Levi\'s', value: 'levis' }];
-const COLORS = [
-    { label: 'Black', value: 'black' },
-    { label: 'Green', value: 'green' },
-    { label: 'Blue', value: 'blue' }];
-const STYLES = [
-    { label: 'Workout', value: 'workout' },
-    { label: 'Night Life', value: 'nightlife' },
-    { label: 'Work', value: 'work' },
-    { label: 'Casual', value: 'casual' }
-];
-
 const Application = React.createClass({
 
     displayName: 'Application',
