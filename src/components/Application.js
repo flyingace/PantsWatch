@@ -97,7 +97,7 @@ const Application = React.createClass({
     _renderScene(route, navigator) {
         const Component = route.component;
         return (
-            <Component {...route.props} navigator={navigator} route={route}/>
+            <Component { ...route.props } navigator={ navigator } route={ route }/>
         );
     },
 
@@ -105,17 +105,17 @@ const Application = React.createClass({
 
         return (
             <Navigator
-                initialRoute={{
+                initialRoute={ {
                     component: Landing,
                     name: 'Landing'
-                }}
-                style={styles.navigator}
-                configureScene={() => {
+                } }
+                style={ styles.navigator }
+                configureScene={ () => {
                     return Navigator.SceneConfigs.FloatFromRight;
-                }}
-                renderScene={this._renderScene}
-                navigator={navigator}
-                navigationBar={<Menu />}
+                } }
+                renderScene={ this._renderScene }
+                navigator={ navigator }
+                navigationBar={ <Menu /> }
             />
         );
     }

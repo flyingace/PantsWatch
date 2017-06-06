@@ -39,7 +39,7 @@ const FormTextInput = React.createClass({
         let pickers = [];
 
         forIn(this.props.menuOptions.rows, function (option, key) {
-            pickers.push(<Picker.Item label={option.label} key={key} value={option.value}/>);
+            pickers.push(<Picker.Item label={ option.label } key={ key } value={ option.value }/>);
         });
 
         if (this.props.isEditable) {
@@ -65,14 +65,14 @@ const FormTextInput = React.createClass({
 
     render() {
         return (
-            <View style={FormStyles.formFieldWrapper}>
-                <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
+            <View style={ FormStyles.formFieldWrapper }>
+                <Text style={ FormStyles.formLabel }>{this.props.labelText}</Text>
                 <View>
-                    <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
+                    <Image source={ DownArrow } style={ FormStyles.fieldIcon } resizeMode={ 'contain' }/>
                     <Picker
-                        onValueChange={this.onValueChange}
-                        selectedValue={this.props.selectedValue}
-                        style={FormStyles.pickerField}>
+                        onValueChange={ this.onValueChange }
+                        selectedValue={ this.props.selectedValue }
+                        style={ FormStyles.pickerField }>
                         {this.addPickers()}
                     </Picker>
                 </View>

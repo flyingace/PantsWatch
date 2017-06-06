@@ -38,7 +38,7 @@ const Menu = React.createClass({
         return {
             left: panelWidth * -1,
             menu: 'hidden'
-        }
+        };
     },
 
     componentDidMount() {
@@ -50,14 +50,14 @@ const Menu = React.createClass({
     showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         console.disableYellowBox = true;
-        this.setState({ left: 0, menu: 'shown', overlayWidth: window.width })
+        this.setState({ left: 0, menu: 'shown', overlayWidth: window.width });
 
     },
 
     hideMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         console.disableYellowBox = true;
-        this.setState({ left: panelWidth * -1, menu: 'hidden', overlayWidth: 0 })
+        this.setState({ left: panelWidth * -1, menu: 'hidden', overlayWidth: 0 });
     },
 
     toggleMenu() {
@@ -106,19 +106,19 @@ const Menu = React.createClass({
 
     render() {
 
-        return (<View style={[styles.wrapper, { left: this.state.left }]}>
-                <ScrollView style={styles.menu}>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('landing')}>Home</Text>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('choosePants')}>Choose Pants</Text>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('addPants')}>Add Pants</Text>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('editPants')}>Edit Pants</Text>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('washPants')}>Wash Pants</Text>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('patches')}>Patches</Text>
-                    <Text style={styles.item} onPress={() => this.onMenuItemPress('appSettings')}>Settings</Text>
+        return (<View style={ [styles.wrapper, { left: this.state.left }] }>
+                <ScrollView style={ styles.menu }>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('landing') }>Home</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('choosePants') }>Choose Pants</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('addPants') }>Add Pants</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('editPants') }>Edit Pants</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('washPants') }>Wash Pants</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('patches') }>Patches</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('appSettings') }>Settings</Text>
                 </ScrollView>
-                <TouchableOpacity onPress={this.toggleMenu}>
-                    <View style={[styles.overlay, { width: this.state.overlayWidth }]}/>
-                    <Image source={MenuTab} style={styles.labelButton}/>
+                <TouchableOpacity onPress={ this.toggleMenu }>
+                    <View style={ [styles.overlay, { width: this.state.overlayWidth }] }/>
+                    <Image source={ MenuTab } style={ styles.labelButton }/>
                 </TouchableOpacity>
             </View>
         );

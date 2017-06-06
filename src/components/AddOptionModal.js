@@ -70,16 +70,16 @@ const AddOptionModal = React.createClass({
     render() {
         return (
             <Modal
-                animationType={'slide'}
-                transparent={false}
-                visible={this.props.modalIsVisible}
-                onRequestClose={() => {
+                animationType={ 'slide' }
+                transparent={ false }
+                visible={ this.props.modalIsVisible }
+                onRequestClose={ () => {
                     this.props.toggleModalVisibility(false);
-                }}>
+                } }>
                 <Text>Add an option</Text>
-                <TextInput ref='newOptionValue' value={this.state.textFieldValue} onChangeText={this.onTextChange}/>
-                <Button onPress={this.onCancel} title='Cancel'/>
-                <Button onPress={this.onOkay} title='Okay'/>
+                <TextInput ref='newOptionValue' value={ this.state.textFieldValue } onChangeText={ this.onTextChange }/>
+                <Button onPress={ this.onCancel } title='Cancel'/>
+                <Button onPress={ this.onOkay } title='Okay'/>
             </Modal>
         );
     }

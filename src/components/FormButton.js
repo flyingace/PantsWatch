@@ -46,9 +46,9 @@ const Button = React.createClass({
     render() {
         return (
             <TouchableElement
-                style={styles.button}
-                onPress={this.props.onButtonPress}>
-                <Text style={styles.buttonText}>{this.props.buttonText}</Text>
+                style={ styles.button }
+                onPress={ this.props.onButtonPress }>
+                <Text style={ styles.buttonText }>{this.props.buttonText}</Text>
             </TouchableElement>
         );
     }

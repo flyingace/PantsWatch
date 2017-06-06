@@ -43,17 +43,17 @@ const FormTextInput = React.createClass({
 
     render() {
         return (
-            <View style={FormStyles.formFieldWrapper}>
-                <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
+            <View style={ FormStyles.formFieldWrapper }>
+                <Text style={ FormStyles.formLabel }>{this.props.labelText}</Text>
                 <TextInput
                     autoCapitalize='words'
-                    autoCorrect={false}
+                    autoCorrect={ false }
                     underlineColorAndroid='transparent'
-                    style={FormStyles.textInput}
-                    placeholder={this.props.placeholderText}
-                    onChangeText={this.onChangeText}
-                    value={this.props.value}
-                    ref={this.props.inputRef}
+                    style={ FormStyles.textInput }
+                    placeholder={ this.props.placeholderText }
+                    onChangeText={ this.onChangeText }
+                    value={ this.props.value }
+                    ref={ this.props.inputRef }
                 />
             </View>
         );

@@ -34,7 +34,7 @@ const PantsList = React.createClass({
 
     onRowPress (pantsData) {
         pantsId = pantsData._id;
-        this.setState({modalIsOpen: true});
+        this.setState({ modalIsOpen: true });
     },
 
     onPantsSelection () {
@@ -48,7 +48,7 @@ const PantsList = React.createClass({
     },
 
     onPantsEdit () {
-        this.props.navigator.replace({component: PantsFormPage, name: 'Update Pants', updateId: pantsId})
+        this.props.navigator.replace({ component: PantsFormPage, name: 'Update Pants', updateId: pantsId });
     },
 
     onPantsDelete () {
@@ -57,19 +57,19 @@ const PantsList = React.createClass({
     },
 
     openModal () {
-        this.setState({modalIsOpen: true});
+        this.setState({ modalIsOpen: true });
     },
 
     closeModal () {
-        this.setState({modalIsOpen: false});
+        this.setState({ modalIsOpen: false });
     },
 
     renderPantsList (pantsData) {
         return (
             <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => this.onRowPress(pantsData)}>
-                <PantsListRow {...pantsData} style={{overflow: 'hidden'}}/>
+                activeOpacity={ 0.8 }
+                onPress={ () => this.onRowPress(pantsData) }>
+                <PantsListRow { ...pantsData } style={ { overflow: 'hidden' } }/>
             </TouchableOpacity>
         );
     },
@@ -78,19 +78,19 @@ const PantsList = React.createClass({
         return (
             <View>
                 <ListView
-                    removeClippedSubviews={true}
-                    dataSource={this.props.dataSource}
-                    renderRow={this.renderPantsList}
-                    style={{height: this.props.height}}
-                    enableEmptySections={true}
+                    removeClippedSubviews={ true }
+                    dataSource={ this.props.dataSource }
+                    renderRow={ this.renderPantsList }
+                    style={ { height: this.props.height } }
+                    enableEmptySections={ true }
                 />
                 <PantsSelectionModal
-                    isVisible={this.state.modalIsOpen}
-                    onPantsSelection = {this.onPantsSelection}
-                    onPantsWash = {this.onPantsWash}
-                    onPantsEdit = {this.onPantsEdit}
-                    onPantsDelete = {this.onPantsDelete}
-                    onRequestClose={this.closeModal}
+                    isVisible={ this.state.modalIsOpen }
+                    onPantsSelection = { this.onPantsSelection }
+                    onPantsWash = { this.onPantsWash }
+                    onPantsEdit = { this.onPantsEdit }
+                    onPantsDelete = { this.onPantsDelete }
+                    onRequestClose={ this.closeModal }
                 />
             </View>
         );

@@ -24,7 +24,7 @@ const Pane = React.createClass({
         return {
             onPress: this._onPress,
             paneLabel: 'Pants Pane',
-            imageURL: {PantsThumb}
+            imageURL: { PantsThumb }
         };
     },
 
@@ -39,14 +39,14 @@ const Pane = React.createClass({
     },
 
     _onPress() {
-        console.log('pane pressed')
+        console.log('pane pressed');
     },
 
     render() {
         return (
-            <TouchableOpacity onPress={this.props.onPress} style={styles.wrapper}>
-                <Image source={this.props.imageURL} resizeMode={Image.resizeMode.cover} style={this.props.paneStyle}/>
-                <Text style={styles.label}>{this.props.paneLabel}</Text>
+            <TouchableOpacity onPress={ this.props.onPress } style={ styles.wrapper }>
+                <Image source={ this.props.imageURL } resizeMode={ Image.resizeMode.cover } style={ this.props.paneStyle }/>
+                <Text style={ styles.label }>{this.props.paneLabel}</Text>
             </TouchableOpacity>
         );
     }
