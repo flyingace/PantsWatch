@@ -12,19 +12,21 @@ const window = Dimensions.get('window');
 
 //Remember that these will be added to the DB and returned as objects, not arrays
 const BRANDS = [
-    { label: 'GAP', value: 'gap' },
-    { label: 'Banana Republic', value: 'bananarepublic' },
-    { label: 'J. Crew', value: 'jcrew' },
-    { label: 'Levi\'s', value: 'levis' }];
+    { value: 'GAP' },
+    { value: 'Banana Republic' },
+    { value: 'J. Crew' },
+    { value: 'Levi\'s' }
+];
 const COLORS = [
-    { label: 'Black', value: 'black' },
-    { label: 'Green', value: 'green' },
-    { label: 'Blue', value: 'blue' }];
+    { value: 'Black' },
+    { value: 'Green' },
+    { value: 'Blue' }
+];
 const STYLES = [
-    { label: 'Workout', value: 'workout' },
-    { label: 'Night Life', value: 'nightlife' },
-    { label: 'Work', value: 'work' },
-    { label: 'Casual', value: 'casual' }
+    { value: 'Workout' },
+    { value: 'Night Life' },
+    { value: 'Work' },
+    { value: 'Casual' }
 ];
 
 const Application = React.createClass({

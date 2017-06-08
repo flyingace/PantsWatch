@@ -7,5 +7,9 @@ const DB = {
     'styles': new RNDBModel.create_db('styles')
 };
 
+// DB.brands.erase_db(function(removedData) {
+//     console.log(removedData);
+// });
+
 
 module.exports = DB;

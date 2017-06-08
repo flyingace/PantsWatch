@@ -29,7 +29,7 @@ const PantsListRow = React.createClass({
         return {
             pantsName: 'Favorite Pants',
             pantsColor: 'Blue',
-            pantsBrand: 'Levis',
+            pantsBrand: 'Levi\'s',
             pantsStyle: 'Casual',
             pantsWearLimit: 9,
             pantsImgSrc: { defaultPantsImgSrc },
