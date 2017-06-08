@@ -1,5 +1,3 @@
-/*globals */
-
 import React from 'react';
 import {
     Text,
@@ -33,7 +31,6 @@ const FormTextInput = React.createClass({
     },
 
     onChangeText(text) {
-        const dbFieldName = this.props.fieldName;
         this.props.setFieldValue(text);
     },
 

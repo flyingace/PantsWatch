@@ -1,6 +1,4 @@
-import { forEach } from 'lodash';
 import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
 import moment from 'moment';
 
 export const SELECT_PANTS = 'SELECT_PANTS';
@@ -51,14 +49,11 @@ export function resetWearCount(pantsId) {
     };
 }
 
-export function editPantsData(pantsId) {
-
-}
+// export function editPantsData(pantsId) {
+// }
 
 export function deletePants(pantsId) {
-    return (dispatch) => {
-        DB.pants.remove_id(pantsId);
-    };
+    DB.pants.remove_id(pantsId);
 }
 
 export function requestPantsData() {
@@ -66,7 +61,6 @@ export function requestPantsData() {
 }
 
 export function receivePantsData(data) {
-    console.log(data);
     return { type: RECEIVE_PANTS_DATA, state: data };
 }
 

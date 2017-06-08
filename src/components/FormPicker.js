@@ -1,8 +1,6 @@
 import React from 'react';
 import {
     Image,
-    PropTypes,
-    StyleSheet,
     Text,
     Picker,
     View

@@ -1,6 +1,4 @@
 import DB from '../../db.js';
-import { DBEvents } from 'react-native-db-models';
-import { toTitleCase, toDBReadyValue } from '../utils/appUtils';
 
 export const ADDING_OPTION = 'ADDING_OPTION';
 export const RECEIVE_BRANDS_DATA = 'RECEIVE_BRANDS_DATA';
@@ -99,18 +97,16 @@ export function setFormData(formData) {
 }
 
 export function updatePantsData(formData) {
-    return (dispatch) => {
-        DB.pants.update_id(formData.pantsId, {
-            pantsName: formData.pantsName,
-            pantsColor: formData.pantsColor,
-            pantsBrand: formData.pantsBrand,
-            pantsStyle: formData.pantsStyle,
-            pantsWearCount: formData.pantsWearCount,
-            pantsWearLimit: formData.pantsWearLimit,
-            lastWornDate: formData.lastWornDate,
-            selected: formData.selected
-        });
-    };
+    DB.pants.update_id(formData.pantsId, {
+        pantsName: formData.pantsName,
+        pantsColor: formData.pantsColor,
+        pantsBrand: formData.pantsBrand,
+        pantsStyle: formData.pantsStyle,
+        pantsWearCount: formData.pantsWearCount,
+        pantsWearLimit: formData.pantsWearLimit,
+        lastWornDate: formData.lastWornDate,
+        selected: formData.selected
+    });
 }
 
 export function addOption(category, valueToAdd) {

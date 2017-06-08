@@ -4,7 +4,6 @@ import React from 'react';
 
 import {
     Platform,
-    PropTypes,
     StyleSheet,
     Text,
     TouchableHighlight,

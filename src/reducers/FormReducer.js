@@ -14,8 +14,7 @@ import {
     SET_PANTS_WEAR_COUNT,
     SET_PANTS_WEAR_LIMIT,
     SET_PANTS_LAST_WORN_DATE,
-    UPDATE_PANTS,
-    SET_FORM_DATA
+    UPDATE_PANTS
 } from '../actions/FormActions';
 import { assign } from 'lodash';
 
