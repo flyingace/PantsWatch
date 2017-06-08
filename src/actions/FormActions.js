@@ -113,16 +113,14 @@ export function updatePantsData(formData) {
     };
 }
 
-export function addOption(category, option) {
+export function addOption(category, valueToAdd) {
     return (dispatch) => {
         dispatch(addingOption());
 
         const targetDB = DB[category];
-        const newLabel = toTitleCase(option);
-        const newValue = toDBReadyValue(option);
 
         targetDB.add({
-            label: newLabel, value: newValue
+            value: valueToAdd
         });
     };
 }

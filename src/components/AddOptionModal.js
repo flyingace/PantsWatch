@@ -85,19 +85,4 @@ const AddOptionModal = React.createClass({
     }
 });
 
-const styles = StyleSheet.create(
-    {
-        wrapper: {
-            marginBottom: 8
-        },
-        label: {
-            fontFamily: 'HappyFox-Condensed',
-            fontSize: 18,
-            textAlign: 'center',
-            alignSelf: 'center'
-        },
-        title: {}
-    }
-);
-
 module.exports = AddOptionModal;

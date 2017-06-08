@@ -39,7 +39,7 @@ const FormTextInput = React.createClass({
         let pickers = [];
 
         forIn(this.props.menuOptions.rows, function (option, key) {
-            pickers.push(<Picker.Item label={ option.label } key={ key } value={ option.value }/>);
+            pickers.push(<Picker.Item label={ option.value } key={ key } value={ option.value }/>);
         });
 
         if (this.props.isEditable) {
@@ -47,11 +47,6 @@ const FormTextInput = React.createClass({
         }
 
         return pickers;
-    },
-
-    //unused, but keep for now to apply when new items are added to the db
-    formatForValue(label) {
-        return label.replace(/(\W)/, '').toLowerCase();
     },
 
     onValueChange (value, index) {
