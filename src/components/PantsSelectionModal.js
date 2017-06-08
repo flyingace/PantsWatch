@@ -1,16 +1,13 @@
-/*globals */
-
 'use strict';
 
 import React from 'react';
 import {
     Button,
     Modal,
-    StyleSheet,
     Text,
-    TouchableHighlight,
     View
 } from 'react-native';
+import PantsForm from './PantsForm';
 
 const PantsSelectionModal = React.createClass({
 

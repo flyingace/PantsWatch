@@ -1,11 +1,6 @@
-/*globals */
-
 import React from 'react';
 import {
-    StyleSheet,
-    TabBarIOS,
-    View,
-    Text
+    TabBarIOS
 } from 'react-native';
 import PantsForm from '../PantsForm';
 import Landing from '../Landing';
@@ -66,19 +61,6 @@ const TabBar = React.createClass({
             </TabBarIOS>
 
         );
-    }
-});
-
-const styles = StyleSheet.create({
-    tabContent: {
-        alignSelf: 'stretch',
-        height: 200,
-        flex: 1
-    },
-    tabText: {
-        color: 'white',
-        margin: 50,
-        flex: 1
     }
 });
 

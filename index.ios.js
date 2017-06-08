@@ -3,9 +3,7 @@
 import React from 'react';
 import {
     AppRegistry,
-    StatusBar,
-    StyleSheet,
-    View
+    StatusBar
 } from 'react-native';
 import Application from './src/components/Application';
 
@@ -20,17 +18,6 @@ const PantsWatch = React.createClass({
         return (
             <Application />
         );
-    }
-});
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'flex-start',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0
     }
 });
 

@@ -1,9 +1,5 @@
-/*globals */
-
 import React from 'react';
 import {
-    PropTypes,
-    StyleSheet,
     Text,
     Slider,
     View

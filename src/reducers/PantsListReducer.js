@@ -2,13 +2,12 @@
 
 import {
     SELECT_PANTS,
-    DESELECT_ALL_PANTS,
     REQUEST_PANTS_DATA,
     RECEIVE_PANTS_DATA,
     FAILURE_PANTS_DATA,
     COMPLETELY_RESET_DATA
 } from '../actions/PantsListActions';
-import { assign, forEach, isUndefined, toLower } from 'lodash';
+import { assign } from 'lodash';
 
 const initialState = {
     pantsData: {}

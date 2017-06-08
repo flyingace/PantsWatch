@@ -2,7 +2,6 @@ import React from 'react';
 import {
     Button,
     Modal,
-    StyleSheet,
     Text,
     TextInput
 } from 'react-native';
