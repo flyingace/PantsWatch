@@ -20,6 +20,7 @@ const FormTextInput = React.createClass({
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.object,
         onAddOption: React.PropTypes.func,
+        promptText: React.PropTypes.string,
         selectedValue: React.PropTypes.string,
         setFieldValue: React.PropTypes.func
     },
@@ -34,14 +35,14 @@ const FormTextInput = React.createClass({
     },
 
     addPickers() {
-        let pickers = [];
+        let pickers = [<Picker.Item label={ this.props.promptText } key="prompt" value="prompt"/>];
 
         forIn(this.props.menuOptions.rows, function (option, key) {
             pickers.push(<Picker.Item label={ option.value } key={ key } value={ option.value }/>);
         });
 
         if (this.props.isEditable) {
-            pickers.push(<Picker.Item label="Add to this list" key="add" value="add"/>);
+            pickers.push(<Picker.Item label="+ Add to this list" key="add" value="add"/>);
         }
 
         return pickers;
@@ -52,8 +53,11 @@ const FormTextInput = React.createClass({
             this.props.setFieldValue(value);
         } else {
             this.props.onAddOption(this.props.fieldName);
-            console.log('open dialog to edit color options');
         }
+    },
+
+    isValid () {
+        return this.props.selectedValue !== 'prompt';
     },
 
     render() {
