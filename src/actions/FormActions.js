@@ -1,6 +1,7 @@
 import DB from '../../db.js';
 
 export const ADDING_OPTION = 'ADDING_OPTION';
+export const CLEAR_FORM_DATA = 'CLEAR_FORM_DATA';
 export const RECEIVE_BRANDS_DATA = 'RECEIVE_BRANDS_DATA';
 export const REQUEST_BRANDS_DATA = 'REQUEST_BRANDS_DATA';
 export const RECEIVE_COLORS_DATA = 'RECEIVE_COLORS_DATA';
@@ -40,6 +41,8 @@ export function setPantsData(formData) {
             // addedOn: value.addedOnDate,
             // notes: value.notes
 
+        }, () => {
+            dispatch(clearFormOnSubmit());
         });
     };
 }
@@ -97,16 +100,20 @@ export function setFormData(formData) {
 }
 
 export function updatePantsData(formData) {
-    DB.pants.update_id(formData.pantsId, {
-        pantsName: formData.pantsName,
-        pantsColor: formData.pantsColor,
-        pantsBrand: formData.pantsBrand,
-        pantsStyle: formData.pantsStyle,
-        pantsWearCount: formData.pantsWearCount,
-        pantsWearLimit: formData.pantsWearLimit,
-        lastWornDate: formData.lastWornDate,
-        selected: formData.selected
-    });
+    return (dispatch) => {
+        DB.pants.update_id(formData.pantsId, {
+            pantsName: formData.pantsName,
+            pantsColor: formData.pantsColor,
+            pantsBrand: formData.pantsBrand,
+            pantsStyle: formData.pantsStyle,
+            pantsWearCount: formData.pantsWearCount,
+            pantsWearLimit: formData.pantsWearLimit,
+            lastWornDate: formData.lastWornDate,
+            selected: formData.selected
+        }, () => {
+            dispatch(clearFormOnSubmit());
+        });
+    };
 }
 
 export function addOption(category, valueToAdd) {
@@ -180,4 +187,8 @@ export function requestStylesData() {
 
 export function receiveStylesData(data) {
     return { type: RECEIVE_STYLES_DATA, state: data };
+}
+
+export function clearFormOnSubmit() {
+    return { type: CLEAR_FORM_DATA };
 }

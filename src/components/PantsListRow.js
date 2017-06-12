@@ -69,7 +69,7 @@ const PantsListRow = React.createClass({
                 </View>
                 <View style={ rowStyles.rightCol }>
                     <WearLimitBox pantsWearCount={ this.props.pantsWearCount } pantsWearLimit={ this.props.pantsWearLimit }/>
-                        {this.maybeRenderLastWornDate()}
+                    {this.maybeRenderLastWornDate()}
                 </View>
             </View>
         );
