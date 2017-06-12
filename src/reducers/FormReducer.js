@@ -1,4 +1,5 @@
 import {
+    CLEAR_FORM_DATA,
     RECEIVE_BRANDS_DATA,
     RECEIVE_COLORS_DATA,
     RECEIVE_STYLES_DATA,
@@ -23,10 +24,10 @@ const initialState = {
     colorValues: {},
     styleValues: {},
     pantsId: null,
-    pantsBrand: 'jCrew',
-    pantsColor: 'blue',
+    pantsBrand: '',
+    pantsColor: '',
     pantsName: '',
-    pantsStyle: 'casual',
+    pantsStyle: '',
     pantsWearCount: 0,
     pantsWearLimit: 6,
     lastWornDate: ''
@@ -35,6 +36,9 @@ const initialState = {
 
 export default function formReducer(state = initialState, action) {
     switch (action.type) {
+        case CLEAR_FORM_DATA:
+            state = assign({}, initialState);
+            break;
         case REQUEST_BRANDS_DATA:
             break;
         case RECEIVE_BRANDS_DATA:

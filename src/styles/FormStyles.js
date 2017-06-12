@@ -275,7 +275,7 @@ const FormStyles = Object.freeze({
         flex: 0
     },
 
-//    Form Styles
+    //    Form Styles
     transparentBkg: {
         backgroundColor: 'rgba(0,0,0,0)'
     },

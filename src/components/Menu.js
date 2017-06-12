@@ -104,10 +104,12 @@ const Menu = React.createClass({
 
     render() {
 
-        return (<View style={ [styles.wrapper, { left: this.state.left }] }>
+        return (
+            <View style={ [styles.wrapper, { left: this.state.left }] }>
                 <ScrollView style={ styles.menu }>
                     <Text style={ styles.item } onPress={ () => this.onMenuItemPress('landing') }>Home</Text>
-                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('choosePants') }>Choose Pants</Text>
+                    <Text style={ styles.item } onPress={ () => this.onMenuItemPress('choosePants') }>Choose
+                        Pants</Text>
                     <Text style={ styles.item } onPress={ () => this.onMenuItemPress('addPants') }>Add Pants</Text>
                     <Text style={ styles.item } onPress={ () => this.onMenuItemPress('editPants') }>Edit Pants</Text>
                     <Text style={ styles.item } onPress={ () => this.onMenuItemPress('washPants') }>Wash Pants</Text>

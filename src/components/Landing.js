@@ -92,9 +92,9 @@ const Landing = React.createClass({
                 <Image style={ commonStyles.scribblePrompt } source={ scribblePrompt } resizeMode={ 'contain' }/>
                 <View style={ landingStyles.panels }>
                     <Pane paneLabel="See Your Pants" imageURL={ seePantsImg } paneStyle={ paneStyle.pane }
-                          onPress={ () => this.onPanePress('choosePants') }/>
+                        onPress={ () => this.onPanePress('choosePants') }/>
                     <Pane paneLabel="Add Some Pants" imageURL={ addPantsImg } paneStyle={ paneStyle.pane }
-                          onPress={ () => this.onPanePress('addPants') }/>
+                        onPress={ () => this.onPanePress('addPants') }/>
                     <Pane paneLabel="Alter Your Pants" imageURL={ alterPantsImg } paneStyle={ paneStyle.pane }
                         /* onPress={() => this.onPanePress('editPants')} */
                     />
