@@ -4,6 +4,7 @@ import {
     TextInput,
     View
 } from 'react-native';
+import OptionallyDisplayed from './OptionallyDisplayed.js';
 import FormStyles from '../styles/FormStyles';
 
 const FormTextInput = React.createClass({
@@ -11,12 +12,13 @@ const FormTextInput = React.createClass({
     displayName: 'FormTextInput',
 
     propTypes: {
-        setFieldValue: React.PropTypes.func,
-        inputRef: React.PropTypes.string,
         fieldName: React.PropTypes.string,
-        value: React.PropTypes.string,
         labelText: React.PropTypes.string,
-        placeholderText: React.PropTypes.string
+        onFieldChanged: React.PropTypes.func.isRequired,
+        placeholderText: React.PropTypes.string,
+        setFieldValue: React.PropTypes.func,
+        showError: React.PropTypes.bool.isRequired,
+        value: React.PropTypes.string
     },
 
     getDefaultProps() {
@@ -26,16 +28,13 @@ const FormTextInput = React.createClass({
         };
     },
 
-    componentWillMount() {
-        // this.setState({texty: ''})
-    },
-
     onChangeText(text) {
+        this.props.onFieldChanged(text);
         this.props.setFieldValue(text);
     },
 
-    handleSubmitEditing() {
-        console.log('submitted');
+    shouldDisplayError() {
+        return this.props.showError && this.props.errorText !== '';
     },
 
     render() {
@@ -50,8 +49,12 @@ const FormTextInput = React.createClass({
                     placeholder={ this.props.placeholderText }
                     onChangeText={ this.onChangeText }
                     value={ this.props.value }
-                    ref={ this.props.inputRef }
                 />
+                <OptionallyDisplayed display={this.shouldDisplayError()}>
+                    <View>
+                        <Text>{this.props.errorText}</Text>
+                    </View>
+                </OptionallyDisplayed>
             </View>
         );
     }

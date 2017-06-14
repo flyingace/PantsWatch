@@ -6,6 +6,10 @@ import {
     Image
 } from 'react-native';
 import { DBEvents } from 'react-native-db-models';
+import update from 'immutability-helper';
+import { run, ruleRunner } from '../utils/ruleRunner.js';
+import { required, mustChoose, minLength } from '../utils/rules.js';
+
 import AddOptionModal from './AddOptionModal';
 import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
@@ -15,12 +19,21 @@ import PantsListPage from '../containers/PantsListPage';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
 import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
+const fieldValidations = [
+    ruleRunner('pantsName', 'Pants Name', required, minLength(3)),
+    ruleRunner('pantsColor', 'Pants Color', mustChoose),
+    ruleRunner('pantsBrand', 'Pants Brand', mustChoose),
+    ruleRunner('pantsStyle', 'Pants Style', mustChoose),
+];
+
 const PantsForm = React.createClass({
 
     getInitialState() {
         return {
             modalVisible: false,
-            optionType: ''
+            optionType: '',
+            showErrors: false,
+            validationErrors: {}
         };
     },
 
@@ -50,11 +63,40 @@ const PantsForm = React.createClass({
     },
 
     componentWillMount() {
+        // Run validations on initial state
+        this.setState({ validationErrors: run(this.state, fieldValidations) });
+
         if (this.props.route.updateId) {
             this.props.retrievePantsData(this.props.route.updateId);
         }
 
+        //FIXME: A check should be made to see if picker data already exists/is cached
         this.fetchPickerData();
+    },
+
+    errorFor(field) {
+        return this.state.validationErrors[field] || '';
+    },
+
+    handleFieldChanged(field) {
+        return (fieldValue) => {
+            // update() is provided by React Immutability Helpers
+            // https://facebook.github.io/react/docs/update.html
+            let newState = update(this.state, {
+                [field]: { $set: fieldValue }
+            });
+            newState.validationErrors = run(newState, fieldValidations);
+            this.setState(newState);
+        };
+    },
+
+    handleSubmitClicked() {
+        this.setState({ showErrors: true });
+        if (Object.keys(this.state.validationErrors).length > 0) {
+            return null;
+        }
+
+        this.onFormSubmit();
     },
 
     componentDidMount() {
@@ -80,44 +122,59 @@ const PantsForm = React.createClass({
         this.setState({ modalVisible: isVisible });
     },
 
+    /*** RENDER FORM ***/
     renderForm () {
         if (!this.props.route.updateId) {
             return (
                 <View ref="addPantsForm">
-                    <FormTextInput labelText="Pants Name"
-                        required={ true }
-                        validation="Please enter a name for your pants"
+                    <FormTextInput
+                        labelText="Pants Name"
                         fieldName="pantsName"
-                        inputRef="nameInput"
+                        placeholderText="Name Your Pants"
                         setFieldValue={ this.props.setPantsName }
-                        value={ this.props.pantsName }/>
-                    <FormPicker labelText="Pants Color"
+                        value={ this.props.pantsName }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsName') }
+                        errorText={ this.errorFor('pantsName') }/>
+                    <FormPicker
+                        labelText="Pants Color"
                         fieldName="pantsColor"
-                        inputRef="colorPicker"
+                        promptText="Choose a Color"
                         menuOptions={ this.props.colorValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsColor }
                         selectedValue={ this.props.pantsColor }
-                        onAddOption={ this.onAddOptionSelected }/>
-                    <FormPicker labelText="Pants Brand"
+                        onAddOption={ this.onAddOptionSelected }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsColor') }
+                        errorText={ this.errorFor('pantsColor') }/>
+                    <FormPicker
+                        labelText="Pants Brand"
                         fieldName="pantsBrand"
-                        inputRef="brandPicker"
+                        promptText="Choose a Brand"
                         menuOptions={ this.props.brandValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsBrand }
                         selectedValue={ this.props.pantsBrand }
-                        onAddOption={ this.onAddOptionSelected }/>
-                    <FormPicker labelText="Pants Style"
+                        onAddOption={ this.onAddOptionSelected }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsBrand') }
+                        errorText={ this.errorFor('pantsBrand') }/>
+                    <FormPicker
+                        labelText="Pants Style"
                         fieldName="pantsStyle"
-                        inputRef="stylePicker"
+                        promptText="Choose a Style"
                         menuOptions={ this.props.styleValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsStyle }
                         selectedValue={ this.props.pantsStyle }
-                        onAddOption={ this.onAddOptionSelected }/>
-                    <FormSlider labelText="Wear Limit"
+                        onAddOption={ this.onAddOptionSelected }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsStyle') }
+                        errorText={ this.errorFor('pantsStyle') }/>
+                    <FormSlider
+                        labelText="Wear Limit"
                         fieldName="pantsWearLimit"
-                        inputRef="wearLimitSlider"
                         onValueChange={ this.props.setPantsWearLimit }
                         value={ this.props.pantsWearLimit }/>
                     <AddOptionModal
@@ -132,51 +189,54 @@ const PantsForm = React.createClass({
         } else {
             return (
                 <View ref="updatePantsForm">
-                    <FormTextInput labelText="Pants Name"
+                    <FormTextInput
+                        labelText="Pants Name"
                         required={ true }
                         validation="Please enter a name for your pants"
                         fieldName="pantsName"
-                        inputRef="nameInput"
                         setFieldValue={ this.props.setPantsName }
                         value={ this.props.pantsName }/>
-                    <FormPicker labelText="Pants Color"
+                    <FormPicker
+                        labelText="Pants Color"
+                        promptText="Choose a Color"
                         fieldName="pantsColor"
-                        inputRef="colorPicker"
                         menuOptions={ this.props.colorValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsColor }
                         selectedValue={ this.props.pantsColor }
                         onAddOption={ this.onAddOptionSelected }/>
-                    <FormPicker labelText="Pants Brand"
+                    <FormPicker
+                        labelText="Pants Brand"
+                        promptText="Choose a Brand"
                         fieldName="pantsBrand"
-                        inputRef="brandPicker"
                         menuOptions={ this.props.brandValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsBrand }
                         selectedValue={ this.props.pantsBrand }
                         onAddOption={ this.onAddOptionSelected }/>
-                    <FormPicker labelText="Pants Style"
+                    <FormPicker
+                        labelText="Pants Style"
+                        promptText="Choose a Style"
                         fieldName="pantsStyle"
-                        inputRef="stylePicker"
                         menuOptions={ this.props.styleValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsStyle }
                         selectedValue={ this.props.pantsStyle }
                         onAddOption={ this.onAddOptionSelected }/>
-                    <FormSlider labelText="Wear Count"
+                    <FormSlider
+                        labelText="Wear Count"
                         fieldName="pantsWearCount"
-                        inputRef="wearCountSlider"
                         onValueChange={ this.props.setPantsWearCount }
                         value={ this.props.pantsWearCount }/>
-                    <FormSlider labelText="Wear Limit"
+                    <FormSlider
+                        labelText="Wear Limit"
                         fieldName="pantsWearLimit"
-                        inputRef="wearLimitSlider"
                         onValueChange={ this.props.setPantsWearLimit }
                         value={ this.props.pantsWearLimit }/>
-                    <FormTextInput labelText="Last Worn Date"
+                    <FormTextInput
+                        labelText="Last Worn Date"
                         required={ true }
                         fieldName="lastWornDate"
-                        inputRef="lastWornDateInput"
                         setFieldValue={ this.props.setLastWornDate }
                         value={ this.props.lastWornDate }/>
                     <AddOptionModal
@@ -211,7 +271,7 @@ const PantsForm = React.createClass({
         //And then to go to the pants list page
 
         // call getValue() to get the values of the form
-        let formData = this.compileFormData();
+        const formData = this.compileFormData();
         if (!this.props.route.updateId) {
             this.addPantsToDB(formData);
         } else {
@@ -246,7 +306,7 @@ const PantsForm = React.createClass({
                     <Image source={ PageTitle } style={ FormStyles.pageTitle } resizeMode={ 'contain' }/>
                     {this.renderForm()}
                     <Button
-                        onPress={ this.onFormSubmit }
+                        onPress={ this.handleSubmitClicked }
                         title="Submit My Pants"
                         color="#66d8ff"
                         accessibilityLabel="Add your pants to the database"
