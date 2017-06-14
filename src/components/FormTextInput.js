@@ -50,7 +50,7 @@ const FormTextInput = React.createClass({
                     onChangeText={ this.onChangeText }
                     value={ this.props.value }
                 />
-                <OptionallyDisplayed display={this.shouldDisplayError()}>
+                <OptionallyDisplayed display={ this.shouldDisplayError() }>
                     <View>
                         <Text>{this.props.errorText}</Text>
                     </View>

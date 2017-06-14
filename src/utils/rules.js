@@ -14,7 +14,7 @@ export const mustChoose = (text) => {
     } else {
         return ErrorMessages.isRequired;
     }
-}
+};
 
 export const mustMatch = (field, fieldName) => {
     return (text, state) => {
