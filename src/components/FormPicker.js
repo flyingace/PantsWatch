@@ -5,6 +5,7 @@ import {
     Picker,
     View
 } from 'react-native';
+import OptionallyDisplayed from './OptionallyDisplayed.js';
 import { forIn } from 'lodash';
 import FormStyles from '../styles/FormStyles';
 import DownArrow from '../../assets/down_arrow.png';
@@ -15,19 +16,20 @@ const FormTextInput = React.createClass({
 
     propTypes: {
         fieldName: React.PropTypes.string,
-        inputRef: React.PropTypes.string,
+        errorText: React.PropTypes.string,
         isEditable: React.PropTypes.bool,
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.object,
         onAddOption: React.PropTypes.func,
+        onFieldChanged: React.PropTypes.func.isRequired,
         promptText: React.PropTypes.string,
         selectedValue: React.PropTypes.string,
-        setFieldValue: React.PropTypes.func
+        setFieldValue: React.PropTypes.func,
+        showError: React.PropTypes.bool.isRequired
     },
 
     getDefaultProps() {
         return {
-            inputRef: '',
             labelText: 'Field Name',
             placeholderText: '',
             isEditable: false
@@ -35,7 +37,7 @@ const FormTextInput = React.createClass({
     },
 
     addPickers() {
-        let pickers = [<Picker.Item label={ this.props.promptText } key="prompt" value="prompt"/>];
+        let pickers = [<Picker.Item label={ this.props.promptText } key="prompt" value=""/>];
 
         forIn(this.props.menuOptions.rows, function (option, key) {
             pickers.push(<Picker.Item label={ option.value } key={ key } value={ option.value }/>);
@@ -51,13 +53,14 @@ const FormTextInput = React.createClass({
     onValueChange (value, index) {
         if (value !== 'add') {
             this.props.setFieldValue(value);
+            this.props.onFieldChanged(value);
         } else {
             this.props.onAddOption(this.props.fieldName);
         }
     },
 
-    isValid () {
-        return this.props.selectedValue !== 'prompt';
+    shouldDisplayError() {
+        return this.props.showError && this.props.errorText !== '';
     },
 
     render() {
@@ -73,6 +76,11 @@ const FormTextInput = React.createClass({
                         {this.addPickers()}
                     </Picker>
                 </View>
+                <OptionallyDisplayed display={this.shouldDisplayError()}>
+                    <View>
+                        <Text>{this.props.errorText}</Text>
+                    </View>
+                </OptionallyDisplayed>
             </View>
         );
     }
