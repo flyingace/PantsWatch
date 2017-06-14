@@ -76,7 +76,7 @@ const FormTextInput = React.createClass({
                         {this.addPickers()}
                     </Picker>
                 </View>
-                <OptionallyDisplayed display={this.shouldDisplayError()}>
+                <OptionallyDisplayed display={ this.shouldDisplayError() }>
                     <View>
                         <Text>{this.props.errorText}</Text>
                     </View>
