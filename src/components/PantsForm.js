@@ -182,8 +182,7 @@ const PantsForm = React.createClass({
                         addOption={ this.props.addOption }
                         modalIsVisible={ this.state.modalVisible }
                         onSubmitEntry={ this.props.addOption }
-                        optionType={ this.state.optionType }
-                    />
+                        optionType={ this.state.optionType }/>
                 </View>
             );
         } else {
@@ -191,38 +190,49 @@ const PantsForm = React.createClass({
                 <View ref="updatePantsForm">
                     <FormTextInput
                         labelText="Pants Name"
-                        required={ true }
-                        validation="Please enter a name for your pants"
                         fieldName="pantsName"
+                        placeholderText="Name Your Pants"
                         setFieldValue={ this.props.setPantsName }
-                        value={ this.props.pantsName }/>
+                        value={ this.props.pantsName }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsName') }
+                        errorText={ this.errorFor('pantsName') }/>
                     <FormPicker
                         labelText="Pants Color"
-                        promptText="Choose a Color"
                         fieldName="pantsColor"
+                        promptText="Choose a Color"
                         menuOptions={ this.props.colorValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsColor }
                         selectedValue={ this.props.pantsColor }
-                        onAddOption={ this.onAddOptionSelected }/>
+                        onAddOption={ this.onAddOptionSelected }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsColor') }
+                        errorText={ this.errorFor('pantsColor') }/>
                     <FormPicker
                         labelText="Pants Brand"
-                        promptText="Choose a Brand"
                         fieldName="pantsBrand"
+                        promptText="Choose a Brand"
                         menuOptions={ this.props.brandValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsBrand }
                         selectedValue={ this.props.pantsBrand }
-                        onAddOption={ this.onAddOptionSelected }/>
+                        onAddOption={ this.onAddOptionSelected }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsBrand') }
+                        errorText={ this.errorFor('pantsBrand') }/>
                     <FormPicker
                         labelText="Pants Style"
-                        promptText="Choose a Style"
                         fieldName="pantsStyle"
+                        promptText="Choose a Style"
                         menuOptions={ this.props.styleValues }
                         isEditable={ true }
                         setFieldValue={ this.props.setPantsStyle }
                         selectedValue={ this.props.pantsStyle }
-                        onAddOption={ this.onAddOptionSelected }/>
+                        onAddOption={ this.onAddOptionSelected }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsStyle') }
+                        errorText={ this.errorFor('pantsStyle') }/>
                     <FormSlider
                         labelText="Wear Count"
                         fieldName="pantsWearCount"
@@ -235,17 +245,19 @@ const PantsForm = React.createClass({
                         value={ this.props.pantsWearLimit }/>
                     <FormTextInput
                         labelText="Last Worn Date"
-                        required={ true }
                         fieldName="lastWornDate"
+                        placeholderText="Name Your Pants"
                         setFieldValue={ this.props.setLastWornDate }
-                        value={ this.props.lastWornDate }/>
+                        value={ this.props.lastWornDate }
+                        showError={ this.state.showErrors }
+                        onFieldChanged={ this.handleFieldChanged('pantsName') }
+                        errorText={ this.errorFor('pantsName') }/>
                     <AddOptionModal
                         toggleModalVisibility={ this.toggleModalVisibility }
                         addOption={ this.props.addOption }
                         modalIsVisible={ this.state.modalVisible }
                         onSubmitEntry={ this.props.addOption }
-                        optionType={ this.state.optionType }
-                    />
+                        optionType={ this.state.optionType }/>
                 </View>
             );
         }

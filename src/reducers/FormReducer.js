@@ -99,7 +99,7 @@ export default function formReducer(state = initialState, action) {
             break;
         case SET_PANTS_LAST_WORN_DATE:
             state = assign({}, state, {
-                pantsLastWornDate: action.state
+                lastWornDate: action.state
             });
             break;
         case UPDATE_PANTS:
