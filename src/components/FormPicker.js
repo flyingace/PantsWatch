@@ -6,7 +6,7 @@ import {
     View
 } from 'react-native';
 import OptionallyDisplayed from './OptionallyDisplayed.js';
-import { forIn } from 'lodash';
+import { forIn, keys, omit, values } from 'lodash';
 import FormStyles from '../styles/FormStyles';
 import DownArrow from '../../assets/down_arrow.png';
 
@@ -34,6 +34,22 @@ const FormTextInput = React.createClass({
             placeholderText: '',
             isEditable: false
         };
+    },
+
+    componentWillReceiveProps(nextProps) {
+        const currentOptions = this.props.menuOptions;
+        const nextOptions = nextProps.menuOptions;
+
+        if (nextOptions.totalrows > currentOptions.totalrows) {
+            const newValue = values(omit(nextOptions.rows, keys(currentOptions.rows)))[0].value;
+            this.onValueChange(newValue);
+        }
+
+        // if (nextOptions.totalrows > currentOptions.totalrows) {
+        //     const addedIndex = nextOptions.autoinc - 1;
+        //     const addedValue = nextOptions.rows[addedIndex].value;
+        //     this.onValueChange(addedValue);
+        // }
     },
 
     addPickers() {
