@@ -6,7 +6,7 @@ import {
     View
 } from 'react-native';
 import OptionallyDisplayed from './OptionallyDisplayed.js';
-import { forIn, keys, omit, values } from 'lodash';
+import { differenceWith, forIn, isEqual, values } from 'lodash';
 import FormStyles from '../styles/FormStyles';
 import DownArrow from '../../assets/down_arrow.png';
 
@@ -41,7 +41,7 @@ const FormTextInput = React.createClass({
         const nextOptions = nextProps.menuOptions;
 
         if (nextOptions.totalrows > currentOptions.totalrows) {
-            const newValue = values(omit(nextOptions.rows, keys(currentOptions.rows)))[0].value;
+            const newValue = differenceWith(values(nextOptions.rows), values(currentOptions.rows), isEqual)[0].value;
             this.onValueChange(newValue);
         }
 
@@ -66,7 +66,7 @@ const FormTextInput = React.createClass({
         return pickers;
     },
 
-    onValueChange (value, index) {
+    onValueChange (value) {
         if (value !== 'add') {
             this.props.setFieldValue(value);
             this.props.onFieldChanged(value);
