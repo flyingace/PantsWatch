@@ -29,7 +29,7 @@ const AddOptionModal = React.createClass({
         };
     },
 
-    onTextChange(value) {
+    onTextChanged(value) {
         this.setState({ 'textFieldValue': value });
     },
 
@@ -57,12 +57,12 @@ const AddOptionModal = React.createClass({
     onOkay() {
         const dbName = this.getDBName(this.props.optionType);
         this.props.addOption(dbName, this.state.textFieldValue);
-        this.onTextChange('');
+        this.onTextChanged('');
         this.props.toggleModalVisibility(false);
     },
 
     onCancel() {
-        this.onTextChange('');
+        this.onTextChanged('');
         this.props.toggleModalVisibility(false);
     },
 
@@ -76,7 +76,7 @@ const AddOptionModal = React.createClass({
                     this.props.toggleModalVisibility(false);
                 } }>
                 <Text>Add an option</Text>
-                <TextInput ref='newOptionValue' value={ this.state.textFieldValue } onChangeText={ this.onTextChange }/>
+                <TextInput ref='newOptionValue' value={ this.state.textFieldValue } onChangeText={ this.onTextChanged }/>
                 <Button onPress={ this.onCancel } title='Cancel'/>
                 <Button onPress={ this.onOkay } title='Okay'/>
             </Modal>

@@ -28,7 +28,7 @@ const FormTextInput = React.createClass({
         };
     },
 
-    onChangeText(text) {
+    onTextChanged(text) {
         this.props.onFieldChanged(text);
         this.props.setFieldValue(text);
     },
@@ -47,7 +47,7 @@ const FormTextInput = React.createClass({
                     underlineColorAndroid='transparent'
                     style={ FormStyles.textInput }
                     placeholder={ this.props.placeholderText }
-                    onChangeText={ this.onChangeText }
+                    onChangeText={ this.onTextChanged }
                     value={ this.props.value }
                 />
                 <OptionallyDisplayed display={ this.shouldDisplayError() }>
