@@ -16,6 +16,7 @@ export const SET_PANTS_STYLE = 'SET_PANTS_STYLE';
 export const SET_PANTS_WEAR_COUNT = 'SET_PANTS_WEAR_COUNT';
 export const SET_PANTS_WEAR_LIMIT = 'SET_PANTS_WEAR_LIMIT';
 export const SET_PANTS_LAST_WORN_DATE = 'SET_PANTS_LAST_WORN_DATE';
+export const SET_PANTS_SELECTED = 'SET_PANTS_SELECTED';
 export const SETTING_PANTS = 'SETING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
@@ -47,6 +48,7 @@ export function setPantsData(formData) {
     };
 }
 
+//could all these 'setPants...' be curried into a single function? Is there a reason not to do that?
 export function setPantsId(idOfPants) {
     return { type: SET_PANTS_ID, state: idOfPants };
 }
@@ -79,6 +81,10 @@ export function setLastWornDate(lastWornDateOfPants) {
     return { type: SET_PANTS_LAST_WORN_DATE, state: lastWornDateOfPants };
 }
 
+export function setSelected(selected) {
+    return { type: SET_PANTS_SELECTED, state: selected};
+}
+
 export function retrievePantsData(pantsId) {
     return (dispatch) => {
         DB.pants.get_id(pantsId, (result) => {
@@ -91,6 +97,7 @@ export function retrievePantsData(pantsId) {
             dispatch(setPantsWearCount(pantsData.pantsWearCount));
             dispatch(setPantsWearLimit(pantsData.pantsWearLimit));
             dispatch(setLastWornDate(pantsData.lastWornDate));
+            dispatch(setSelected(pantsData.selected));
         });
     };
 }

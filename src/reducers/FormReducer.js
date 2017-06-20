@@ -15,6 +15,7 @@ import {
     SET_PANTS_WEAR_COUNT,
     SET_PANTS_WEAR_LIMIT,
     SET_PANTS_LAST_WORN_DATE,
+    SET_PANTS_SELECTED,
     UPDATE_PANTS
 } from '../actions/FormActions';
 import { assign } from 'lodash';
@@ -30,7 +31,8 @@ const initialState = {
     pantsStyle: '',
     pantsWearCount: 0,
     pantsWearLimit: 6,
-    lastWornDate: ''
+    lastWornDate: '',
+    selected: false
 };
 
 
@@ -100,6 +102,11 @@ export default function formReducer(state = initialState, action) {
         case SET_PANTS_LAST_WORN_DATE:
             state = assign({}, state, {
                 lastWornDate: action.state
+            });
+            break;
+        case SET_PANTS_SELECTED:
+            state = assign({}, state, {
+                selected: action.state
             });
             break;
         case UPDATE_PANTS:
