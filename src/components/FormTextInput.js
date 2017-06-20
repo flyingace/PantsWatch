@@ -28,6 +28,12 @@ const FormTextInput = React.createClass({
         };
     },
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.showError && nextProps.errorText !== '') {
+            this.props.onFieldChanged(nextProps.value);
+        }
+    },
+
     onTextChanged(text) {
         this.props.onFieldChanged(text);
         this.props.setFieldValue(text);

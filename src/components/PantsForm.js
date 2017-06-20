@@ -24,6 +24,7 @@ const fieldValidations = [
     ruleRunner('pantsColor', 'Pants Color', mustChoose),
     ruleRunner('pantsBrand', 'Pants Brand', mustChoose),
     ruleRunner('pantsStyle', 'Pants Style', mustChoose),
+    ruleRunner('lastWornDate', 'Last Worn Date', mustChoose)
 ];
 
 const PantsForm = React.createClass({
@@ -47,7 +48,8 @@ const PantsForm = React.createClass({
         submitForm: React.PropTypes.func,
         brandValues: React.PropTypes.object,
         colorValues: React.PropTypes.object,
-        styleValues: React.PropTypes.object
+        styleValues: React.PropTypes.object,
+        selected: React.PropTypes.bool
     },
 
     getDefaultProps () {
@@ -58,7 +60,9 @@ const PantsForm = React.createClass({
             pantsStyle: '',
             pantsBrand: '',
             pantsWearCount: 0,
-            pantsWearLimit: null
+            pantsWearLimit: null,
+            lastWornDate: null,
+            selected: false
         };
     },
 
@@ -72,6 +76,17 @@ const PantsForm = React.createClass({
 
         //FIXME: A check should be made to see if picker data already exists/is cached
         this.fetchPickerData();
+    },
+
+    componentDidMount() {
+        DBEvents.on('all', this.fetchPickerData);
+        this.setState({ validationErrors: run(this.state, fieldValidations) });
+    },
+
+    fetchPickerData() {
+        this.props.fetchBrandsData();
+        this.props.fetchColorsData();
+        this.props.fetchStylesData();
     },
 
     errorFor(field) {
@@ -90,6 +105,16 @@ const PantsForm = React.createClass({
         };
     },
 
+    onAddOptionSelected(optionType) {
+        this.setState({ optionType: optionType });
+        this.toggleModalVisibility(true);
+    },
+
+    toggleModalVisibility(isVisible) {
+        this.setState({ modalVisible: isVisible });
+    },
+
+
     handleSubmitClicked() {
         this.setState({ showErrors: true });
         if (Object.keys(this.state.validationErrors).length > 0) {
@@ -99,27 +124,53 @@ const PantsForm = React.createClass({
         this.onFormSubmit();
     },
 
-    componentDidMount() {
-        DBEvents.on('all', this.fetchPickerData);
+    onFormSubmit () {
+        //First Step Should Be To Validate
+        //Then if validated, to update the database
+        //And then to go to the pants list page
+
+        // call getValue() to get the values of the form
+        const formData = this.compileFormData();
+        if (!this.props.route.updateId) {
+            this.addPantsToDB(formData);
+        } else {
+            this.updatePantsInDB(formData);
+        }
+        this.resetForm();
+        this.navigateToPantsList();
     },
 
-    componentWillReceiveProps(newProps) {
-        console.log(newProps.colorValues);
+    compileFormData() {
+        return {
+            //FIXME: This is working but I really don't like it
+            pantsId: this.props.pantsId || this.props.route.updateId,
+            pantsName: this.props.pantsName,
+            pantsColor: this.props.pantsColor,
+            pantsBrand: this.props.pantsBrand,
+            pantsStyle: this.props.pantsStyle,
+            pantsWearCount: this.props.pantsWearCount,
+            pantsWearLimit: this.props.pantsWearLimit,
+            lastWornDate: this.props.lastWornDate,
+            selected: this.props.selected
+        };
     },
 
-    fetchPickerData() {
-        this.props.fetchBrandsData();
-        this.props.fetchColorsData();
-        this.props.fetchStylesData();
+    addPantsToDB (formData) {
+        this.props.setPantsData(formData);
     },
 
-    onAddOptionSelected(optionType) {
-        this.setState({ optionType: optionType });
-        this.toggleModalVisibility(true);
+    updatePantsInDB (formData) {
+        this.props.updatePantsData(formData);
     },
 
-    toggleModalVisibility(isVisible) {
-        this.setState({ modalVisible: isVisible });
+    //FIXME: Is this actually emptying the form? How?
+    //Perhaps form reset should be handled as by resetting prop values after successful submission of formDataa
+    resetForm () {
+        this.setState({ value: null });
+    },
+
+    navigateToPantsList () {
+        this.props.navigator.replace({ component: PantsListPage, name: 'Choose Pants' });
     },
 
     /*** RENDER FORM ***/
@@ -246,12 +297,12 @@ const PantsForm = React.createClass({
                     <FormTextInput
                         labelText="Last Worn Date"
                         fieldName="lastWornDate"
-                        placeholderText="Name Your Pants"
+                        placeholderText="Last Date You Wore These Pants"
                         setFieldValue={ this.props.setLastWornDate }
                         value={ this.props.lastWornDate }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsName') }
-                        errorText={ this.errorFor('pantsName') }/>
+                        onFieldChanged={ this.handleFieldChanged('lastWornDate') }
+                        errorText={ this.errorFor('lastWornDate') }/>
                     <AddOptionModal
                         toggleModalVisibility={ this.toggleModalVisibility }
                         addOption={ this.props.addOption }
@@ -261,52 +312,6 @@ const PantsForm = React.createClass({
                 </View>
             );
         }
-    },
-
-    compileFormData() {
-        return {
-            //FIXME: This is working but I really don't like it
-            pantsId: this.props.pantsId || this.props.route.updateId,
-            pantsName: this.props.pantsName,
-            pantsColor: this.props.pantsColor,
-            pantsBrand: this.props.pantsBrand,
-            pantsStyle: this.props.pantsStyle,
-            pantsWearCount: this.props.pantsWearCount,
-            pantsWearLimit: this.props.pantsWearLimit,
-            lastWornDate: this.props.lastWornDate
-        };
-    },
-
-    onFormSubmit () {
-        //First Step Should Be To Validate
-        //Then if validated, to update the database
-        //And then to go to the pants list page
-
-        // call getValue() to get the values of the form
-        const formData = this.compileFormData();
-        if (!this.props.route.updateId) {
-            this.addPantsToDB(formData);
-        } else {
-            this.updatePantsInDB(formData);
-        }
-        this.resetForm();
-        this.navigateToPantsList();
-    },
-
-    addPantsToDB (formData) {
-        this.props.setPantsData(formData);
-    },
-
-    updatePantsInDB (formData) {
-        this.props.updatePantsData(formData);
-    },
-
-    resetForm () {
-        this.setState({ value: null });
-    },
-
-    navigateToPantsList () {
-        this.props.navigator.replace({ component: PantsListPage, name: 'Choose Pants' });
     },
 
     render () {
@@ -330,3 +335,15 @@ const PantsForm = React.createClass({
 });
 
 module.exports = PantsForm;
+
+/*
+1. Button is clicked
+2. Validation function is run against every field in the form in sequence
+3. Validation results in error messages being displayed or cleared as nec. at component level (possible nothing
+ needs to happen or change)
+4. Validation separately sets the value of a flag that will ultimately allow submission (how?)
+5. As each form field is updated the validation occurs on each of the fields again. If it's value is changed to
+ valid the error message goes away (or appears if now invalid) and it's status is updated.
+ 6. A flag has to be set on the field that can be checked, removing or adding error messages to an array or object
+  isn't the way to go here.
+ */

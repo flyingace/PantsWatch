@@ -14,7 +14,8 @@ function mapStateToProps(state) {
         pantsStyle: state.formReducer.pantsStyle,
         pantsWearCount: state.formReducer.pantsWearCount,
         pantsWearLimit: state.formReducer.pantsWearLimit,
-        lastWornDate: state.formReducer.lastWornDate
+        lastWornDate: state.formReducer.lastWornDate,
+        selected: state.formReducer.selected
     };
 }
 
