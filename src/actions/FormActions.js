@@ -82,7 +82,7 @@ export function setLastWornDate(lastWornDateOfPants) {
 }
 
 export function setSelected(selected) {
-    return { type: SET_PANTS_SELECTED, state: selected};
+    return { type: SET_PANTS_SELECTED, state: selected };
 }
 
 export function retrievePantsData(pantsId) {

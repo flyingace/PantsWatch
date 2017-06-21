@@ -71,7 +71,6 @@ const Menu = React.createClass({
     onMenuItemPress(itemName) {
         const nav = this.props.navigator;
 
-        console.log(itemName);
         switch (itemName) {
             case 'landing':
                 nav.replace({ component: Landing, name: 'Home' });
@@ -103,7 +102,6 @@ const Menu = React.createClass({
     },
 
     render() {
-
         return (
             <View style={ [styles.wrapper, { left: this.state.left }] }>
                 <ScrollView style={ styles.menu }>

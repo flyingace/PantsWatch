@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import { DBEvents } from 'react-native-db-models';
 import update from 'immutability-helper';
+import _ from 'lodash';
 import { run, ruleRunner } from '../utils/ruleRunner.js';
 import { required, mustChoose, minLength } from '../utils/rules.js';
 
@@ -24,19 +25,14 @@ const fieldValidations = [
     ruleRunner('pantsColor', 'Pants Color', mustChoose),
     ruleRunner('pantsBrand', 'Pants Brand', mustChoose),
     ruleRunner('pantsStyle', 'Pants Style', mustChoose),
-    ruleRunner('lastWornDate', 'Last Worn Date', mustChoose)
+    // ruleRunner('lastWornDate', 'Last Worn Date', required)
 ];
 
-const PantsForm = React.createClass({
+const fieldsToValidate = ['pantsName', 'pantsColor', 'pantsBrand', 'pantsStyle' /*, 'lastWorn'*/];
 
-    getInitialState() {
-        return {
-            modalVisible: false,
-            optionType: '',
-            showErrors: false,
-            validationErrors: {}
-        };
-    },
+
+
+const PantsForm = React.createClass({
 
     propTypes: {
         // pantsData: React.PropTypes.object,
@@ -45,11 +41,20 @@ const PantsForm = React.createClass({
         fetchStylesData: React.PropTypes.func,
         retrievePantsData: React.PropTypes.func,
         validateForm: React.PropTypes.func,
-        submitForm: React.PropTypes.func,
+        submitFormData: React.PropTypes.func,
         brandValues: React.PropTypes.object,
         colorValues: React.PropTypes.object,
         styleValues: React.PropTypes.object,
         selected: React.PropTypes.bool
+    },
+
+    getInitialState() {
+        return {
+            modalVisible: false,
+            optionType: '',
+            showErrors: false,
+            validationErrors: {}
+        };
     },
 
     getDefaultProps () {
@@ -61,7 +66,7 @@ const PantsForm = React.createClass({
             pantsBrand: '',
             pantsWearCount: 0,
             pantsWearLimit: null,
-            lastWornDate: null,
+            lastWornDate: '',
             selected: false
         };
     },
@@ -80,29 +85,20 @@ const PantsForm = React.createClass({
 
     componentDidMount() {
         DBEvents.on('all', this.fetchPickerData);
-        this.setState({ validationErrors: run(this.state, fieldValidations) });
+    },
+
+    componentWillReceiveProps(nextProps) {
+        for (let field of fieldsToValidate) {
+            if (nextProps[field] !== this.props[field]) {
+                this.validateField(field)(nextProps[field]);
+            }
+        }
     },
 
     fetchPickerData() {
         this.props.fetchBrandsData();
         this.props.fetchColorsData();
         this.props.fetchStylesData();
-    },
-
-    errorFor(field) {
-        return this.state.validationErrors[field] || '';
-    },
-
-    handleFieldChanged(field) {
-        return (fieldValue) => {
-            // update() is provided by React Immutability Helpers
-            // https://facebook.github.io/react/docs/update.html
-            let newState = update(this.state, {
-                [field]: { $set: fieldValue }
-            });
-            newState.validationErrors = run(newState, fieldValidations);
-            this.setState(newState);
-        };
     },
 
     onAddOptionSelected(optionType) {
@@ -114,29 +110,47 @@ const PantsForm = React.createClass({
         this.setState({ modalVisible: isVisible });
     },
 
+    errorFor(field) {
+        return this.state.validationErrors[field] || '';
+    },
 
-    handleSubmitClicked() {
+    validateField(field) {
+        return (fieldValue) => {
+            // update() is provided by React Immutability Helpers
+            // https://facebook.github.io/react/docs/update.html
+            let newState = update(this.state, {
+                [field]: { $set: fieldValue }
+            });
+            newState.validationErrors = run(newState, fieldValidations);
+            this.setState(newState);
+        };
+    },
+
+    validateAllFields() {
+        for (let field of fieldsToValidate) {
+            this.validateField(field)(this.props[field]);
+        }
+    },
+
+    onSubmitClicked() {
+        this.validateAllFields();
+
         this.setState({ showErrors: true });
+
         if (Object.keys(this.state.validationErrors).length > 0) {
             return null;
         }
 
-        this.onFormSubmit();
+        this.submitFormData();
     },
 
-    onFormSubmit () {
-        //First Step Should Be To Validate
-        //Then if validated, to update the database
-        //And then to go to the pants list page
-
-        // call getValue() to get the values of the form
+    submitFormData () {
         const formData = this.compileFormData();
         if (!this.props.route.updateId) {
             this.addPantsToDB(formData);
         } else {
             this.updatePantsInDB(formData);
         }
-        this.resetForm();
         this.navigateToPantsList();
     },
 
@@ -163,12 +177,6 @@ const PantsForm = React.createClass({
         this.props.updatePantsData(formData);
     },
 
-    //FIXME: Is this actually emptying the form? How?
-    //Perhaps form reset should be handled as by resetting prop values after successful submission of formDataa
-    resetForm () {
-        this.setState({ value: null });
-    },
-
     navigateToPantsList () {
         this.props.navigator.replace({ component: PantsListPage, name: 'Choose Pants' });
     },
@@ -185,7 +193,6 @@ const PantsForm = React.createClass({
                         setFieldValue={ this.props.setPantsName }
                         value={ this.props.pantsName }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsName') }
                         errorText={ this.errorFor('pantsName') }/>
                     <FormPicker
                         labelText="Pants Color"
@@ -197,7 +204,6 @@ const PantsForm = React.createClass({
                         selectedValue={ this.props.pantsColor }
                         onAddOption={ this.onAddOptionSelected }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsColor') }
                         errorText={ this.errorFor('pantsColor') }/>
                     <FormPicker
                         labelText="Pants Brand"
@@ -209,7 +215,6 @@ const PantsForm = React.createClass({
                         selectedValue={ this.props.pantsBrand }
                         onAddOption={ this.onAddOptionSelected }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsBrand') }
                         errorText={ this.errorFor('pantsBrand') }/>
                     <FormPicker
                         labelText="Pants Style"
@@ -221,7 +226,6 @@ const PantsForm = React.createClass({
                         selectedValue={ this.props.pantsStyle }
                         onAddOption={ this.onAddOptionSelected }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsStyle') }
                         errorText={ this.errorFor('pantsStyle') }/>
                     <FormSlider
                         labelText="Wear Limit"
@@ -246,7 +250,6 @@ const PantsForm = React.createClass({
                         setFieldValue={ this.props.setPantsName }
                         value={ this.props.pantsName }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsName') }
                         errorText={ this.errorFor('pantsName') }/>
                     <FormPicker
                         labelText="Pants Color"
@@ -258,7 +261,6 @@ const PantsForm = React.createClass({
                         selectedValue={ this.props.pantsColor }
                         onAddOption={ this.onAddOptionSelected }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsColor') }
                         errorText={ this.errorFor('pantsColor') }/>
                     <FormPicker
                         labelText="Pants Brand"
@@ -270,7 +272,6 @@ const PantsForm = React.createClass({
                         selectedValue={ this.props.pantsBrand }
                         onAddOption={ this.onAddOptionSelected }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsBrand') }
                         errorText={ this.errorFor('pantsBrand') }/>
                     <FormPicker
                         labelText="Pants Style"
@@ -282,7 +283,6 @@ const PantsForm = React.createClass({
                         selectedValue={ this.props.pantsStyle }
                         onAddOption={ this.onAddOptionSelected }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('pantsStyle') }
                         errorText={ this.errorFor('pantsStyle') }/>
                     <FormSlider
                         labelText="Wear Count"
@@ -301,7 +301,6 @@ const PantsForm = React.createClass({
                         setFieldValue={ this.props.setLastWornDate }
                         value={ this.props.lastWornDate }
                         showError={ this.state.showErrors }
-                        onFieldChanged={ this.handleFieldChanged('lastWornDate') }
                         errorText={ this.errorFor('lastWornDate') }/>
                     <AddOptionModal
                         toggleModalVisibility={ this.toggleModalVisibility }
@@ -323,7 +322,7 @@ const PantsForm = React.createClass({
                     <Image source={ PageTitle } style={ FormStyles.pageTitle } resizeMode={ 'contain' }/>
                     {this.renderForm()}
                     <Button
-                        onPress={ this.handleSubmitClicked }
+                        onPress={ this.onSubmitClicked }
                         title="Submit My Pants"
                         color="#66d8ff"
                         accessibilityLabel="Add your pants to the database"
@@ -335,15 +334,3 @@ const PantsForm = React.createClass({
 });
 
 module.exports = PantsForm;
-
-/*
-1. Button is clicked
-2. Validation function is run against every field in the form in sequence
-3. Validation results in error messages being displayed or cleared as nec. at component level (possible nothing
- needs to happen or change)
-4. Validation separately sets the value of a flag that will ultimately allow submission (how?)
-5. As each form field is updated the validation occurs on each of the fields again. If it's value is changed to
- valid the error message goes away (or appears if now invalid) and it's status is updated.
- 6. A flag has to be set on the field that can be checked, removing or adding error messages to an array or object
-  isn't the way to go here.
- */
