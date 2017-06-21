@@ -21,7 +21,6 @@ const FormTextInput = React.createClass({
         labelText: React.PropTypes.string,
         menuOptions: React.PropTypes.object,
         onAddOption: React.PropTypes.func,
-        onFieldChanged: React.PropTypes.func.isRequired,
         promptText: React.PropTypes.string,
         selectedValue: React.PropTypes.string,
         setFieldValue: React.PropTypes.func,
@@ -44,12 +43,6 @@ const FormTextInput = React.createClass({
             const newValue = differenceWith(values(nextOptions.rows), values(currentOptions.rows), isEqual)[0].value;
             this.onValueChange(newValue);
         }
-
-        // if (nextOptions.totalrows > currentOptions.totalrows) {
-        //     const addedIndex = nextOptions.autoinc - 1;
-        //     const addedValue = nextOptions.rows[addedIndex].value;
-        //     this.onValueChange(addedValue);
-        // }
     },
 
     addPickers() {
@@ -69,7 +62,6 @@ const FormTextInput = React.createClass({
     onValueChange (value) {
         if (value !== 'add') {
             this.props.setFieldValue(value);
-            this.props.onFieldChanged(value);
         } else {
             this.props.onAddOption(this.props.fieldName);
         }
