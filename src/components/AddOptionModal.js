@@ -1,10 +1,10 @@
 import React from 'react';
 import {
     Button,
-    Modal,
     Text,
     TextInput
 } from 'react-native';
+import Modal from 'react-native-modal';
 
 const AddOptionModal = React.createClass({
 
@@ -71,7 +71,7 @@ const AddOptionModal = React.createClass({
             <Modal
                 animationType={ 'slide' }
                 transparent={ false }
-                visible={ this.props.modalIsVisible }
+                isVisible={ this.props.modalIsVisible }
                 onRequestClose={ () => {
                     this.props.toggleModalVisibility(false);
                 } }>
