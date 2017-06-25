@@ -26,11 +26,10 @@ const fieldValidations = [
     ruleRunner('pantsName', 'Pants Name', required, minLength(3)),
     ruleRunner('pantsColor', 'Pants Color', mustChoose),
     ruleRunner('pantsBrand', 'Pants Brand', mustChoose),
-    ruleRunner('pantsStyle', 'Pants Style', mustChoose),
-    // ruleRunner('lastWornDate', 'Last Worn Date', required)
+    ruleRunner('pantsStyle', 'Pants Style', mustChoose)
 ];
 
-const fieldsToValidate = ['pantsName', 'pantsColor', 'pantsBrand', 'pantsStyle' /*, 'lastWorn'*/];
+const fieldsToValidate = ['pantsName', 'pantsColor', 'pantsBrand', 'pantsStyle'];
 
 const PantsForm = React.createClass({
 
@@ -327,7 +326,6 @@ const PantsForm = React.createClass({
                         mode='date'
                         onConfirm={ this.onDatePickerConfirm }
                         onCancel={ this.onDatePickerCancel }
-                        datePickerModeAndroid='spinner'
                         maximumDate = { new Date() }/>
                 </View>
             );
