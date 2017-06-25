@@ -47,6 +47,7 @@ const FormTextInput = React.createClass({
                     placeholder={ this.props.placeholderText }
                     onChangeText={ this.onTextChanged }
                     value={ this.props.value }
+                    onFocus={ this.props.onFocus }
                 />
                 <OptionallyDisplayed display={ this.shouldDisplayError() }>
                     <View>
