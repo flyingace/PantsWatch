@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Text,
     Slider,
@@ -6,15 +7,7 @@ import {
 } from 'react-native';
 import FormStyles from '../styles/FormStyles';
 
-const FormSlider = React.createClass({
-
-    displayName: 'FormSlider',
-
-    propTypes: {
-        onValueChange: React.PropTypes.func,
-        value: React.PropTypes.number,
-        labelText: React.PropTypes.string
-    },
+class FormSlider extends React.Component {
 
     render() {
         return (
@@ -35,7 +28,12 @@ const FormSlider = React.createClass({
             </View>
         );
     }
-});
+}
 
+FormSlider.propTypes = {
+    onValueChange: PropTypes.func,
+    value: PropTypes.number,
+    labelText: PropTypes.string
+};
 
 module.exports = FormSlider;

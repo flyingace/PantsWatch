@@ -1,27 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Text,
     View
 } from 'react-native';
 
-const Patches = React.createClass({
-
-    displayName: 'Patches',
-
-    propTypes: {},
+class Patches extends React.Component {
 
     getDefaultProps() {
-    },
+    }
 
     getInitialState() {
         return null;
-    },
+    }
 
     componentDidMount() {
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     render() {
         return (
@@ -30,6 +27,8 @@ const Patches = React.createClass({
             </View>
         );
     }
-});
+};
+
+Patches.propTypes = {};
 
 module.exports = Patches;

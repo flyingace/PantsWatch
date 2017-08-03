@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    Navigator,
     StyleSheet
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import PropTypes from 'prop-types';
 import DB from '../../db';
 import Dimensions from 'Dimensions';
 import Menu from './Menu';
@@ -29,27 +30,25 @@ const STYLES = [
     { value: 'Casual' }
 ];
 
-const Application = React.createClass({
+class Application extends React.Component {
 
-    displayName: 'Application',
-
-    propTypes: {},
 
     getDefaultProps() {
-    },
+    }
 
     getInitialState() {
         return {
             isOpen: false
         };
-    },
+    }
 
     componentDidMount() {
+        console.log('finally');
         this.setDefaultDBValues();
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     /**
      * Check to see if picker values are empty when app starts.
@@ -80,28 +79,28 @@ const Application = React.createClass({
                 });
             }
         });
-    },
+    }
 
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
-    },
+    }
 
     updateMenuState(isOpen) {
         this.setState({ isOpen });
-    },
+    }
 
     closeMenu() {
         this.setState({ isOpen: false });
-    },
+    }
 
     _renderScene(route, navigator) {
         const Component = route.component;
         return (
             <Component { ...route.props } navigator={ navigator } route={ route }/>
         );
-    },
+    }
 
     render() {
 
@@ -121,13 +120,13 @@ const Application = React.createClass({
             />
         );
     }
-});
+}
+
+Application.propTypes = {};
 
 const styles = StyleSheet.create({
     navigator: {
-        flex: 1,
-        width: window.width,
-        height: window.height
+        flex: 1
     }
 });
 

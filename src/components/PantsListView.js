@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Image,
     ListView,
@@ -17,21 +18,11 @@ const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
 
-const PantsListView = React.createClass({
-
-    propTypes: {
-        pantsList: React.PropTypes.object,
-        fetchPantsData: React.PropTypes.func,
-
-        selectPants: React.PropTypes.func,
-        deletePants: React.PropTypes.func,
-        deselectAllPants: React.PropTypes.func,
-        resetWearCount: React.PropTypes.func
-    },
-
+class PantsListView extends React.Component {
+    
     getDefaultProps () {
         return null;
-    },
+    }
 
     getInitialState () {
         return {
@@ -39,22 +30,22 @@ const PantsListView = React.createClass({
                 rowHasChanged: (row1, row2) => row1 !== row2
             })
         };
-    },
+    }
 
     componentWillMount () {
         this.props.fetchPantsData();
-    },
+    }
 
     componentDidMount () {
         this.getListDataSource();
         //TODO: This should be changed to a function
         //which determines which db has been affected
         DBEvents.on('all', this.props.fetchPantsData);
-    },
+    }
 
     componentWillReceiveProps(newProps) {
         this.getListDataSource(newProps);
-    },
+    }
 
     getListDataSource (newProps) {
         let rowSource;
@@ -68,7 +59,7 @@ const PantsListView = React.createClass({
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(rowSource)
         });
-    },
+    }
 
     render() {
         return (
@@ -85,7 +76,16 @@ const PantsListView = React.createClass({
         );
 
     }
-});
+}
+
+PantsListView.propTypes = {
+    pantsList: PropTypes.object,
+    fetchPantsData: PropTypes.func,
+    selectPants: PropTypes.func,
+    deletePants: PropTypes.func,
+    deselectAllPants: PropTypes.func,
+    resetWearCount: PropTypes.func
+};
 
 const styles = StyleSheet.create({
     wrapper: {

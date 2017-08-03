@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Image, LayoutAnimation, StyleSheet, View } from 'react-native';
 import Dimensions from 'Dimensions';
 import Pane from './Pane';
@@ -26,24 +27,20 @@ const contentHeight = windowHeight - bannerHeight;
 const promptHeight = Math.round(contentHeight * .18);
 const gridHeight = contentHeight - promptHeight;
 
-const Landing = React.createClass({
-
-    displayName: 'Landing',
-
-    propTypes: {},
+class Landing extends React.Component {
 
     getDefaultProps() {
-    },
+    }
 
     getInitialState() {
         return {
             questionText: 'What Pants Are You Going\nTo Wear Today?',
             menu: 'hidden'
         };
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     onPanePress(itemName) {
         const nav = this.props.navigator;
@@ -78,7 +75,7 @@ const Landing = React.createClass({
                 nav.replace({ component: Landing, name: 'Home' });
                 break;
         }
-    },
+    }
 
     render() {
         let landingStyles = (windowIsTall) ? tallStyles : shortStyles;
@@ -111,7 +108,9 @@ const Landing = React.createClass({
             </View>
         );
     }
-});
+}
+
+Landing.propTypes = {};
 
 const commonStyles = StyleSheet.create(
     {

@@ -1,6 +1,5 @@
-'use strict';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Button,
     Modal,
@@ -9,26 +8,17 @@ import {
 } from 'react-native';
 import PantsForm from './PantsForm';
 
-const PantsSelectionModal = React.createClass({
-
-    propTypes: {
-        isOpen: React.PropTypes.bool,
-        onRequestClose: React.PropTypes.func,
-        onPantsSelection: React.PropTypes.func,
-        onPantsEdit: React.PropTypes.func,
-        onPantsWash: React.PropTypes.func,
-        onPantsDelete: React.PropTypes.func
-    },
-
+class PantsSelectionModal extends React.Component {
+    
     getDefaultProps() {
         return {
             isOpen: false
         };
-    },
+    }
 
     goToEditPants () {
         this.props.navigator.replace({ component: PantsForm, name: 'Edit Pants' });
-    },
+    }
 
     render() {
         return (
@@ -75,6 +65,15 @@ const PantsSelectionModal = React.createClass({
             </Modal>
         );
     }
-});
+}
+
+PantsSelectionModal.propTypes = {
+    isOpen: PropTypes.bool,
+    onRequestClose: PropTypes.func,
+    onPantsSelection: PropTypes.func,
+    onPantsEdit: PropTypes.func,
+    onPantsWash: PropTypes.func,
+    onPantsDelete: PropTypes.func
+};
 
 module.exports = PantsSelectionModal;

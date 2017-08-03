@@ -7,14 +7,14 @@ import {
 } from 'react-native';
 import Application from './src/components/Application';
 
-const PantsWatch = React.createClass({
+class PantsWatch extends React.Component {
 
 
-    componentWillMount: function () {
+    componentWillMount() {
         StatusBar.setHidden(true);
     },
 
-    render: function () {
+    render: function() {
         return (
             <Application />
         );

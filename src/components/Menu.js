@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Image,
     ScrollView,
@@ -23,40 +24,36 @@ UIManager.setLayoutAnimationEnabledExperimental &&
 UIManager.setLayoutAnimationEnabledExperimental(true);
 
 
-const Menu = React.createClass({
+class Menu extends React.Component {
 
-    displayName: 'Menu',
-
-    propTypes: {},
 
     getDefaultProps() {
-    },
+    }
 
     getInitialState() {
         return {
             left: panelWidth * -1,
             menu: 'hidden'
         };
-    },
+    }
 
     componentDidMount() {
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         console.disableYellowBox = true;
         this.setState({ left: 0, menu: 'shown', overlayWidth: window.width });
-
-    },
+    }
 
     hideMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         console.disableYellowBox = true;
         this.setState({ left: panelWidth * -1, menu: 'hidden', overlayWidth: 0 });
-    },
+    }
 
     toggleMenu() {
         if (this.state.menu === 'shown') {
@@ -64,7 +61,7 @@ const Menu = React.createClass({
         } else {
             this.showMenu();
         }
-    },
+    }
 
 
     //TODO: Make this its own component?
@@ -99,7 +96,7 @@ const Menu = React.createClass({
         }
 
         this.hideMenu();
-    },
+    }
 
     render() {
         return (
@@ -121,7 +118,9 @@ const Menu = React.createClass({
             </View>
         );
     }
-});
+}
+
+Menu.propTypes = {};
 
 const styles = StyleSheet.create({
     wrapper: {

@@ -2,24 +2,22 @@ import React from 'react';
 import {
     TabBarIOS
 } from 'react-native';
+import PropTypes from 'prop-types';
 import PantsForm from '../PantsForm';
 import Landing from '../Landing';
 import PantsListView from '../PantsListView';
 
-const TabBar = React.createClass({
+class TabBar extends React.Component {
 
-    displayName: 'TabBar',
-
-    propTypes: {},
 
     getDefaultProps() {
-    },
+    }
 
     getInitialState() {
         return {
             selectedTab: 'homeTab'
         };
-    },
+    }
 
     render() {
         return (
@@ -59,9 +57,10 @@ const TabBar = React.createClass({
                     <PantsListView />
                 </TabBarIOS.Item>
             </TabBarIOS>
-
         );
     }
-});
+}
+
+TabBar.propTypes = {};
 
 module.exports = TabBar;

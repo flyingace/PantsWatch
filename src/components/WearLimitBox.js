@@ -1,32 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     StyleSheet,
     Text,
     View
 } from 'react-native';
 
-const wearLimitBox = React.createClass({
+class wearLimitBox extends React.Component {
 
-    displayName: 'WearLimitBox',
-
-    propTypes: {},
 
     getDefaultProps() {
         return {
             pantsWearCount: 0,
             pantsWearLimit: 6
         };
-    },
+    }
 
     getInitialState() {
         return null;
-    },
+    }
 
     componentDidMount() {
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     render() {
         return (
@@ -35,7 +33,9 @@ const wearLimitBox = React.createClass({
             </View>
         );
     }
-});
+}
+
+wearLimitBox.propTypes = {};
 
 const pantsWearLimitStyles = StyleSheet.create({
     pantsWearLimitBox: {
