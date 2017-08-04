@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Text,
     TextInput,
@@ -7,33 +8,22 @@ import {
 import OptionallyDisplayed from './OptionallyDisplayed.js';
 import FormStyles from '../styles/FormStyles';
 
-const FormTextInput = React.createClass({
-
-    displayName: 'FormTextInput',
-
-    propTypes: {
-        fieldName: React.PropTypes.string,
-        labelText: React.PropTypes.string,
-        placeholderText: React.PropTypes.string,
-        setFieldValue: React.PropTypes.func,
-        showError: React.PropTypes.bool.isRequired,
-        value: React.PropTypes.string
-    },
+class FormTextInput extends React.Component {
 
     getDefaultProps() {
         return {
             labelText: 'Field Name',
             placeholderText: ''
         };
-    },
+    }
 
     onTextChanged(text) {
         this.props.setFieldValue(text);
-    },
+    }
 
     shouldDisplayError() {
         return this.props.showError && this.props.errorText !== '';
-    },
+    }
 
     render() {
         return (
@@ -57,7 +47,16 @@ const FormTextInput = React.createClass({
             </View>
         );
     }
-});
+}
+
+FormTextInput.propTypes = {
+    fieldName: PropTypes.string,
+    labelText: PropTypes.string,
+    placeholderText: PropTypes.string,
+    setFieldValue: PropTypes.func,
+    showError: PropTypes.bool.isRequired,
+    value: PropTypes.string
+};
 
 
 module.exports = FormTextInput;

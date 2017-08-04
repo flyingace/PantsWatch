@@ -4,34 +4,28 @@ import {
     Text,
     TextInput
 } from 'react-native';
+import PropTypes from 'prop-types';
 import Modal from 'react-native-modal';
 
-const AddOptionModal = React.createClass({
+class AddOptionModal extends React.Component {
 
-    displayName: 'AddOptionModal',
-
-    propTypes: {
-        modalIsVisible: React.PropTypes.bool,
-        onSubmitEntry: React.PropTypes.func,
-        formFieldLabel: React.PropTypes.string
-    },
 
     getDefaultProps() {
         return {
             modalIsVisible: false
         };
-    },
+    }
 
     getInitialState() {
         return {
             modalVisible: false,
             textFieldValue: ''
         };
-    },
+    }
 
     onTextChanged(value) {
         this.setState({ 'textFieldValue': value });
-    },
+    }
 
     getDBName(optionType) {
         let DBName;
@@ -52,36 +46,36 @@ const AddOptionModal = React.createClass({
         }
 
         return DBName;
-    },
+    }
 
     onOkay() {
         const dbName = this.getDBName(this.props.optionType);
         this.props.addOption(dbName, this.state.textFieldValue);
         this.onTextChanged('');
         this.props.toggleModalVisibility(false);
-    },
+    }
 
     onCancel() {
         this.onTextChanged('');
         this.props.toggleModalVisibility(false);
-    },
+    }
 
     render() {
         return (
-            <Modal
-                animationType={ 'slide' }
-                transparent={ false }
-                isVisible={ this.props.modalIsVisible }
-                onRequestClose={ () => {
-                    this.props.toggleModalVisibility(false);
-                } }>
-                <Text>Add an option</Text>
-                <TextInput ref='newOptionValue' value={ this.state.textFieldValue } onChangeText={ this.onTextChanged }/>
-                <Button onPress={ this.onCancel } title='Cancel'/>
-                <Button onPress={ this.onOkay } title='Okay'/>
+            <Modal isVisible={this.props.modalIsVisible} >
+                {this.props.children}
+                <Button onPress={this.onCancel} title='Cancel'/>
+                <Button onPress={this.onOkay} title='Okay'/>
             </Modal>
         );
     }
-});
+}
+
+AddOptionModal.propTypes = {
+    modalIsVisible: PropTypes.bool,
+    onSubmitEntry: PropTypes.func,
+    formFieldLabel: PropTypes.string
+};
+
 
 module.exports = AddOptionModal;

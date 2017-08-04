@@ -1,27 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Text,
     View
 } from 'react-native';
 
-const Settings = React.createClass({
+class Settings extends React.Component {
 
-    displayName: 'Settings',
-
-    propTypes: {},
 
     getDefaultProps() {
-    },
+    }
 
     getInitialState() {
         return null;
-    },
+    }
 
     componentDidMount() {
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     render() {
         return (
@@ -30,6 +28,8 @@ const Settings = React.createClass({
             </View>
         );
     }
-});
+}
+
+Settings.propTypes = {};
 
 module.exports = Settings;

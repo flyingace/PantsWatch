@@ -233,6 +233,7 @@ const FormStyles = Object.freeze({
         fontSize: 30,
         marginRight: 4,
         marginLeft: 4,
+        height: 32
     },
     pickerField: {
         // fontFamily: MAIN_FONT,
@@ -241,8 +242,7 @@ const FormStyles = Object.freeze({
         borderRadius: 3,
         borderWidth: 0,
         height: 40,
-        padding: 4,
-        flex: 1
+        padding: 4
     },
     textInput: {
         fontFamily: MAIN_FONT,
@@ -251,8 +251,7 @@ const FormStyles = Object.freeze({
         borderRadius: 3,
         borderWidth: 0,
         height: 40,
-        padding: 4,
-        flex: 1
+        padding: 4
     },
     majorMinor: {
         flexDirection: 'row',
@@ -302,6 +301,30 @@ const FormStyles = Object.freeze({
         color: '#FFFFFF',
         borderBottomWidth: 1,
         borderColor: '#000000'
+    },
+    optionModal: {
+        backgroundColor: 'white',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
+        height: 300
+    },
+
+    optionModalWrapper: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
+    modalContent: {
+        backgroundColor: 'rgba(0,0,0,.4)',
+        padding: 22,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        borderRadius: 4,
+        borderColor: 'rgba(0, 0, 0, 0.1)',
     }
 
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Image,
     Text,
@@ -10,22 +11,7 @@ import { differenceWith, forIn, isEqual, values } from 'lodash';
 import FormStyles from '../styles/FormStyles';
 import DownArrow from '../../assets/down_arrow.png';
 
-const FormTextInput = React.createClass({
-
-    displayName: 'FormPicker',
-
-    propTypes: {
-        fieldName: React.PropTypes.string,
-        errorText: React.PropTypes.string,
-        isEditable: React.PropTypes.bool,
-        labelText: React.PropTypes.string,
-        menuOptions: React.PropTypes.object,
-        onAddOption: React.PropTypes.func,
-        promptText: React.PropTypes.string,
-        selectedValue: React.PropTypes.string,
-        setFieldValue: React.PropTypes.func,
-        showError: React.PropTypes.bool.isRequired
-    },
+class FormTextInput extends React.Component {
 
     getDefaultProps() {
         return {
@@ -33,7 +19,7 @@ const FormTextInput = React.createClass({
             placeholderText: '',
             isEditable: false
         };
-    },
+    }
 
     componentWillReceiveProps(nextProps) {
         const currentOptions = this.props.menuOptions;
@@ -43,7 +29,7 @@ const FormTextInput = React.createClass({
             const newValue = differenceWith(values(nextOptions.rows), values(currentOptions.rows), isEqual)[0].value;
             this.onValueChange(newValue);
         }
-    },
+    }
 
     addPickers() {
         let pickers = [<Picker.Item label={ this.props.promptText } key="prompt" value=""/>];
@@ -57,41 +43,54 @@ const FormTextInput = React.createClass({
         }
 
         return pickers;
-    },
+    }
 
-    onValueChange (value) {
+    onValueChange(value) {
         if (value !== 'add') {
             this.props.setFieldValue(value);
         } else {
             this.props.onAddOption(this.props.fieldName);
         }
-    },
+    }
 
     shouldDisplayError() {
         return this.props.showError && this.props.errorText !== '';
-    },
+    }
 
     render() {
         return (
             <View style={ FormStyles.formFieldWrapper }>
-                <Text style={ FormStyles.formLabel }>{this.props.labelText}</Text>
+                <Text style={ FormStyles.formLabel }>{ this.props.labelText }</Text>
                 <View>
                     <Image source={ DownArrow } style={ FormStyles.fieldIcon } resizeMode={ 'contain' }/>
                     <Picker
                         onValueChange={ this.onValueChange }
                         selectedValue={ this.props.selectedValue }
                         style={ FormStyles.pickerField }>
-                        {this.addPickers()}
+                        { this.addPickers() }
                     </Picker>
                 </View>
                 <OptionallyDisplayed display={ this.shouldDisplayError() }>
                     <View>
-                        <Text>{this.props.errorText}</Text>
+                        <Text>{ this.props.errorText }</Text>
                     </View>
                 </OptionallyDisplayed>
             </View>
         );
     }
-});
+}
+
+FormTextInput.propTypes = {
+    fieldName: PropTypes.string,
+    errorText: PropTypes.string,
+    isEditable: PropTypes.bool,
+    labelText: PropTypes.string,
+    menuOptions: PropTypes.object,
+    onAddOption: PropTypes.func,
+    promptText: PropTypes.string,
+    selectedValue: PropTypes.string,
+    setFieldValue: PropTypes.func,
+    showError: PropTypes.bool.isRequired
+};
 
 module.exports = FormTextInput;

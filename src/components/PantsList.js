@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     TouchableOpacity,
     ListView,
@@ -10,55 +11,46 @@ import PantsSelectionModal from './PantsSelectionModal';
 
 let pantsId;
 
-const PantsList = React.createClass({
-
-    displayName: 'PantsList',
-
-    propTypes: {
-        selectPants: React.PropTypes.func,
-        washPants: React.PropTypes.func,
-        deletePants: React.PropTypes.func,
-        dataSource: React.PropTypes.object
-    },
+class PantsList extends React.Component {
 
     getInitialState () {
         return {
             modalIsOpen: false,
             selectedPants: ''
         };
-    },
+    }
 
     onRowPress (pantsData) {
         pantsId = pantsData._id;
         this.setState({ modalIsOpen: true });
-    },
+    }
 
     onPantsSelection () {
         this.props.selectPants(pantsId);
         this.closeModal();
-    },
+    }
 
     onPantsWash () {
         this.props.resetWearCount(pantsId);
         this.closeModal();
-    },
+    }
 
     onPantsEdit () {
         this.props.navigator.replace({ component: PantsFormPage, name: 'Update Pants', updateId: pantsId });
-    },
+    }
 
     onPantsDelete () {
         this.props.deletePants(pantsId);
         this.closeModal();
-    },
+    }
 
     openModal () {
         this.setState({ modalIsOpen: true });
-    },
+    }
 
     closeModal () {
         this.setState({ modalIsOpen: false });
-    },
+    }
 
     renderPantsList (pantsData) {
         return (
@@ -68,7 +60,7 @@ const PantsList = React.createClass({
                 <PantsListRow { ...pantsData } style={ { overflow: 'hidden' } }/>
             </TouchableOpacity>
         );
-    },
+    }
 
     render () {
         return (
@@ -91,6 +83,13 @@ const PantsList = React.createClass({
             </View>
         );
     }
-});
+}
+
+PantsList.propTypes = {
+    selectPants: PropTypes.func,
+    washPants: PropTypes.func,
+    deletePants: PropTypes.func,
+    dataSource: PropTypes.object
+};
 
 module.exports = PantsList;

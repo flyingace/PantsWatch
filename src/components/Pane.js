@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Image,
     StyleSheet,
@@ -7,13 +8,7 @@ import {
 } from 'react-native';
 import PantsThumb from '../../assets/PantsThumb.png';
 
-const Pane = React.createClass({
-
-    displayName: 'Pane',
-
-    propTypes: {
-        // paneStyle: React.PropTypes.object
-    },
+class Pane extends React.Component {
 
     getDefaultProps() {
         return {
@@ -21,21 +16,21 @@ const Pane = React.createClass({
             paneLabel: 'Pants Pane',
             imageURL: { PantsThumb }
         };
-    },
+    }
 
     getInitialState() {
         return null;
-    },
+    }
 
     componentDidMount() {
-    },
+    }
 
     componentWillUnmount() {
-    },
+    }
 
     _onPress() {
         console.log('pane pressed');
-    },
+    }
 
     render() {
         return (
@@ -45,7 +40,9 @@ const Pane = React.createClass({
             </TouchableOpacity>
         );
     }
-});
+}
+
+Pane.propTypes = {};
 
 const styles = StyleSheet.create(
     {

@@ -3,6 +3,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Image,
     StyleSheet,
@@ -12,19 +13,8 @@ import {
 import WearLimitBox from './WearLimitBox';
 import defaultPantsImgSrc from '../../assets/pants01.png';
 
-const PantsListRow = React.createClass({
-
-    propTypes: {
-        pantsName: React.PropTypes.string,
-        pantsColor: React.PropTypes.string,
-        pantsBrand: React.PropTypes.string,
-        pantsStyle: React.PropTypes.string,
-        pantsWearLimit: React.PropTypes.number,
-        pantsImgSrc: React.PropTypes.any,
-        selected: React.PropTypes.bool,
-        lastWornDate: React.PropTypes.string
-    },
-
+class PantsListRow extends React.Component {
+    
     getDefaultProps() {
         return {
             pantsName: 'Favorite Pants',
@@ -36,7 +26,7 @@ const PantsListRow = React.createClass({
             selected: false,
             lastWornDate: ''
         };
-    },
+    }
 
     maybeRenderLastWornDate() {
         if (this.props.lastWornDate.length > 0) {
@@ -47,8 +37,7 @@ const PantsListRow = React.createClass({
                 </View>
             );
         }
-    },
-
+    }
 
     render() {
         const rowStyle = (this.props.selected) ? rowStyles.selectedRow : rowStyles.pantsRow;
@@ -74,7 +63,18 @@ const PantsListRow = React.createClass({
             </View>
         );
     }
-});
+}
+
+PantsListRow.propTypes = {
+    pantsName: PropTypes.string,
+    pantsColor: PropTypes.string,
+    pantsBrand: PropTypes.string,
+    pantsStyle: PropTypes.string,
+    pantsWearLimit: PropTypes.number,
+    pantsImgSrc: PropTypes.any,
+    selected: PropTypes.bool,
+    lastWornDate: PropTypes.string
+};
 
 const rowStyles = StyleSheet.create({
     pantsRow: {
