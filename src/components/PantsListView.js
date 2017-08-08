@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -17,20 +15,25 @@ import PageTitle from '../../assets/page_titles/addFormTitle.png';
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
 
-
 class PantsListView extends React.Component {
-    
-    getDefaultProps () {
-        return null;
-    }
 
-    getInitialState () {
-        return {
-            dataSource: new ListView.DataSource({
-                rowHasChanged: (row1, row2) => row1 !== row2
-            })
-        };
-    }
+    static propTypes = {
+        pantsList: PropTypes.object,
+        fetchPantsData: PropTypes.func,
+        selectPants: PropTypes.func,
+        deletePants: PropTypes.func,
+        deselectAllPants: PropTypes.func,
+        resetWearCount: PropTypes.func
+    };
+    
+    static defaultProps = {
+    };
+
+    state = {
+        dataSource: new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2
+        })
+    };
 
     componentWillMount () {
         this.props.fetchPantsData();
@@ -77,15 +80,6 @@ class PantsListView extends React.Component {
 
     }
 }
-
-PantsListView.propTypes = {
-    pantsList: PropTypes.object,
-    fetchPantsData: PropTypes.func,
-    selectPants: PropTypes.func,
-    deletePants: PropTypes.func,
-    deselectAllPants: PropTypes.func,
-    resetWearCount: PropTypes.func
-};
 
 const styles = StyleSheet.create({
     wrapper: {

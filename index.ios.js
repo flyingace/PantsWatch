@@ -1,5 +1,3 @@
-'use strict';
-
 import React from 'react';
 import {
     AppRegistry,
@@ -12,13 +10,13 @@ class PantsWatch extends React.Component {
 
     componentWillMount() {
         StatusBar.setHidden(true);
-    },
+    }
 
-    render: function() {
+    render() {
         return (
             <Application />
         );
     }
-});
+}
 
 AppRegistry.registerComponent('PantsWatch', () => PantsWatch);

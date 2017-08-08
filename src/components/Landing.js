@@ -1,3 +1,5 @@
+/* globals state */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, LayoutAnimation, StyleSheet, View } from 'react-native';
@@ -29,18 +31,10 @@ const gridHeight = contentHeight - promptHeight;
 
 class Landing extends React.Component {
 
-    getDefaultProps() {
-    }
-
-    getInitialState() {
-        return {
-            questionText: 'What Pants Are You Going\nTo Wear Today?',
-            menu: 'hidden'
-        };
-    }
-
-    componentWillUnmount() {
-    }
+    state = {
+        questionText: 'What Pants Are You Going\nTo Wear Today?',
+        menu: 'hidden'
+    };
 
     onPanePress(itemName) {
         const nav = this.props.navigator;
@@ -109,8 +103,6 @@ class Landing extends React.Component {
         );
     }
 }
-
-Landing.propTypes = {};
 
 const commonStyles = StyleSheet.create(
     {

@@ -26,22 +26,10 @@ UIManager.setLayoutAnimationEnabledExperimental(true);
 
 class Menu extends React.Component {
 
-
-    getDefaultProps() {
-    }
-
-    getInitialState() {
-        return {
-            left: panelWidth * -1,
-            menu: 'hidden'
-        };
-    }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
+    state = {
+        left: panelWidth * -1,
+        menu: 'hidden'
+    };
 
     showMenu() {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

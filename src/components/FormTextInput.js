@@ -10,13 +10,6 @@ import FormStyles from '../styles/FormStyles';
 
 class FormTextInput extends React.Component {
 
-    getDefaultProps() {
-        return {
-            labelText: 'Field Name',
-            placeholderText: ''
-        };
-    }
-
     onTextChanged(text) {
         this.props.setFieldValue(text);
     }
@@ -28,7 +21,7 @@ class FormTextInput extends React.Component {
     render() {
         return (
             <View style={ FormStyles.formFieldWrapper }>
-                <Text style={ FormStyles.formLabel }>{this.props.labelText}</Text>
+                <Text style={FormStyles.formLabel }>{ this.props.labelText }</Text>
                 <TextInput
                     autoCapitalize='words'
                     autoCorrect={ false }
@@ -41,7 +34,7 @@ class FormTextInput extends React.Component {
                 />
                 <OptionallyDisplayed display={ this.shouldDisplayError() }>
                     <View>
-                        <Text>{this.props.errorText}</Text>
+                        <Text>{ this.props.errorText }</Text>
                     </View>
                 </OptionallyDisplayed>
             </View>
@@ -56,6 +49,11 @@ FormTextInput.propTypes = {
     setFieldValue: PropTypes.func,
     showError: PropTypes.bool.isRequired,
     value: PropTypes.string
+};
+
+FormTextInput.defaultProps = {
+    labelText: 'Field Name',
+    placeholderText: ''
 };
 
 

@@ -1,10 +1,3 @@
-/*
-
- a bootstrap like style
-
- */
-'use strict';
-
 const LABEL_COLOR = '#000000';
 const INPUT_COLOR = '#000000';
 const ERROR_COLOR = '#FF0000';

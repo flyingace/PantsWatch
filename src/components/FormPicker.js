@@ -13,14 +13,6 @@ import DownArrow from '../../assets/down_arrow.png';
 
 class FormTextInput extends React.Component {
 
-    getDefaultProps() {
-        return {
-            labelText: 'Field Name',
-            placeholderText: '',
-            isEditable: false
-        };
-    }
-
     componentWillReceiveProps(nextProps) {
         const currentOptions = this.props.menuOptions;
         const nextOptions = nextProps.menuOptions;
@@ -32,10 +24,10 @@ class FormTextInput extends React.Component {
     }
 
     addPickers() {
-        let pickers = [<Picker.Item label={ this.props.promptText } key="prompt" value=""/>];
+        let pickers = [<Picker.Item label={this.props.promptText} key="prompt" value=""/>];
 
         forIn(this.props.menuOptions.rows, function (option, key) {
-            pickers.push(<Picker.Item label={ option.value } key={ key } value={ option.value }/>);
+            pickers.push(<Picker.Item label={option.value} key={key} value={option.value}/>);
         });
 
         if (this.props.isEditable) {
@@ -47,7 +39,8 @@ class FormTextInput extends React.Component {
 
     onValueChange(value) {
         if (value !== 'add') {
-            this.props.setFieldValue(value);
+            //TODO: Fix when React Navigation is fully implemented
+            // this.props.setFieldValue(value);
         } else {
             this.props.onAddOption(this.props.fieldName);
         }
@@ -59,20 +52,20 @@ class FormTextInput extends React.Component {
 
     render() {
         return (
-            <View style={ FormStyles.formFieldWrapper }>
-                <Text style={ FormStyles.formLabel }>{ this.props.labelText }</Text>
+            <View style={FormStyles.formFieldWrapper}>
+                <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
                 <View>
-                    <Image source={ DownArrow } style={ FormStyles.fieldIcon } resizeMode={ 'contain' }/>
+                    <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
                     <Picker
-                        onValueChange={ this.onValueChange }
-                        selectedValue={ this.props.selectedValue }
-                        style={ FormStyles.pickerField }>
-                        { this.addPickers() }
+                        onValueChange={this.onValueChange}
+                        selectedValue={this.props.selectedValue}
+                        style={FormStyles.pickerField}>
+                        {this.addPickers()}
                     </Picker>
                 </View>
-                <OptionallyDisplayed display={ this.shouldDisplayError() }>
+                <OptionallyDisplayed display={this.shouldDisplayError()}>
                     <View>
-                        <Text>{ this.props.errorText }</Text>
+                        <Text>{this.props.errorText}</Text>
                     </View>
                 </OptionallyDisplayed>
             </View>
@@ -91,6 +84,12 @@ FormTextInput.propTypes = {
     selectedValue: PropTypes.string,
     setFieldValue: PropTypes.func,
     showError: PropTypes.bool.isRequired
+};
+
+FormTextInput.defaultProps = {
+    labelText: 'Field Name',
+    placeholderText: '',
+    isEditable: false
 };
 
 module.exports = FormTextInput;

@@ -9,23 +9,6 @@ import {
 class wearLimitBox extends React.Component {
 
 
-    getDefaultProps() {
-        return {
-            pantsWearCount: 0,
-            pantsWearLimit: 6
-        };
-    }
-
-    getInitialState() {
-        return null;
-    }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
     render() {
         return (
             <View style={ pantsWearLimitStyles.pantsWearLimitBox }>
@@ -36,6 +19,11 @@ class wearLimitBox extends React.Component {
 }
 
 wearLimitBox.propTypes = {};
+
+wearLimitBox.defaultProps = {
+    pantsWearCount: 0,
+    pantsWearLimit: 6
+};
 
 const pantsWearLimitStyles = StyleSheet.create({
     pantsWearLimitBox: {

@@ -1,10 +1,3 @@
-/*
-
- a bootstrap like style
-
- */
-'use strict';
-
 import { Platform } from 'react-native';
 
 const LABEL_COLOR = '#000000';

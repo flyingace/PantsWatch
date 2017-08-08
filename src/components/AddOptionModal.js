@@ -9,19 +9,10 @@ import Modal from 'react-native-modal';
 
 class AddOptionModal extends React.Component {
 
-
-    getDefaultProps() {
-        return {
-            modalIsVisible: false
-        };
-    }
-
-    getInitialState() {
-        return {
+    state = {
             modalVisible: false,
             textFieldValue: ''
-        };
-    }
+    };
 
     onTextChanged(value) {
         this.setState({ 'textFieldValue': value });
@@ -77,5 +68,8 @@ AddOptionModal.propTypes = {
     formFieldLabel: PropTypes.string
 };
 
+AddOptionModal.defaultProps = {
+    modalIsVisible: false
+};
 
 module.exports = AddOptionModal;

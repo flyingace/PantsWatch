@@ -1,13 +1,16 @@
 import React from 'react';
 import {
-    StyleSheet
+    StyleSheet,
+    View,
+    Text
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
 import PropTypes from 'prop-types';
 import DB from '../../db';
 import Dimensions from 'Dimensions';
 import Menu from './Menu';
 import Landing from './Landing';
+import { Tabs } from '../config/router';
+
 
 const window = Dimensions.get('window');
 
@@ -32,15 +35,16 @@ const STYLES = [
 
 class Application extends React.Component {
 
+    static propTypes = {
+        label: PropTypes.string
+    };
 
-    getDefaultProps() {
-    }
+    static defaultProps = {
+    };
 
-    getInitialState() {
-        return {
-            isOpen: false
-        };
-    }
+    state = {
+        isOpen: false
+    };
 
     componentDidMount() {
         console.log('finally');
@@ -105,7 +109,7 @@ class Application extends React.Component {
     render() {
 
         return (
-            <Navigator
+            /*<Navigator
                 initialRoute={ {
                     component: Landing,
                     name: 'Landing'
@@ -117,12 +121,11 @@ class Application extends React.Component {
                 renderScene={ this._renderScene }
                 navigator={ navigator }
                 navigationBar={ <Menu /> }
-            />
+            /> */
+            <Tabs />
         );
     }
 }
-
-Application.propTypes = {};
 
 const styles = StyleSheet.create({
     navigator: {

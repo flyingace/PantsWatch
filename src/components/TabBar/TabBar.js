@@ -2,22 +2,15 @@ import React from 'react';
 import {
     TabBarIOS
 } from 'react-native';
-import PropTypes from 'prop-types';
 import PantsForm from '../PantsForm';
 import Landing from '../Landing';
 import PantsListView from '../PantsListView';
 
 class TabBar extends React.Component {
 
-
-    getDefaultProps() {
-    }
-
-    getInitialState() {
-        return {
-            selectedTab: 'homeTab'
-        };
-    }
+    state = {
+        selectedTab: 'homeTab'
+    };
 
     render() {
         return (

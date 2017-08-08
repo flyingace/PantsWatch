@@ -1,7 +1,3 @@
-/*globals */
-
-'use strict';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -14,19 +10,6 @@ import WearLimitBox from './WearLimitBox';
 import defaultPantsImgSrc from '../../assets/pants01.png';
 
 class PantsListRow extends React.Component {
-    
-    getDefaultProps() {
-        return {
-            pantsName: 'Favorite Pants',
-            pantsColor: 'Blue',
-            pantsBrand: 'Levi\'s',
-            pantsStyle: 'Casual',
-            pantsWearLimit: 9,
-            pantsImgSrc: { defaultPantsImgSrc },
-            selected: false,
-            lastWornDate: ''
-        };
-    }
 
     maybeRenderLastWornDate() {
         if (this.props.lastWornDate.length > 0) {
@@ -74,6 +57,17 @@ PantsListRow.propTypes = {
     pantsImgSrc: PropTypes.any,
     selected: PropTypes.bool,
     lastWornDate: PropTypes.string
+};
+
+PantsListRow.defaultProps = {
+    pantsName: 'Favorite Pants',
+    pantsColor: 'Blue',
+    pantsBrand: 'Levi\'s',
+    pantsStyle: 'Casual',
+    pantsWearLimit: 9,
+    pantsImgSrc: { defaultPantsImgSrc },
+    selected: false,
+    lastWornDate: ''
 };
 
 const rowStyles = StyleSheet.create({
