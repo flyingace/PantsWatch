@@ -10,28 +10,6 @@ import PantsThumb from '../../assets/PantsThumb.png';
 
 class Pane extends React.Component {
 
-    getDefaultProps() {
-        return {
-            onPress: this._onPress,
-            paneLabel: 'Pants Pane',
-            imageURL: { PantsThumb }
-        };
-    }
-
-    getInitialState() {
-        return null;
-    }
-
-    componentDidMount() {
-    }
-
-    componentWillUnmount() {
-    }
-
-    _onPress() {
-        console.log('pane pressed');
-    }
-
     render() {
         return (
             <TouchableOpacity onPress={ this.props.onPress } style={ styles.wrapper }>
@@ -42,7 +20,15 @@ class Pane extends React.Component {
     }
 }
 
-Pane.propTypes = {};
+Pane.propTypes = {
+    paneLabel: PropTypes.string,
+    imageURL: PropTypes.node
+};
+
+Pane.defaultProps = {
+    paneLabel: 'Pants Pane',
+    imageURL: { PantsThumb }
+};
 
 const styles = StyleSheet.create(
     {

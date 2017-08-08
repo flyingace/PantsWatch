@@ -10,12 +10,6 @@ import PantsForm from './PantsForm';
 
 class PantsSelectionModal extends React.Component {
     
-    getDefaultProps() {
-        return {
-            isOpen: false
-        };
-    }
-
     goToEditPants () {
         this.props.navigator.replace({ component: PantsForm, name: 'Edit Pants' });
     }
@@ -74,6 +68,10 @@ PantsSelectionModal.propTypes = {
     onPantsEdit: PropTypes.func,
     onPantsWash: PropTypes.func,
     onPantsDelete: PropTypes.func
+};
+
+PantsSelectionModal.defaultProps = {
+    isOpen: false
 };
 
 module.exports = PantsSelectionModal;

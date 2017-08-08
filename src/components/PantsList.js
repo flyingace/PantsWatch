@@ -13,12 +13,17 @@ let pantsId;
 
 class PantsList extends React.Component {
 
-    getInitialState () {
-        return {
-            modalIsOpen: false,
-            selectedPants: ''
-        };
-    }
+    static propTypes = {
+        selectPants: PropTypes.func,
+        washPants: PropTypes.func,
+        deletePants: PropTypes.func,
+        dataSource: PropTypes.object
+    };
+
+    state = {
+        modalIsOpen: false,
+        selectedPants: ''
+    };
 
     onRowPress (pantsData) {
         pantsId = pantsData._id;
@@ -84,12 +89,5 @@ class PantsList extends React.Component {
         );
     }
 }
-
-PantsList.propTypes = {
-    selectPants: PropTypes.func,
-    washPants: PropTypes.func,
-    deletePants: PropTypes.func,
-    dataSource: PropTypes.object
-};
 
 module.exports = PantsList;

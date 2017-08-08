@@ -33,37 +33,49 @@ const fieldsToValidate = ['pantsName', 'pantsColor', 'pantsBrand', 'pantsStyle']
 
 class PantsForm extends React.Component {
 
-    getInitialState() {
-        return {
-            modalVisible: false,
-            optionType: '',
-            showErrors: false,
-            validationErrors: {},
-            datePickerIsVisible: false
-        };
-    }
+    static propTypes = {
+        fetchBrandsData: PropTypes.func,
+        fetchColorsData: PropTypes.func,
+        fetchStylesData: PropTypes.func,
+        retrievePantsData: PropTypes.func,
+        validateForm: PropTypes.func,
+        submitFormData: PropTypes.func,
+        brandValues: PropTypes.object,
+        colorValues: PropTypes.object,
+        styleValues: PropTypes.object,
+        selected: PropTypes.bool
+    };
 
-    getDefaultProps () {
-        return {
-            pantsImg: null,
-            pantsName: '',
-            pantsColor: '',
-            pantsStyle: '',
-            pantsBrand: '',
-            pantsWearCount: 0,
-            pantsWearLimit: null,
-            lastWornDate: '',
-            selected: false
-        };
-    }
+    static defaultProps = {
+        pantsImg: null,
+        pantsName: '',
+        pantsColor: '',
+        pantsStyle: '',
+        pantsBrand: '',
+        pantsWearCount: 0,
+        pantsWearLimit: null,
+        lastWornDate: '',
+        selected: false,
+        route: {
+            updateId: null
+        }
+    };
+
+    state = {
+        modalVisible: false,
+        optionType: '',
+        showErrors: false,
+        validationErrors: {},
+        datePickerIsVisible: false
+    };
 
     componentWillMount() {
         // Run validations on initial state
         this.setState({ validationErrors: run(this.state, fieldValidations) });
 
-        if (this.props.route.updateId) {
-            this.props.retrievePantsData(this.props.route.updateId);
-        }
+        // if (this.props.route.updateId) {
+        //     this.props.retrievePantsData(this.props.route.updateId);
+        // }
 
         //FIXME: A check should be made to see if picker data already exists/is cached
         this.fetchPickerData();
@@ -127,6 +139,10 @@ class PantsForm extends React.Component {
             return null;
         }
 
+        this.submitFormData();
+    }
+
+    onOkay() {
         this.submitFormData();
     }
 
@@ -316,6 +332,9 @@ class PantsForm extends React.Component {
     }
 
     render () {
+        //TODO: What occurs to me is that calls to the modal should be completely moved to a separate file,
+        //perhaps even the main app page. And also that perhaps the modal should just work as a wrapper accepting
+        //{this.props.children} in order to determine what it contains?
         return (
             <View>
                 <Image source={ BackgroundImage } style={ FormStyles.backgroundImage }/>
@@ -330,9 +349,6 @@ class PantsForm extends React.Component {
                     />
                 </ScrollView>
 
-                //TODO: What occurs to me is that calls to the modal should be completely moved to a separate file,
-                //perhaps even the main app page. And also that perhaps the modal should just work as a wrapper accepting
-                //{this.props.children} in order to determine what it contains?
                 <View style={ FormStyles.optionModalWrapper }>
                     <Modal isVisible={ this.state.modalVisible } backdropOpacity={ .3 }>
                         <View style={ FormStyles.modalContent }>
@@ -353,18 +369,5 @@ class PantsForm extends React.Component {
         );
     }
 }
-
-PantsForm.propTypes = {
-    fetchBrandsData: PropTypes.func,
-    fetchColorsData: PropTypes.func,
-    fetchStylesData: PropTypes.func,
-    retrievePantsData: PropTypes.func,
-    validateForm: PropTypes.func,
-    submitFormData: PropTypes.func,
-    brandValues: PropTypes.object,
-    colorValues: PropTypes.object,
-    styleValues: PropTypes.object,
-    selected: PropTypes.bool
-};
 
 module.exports = PantsForm;

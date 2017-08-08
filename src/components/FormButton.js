@@ -14,17 +14,6 @@ const TouchableElement = (Platform.OS === 'android') ? TouchableNativeFeedback :
 
 class Button extends React.Component {
 
-    getDefaultProps() {
-        return {
-            buttonText: 'Click me',
-            onButtonPress: this.handleButtonPress
-        };
-    }
-
-    getInitialState() {
-        return null;
-    }
-
     componentDidMount() {
     }
 
@@ -50,6 +39,13 @@ Button.propTypes = {
     buttonText: PropTypes.string,
     onButtonPress: PropTypes.any
 };
+
+Button.defaultProps = {
+    buttonText: 'Click me',
+    onButtonPress: this.handleButtonPress
+};
+
+
 
 
 const styles = StyleSheet.create({
