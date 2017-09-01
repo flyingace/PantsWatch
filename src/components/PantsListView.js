@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import { DBEvents } from 'react-native-db-models';
+import Header from './Header';
 import PantsList from './PantsList';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
-import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
 const windowDims = Dimensions.get('window');
 const titleHeight = 125;
@@ -25,9 +25,8 @@ class PantsListView extends React.Component {
         deselectAllPants: PropTypes.func,
         resetWearCount: PropTypes.func
     };
-    
-    static defaultProps = {
-    };
+
+    static defaultProps = {};
 
     state = {
         dataSource: new ListView.DataSource({
@@ -68,7 +67,7 @@ class PantsListView extends React.Component {
         return (
             <View>
                 <Image source={ BackgroundImage } style={ styles.backgroundImage }/>
-                <Image source={ PageTitle } style={ styles.pageTitle } resizeMode={ 'contain' }/>
+                <Header navigation={ this.props.navigation } pageTitle = 'See Your Pants'/>
                 <PantsList
                     height={ windowDims.height - titleHeight }
                     dataSource={ this.state.dataSource }
@@ -82,19 +81,9 @@ class PantsListView extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    wrapper: {
-        justifyContent: 'space-between'
-    },
     backgroundImage: {
         position: 'absolute'
     },
-    pageTitle: {
-        marginTop: 12,
-        alignSelf: 'center',
-        resizeMode: 'contain',
-        height: titleHeight
-    },
-    pantsList: {}
 });
 
 module.exports = PantsListView;

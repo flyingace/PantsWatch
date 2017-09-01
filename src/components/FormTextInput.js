@@ -9,14 +9,13 @@ import OptionallyDisplayed from './OptionallyDisplayed.js';
 import FormStyles from '../styles/FormStyles';
 
 class FormTextInput extends React.Component {
+    constructor() {
+        super();
+    };
 
-    onTextChanged(text) {
-        this.props.setFieldValue(text);
-    }
-
-    shouldDisplayError() {
+    shouldDisplayError = () => {
         return this.props.showError && this.props.errorText !== '';
-    }
+    };
 
     render() {
         return (
@@ -28,7 +27,7 @@ class FormTextInput extends React.Component {
                     underlineColorAndroid='transparent'
                     style={ FormStyles.textInput }
                     placeholder={ this.props.placeholderText }
-                    onChangeText={ this.onTextChanged }
+                    onChangeText={ (text) => this.props.setFieldValue(text) }
                     value={ this.props.value }
                     onFocus={ this.props.onFocus }
                 />
