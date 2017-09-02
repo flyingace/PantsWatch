@@ -14,13 +14,14 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import { run, ruleRunner } from '../utils/ruleRunner.js';
 import { required, mustChoose, minLength } from '../utils/rules.js';
 
+import { get } from 'lodash';
+
+import Header from './Header';
 import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
 import FormSlider from './FormSlider';
 import FormStyles from '../styles/FormStyles';
-import PantsListPage from '../containers/PantsListPage';
 import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
-import PageTitle from '../../assets/page_titles/addFormTitle.png';
 
 const fieldValidations = [
     ruleRunner('pantsName', 'Pants Name', required, minLength(3)),
@@ -32,6 +33,9 @@ const fieldValidations = [
 const fieldsToValidate = ['pantsName', 'pantsColor', 'pantsBrand', 'pantsStyle'];
 
 class PantsForm extends React.Component {
+    constructor() {
+        super();
+    }
 
     static propTypes = {
         fetchBrandsData: PropTypes.func,
@@ -70,12 +74,13 @@ class PantsForm extends React.Component {
     };
 
     componentWillMount() {
+        const navigate = this.props.navigation;
         // Run validations on initial state
         this.setState({ validationErrors: run(this.state, fieldValidations) });
 
-        // if (this.props.route.updateId) {
-        //     this.props.retrievePantsData(this.props.route.updateId);
-        // }
+        if (navigate.state.params && navigate.state.params.updateId) {
+            this.props.retrievePantsData(navigate.state.params && navigate.state.params.updateId);
+        }
 
         //FIXME: A check should be made to see if picker data already exists/is cached
         this.fetchPickerData();
@@ -93,26 +98,26 @@ class PantsForm extends React.Component {
         }
     }
 
-    fetchPickerData() {
+    fetchPickerData = () => {
         this.props.fetchBrandsData();
         this.props.fetchColorsData();
         this.props.fetchStylesData();
-    }
+    };
 
-    onAddOptionSelected(optionType) {
+    onAddOptionSelected = (optionType) => {
         this.setState({ optionType: optionType });
         this.toggleModalVisibility(true);
-    }
+    };
 
-    toggleModalVisibility(isVisible) {
+    toggleModalVisibility = (isVisible) => {
         this.setState({ modalVisible: isVisible });
-    }
+    };
 
-    errorFor(field) {
+    errorFor = (field) => {
         return this.state.validationErrors[field] || '';
-    }
+    };
 
-    validateField(field) {
+    validateField = (field) => {
         return (fieldValue) => {
             // update() is provided by React Immutability Helpers
             // https://facebook.github.io/react/docs/update.html
@@ -122,15 +127,15 @@ class PantsForm extends React.Component {
             newState.validationErrors = run(newState, fieldValidations);
             this.setState(newState);
         };
-    }
+    };
 
-    validateAllFields() {
+    validateAllFields = () => {
         for (let field of fieldsToValidate) {
             this.validateField(field)(this.props[field]);
         }
-    }
+    };
 
-    onSubmitClicked() {
+    onSubmitClicked = () => {
         this.validateAllFields();
 
         this.setState({ showErrors: true });
@@ -140,23 +145,25 @@ class PantsForm extends React.Component {
         }
 
         this.submitFormData();
-    }
+    };
 
-    onOkay() {
+    onOkay = () => {
         this.submitFormData();
-    }
+    };
 
-    submitFormData () {
+    submitFormData = () => {
         const formData = this.compileFormData();
+
         if (!this.props.route.updateId) {
             this.addPantsToDB(formData);
         } else {
             this.updatePantsInDB(formData);
         }
-        this.navigateToPantsList();
-    }
 
-    compileFormData() {
+        this.navigateToPantsList();
+    };
+
+    compileFormData = () => {
         return {
             //FIXME: This is working but I really don't like it
             pantsId: this.props.pantsId || this.props.route.updateId,
@@ -169,199 +176,162 @@ class PantsForm extends React.Component {
             lastWornDate: this.props.lastWornDate,
             selected: this.props.selected
         };
-    }
+    };
 
-    addPantsToDB (formData) {
+    addPantsToDB = (formData) => {
         this.props.setPantsData(formData);
-    }
+    };
 
-    updatePantsInDB (formData) {
+    updatePantsInDB = (formData) => {
         this.props.updatePantsData(formData);
-    }
+    };
 
-    navigateToPantsList () {
-        this.props.navigator.replace({ component: PantsListPage, name: 'Choose Pants' });
-    }
+    navigateToPantsList = () => {
+        const { navigate } = this.props.navigation;
 
-    onDatePickerConfirm(datePicked) {
+        navigate('ViewPants');
+    };
+
+    onDatePickerConfirm = (datePicked) => {
         this.setState({ datePickerIsVisible: false });
         this.props.setLastWornDate(datePicked.toLocaleDateString());
-    }
+    };
 
-    onDatePickerCancel() {
+    onDatePickerCancel = () => {
         this.setState({ datePickerIsVisible: false });
-    }
+    };
 
-    showDatePicker() {
+    showDatePicker = () => {
         this.setState({ datePickerIsVisible: true });
         Keyboard.dismiss();
-    }
+    };
 
-    showAddOption() {
+    showAddOption = () => {
         this.setState({ modalVisible: true });
-    }
+    };
 
-    hideAddOption() {
+    hideAddOption = () => {
         this.setState({ modalVisible: false });
-    }
+    };
 
     /*** RENDER FORM ***/
-    renderForm () {
-        if (!this.props.route.updateId) {
+    renderForm = () => {
+        return (
+            <View>
+                <FormTextInput
+                    labelText='Pants Name'
+                    fieldName='pantsName'
+                    placeholderText='Name Your Pants'
+                    setFieldValue={this.props.setPantsName}
+                    value={this.props.pantsName}
+                    showError={this.state.showErrors}
+                    errorText={this.errorFor('pantsName')}/>
+                <FormPicker
+                    labelText='Pants Color'
+                    fieldName='pantsColor'
+                    promptText='Choose a Color'
+                    menuOptions={this.props.colorValues}
+                    isEditable={true}
+                    setFieldValue={this.props.setPantsColor}
+                    selectedValue={this.props.pantsColor}
+                    onAddOption={this.onAddOptionSelected}
+                    showError={this.state.showErrors}
+                    errorText={this.errorFor('pantsColor')}/>
+                <FormPicker
+                    labelText='Pants Brand'
+                    fieldName='pantsBrand'
+                    promptText='Choose a Brand'
+                    menuOptions={this.props.brandValues}
+                    isEditable={true}
+                    setFieldValue={this.props.setPantsBrand}
+                    selectedValue={this.props.pantsBrand}
+                    onAddOption={this.onAddOptionSelected}
+                    showError={this.state.showErrors}
+                    errorText={this.errorFor('pantsBrand')}/>
+                <FormPicker
+                    labelText='Pants Style'
+                    fieldName='pantsStyle'
+                    promptText='Choose a Style'
+                    menuOptions={this.props.styleValues}
+                    isEditable={true}
+                    setFieldValue={this.props.setPantsStyle}
+                    selectedValue={this.props.pantsStyle}
+                    onAddOption={this.onAddOptionSelected}
+                    showError={this.state.showErrors}
+                    errorText={this.errorFor('pantsStyle')}/>
+                <FormSlider
+                    labelText='Wear Limit'
+                    fieldName='pantsWearLimit'
+                    onValueChange={this.props.setPantsWearLimit}
+                    value={this.props.pantsWearLimit}/>
+            </View>
+        );
+    };
+
+    renderEditComponents = () => {
+        const navigation = this.props.navigation;
+
+        if (navigation.state.params && navigation.state.params.updateId) {
             return (
-                <View ref='addPantsForm'>
-                    <FormTextInput
-                        labelText='Pants Name'
-                        fieldName='pantsName'
-                        placeholderText='Name Your Pants'
-                        setFieldValue={ this.props.setPantsName }
-                        value={ this.props.pantsName }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsName') }/>
-                    <FormPicker
-                        labelText='Pants Color'
-                        fieldName='pantsColor'
-                        promptText='Choose a Color'
-                        menuOptions={ this.props.colorValues }
-                        isEditable={ true }
-                        setFieldValue={ this.props.setPantsColor }
-                        selectedValue={ this.props.pantsColor }
-                        onAddOption={ this.onAddOptionSelected }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsColor') }/>
-                    <FormPicker
-                        labelText='Pants Brand'
-                        fieldName='pantsBrand'
-                        promptText='Choose a Brand'
-                        menuOptions={ this.props.brandValues }
-                        isEditable={ true }
-                        setFieldValue={ this.props.setPantsBrand }
-                        selectedValue={ this.props.pantsBrand }
-                        onAddOption={ this.onAddOptionSelected }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsBrand') }/>
-                    <FormPicker
-                        labelText='Pants Style'
-                        fieldName='pantsStyle'
-                        promptText='Choose a Style'
-                        menuOptions={ this.props.styleValues }
-                        isEditable={ true }
-                        setFieldValue={ this.props.setPantsStyle }
-                        selectedValue={ this.props.pantsStyle }
-                        onAddOption={ this.onAddOptionSelected }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsStyle') }/>
-                    <FormSlider
-                        labelText='Wear Limit'
-                        fieldName='pantsWearLimit'
-                        onValueChange={ this.props.setPantsWearLimit }
-                        value={ this.props.pantsWearLimit }/>
-                </View>
-            );
-        } else {
-            return (
-                <View ref='updatePantsForm'>
-                    <FormTextInput
-                        labelText='Pants Name'
-                        fieldName='pantsName'
-                        placeholderText='Name Your Pants'
-                        setFieldValue={ this.props.setPantsName }
-                        value={ this.props.pantsName }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsName') }/>
-                    <FormPicker
-                        labelText='Pants Color'
-                        fieldName='pantsColor'
-                        promptText='Choose a Color'
-                        menuOptions={ this.props.colorValues }
-                        isEditable={ true }
-                        setFieldValue={ this.props.setPantsColor }
-                        selectedValue={ this.props.pantsColor }
-                        onAddOption={ this.onAddOptionSelected }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsColor') }/>
-                    <FormPicker
-                        labelText='Pants Brand'
-                        fieldName='pantsBrand'
-                        promptText='Choose a Brand'
-                        menuOptions={ this.props.brandValues }
-                        isEditable={ true }
-                        setFieldValue={ this.props.setPantsBrand }
-                        selectedValue={ this.props.pantsBrand }
-                        onAddOption={ this.onAddOptionSelected }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsBrand') }/>
-                    <FormPicker
-                        labelText='Pants Style'
-                        fieldName='pantsStyle'
-                        promptText='Choose a Style'
-                        menuOptions={ this.props.styleValues }
-                        isEditable={ true }
-                        setFieldValue={ this.props.setPantsStyle }
-                        selectedValue={ this.props.pantsStyle }
-                        onAddOption={ this.onAddOptionSelected }
-                        showError={ this.state.showErrors }
-                        errorText={ this.errorFor('pantsStyle') }/>
+                <View>
                     <FormSlider
                         labelText='Wear Count'
                         fieldName='pantsWearCount'
-                        onValueChange={ this.props.setPantsWearCount }
-                        value={ this.props.pantsWearCount }/>
-                    <FormSlider
-                        labelText='Wear Limit'
-                        fieldName='pantsWearLimit'
-                        onValueChange={ this.props.setPantsWearLimit }
-                        value={ this.props.pantsWearLimit }/>
+                        onValueChange={this.props.setPantsWearCount}
+                        value={this.props.pantsWearCount}/>
                     <FormTextInput
                         labelText='Last Worn Date'
                         fieldName='lastWornDate'
                         placeholderText='Last Date You Wore These Pants'
-                        setFieldValue={ this.props.setLastWornDate }
-                        value={ this.props.lastWornDate }
-                        showError={ false }
-                        onFocus={ this.showDatePicker }/>
+                        setFieldValue={this.props.setLastWornDate}
+                        value={this.props.lastWornDate}
+                        showError={false}
+                        onFocus={this.showDatePicker}/>
                     <DateTimePicker
-                        isVisible={ this.state.datePickerIsVisible }
+                        isVisible={this.state.datePickerIsVisible}
                         mode='date'
-                        onConfirm={ this.onDatePickerConfirm }
-                        onCancel={ this.onDatePickerCancel }
-                        maximumDate={ new Date() }/>
+                        onConfirm={this.onDatePickerConfirm}
+                        onCancel={this.onDatePickerCancel}
+                        maximumDate={new Date()}/>
                 </View>
             );
         }
-    }
+    };
 
-    render () {
+    render() {
         //TODO: What occurs to me is that calls to the modal should be completely moved to a separate file,
         //perhaps even the main app page. And also that perhaps the modal should just work as a wrapper accepting
         //{this.props.children} in order to determine what it contains?
         return (
             <View>
-                <Image source={ BackgroundImage } style={ FormStyles.backgroundImage }/>
-                <ScrollView contentContainerStyle={ FormStyles.formWrapper } style={ FormStyles.transparentBkg }>
-                    <Image source={ PageTitle } style={ FormStyles.pageTitle } resizeMode={ 'contain' }/>
-                    {this.renderForm()}
+                <Image source={BackgroundImage} style={FormStyles.backgroundImage}/>
+                <Header navigation={this.props.navigation} pageTitle='Add Some Pants'/>
+                <ScrollView contentContainerStyle={FormStyles.formWrapper} style={FormStyles.transparentBkg}>
+                    <View ref='addPantsForm'>
+                        {this.renderForm()}
+                        {this.renderEditComponents()}
+                    </View>
                     <Button
-                        onPress={ this.onSubmitClicked }
+                        onPress={this.onSubmitClicked}
                         title='Submit My Pants'
                         color='#66d8ff'
                         accessibilityLabel='Add your pants to the database'
                     />
                 </ScrollView>
 
-                <View style={ FormStyles.optionModalWrapper }>
-                    <Modal isVisible={ this.state.modalVisible } backdropOpacity={ .3 }>
-                        <View style={ FormStyles.modalContent }>
+                <View style={FormStyles.optionModalWrapper}>
+                    <Modal isVisible={this.state.modalVisible} backdropOpacity={.3}>
+                        <View style={FormStyles.modalContent}>
                             <FormTextInput
                                 labelText='Add an Option'
                                 fieldName='addAnOption'
                                 placeholderText='Add an option'
-                                setFieldValue={ this.props.setLastWornDate }
-                                value={ 'Hello' }
-                                showError={ this.state.showErrors }
-                                errorText={ this.errorFor('lastWornDate') }/>
-                            <Button onPress={ this.hideAddOption } title='Cancel'/>
-                            <Button onPress={ this.onOkay } title='Okay'/>
+                                setFieldValue={this.props.setLastWornDate}
+                                value={'Hello'}
+                                showError={this.state.showErrors}
+                                errorText={this.errorFor('lastWornDate')}/>
+                            <Button onPress={() => this.hideAddOption()} title='Cancel'/>
+                            <Button onPress={() => this.onOkay()} title='Okay'/>
                         </View>
                     </Modal>
                 </View>

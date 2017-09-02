@@ -5,13 +5,15 @@ import {
     ListView,
     View
 } from 'react-native';
-import PantsFormPage from '../containers/PantsFormPage';
 import PantsListRow from './PantsListRow';
 import PantsSelectionModal from './PantsSelectionModal';
 
 let pantsId;
 
 class PantsList extends React.Component {
+    constructor() {
+        super();
+    };
 
     static propTypes = {
         selectPants: PropTypes.func,
@@ -25,39 +27,43 @@ class PantsList extends React.Component {
         selectedPants: ''
     };
 
-    onRowPress (pantsData) {
+    onRowPress = (pantsData) => {
         pantsId = pantsData._id;
         this.setState({ modalIsOpen: true });
-    }
+    };
 
-    onPantsSelection () {
+    onPantsSelection = () => {
         this.props.selectPants(pantsId);
         this.closeModal();
-    }
+    };
 
-    onPantsWash () {
+    onPantsWash = () => {
         this.props.resetWearCount(pantsId);
         this.closeModal();
-    }
+    };
 
-    onPantsEdit () {
-        this.props.navigator.replace({ component: PantsFormPage, name: 'Update Pants', updateId: pantsId });
-    }
+    onPantsEdit = () => {
+        const { navigate } = this.props.navigation;
 
-    onPantsDelete () {
+        navigate('AddPants', { updateId: pantsId });
+
+        this.closeModal();
+    };
+
+    onPantsDelete = () => {
         this.props.deletePants(pantsId);
         this.closeModal();
-    }
+    };
 
-    openModal () {
+    openModal = () => {
         this.setState({ modalIsOpen: true });
-    }
+    };
 
-    closeModal () {
+    closeModal = () => {
         this.setState({ modalIsOpen: false });
-    }
+    };
 
-    renderPantsList (pantsData) {
+    renderPantsList = (pantsData) => {
         return (
             <TouchableOpacity
                 activeOpacity={ 0.8 }
@@ -65,9 +71,9 @@ class PantsList extends React.Component {
                 <PantsListRow { ...pantsData } style={ { overflow: 'hidden' } }/>
             </TouchableOpacity>
         );
-    }
+    };
 
-    render () {
+    render = () => {
         return (
             <View>
                 <ListView

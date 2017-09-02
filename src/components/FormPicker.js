@@ -40,7 +40,7 @@ class FormTextInput extends React.Component {
     onValueChange(value) {
         if (value !== 'add') {
             //TODO: Fix when React Navigation is fully implemented
-            // this.props.setFieldValue(value);
+            this.props.setFieldValue(value);
         } else {
             this.props.onAddOption(this.props.fieldName);
         }
@@ -57,7 +57,7 @@ class FormTextInput extends React.Component {
                 <View>
                     <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
                     <Picker
-                        onValueChange={this.onValueChange}
+                        onValueChange={(value) => this.onValueChange(value)}
                         selectedValue={this.props.selectedValue}
                         style={FormStyles.pickerField}>
                         {this.addPickers()}

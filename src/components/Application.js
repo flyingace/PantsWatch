@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Button,
     StyleSheet,
     View,
     Text
@@ -7,17 +8,15 @@ import {
 import PropTypes from 'prop-types';
 import DB from '../../db';
 import Dimensions from 'Dimensions';
-import Menu from './Menu';
-import Landing from './Landing';
-import { Tabs } from '../config/router';
+import { Drawer } from '../config/router';
 
 
 const window = Dimensions.get('window');
 
 //Remember that these will be added to the DB and returned as objects, not arrays
 const BRANDS = [
-    { value: 'GAP' },
     { value: 'Banana Republic' },
+    { value: 'GAP' },
     { value: 'J. Crew' },
     { value: 'Levi\'s' }
 ];
@@ -42,12 +41,7 @@ class Application extends React.Component {
     static defaultProps = {
     };
 
-    state = {
-        isOpen: false
-    };
-
     componentDidMount() {
-        console.log('finally');
         this.setDefaultDBValues();
     }
 
@@ -85,44 +79,9 @@ class Application extends React.Component {
         });
     }
 
-    toggle() {
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
-    updateMenuState(isOpen) {
-        this.setState({ isOpen });
-    }
-
-    closeMenu() {
-        this.setState({ isOpen: false });
-    }
-
-    _renderScene(route, navigator) {
-        const Component = route.component;
-        return (
-            <Component { ...route.props } navigator={ navigator } route={ route }/>
-        );
-    }
-
     render() {
-
         return (
-            /*<Navigator
-                initialRoute={ {
-                    component: Landing,
-                    name: 'Landing'
-                } }
-                style={ styles.navigator }
-                configureScene={ () => {
-                    return Navigator.SceneConfigs.FloatFromRight;
-                } }
-                renderScene={ this._renderScene }
-                navigator={ navigator }
-                navigationBar={ <Menu /> }
-            /> */
-            <Tabs />
+            <Drawer />
         );
     }
 }

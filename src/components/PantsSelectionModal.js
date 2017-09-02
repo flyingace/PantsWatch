@@ -10,10 +10,6 @@ import PantsForm from './PantsForm';
 
 class PantsSelectionModal extends React.Component {
     
-    goToEditPants () {
-        this.props.navigator.replace({ component: PantsForm, name: 'Edit Pants' });
-    }
-
     render() {
         return (
             <Modal
