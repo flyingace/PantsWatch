@@ -4,6 +4,7 @@ import Landing from '../components/Landing';
 import PantsFormPage from '../containers/PantsFormPage';
 import PantsListPage from '../containers/PantsListPage';
 import SettingsPage from '../containers/SettingsPage';
+import PantsDetailPage from '../containers/PantsDetailPage';
 
 export const Drawer = DrawerNavigator(
     //RouteConfig
@@ -39,6 +40,11 @@ export const Drawer = DrawerNavigator(
             navigationOptions: {
                 drawerLabel: 'Settings'
             }
+        },
+        Detail: {
+        screen: PantsDetailPage,
+        navigationOptions: {
+            drawerLabel: 'Details'
         }
     },
     //DrawerNavigatorConfig
