@@ -46,8 +46,6 @@ export const Drawer = DrawerNavigator(
         navigationOptions: {
             drawerLabel: 'Details'
         }
-    }
-
     },
     //DrawerNavigatorConfig
     {
