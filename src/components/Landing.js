@@ -1,5 +1,3 @@
-/* globals state */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image, LayoutAnimation, StyleSheet, View } from 'react-native';
@@ -36,68 +34,32 @@ class Landing extends React.Component {
         menu: 'hidden'
     };
 
-    onPanePress(itemName) {
-        const nav = this.props.navigator;
+    openMenu = () => {
+        this.props.navigation.navigate('DrawerOpen'); // open drawer
+    };
 
-        console.log(itemName);
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        console.disableYellowBox = true;
-
-        switch (itemName) {
-            case 'landing':
-                nav.push({ component: Landing, name: 'Home' });
-                break;
-            case 'choosePants':
-                nav.replace({ component: PantsListPage, name: 'Choose Pants' });
-                break;
-            case 'addPants':
-                nav.replace({ component: PantsFormPage, name: 'Add Pants' });
-                break;
-            case 'editPants':
-                nav.replace({ component: PantsFormPage, name: 'Edit Pants' });
-                break;
-            case 'washPants':
-                nav.replace({ component: PantsListPage, name: 'Wash Pants' });
-                break;
-            case 'patches':
-                nav.replace({ component: Patches, name: 'Wash Pants' });
-                break;
-            case 'appSettings':
-                nav.replace({ component: Settings, name: 'Wash Pants' });
-                break;
-            default:
-                nav.replace({ component: Landing, name: 'Home' });
-                break;
-        }
-    }
+    closeMenu = () => {
+        this.props.navigation.navigate('DrawerClose'); // open drawer
+    };
 
     render() {
-        let landingStyles = (windowIsTall) ? tallStyles : shortStyles;
-        let paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
+        const { navigate } = this.props.navigation;
 
         return (
-            <View style={ commonStyles.container }>
-                <View style={ commonStyles.banner }>
-                    <Image source={ landingBanner }/>
+            <View style={commonStyles.container}>
+                <View style={commonStyles.banner}>
+                    <Image source={landingBanner}/>
                 </View>
-                <Image style={ commonStyles.scribblePrompt } source={ scribblePrompt } resizeMode={ 'contain' }/>
-                <View style={ landingStyles.panels }>
-                    <Pane paneLabel="See Your Pants" imageURL={ seePantsImg } paneStyle={ paneStyle.pane }
-                        onPress={ () => this.onPanePress('choosePants') }/>
-                    <Pane paneLabel="Add Some Pants" imageURL={ addPantsImg } paneStyle={ paneStyle.pane }
-                        onPress={ () => this.onPanePress('addPants') }/>
-                    <Pane paneLabel="Alter Your Pants" imageURL={ alterPantsImg } paneStyle={ paneStyle.pane }
-                        /* onPress={() => this.onPanePress('editPants')} */
-                    />
-                    <Pane paneLabel="Wash Your Pants" imageURL={ washPantsImg } paneStyle={ paneStyle.pane }
-                        /* onPress={() => this.onPanePress('washPants')} */
-                    />
-                    <Pane paneLabel="Patches" imageURL={ patchesImg } paneStyle={ paneStyle.pane }
-                        /* onPress={() => this.onPanePress('patches')} */
-                    />
-                    <Pane paneLabel="Settings" imageURL={ settingsImg } paneStyle={ paneStyle.pane }
-                        /* onPress={() => this.onPanePress('appSettings')} */
-                    />
+                <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'}/>
+                <View style={landingStyles.panels}>
+                    <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane}
+                          onPress={() => navigate('ViewPants')}/>
+                    <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane}
+                          onPress={() => navigate('AddPants')}/>
+                    <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane}
+                          onPress={() => navigate('WashPants')}/>
+                    <Pane paneLabel="Settings" imageURL={settingsImg} paneStyle={paneStyle.pane}
+                          onPress={ this.openMenu }/>
                 </View>
             </View>
         );
@@ -179,5 +141,9 @@ const shortPaneStyle = StyleSheet.create(
         }
     }
 );
+
+const landingStyles = (windowIsTall) ? tallStyles : shortStyles;
+const paneStyle = (windowIsTall) ? tallPaneStyle : shortPaneStyle;
+
 
 module.exports = Landing;
