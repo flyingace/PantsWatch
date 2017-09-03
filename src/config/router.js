@@ -42,9 +42,10 @@ export const Drawer = DrawerNavigator(
             }
         },
         Detail: {
-        screen: PantsDetailPage,
-        navigationOptions: {
-            drawerLabel: 'Details'
+            screen: PantsDetailPage,
+            navigationOptions: {
+                drawerLabel: 'Details'
+            }
         }
     },
     //DrawerNavigatorConfig
