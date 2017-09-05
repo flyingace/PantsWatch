@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-    View, Button
-} from 'react-native';
+
+import {Button, ButtonGroup} from 'react-native-elements';
+
+const buttons = ['Wear', 'Wash', 'Edit', 'Delete'];
 
 class ActionBar extends React.Component {
 
@@ -10,31 +11,19 @@ class ActionBar extends React.Component {
 
     static defaultProps = {};
 
-    state = {};
+    updateIndex = (selectedIndex) => {
+        console.log(selectedIndex);
+        // this.setState({selectedIndex})
+    };
 
-    componentDidMount() {
-    }
+    render () {
 
-    componentWillUnmount() {
-    }
-
-    render() {
         return (
-            <View>
-                <Button title='Wear' onPress={(e) => {
-                    console.log(e.target)
-                }}>Wear</Button>
-                <Button title='Wash' onPress={(e) => {
-                    console.log(e.target)
-                }}>Wash</Button>
-                <Button title='Edit' onPress={(e) => {
-                    console.log(e.target)
-                }}>Edit</Button>
-                <Button title='Delete' onPress={(e) => {
-                    console.log(e.target)
-                }}>Delete</Button>
-            </View>
-        );
+            <ButtonGroup
+                onPress={(e) => {this.updateIndex(e)}}
+                buttons={buttons}
+                containerStyle={{height: 40}} />
+        )
     }
 }
 

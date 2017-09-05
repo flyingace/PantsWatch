@@ -5,26 +5,26 @@ import {
     Text,
     View
 } from 'react-native';
-import PantsThumb from '../../assets/PantsThumb.png';
+import { Tile } from 'react-native-elements';
+import PantsPlaceholder from '../../assets/PantsPlaceholder.png';
 
 class MainPantsImage extends React.Component {
 
-    static propTypes = {
-    };
+    static propTypes = {};
 
     static defaultProps = {
-        pantsImageSrc: { PantsThumb }
+        pantsImageSrc: PantsPlaceholder
     };
 
     state = {};
 
     render() {
         return (
-            <View>
-                <Image source={require('../../assets/PantsPlaceholder.png')} resizeMode={ Image.resizeMode.contain } style={{width:200, margin:0, padding: 0, top: 0, right: 0}} />
-                <Text>Main Pants Image</Text>
-                <Text>Pants Name</Text>
-            </View>
+            <Tile
+                imageSrc={ this.props.pantsImageSrc }
+                featured
+                title={`${this.props.pantsName}`}
+            />
         );
     }
 }

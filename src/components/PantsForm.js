@@ -189,7 +189,7 @@ class PantsForm extends React.Component {
     navigateToPantsList = () => {
         const { navigate } = this.props.navigation;
 
-        navigate('ViewPants');
+        navigate('PantsList');
     };
 
     onDatePickerConfirm = (datePicked) => {

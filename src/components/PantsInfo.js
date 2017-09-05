@@ -18,13 +18,16 @@ class PantsInfo extends React.Component {
     }
 
     render() {
+
+        const { pantsColor, pantsBrand, pantsStyle, pantsWearCount, pantsWearLimit, lastWornDate, selected, _id } = this.props.navigation.state.params;
+
         return (
             <View>
-                <Text>Color: Color</Text>
-                <Text>Brand: Brand</Text>
-                <Text>Style: Style</Text>
-                <Text>Wear Count/Limit</Text>
-                <Text>Last Worn On: Date</Text>
+                <Text>Color: {pantsColor}</Text>
+                <Text>Brand: {pantsBrand}</Text>
+                <Text>Style: {pantsStyle}</Text>
+                <Text>Wear Count/Limit: {pantsWearCount} / {pantsWearLimit}</Text>
+                <Text>Last Worn On: {lastWornDate}</Text>
             </View>
         );
     }
