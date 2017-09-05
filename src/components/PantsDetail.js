@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    View
+    ScrollView
 } from 'react-native';
 import MainPantsImage from './MainPantsImage';
 import ActionBar from './ActionBar';
@@ -19,14 +19,13 @@ class PantsDetail extends React.Component {
     };
 
     render () {
-
         const { pantsName, pantsColor, pantsBrand, pantsStyle, pantsWearCount, pantsWearLimit, lastWornDate, selected, _id } = this.props.navigation.state.params;
         return (
-            <View>
+            <ScrollView>
                 <MainPantsImage pantsName = {pantsName} />
                 <ActionBar />
                 <PantsInfo { ...this.props}  />
-            </View>
+            </ScrollView>
         );
     }
 }
