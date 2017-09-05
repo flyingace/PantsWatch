@@ -19,11 +19,13 @@ class PantsDetail extends React.Component {
     };
 
     render () {
+
+        const { pantsName, pantsColor, pantsBrand, pantsStyle, pantsWearCount, pantsWearLimit, lastWornDate, selected, _id } = this.props.navigation.state.params;
         return (
             <View>
-                <MainPantsImage />
+                <MainPantsImage pantsName = {pantsName} />
                 <ActionBar />
-                <PantsInfo />
+                <PantsInfo { ...this.props}  />
             </View>
         );
     }

@@ -53,7 +53,7 @@ class Landing extends React.Component {
                 <Image style={commonStyles.scribblePrompt} source={scribblePrompt} resizeMode={'contain'}/>
                 <View style={landingStyles.panels}>
                     <Pane paneLabel="See Your Pants" imageURL={seePantsImg} paneStyle={paneStyle.pane}
-                          onPress={() => navigate('ViewPants')}/>
+                          onPress={() => navigate('PantsList')}/>
                     <Pane paneLabel="Add Some Pants" imageURL={addPantsImg} paneStyle={paneStyle.pane}
                           onPress={() => navigate('AddPants')}/>
                     <Pane paneLabel="Wash Your Pants" imageURL={washPantsImg} paneStyle={paneStyle.pane}

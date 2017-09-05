@@ -28,8 +28,9 @@ class PantsList extends React.Component {
     };
 
     onRowPress = (pantsData) => {
-        pantsId = pantsData._id;
-        this.setState({ modalIsOpen: true });
+        this.props.navigation.navigate('Details', { ...pantsData });
+        // pantsId = pantsData._id;
+        // this.setState({ modalIsOpen: true });
     };
 
     onPantsSelection = () => {

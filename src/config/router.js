@@ -1,10 +1,25 @@
-import { DrawerNavigator } from 'react-navigation';
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
 
 import Landing from '../components/Landing';
 import PantsFormPage from '../containers/PantsFormPage';
 import PantsListPage from '../containers/PantsListPage';
 import SettingsPage from '../containers/SettingsPage';
 import PantsDetailPage from '../containers/PantsDetailPage';
+
+export const PantsStack = StackNavigator({
+    Feed: {
+        screen: PantsListPage,
+        navigationOptions: {
+            title: 'View Your Pants',
+        }
+    },
+    Details: {
+        screen: PantsDetailPage,
+        navigationOptions: ({navigation}) => ({
+            title: `${navigation.state.params.pantsName.toUpperCase()}`
+        })
+    },
+});
 
 export const Drawer = DrawerNavigator(
     //RouteConfig
@@ -15,11 +30,10 @@ export const Drawer = DrawerNavigator(
                 drawerLabel: 'Home',
             }
         },
-        ViewPants: {
-            screen: PantsListPage,
+        PantsList: {
+            screen: PantsStack,
             navigationOptions: {
                 drawerLabel: 'See Your Pants',
-                title: 'View Your Pants',
             }
         },
         AddPants: {
@@ -39,12 +53,6 @@ export const Drawer = DrawerNavigator(
             screen: SettingsPage,
             navigationOptions: {
                 drawerLabel: 'Settings'
-            }
-        },
-        Detail: {
-            screen: PantsDetailPage,
-            navigationOptions: {
-                drawerLabel: 'Details'
             }
         }
     },
