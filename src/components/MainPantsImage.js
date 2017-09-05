@@ -1,32 +1,28 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
-    Image,
-    Text,
-    View
+    StyleSheet,
 } from 'react-native';
 import { Tile } from 'react-native-elements';
 import PantsPlaceholder from '../../assets/PantsPlaceholder.png';
 
-class MainPantsImage extends React.Component {
+const MainPantsImage = (props) => {
 
-    static propTypes = {};
+    const styles = StyleSheet.create({
+        tileStyle: {
+            justifyContent: 'flex-end'
+        }
+    });
 
-    static defaultProps = {
-        pantsImageSrc: PantsPlaceholder
-    };
+    return (
+        <Tile
+            imageSrc={props.pantsImageSrc}
+            title={`${props.pantsName}`}
+            overlayContainerStyle={styles.tileStyle}
+            featured
+        />
+    );
+};
 
-    state = {};
+MainPantsImage.defaultProps = {pantsImageSrc: PantsPlaceholder};
 
-    render() {
-        return (
-            <Tile
-                imageSrc={ this.props.pantsImageSrc }
-                featured
-                title={`${this.props.pantsName}`}
-            />
-        );
-    }
-}
-
-module.exports = MainPantsImage;
+export default MainPantsImage;
