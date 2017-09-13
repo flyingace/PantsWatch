@@ -19,12 +19,13 @@ class PantsDetail extends React.Component {
     };
 
     render () {
+        console.log(this.props);
         const { pantsName, pantsColor, pantsBrand, pantsStyle, pantsWearCount, pantsWearLimit, lastWornDate, selected, _id } = this.props.navigation.state.params;
         return (
             <ScrollView>
                 <MainPantsImage pantsName = {pantsName} />
-                <ActionBar />
-                <PantsInfo { ...this.props}  />
+                <ActionBar { ...this.props} pantsId = {_id} />
+                <PantsInfo { ...this.props} />
             </ScrollView>
         );
     }

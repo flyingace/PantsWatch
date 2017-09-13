@@ -39,7 +39,7 @@ class PantsInfo extends React.Component {
                     hideChevron/>
                 <ListItem
                     title='Wear Count'
-                    rightTitle={pantsWearLimit.toString()}
+                    rightTitle={pantsWearCount.toString()}
                     hideChevron/>
                 <ListItem
                     title='Wear Limit'
