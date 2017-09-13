@@ -16,7 +16,7 @@ const MainPantsImage = (props) => {
     return (
         <Tile
             imageSrc={props.pantsImageSrc}
-            title={`${props.pantsName}`}
+            title={props.pantsName}
             overlayContainerStyle={styles.tileStyle}
             featured
         />

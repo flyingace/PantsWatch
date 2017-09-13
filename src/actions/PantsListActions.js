@@ -21,41 +21,6 @@ export function deselectAllPants() {
     return { type: DESELECT_ALL_PANTS };
 }
 
-export function selectPants(pantsId) {
-    return (dispatch) => {
-        DB.pants.update({ selected: true }, { selected: false }, (results) => {
-            DB.pants.get_id(pantsId, (result) => {
-                const oldCount = result[0].pantsWearCount || 0;
-                const newCount = oldCount + 1;
-                const lastWorn = moment().format('L');
-
-                DB.pants.update_id(pantsId, {
-                    selected: true,
-                    pantsWearCount: newCount,
-                    lastWornDate: lastWorn
-                }, (data) => {
-                    dispatch(receivePantsData(data.pants));
-                });
-            });
-        });
-    };
-}
-
-export function resetWearCount(pantsId) {
-    return (dispatch) => {
-        DB.pants.update_id(pantsId, { pantsWearCount: 0 }, (data) => {
-            dispatch(receivePantsData(data.pants));
-        });
-    };
-}
-
-// export function editPantsData(pantsId) {
-// }
-
-export function deletePants(pantsId) {
-    DB.pants.remove_id(pantsId);
-}
-
 export function requestPantsData() {
     return { type: REQUEST_PANTS_DATA };
 }
