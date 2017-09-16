@@ -1,5 +1,3 @@
-/*globals */
-
 import {
     SELECT_PANTS,
     REQUEST_PANTS_DATA,
@@ -10,8 +8,17 @@ import {
 import { assign } from 'lodash';
 
 const initialState = {
-    pantsData: {}
+    pantsData: []
 };
+
+function extractPantsData(bigObj) {
+    let extractedData = {};
+    if (bigObj.rows) {
+        extractedData = Object.values(bigObj.rows);
+    }
+
+    return extractedData;
+}
 
 export default function pantsListReducer(state = initialState, action) {
     switch (action.type) {
@@ -22,8 +29,11 @@ export default function pantsListReducer(state = initialState, action) {
             break;
 
         case RECEIVE_PANTS_DATA:
+            const extractedData = extractPantsData(action.state);
+            console.log(extractedData);
+
             state = assign({}, state, {
-                pantsData: action.state
+                pantsData: extractedData
             });
             break;
 

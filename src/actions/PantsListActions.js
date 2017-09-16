@@ -29,6 +29,7 @@ export function receivePantsData(data) {
     return { type: RECEIVE_PANTS_DATA, state: data };
 }
 
+
 export function failurePantsData() {
     return { type: FAILURE_PANTS_DATA };
 }

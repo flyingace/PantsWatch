@@ -1,85 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Image,
     StyleSheet,
-    Text,
     View
 } from 'react-native';
-import WearLimitBox from './WearLimitBox';
-import defaultPantsImgSrc from '../../assets/pants01.png';
+import { RowThumb, RowTitle, RowAttribute, RowBadge } from './RowComponents';
+
+const defaultPantsImgSrc = '../../assets/pants01.png';
 
 class PantsListRow extends React.Component {
 
-    maybeRenderLastWornDate() {
-        if (this.props.lastWornDate.length > 0) {
-            return (
-                <View style={ rowStyles.rightColBottom }>
-                    <Text style={ rowStyles.lastWornOn }>Last Worn On:</Text>
-                    <Text style={ rowStyles.lastWornOn }>{this.props.lastWornDate}</Text>
-                </View>
-            );
-        }
-    }
+    static propTypes = {
+        pantsName: PropTypes.string,
+        pantsColor: PropTypes.string,
+        pantsBrand: PropTypes.string,
+        pantsStyle: PropTypes.string,
+        pantsWearLimit: PropTypes.number,
+        pantsImgSrc: PropTypes.object,
+        selected: PropTypes.bool,
+        lastWornDate: PropTypes.string
+    };
+
+    static defaultProps = {
+        pantsName: 'Favorite Pants',
+        pantsColor: 'Blue',
+        pantsBrand: 'Levi\'s',
+        pantsStyle: 'Casual',
+        pantsWearLimit: 9,
+        pantsImgSrc: { defaultPantsImgSrc },
+        selected: false,
+        lastWornDate: ''
+    };
 
     render() {
-        const rowStyle = (this.props.selected) ? rowStyles.selectedRow : rowStyles.pantsRow;
+        // const rowStyle = (this.props.selected) ? rowStyles.selectedRow : rowStyles.pantsRow;
         return (
-            <View style={ rowStyle }>
-                <Image
-                    source={ this.props.pantsImgSrc }
-                    style={ rowStyles.thumb }/>
-                <View style={ rowStyles.middleCol }>
-                    <Text style={ rowStyles.name }>
-                        {this.props.pantsName}
-                    </Text>
-                    <View style={ rowStyles.middleColBottom }>
-                        <Text style={ rowStyles.color }>{this.props.pantsColor} • </Text>
-                        <Text style={ rowStyles.brand }>{this.props.pantsBrand} • </Text>
-                        <Text style={ rowStyles.style }>{this.props.pantsStyle}</Text>
+            <View style={rowStyles.pantsRow}>
+                <RowThumb thumbSrc={this.props.pantsImgSrc}/>
+                <View style={rowStyles.detailColumn}>
+                    <View style={rowStyles.topDetailRow}>
+                        <RowTitle name={this.props.pantsName} />
+                        <RowBadge wearCount={this.props.pantsWearCount} wearLimit={this.props.pantsWearLimit}/>
+                    </View>
+                    <View style={rowStyles.bottomDetailRow}>
+                        <RowAttribute icon={'color_pallette'} label={this.props.pantsColor}/>
+                        <RowAttribute icon={'brand'} label={this.props.pantsBrand}/>
+                        <RowAttribute icon={'style'} label={this.props.pantsStyle}/>
                     </View>
                 </View>
-                <View style={ rowStyles.rightCol }>
-                    <WearLimitBox pantsWearCount={ this.props.pantsWearCount } pantsWearLimit={ this.props.pantsWearLimit }/>
-                    {this.maybeRenderLastWornDate()}
-                </View>
             </View>
-        );
-    }
+        )
+    };
 }
 
-PantsListRow.propTypes = {
-    pantsName: PropTypes.string,
-    pantsColor: PropTypes.string,
-    pantsBrand: PropTypes.string,
-    pantsStyle: PropTypes.string,
-    pantsWearLimit: PropTypes.number,
-    pantsImgSrc: PropTypes.any,
-    selected: PropTypes.bool,
-    lastWornDate: PropTypes.string
-};
-
-PantsListRow.defaultProps = {
-    pantsName: 'Favorite Pants',
-    pantsColor: 'Blue',
-    pantsBrand: 'Levi\'s',
-    pantsStyle: 'Casual',
-    pantsWearLimit: 9,
-    pantsImgSrc: { defaultPantsImgSrc },
-    selected: false,
-    lastWornDate: ''
-};
 
 const rowStyles = StyleSheet.create({
     pantsRow: {
         flex: 1,
         flexDirection: 'row',
-        backgroundColor: 'rgba(255,255,255,.6)',
-        borderTopColor: '#EEEEEE',
-        borderTopWidth: 1,
-        height: 76,
-        padding: 3,
-        overflow: 'hidden'
+        height: 80,
+        marginBottom: 2,
+        backgroundColor: 'white'
     },
     selectedRow: {
         flex: 1,
@@ -91,64 +72,21 @@ const rowStyles = StyleSheet.create({
         padding: 3,
         overflow: 'hidden',
     },
-    thumb: {
-        width: 70,
-        height: 70,
-        alignSelf: 'flex-start'
-    },
-    middleCol: {
+    detailColumn: {
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        marginHorizontal: 8
+        paddingLeft: 5,
     },
-    name: {
-        fontSize: 40,
-        fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left',
-        color: 'black'
-
-    },
-    middleColBottom: {
+    topDetailRow: {
+        flex: 2,
         flexDirection: 'row',
-        alignItems: 'stretch',
         justifyContent: 'space-between'
     },
-    color: {
+    bottomDetailRow: {
         flex: 1,
-        fontSize: 24,
-        fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left',
-        color: 'black'
-    },
-    style: {
-        flex: 1,
-        fontSize: 24,
-        fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left',
-        color: 'black'
-    },
-    brand: {
-        flex: 1,
-        fontSize: 24,
-        fontFamily: 'HappyFox-Condensed',
-        textAlign: 'left',
-        color: 'black'
-    },
-    rightCol: {
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    rightColBottom: {
-        alignItems: 'center'
-    },
-    lastWornOn: {
-        fontFamily: 'HappyFox-Condensed',
-        fontSize: 14,
-        lineHeight: 14,
-        textAlign: 'center'
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingRight: 5
     }
 });
 
