@@ -1,5 +1,3 @@
-/*globals */
-
 import { combineReducers } from 'redux';
 import pantsListReducer from './PantsListReducer';
 import formReducer from './FormReducer';

@@ -5,7 +5,7 @@ import PantsListView from '../components/PantsListView';
 
 function mapStateToProps(state) {
     return {
-        pantsList: state.pantsListReducer
+        pantsData: state.pantsListReducer.pantsData
     };
 }
 
