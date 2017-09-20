@@ -4,6 +4,7 @@ import {
     Image,
     FlatList,
     StyleSheet,
+    TouchableOpacity,
     View
 } from 'react-native';
 import Dimensions from 'Dimensions';
@@ -38,12 +39,26 @@ class PantsListView extends React.Component {
         DBEvents.on('all', this.props.fetchPantsData);
     }
 
+    renderListItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={ () => this.onRowPress(item) }>
+                <PantsListRow {...item} />
+            </TouchableOpacity>
+        )
+    };
+
+    onRowPress = (pantsData) => {
+        this.props.navigation.navigate('Details', { ...pantsData });
+    };
+
     render() {
         return (
             <View>
                 <Header navigation={this.props.navigation} pageTitle='See Your Pants'/>
                 <FlatList data={this.props.pantsData}
-                          renderItem={({ item }) => <PantsListRow id={item.id} {...item}/>}
+                          renderItem={this.renderListItem}
                           keyExtractor={(item, index) => index}
                 />
             </View>
