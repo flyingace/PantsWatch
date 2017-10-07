@@ -6,6 +6,9 @@ import {
     View
 } from 'react-native';
 import { DetailTile, DetailAttribute } from './DetailComponents';
+import FloatingActionButton from './FloatingActionButton';
+
+//TODO: Convert this to a Stateless Functional Component
 
 class PantsDetail extends React.Component {
 
@@ -24,6 +27,7 @@ class PantsDetail extends React.Component {
             <View style={detailStyles.pantsDetail}>
                     <View style={detailStyles.topDetailRow}>
                         <DetailTile name={pantsName}/>
+                        <FloatingActionButton {...this.props} pantsId={_id}/>
                     </View>
                     <ScrollView style={detailStyles.bottomDetailRow}>
                         <DetailAttribute label={'Color'} icon={'color_pallette'} value={pantsColor}/>

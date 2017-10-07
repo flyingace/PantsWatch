@@ -8,6 +8,8 @@ import { RowThumb, RowTitle, RowAttribute, RowBadge } from './RowComponents';
 
 const defaultPantsImgSrc = '../../assets/pants01.png';
 
+//TODO: Convert this to a Stateless Functional Component
+
 class PantsListRow extends React.Component {
 
     static propTypes = {
@@ -17,8 +19,7 @@ class PantsListRow extends React.Component {
         pantsStyle: PropTypes.string,
         pantsWearLimit: PropTypes.number,
         pantsImgSrc: PropTypes.object,
-        selected: PropTypes.bool,
-        lastWornDate: PropTypes.string
+        selected: PropTypes.bool
     };
 
     static defaultProps = {
@@ -28,8 +29,7 @@ class PantsListRow extends React.Component {
         pantsStyle: 'Casual',
         pantsWearLimit: 9,
         pantsImgSrc: { defaultPantsImgSrc },
-        selected: false,
-        lastWornDate: ''
+        selected: false
     };
 
     render() {

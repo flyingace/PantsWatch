@@ -73,7 +73,6 @@ const optionallyRenderColorCircle = (label, value, wearLimit) => {
         break;
     case 'Wear Count':
         iconColor = setBadgeColor(value, wearLimit);
-        console.log(wearLimit);
         break;
     case 'Wear Limit':
         iconColor = setBadgeColor(value, value);

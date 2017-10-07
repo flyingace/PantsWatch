@@ -1,5 +1,6 @@
 import {
-    RECEIVE_PANTS_DATA
+    RECEIVE_PANTS_DATA,
+    DELETE_PANTS
 } from '../actions/DetailActions';
 import { assign } from 'lodash';
 
@@ -13,6 +14,8 @@ export default function detailReducer(state = initialState, action) {
         state = assign({}, state, {
             pantsData: action.state
         });
+        break;
+    case DELETE_PANTS:
         break;
     default:
         break;
