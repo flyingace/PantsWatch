@@ -2,6 +2,7 @@ import DB from '../../db.js';
 import moment from 'moment';
 
 export const RECEIVE_PANTS_DATA = 'RECEIVE_PANTS_DATA';
+export const DELETE_PANTS = 'DELETE_PANTS';
 
 export function selectPants(pantsId) {
     return (dispatch) => {
@@ -32,9 +33,16 @@ export function resetWearCount(pantsId) {
 }
 
 export function deletePants(pantsId) {
-    DB.pants.remove_id(pantsId);
+    return (dispatch) => {
+        DB.pants.remove_id(pantsId);
+        dispatch(deletePantsData());
+    }
 }
 
 export function receivePantsData(data) {
     return { type: RECEIVE_PANTS_DATA, state: data };
+}
+
+export function deletePantsData() {
+    return { type: DELETE_PANTS };
 }
