@@ -3,7 +3,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import { Tile } from 'react-native-elements';
-import PantsPlaceholder from '../../assets/PantsPlaceholder.png';
+import PantsPlaceholder from '../../../assets/PantsPlaceholder.png';
 
 const MainPantsImage = (props) => {
 

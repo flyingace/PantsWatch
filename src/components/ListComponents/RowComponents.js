@@ -7,14 +7,14 @@ import {
 } from 'react-native';
 
 import { createIconSetFromFontello } from 'react-native-vector-icons';
-import fontelloConfig from '../config.json';
+import fontelloConfig from '../../config.json';
 const Icon = createIconSetFromFontello(fontelloConfig);
 
 export const RowThumb = (props) => {
     const thumbStyle = {flex: 0, width: 100, height: 80, backgroundColor: '#CCC'};
 
     return (
-        <Image source={require('../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={thumbStyle}/>
+        <Image source={require('../../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={thumbStyle}/>
     )
 };
 

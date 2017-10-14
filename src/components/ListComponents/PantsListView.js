@@ -6,7 +6,7 @@ import {
     View
 } from 'react-native';
 import { DBEvents } from 'react-native-db-models';
-import Header from './Header';
+import Header from '../Header';
 import PantsListRow from './PantsListRow';
 
 class PantsListView extends React.Component {

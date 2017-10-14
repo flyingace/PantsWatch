@@ -5,7 +5,7 @@ import {
     Slider,
     View
 } from 'react-native';
-import FormStyles from '../styles/FormStyles';
+import FormStyles from '../../styles/FormStyles';
 
 class FormSlider extends React.Component {
 
