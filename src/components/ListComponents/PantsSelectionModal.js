@@ -6,7 +6,7 @@ import {
     Text,
     View
 } from 'react-native';
-import PantsForm from './PantsForm';
+import PantsForm from '../FormComponents/PantsForm';
 
 class PantsSelectionModal extends React.Component {
     

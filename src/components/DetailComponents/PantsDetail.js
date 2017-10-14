@@ -6,7 +6,7 @@ import {
     View
 } from 'react-native';
 import { DetailTile, DetailAttribute } from './DetailComponents';
-import FloatingActionButton from './FloatingActionButton';
+import FloatingActionButton from '../FloatingActionButton';
 
 //TODO: Convert this to a Stateless Functional Component
 

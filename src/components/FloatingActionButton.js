@@ -33,7 +33,7 @@ class FloatingActionButton extends React.Component {
     onButtonPress = (value) => {
         const pantsId = this.props.pantsId;
         const wearCount = this.props.navigation.state.params.pantsWearCount;
-        const {navigate, setParams} = this.props.navigation;
+        const {goBack, navigate, setParams} = this.props.navigation;
         const todaysDate = moment().format('L');
 
         this.toggleModal(false);
@@ -51,7 +51,7 @@ class FloatingActionButton extends React.Component {
             break;
         case 'delete':
             this.props.deletePants(pantsId);
-            navigate('Feed');
+            goBack();
             break;
         default:
             break;

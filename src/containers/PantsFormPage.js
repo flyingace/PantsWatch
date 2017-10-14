@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FormActions from '../actions/FormActions';
-import PantsForm from '../components/PantsForm';
+import PantsForm from '../components/FormComponents/PantsForm';
 
 function mapStateToProps(state) {
     return {

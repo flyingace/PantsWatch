@@ -11,17 +11,17 @@ import Modal from 'react-native-modal';
 import { DBEvents } from 'react-native-db-models';
 import update from 'immutability-helper';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import { run, ruleRunner } from '../utils/ruleRunner.js';
-import { required, mustChoose, minLength } from '../utils/rules.js';
+import { run, ruleRunner } from '../../utils/ruleRunner.js';
+import { required, mustChoose, minLength } from '../../utils/rules.js';
 
 import { get } from 'lodash';
 
-import Header from './Header';
+import Header from '../Header';
 import FormTextInput from './FormTextInput';
 import FormPicker from './FormPicker';
 import FormSlider from './FormSlider';
-import FormStyles from '../styles/FormStyles';
-import BackgroundImage from '../../assets/backgrounds/redPlaid.png';
+import FormStyles from '../../styles/FormStyles';
+import BackgroundImage from '../../../assets/backgrounds/redPlaid.png';
 
 const fieldValidations = [
     ruleRunner('pantsName', 'Pants Name', required, minLength(3)),

@@ -2,9 +2,9 @@ import React from 'react';
 import {
     TabBarIOS
 } from 'react-native';
-import PantsForm from '../PantsForm';
-import Landing from '../Landing';
-import PantsListView from '../PantsListView';
+import PantsForm from '../../FormComponents/PantsForm';
+import Landing from '../../Landing';
+import PantsListView from '../../ListComponents/PantsListView';
 
 class TabBar extends React.Component {
 

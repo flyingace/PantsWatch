@@ -6,10 +6,10 @@ import {
     Picker,
     View
 } from 'react-native';
-import OptionallyDisplayed from './OptionallyDisplayed.js';
+import OptionallyDisplayed from '../OptionallyDisplayed.js';
 import { differenceWith, forIn, isEqual, values } from 'lodash';
-import FormStyles from '../styles/FormStyles';
-import DownArrow from '../../assets/down_arrow.png';
+import FormStyles from '../../styles/FormStyles';
+import DownArrow from '../../../assets/down_arrow.png';
 
 class FormTextInput extends React.Component {
 

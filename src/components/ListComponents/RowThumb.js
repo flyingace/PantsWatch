@@ -6,7 +6,7 @@ import {
 
 const RowThumb = (props) => {
     return (
-        <Image source={require('../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={{width: 100, height: 80, backgroundColor: '#CCC'}}/>
+        <Image source={require('../../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={{width: 100, height: 80, backgroundColor: '#CCC'}}/>
     )
 };
 

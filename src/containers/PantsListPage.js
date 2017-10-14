@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as PantsListActions from '../actions/PantsListActions';
-import PantsListView from '../components/PantsListView';
+import PantsListView from '../components/ListComponents/PantsListView';
 
 function mapStateToProps(state) {
     return {
