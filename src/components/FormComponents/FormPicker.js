@@ -6,12 +6,15 @@ import {
     Picker,
     View
 } from 'react-native';
-import OptionallyDisplayed from '../OptionallyDisplayed.js';
+import ModalSelector from 'react-native-modal-selector';
 import { differenceWith, forIn, isEqual, values } from 'lodash';
-import FormStyles from '../../styles/FormStyles';
 import DownArrow from '../../../assets/down_arrow.png';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
+import fontelloConfig from '../../config.json';
+import { FormAttribute, OptionallyDisplayed } from "./FormComponents";
+const Icon = createIconSetFromFontello(fontelloConfig);
 
-class FormTextInput extends React.Component {
+class FormPicker extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const currentOptions = this.props.menuOptions;
@@ -22,22 +25,7 @@ class FormTextInput extends React.Component {
             this.onValueChange(newValue);
         }
     }
-
-    addPickers() {
-        let pickers = [<Picker.Item label={this.props.promptText} key="prompt" value=""/>];
-
-        forIn(this.props.menuOptions.rows, function (option, key) {
-            pickers.push(<Picker.Item label={option.value} key={key} value={option.value}/>);
-        });
-
-        if (this.props.isEditable) {
-            pickers.push(<Picker.Item label="+ Add to this list" key="add" value="add"/>);
-        }
-
-        return pickers;
-    }
-
-    onValueChange(value) {
+     onValueChange(value) {
         if (value !== 'add') {
             //TODO: Fix when React Navigation is fully implemented
             this.props.setFieldValue(value);
@@ -51,18 +39,17 @@ class FormTextInput extends React.Component {
     }
 
     render() {
+        const data = this.props.menuOptions.rows;
+        if (data) data.push({_id: 0, key: `add${this.props.label}`, label: '+ Add to this list', value: 'add'});
+
         return (
-            <View style={FormStyles.formFieldWrapper}>
-                <Text style={FormStyles.formLabel}>{this.props.labelText}</Text>
-                <View>
-                    <Image source={DownArrow} style={FormStyles.fieldIcon} resizeMode={'contain'}/>
-                    <Picker
-                        onValueChange={(value) => this.onValueChange(value)}
-                        selectedValue={this.props.selectedValue}
-                        style={FormStyles.pickerField}>
-                        {this.addPickers()}
-                    </Picker>
-                </View>
+            <View>
+                <ModalSelector
+                    data={data}
+                    initValue="Select something yummy!"
+                    onChange={this.onValueChange}>
+                    <FormAttribute label={this.props.label} icon={this.props.icon} value={this.props.value}/>
+                </ModalSelector>
                 <OptionallyDisplayed display={this.shouldDisplayError()}>
                     <View>
                         <Text>{this.props.errorText}</Text>
@@ -73,7 +60,8 @@ class FormTextInput extends React.Component {
     }
 }
 
-FormTextInput.propTypes = {
+
+FormPicker.propTypes = {
     fieldName: PropTypes.string,
     errorText: PropTypes.string,
     isEditable: PropTypes.bool,
@@ -86,10 +74,30 @@ FormTextInput.propTypes = {
     showError: PropTypes.bool.isRequired
 };
 
-FormTextInput.defaultProps = {
+FormPicker.defaultProps = {
     labelText: 'Field Name',
     placeholderText: '',
-    isEditable: false
+    isEditable: false,
+    value: 'Choose a color',
+    showError: false
 };
 
-module.exports = FormTextInput;
+const rowStyle = {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    height: 50,
+    marginBottom: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    backgroundColor: 'white'
+};
+const iconStyle = { flex: 0, marginRight: 5, color: 'grey' };
+const labelStyle = { flex: 0, width: 120, fontSize: 20, textAlign: 'left', color: 'grey', marginRight: 20 };
+const valueStyle = { flex: 2, fontSize: 20, textAlign: 'right', color: 'black' };
+const pickerStyle = { flex: 2, color: 'black', fontSize: 20};
+const downArrowStyle = { flex: 0, marginRight: 5 };
+
+
+module.exports = FormPicker;

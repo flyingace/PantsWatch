@@ -5,6 +5,7 @@ import {
     Image,
     Keyboard,
     ScrollView,
+    StyleSheet,
     View
 } from 'react-native';
 import Modal from 'react-native-modal';
@@ -13,8 +14,9 @@ import update from 'immutability-helper';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import { run, ruleRunner } from '../../utils/ruleRunner.js';
 import { required, mustChoose, minLength } from '../../utils/rules.js';
+import { FormTile, FormAttribute } from './FormComponents';
 
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 import Header from '../Header';
 import FormTextInput from './FormTextInput';
@@ -54,6 +56,7 @@ class PantsForm extends React.Component {
         pantsImg: null,
         pantsName: '',
         pantsColor: '',
+        pantsColorHex: '',
         pantsStyle: '',
         pantsBrand: '',
         pantsWearCount: 0,
@@ -169,6 +172,7 @@ class PantsForm extends React.Component {
             pantsId: this.props.pantsId || this.props.route.updateId,
             pantsName: this.props.pantsName,
             pantsColor: this.props.pantsColor,
+            pantsColorHex: this.props.pantsColorHex,
             pantsBrand: this.props.pantsBrand,
             pantsStyle: this.props.pantsStyle,
             pantsWearCount: this.props.pantsWearCount,
@@ -298,46 +302,64 @@ class PantsForm extends React.Component {
         }
     };
 
-    render() {
-        //TODO: What occurs to me is that calls to the modal should be completely moved to a separate file,
-        //perhaps even the main app page. And also that perhaps the modal should just work as a wrapper accepting
-        //{this.props.children} in order to determine what it contains?
-        return (
-            <View>
-                <Image source={BackgroundImage} style={FormStyles.backgroundImage}/>
-                <Header navigation={this.props.navigation} pageTitle='Add Some Pants'/>
-                <ScrollView contentContainerStyle={FormStyles.formWrapper} style={FormStyles.transparentBkg}>
-                    <View ref='addPantsForm'>
-                        {this.renderForm()}
-                        {this.renderEditComponents()}
-                    </View>
-                    <Button
-                        onPress={this.onSubmitClicked}
-                        title='Submit My Pants'
-                        color='#66d8ff'
-                        accessibilityLabel='Add your pants to the database'
-                    />
-                </ScrollView>
+    render () {
+        let pantsName = (isEmpty(this.props.pantsName)) ? 'Name Your Pants' : this.props.pantsName,
+            pantsColor = (isEmpty(this.props.pantsColor)) ? 'Choose a Color' : this.props.pantsColor,
+            pantsColorHex = (isEmpty(this.props.pantsColorHex)) ? '#FEFEFE' : this.props.pantsColorHex,
+            pantsBrand = (isEmpty(this.props.pantsBrand)) ? 'Choose a Brand' : this.props.pantsBrand,
+            pantsStyle = (isEmpty(this.props.pantsStyle)) ? 'Choose a Style' : this.props.pantsStyle,
+            pantsWearLimit = 6,
+            pantsWearCount = 0,
+            lastWornDate = '10/28/2017';
 
-                <View style={FormStyles.optionModalWrapper}>
-                    <Modal isVisible={this.state.modalVisible} backdropOpacity={.3}>
-                        <View style={FormStyles.modalContent}>
-                            <FormTextInput
-                                labelText='Add an Option'
-                                fieldName='addAnOption'
-                                placeholderText='Add an option'
-                                setFieldValue={this.props.setLastWornDate}
-                                value={'Hello'}
-                                showError={this.state.showErrors}
-                                errorText={this.errorFor('lastWornDate')}/>
-                            <Button onPress={() => this.hideAddOption()} title='Cancel'/>
-                            <Button onPress={() => this.onOkay()} title='Okay'/>
-                        </View>
-                    </Modal>
+        return (
+            <View style={formStyles.pantsForm}>
+                <View style={formStyles.topFormRow}>
+                    <FormTile name={pantsName}/>
                 </View>
+                <ScrollView style={formStyles.bottomFormRow}>
+                    <FormPicker label={'Color'} icon={'color_pallette'} value={pantsColor} menuOptions={this.props.colorValues}/>
+                    <FormPicker label={'Brand'} icon={'brand'} value={pantsBrand} menuOptions={this.props.brandValues}/>
+                    <FormPicker label={'Style'} icon={'style'} value={pantsStyle} menuOptions={this.props.styleValues}/>
+                    <FormAttribute label={'Wear Count'} icon={'count'} value={pantsWearCount} limit={pantsWearLimit}/>
+                    <FormAttribute label={'Wear Limit'} icon={'limit'} value={pantsWearLimit}/>
+                    <FormAttribute label={'Last Worn'} icon={'calendar'} value={lastWornDate}/>
+                </ScrollView>
             </View>
         );
     }
 }
+
+const formStyles = StyleSheet.create({
+    pantsForm: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: 'lightgrey'
+    },
+    selectedForm: {
+        flex: 1,
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255,255,255,.85)',
+        borderTopColor: '#EEEEEE',
+        borderTopWidth: 1,
+        height: 76,
+        padding: 3,
+        overflow: 'hidden',
+    },
+    formColumn: {
+        flex: 1,
+        flexDirection: 'column',
+    },
+    topFormRow: {
+        flex: 0,
+        flexDirection: 'row',
+        paddingBottom: 7
+    },
+    bottomFormRow: {
+        flex: 1,
+        flexDirection: 'column'
+
+    }
+});
 
 module.exports = PantsForm;
