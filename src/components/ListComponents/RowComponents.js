@@ -36,7 +36,7 @@ export const RowBadge = (props) => {
 };
 
 export const RowAttribute = (props) => {
-    const iconColor = (props.icon === 'color_pallette') ? props.label.toLowerCase() : null;
+    const iconColor = (props.icon === 'color_pallette') ? props.colorValue : null;
 
     const attributeStyle = { flex: 1, fontSize: 16, textAlign: 'left', color: 'black', paddingRight: 5 };
     const iconStyle = {flex: 0, marginRight: 4, color: iconColor};

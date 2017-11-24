@@ -9,28 +9,10 @@ import PropTypes from 'prop-types';
 import DB from '../../db';
 import Dimensions from 'Dimensions';
 import { Drawer } from '../config/router';
+import { DEFAULT_BRANDS, DEFAULT_COLORS, DEFAULT_STYLES } from "../constants";
 
 
 const window = Dimensions.get('window');
-
-//Remember that these will be added to the DB and returned as objects, not arrays
-const BRANDS = [
-    { value: 'Banana Republic' },
-    { value: 'GAP' },
-    { value: 'J. Crew' },
-    { value: 'Levi\'s' }
-];
-const COLORS = [
-    { value: 'Black' },
-    { value: 'Green' },
-    { value: 'Blue' }
-];
-const STYLES = [
-    { value: 'Workout' },
-    { value: 'Night Life' },
-    { value: 'Work' },
-    { value: 'Casual' }
-];
 
 class Application extends React.Component {
 
@@ -56,7 +38,7 @@ class Application extends React.Component {
 
         DB.brands.get_all(function (response) {
             if (response.totalrows === 0) {
-                DB.brands.add_all(BRANDS, (addedValues) => {
+                DB.brands.add_all(DEFAULT_BRANDS, (addedValues) => {
                     console.log(addedValues);
                 });
             }
@@ -64,7 +46,7 @@ class Application extends React.Component {
 
         DB.colors.get_all(function (response) {
             if (response.totalrows === 0) {
-                DB.colors.add_all(COLORS, (addedValues) => {
+                DB.colors.add_all(DEFAULT_COLORS, (addedValues) => {
                     console.log(addedValues);
                 });
             }
@@ -72,7 +54,7 @@ class Application extends React.Component {
 
         DB.styles.get_all(function (response) {
             if (response.totalrows === 0) {
-                DB.styles.add_all(STYLES, (addedValues) => {
+                DB.styles.add_all(DEFAULT_STYLES, (addedValues) => {
                     console.log(addedValues);
                 });
             }

@@ -45,7 +45,6 @@ class PantsListView extends React.Component {
     render() {
         return (
             <View>
-                <Header navigation={this.props.navigation} pageTitle='See Your Pants'/>
                 <FlatList data={this.props.pantsData}
                           renderItem={this.renderListItem}
                           keyExtractor={(item, index) => index}

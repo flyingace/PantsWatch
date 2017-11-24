@@ -12,6 +12,7 @@ export const SET_PANTS_ID = 'SET_PANTS_ID';
 export const SET_PANTS_NAME = 'SET_PANTS_NAME';
 export const SET_PANTS_BRAND = 'SET_PANTS_BRAND';
 export const SET_PANTS_COLOR = 'SET_PANTS_COLOR';
+export const SET_PANTS_COLOR_HEX = 'SET_PANTS_COLOR_HEX';
 export const SET_PANTS_STYLE = 'SET_PANTS_STYLE';
 export const SET_PANTS_WEAR_COUNT = 'SET_PANTS_WEAR_COUNT';
 export const SET_PANTS_WEAR_LIMIT = 'SET_PANTS_WEAR_LIMIT';
@@ -33,6 +34,7 @@ export function setPantsData(formData) {
         DB.pants.add({
             pantsName: formData.pantsName,
             pantsColor: formData.pantsColor,
+            pantsColorHex: formData.pantsColorHex,
             pantsBrand: formData.pantsBrand,
             pantsStyle: formData.pantsStyle,
             pantsWearCount: 0,
@@ -59,6 +61,10 @@ export function setPantsName(nameOfPants) {
 
 export function setPantsColor(colorOfPants) {
     return { type: SET_PANTS_COLOR, state: colorOfPants };
+}
+
+export function setPantsColorHex(hexValueOfPantsColor) {
+    return { type: SET_PANTS_COLOR_HEX, state: hexValueOfPantsColor };
 }
 
 export function setPantsBrand(brandOfPants) {
@@ -111,6 +117,7 @@ export function updatePantsData(formData) {
         DB.pants.update_id(formData.pantsId, {
             pantsName: formData.pantsName,
             pantsColor: formData.pantsColor,
+            pantsColorHex: formData.pantsColorHex,
             pantsBrand: formData.pantsBrand,
             pantsStyle: formData.pantsStyle,
             pantsWearCount: formData.pantsWearCount,
@@ -155,7 +162,8 @@ export function requestBrandsData() {
 }
 
 export function receiveBrandsData(data) {
-    return { type: RECEIVE_BRANDS_DATA, state: data };
+    const massagedData = modifyDataShape(data);
+    return { type: RECEIVE_BRANDS_DATA, state: massagedData };
 }
 
 //Colors
@@ -174,7 +182,8 @@ export function requestColorsData() {
 }
 
 export function receiveColorsData(data) {
-    return { type: RECEIVE_COLORS_DATA, state: data };
+    const massagedData = modifyDataShape(data);
+    return { type: RECEIVE_COLORS_DATA, state: massagedData };
 }
 
 //Styles
@@ -193,9 +202,30 @@ export function requestStylesData() {
 }
 
 export function receiveStylesData(data) {
-    return { type: RECEIVE_STYLES_DATA, state: data };
+    const massagedData = modifyDataShape(data);
+    return { type: RECEIVE_STYLES_DATA, state: massagedData };
 }
 
 export function clearFormOnSubmit() {
     return { type: CLEAR_FORM_DATA };
+}
+
+/**
+ * Changes the data.rows object into an array
+ * Adds a "key" key to each object in data.rows copied from _id
+ * Replaces row.value with row.label
+ * @param data
+ */
+function modifyDataShape(data) {
+    if (data.rows) {
+        data.rows = Object.values(data.rows);
+    }
+
+    data.rows.forEach((row) => {
+        row.key = row._id;
+        row.label = row.value;
+        delete row.value;
+    });
+
+    return data;
 }

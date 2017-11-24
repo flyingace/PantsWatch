@@ -20,7 +20,7 @@ class PantsInfo extends React.Component {
 
     render() {
 
-        const { pantsColor, pantsBrand, pantsStyle, pantsWearCount, pantsWearLimit, lastWornDate, selected, _id } = this.props.navigation.state.params;
+        const { pantsColor, pantsColorHex, pantsBrand, pantsStyle, pantsWearCount, pantsWearLimit, lastWornDate, selected, _id } = this.props.navigation.state.params;
         const lastWornOn = (lastWornDate === '') ? 'Not worn yet' : lastWornDate;
 
         return (

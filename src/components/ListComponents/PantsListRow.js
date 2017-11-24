@@ -15,6 +15,7 @@ class PantsListRow extends React.Component {
     static propTypes = {
         pantsName: PropTypes.string,
         pantsColor: PropTypes.string,
+        pantsColorHex: PropTypes.string,
         pantsBrand: PropTypes.string,
         pantsStyle: PropTypes.string,
         pantsWearLimit: PropTypes.number,
@@ -25,6 +26,7 @@ class PantsListRow extends React.Component {
     static defaultProps = {
         pantsName: 'Favorite Pants',
         pantsColor: 'Blue',
+        pantsColorHex: '#0000FF',
         pantsBrand: 'Levi\'s',
         pantsStyle: 'Casual',
         pantsWearLimit: 9,
@@ -39,11 +41,12 @@ class PantsListRow extends React.Component {
                 <RowThumb thumbSrc={this.props.pantsImgSrc}/>
                 <View style={rowStyles.detailColumn}>
                     <View style={rowStyles.topDetailRow}>
-                        <RowTitle name={this.props.pantsName} />
+                        <RowTitle name={this.props.pantsName}/>
                         <RowBadge wearCount={this.props.pantsWearCount} wearLimit={this.props.pantsWearLimit}/>
                     </View>
                     <View style={rowStyles.bottomDetailRow}>
-                        <RowAttribute icon={'color_pallette'} label={this.props.pantsColor}/>
+                        <RowAttribute icon={'color_pallette'} label={this.props.pantsColor}
+                                      colorValue={this.props.pantsColorHex}/>
                         <RowAttribute icon={'brand'} label={this.props.pantsBrand}/>
                         <RowAttribute icon={'style'} label={this.props.pantsStyle}/>
                     </View>

@@ -10,6 +10,7 @@ import {
     SET_PANTS_ID,
     SET_PANTS_NAME,
     SET_PANTS_COLOR,
+    SET_PANTS_COLOR_HEX,
     SET_PANTS_BRAND,
     SET_PANTS_STYLE,
     SET_PANTS_WEAR_COUNT,
@@ -27,6 +28,7 @@ const initialState = {
     pantsId: null,
     pantsBrand: '',
     pantsColor: '',
+    pantsColorHex: '',
     pantsName: '',
     pantsStyle: '',
     pantsWearCount: 0,
@@ -77,6 +79,11 @@ export default function formReducer(state = initialState, action) {
         case SET_PANTS_COLOR:
             state = assign({}, state, {
                 pantsColor: action.state
+            });
+            break;
+        case SET_PANTS_COLOR_HEX:
+            state = assign({}, state, {
+                pantsColorHex: action.state
             });
             break;
         case SET_PANTS_NAME:

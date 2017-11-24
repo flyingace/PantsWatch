@@ -62,7 +62,7 @@ class FloatingActionButton extends React.Component {
     render() {
         return (
             <View style={buttonStyle}>
-                <Icon name={'menu'} size={20} style={iconStyle} onPress={() => this.toggleModal(true)} />
+                <Icon name={'menu'} size={14} style={iconStyle} onPress={() => this.toggleModal(true)} />
                 <Modal
                     isVisible={this.state.modalIsVisible}
                     animationIn={ 'slideInRight' }
@@ -122,7 +122,7 @@ const buttonStyle = {
     shadowOpacity: 0.8,
     shadowRadius: 2
 };
-const iconStyle = { fontSize: 30, textAlign: 'center', color: 'slategrey' };
+const iconStyle = { fontSize: 24, textAlign: 'center', color: 'slategrey' };
 const pickerField = {
     position: 'absolute',
     top: 10,

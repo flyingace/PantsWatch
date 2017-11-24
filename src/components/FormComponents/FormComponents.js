@@ -5,13 +5,13 @@ import {
     Text,
     View
 } from 'react-native';
-import { BADGE_COLORS } from "../../constants";
+import {BADGE_COLORS} from "../../constants";
 
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from '../../config.json';
 const Icon = createIconSetFromFontello(fontelloConfig);
 
-export const DetailTile = (props) => {
+export const FormTile = (props) => {
     const imageStyle = {flex: 1, flexDirection: 'row', alignItems: 'flex-end', height: 280, backgroundColor: '#CCC', overflow:'visible'};
     const titleStyle = {flex: 1, fontSize: 45, textAlign: 'left', color: 'black', backgroundColor: 'rgba(255,255,255,.4)', paddingLeft: 10};
 
@@ -22,7 +22,7 @@ export const DetailTile = (props) => {
     )
 };
 
-export const DetailTitle = (props) => {
+export const FormTitle = (props) => {
     const titleStyle = {fontSize: 24, textAlign: 'left', color: 'black', alignSelf: 'center'};
 
     return (
@@ -30,7 +30,7 @@ export const DetailTitle = (props) => {
     )
 };
 
-export const DetailBadge = (props) => {
+export const FormBadge = (props) => {
     const badgeColor = setBadgeColor(props.wearCount, props.wearLimit);
     const badgeStyle = {fontSize: 16, textAlign: 'center', color: 'white', backgroundColor: badgeColor, height: 32, width: 50, borderRadius: 16, alignSelf: 'flex-start', marginTop: 5, marginRight: 5, paddingTop: 4};
 
@@ -39,11 +39,11 @@ export const DetailBadge = (props) => {
     )
 };
 
-export const DetailAttribute = (props) => {
+export const FormAttribute = (props) => {
     const rowStyle = {flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginBottom: 2, paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'};
     const iconStyle = {flex: 0, marginRight: 5, color: 'grey'};
-    const labelStyle = { flex: 0, width: 150, fontSize: 20, textAlign: 'left', color: 'slategrey', marginRight: 30 };
-    const valueStyle = { flex: 2, fontSize: 20, textAlign: 'left', color: 'black' };
+    const labelStyle = { flex: 0, width: 200, fontSize: 20, textAlign: 'left', color: 'grey', paddingRight: 30 };
+    const valueStyle = { flex: 2, fontSize: 20, textAlign: 'right', color: 'black' };
 
     return (
         <View style={rowStyle}>
@@ -55,30 +55,35 @@ export const DetailAttribute = (props) => {
     )
 };
 
+export const OptionallyDisplayed = (props) => {
+    return (props.display === true) ? <View>{props.children}</View> : null;
+};
+
 const setBadgeColor = (count, limit) => {
+    const badgeColors = BADGE_COLORS;
     const indx = Math.ceil((count/limit) * 10);
 
-    return (indx <= 10) ? BADGE_COLORS[indx] : BADGE_COLORS[11];
+    return (indx <= 10) ? badgeColors[indx] : badgeColors[11];
 };
 
 const optionallyRenderColorCircle = (label, value, wearLimit, hexValue) => {
-    let circleColor;
+    let iconColor;
 
     switch (label) {
     case 'Color':
-        circleColor = hexValue;
+        iconColor = hexValue;
         break;
     case 'Wear Count':
-        circleColor = setBadgeColor(value, wearLimit);
+        iconColor = setBadgeColor(value, wearLimit);
         break;
     case 'Wear Limit':
-        circleColor = setBadgeColor(value, value);
+        iconColor = setBadgeColor(value, value);
         break;
     default:
-        circleColor = 'rgba(255,255,255,0)';
+        iconColor = 'rgba(255,255,255,0)';
     }
 
     return (
-        <Icon name={'circle'} color={circleColor} style={{ flex: 1, fontSize: 30, textAlign: 'center' }}/>
+        <Icon name={'circle'} color={iconColor} style={{ flex: 1, fontSize: 30, textAlign: 'center' }}/>
     )
 };
