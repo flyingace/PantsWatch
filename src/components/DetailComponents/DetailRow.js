@@ -43,17 +43,27 @@ class DetailRow extends React.Component {
         return this.props.showError && this.props.errorText !== '';
     }
 
+    //TODO: Fix this broke-ass function name
+    optionallyAddAddOption = (data) => {
+        if (data.length > 0 && data[data.length - 1].val !== 'add') {
+            data.push({ _id: 0, key: `add${this.props.label}`, label: '+ Add to this list', val: 'add' })
+        }
+
+        return data;
+    };
+
     render() {
-        const data = (data) ? this.props.menuOptions.rows : [];
-        if (data) data.push({_id: 0, key: `add${this.props.label}`, label: '+ Add to this list', value: 'add'});
+        const data = (this.props.data) ? this.props.data : [];
+        const menuValues = this.optionallyAddAddOption(data);
 
         return (
             <View>
                 <ModalSelector
-                    data={data}
+                    data={menuValues}
                     initValue="Select something yummy!"
-                    onChange={this.onValueChange}>
-                    <DetailAttribute label={this.props.label} icon={this.props.icon} value={this.props.value} hex={this.props.hex} menuOptions={this.props.data} />
+                    onChange={this.onValueChange}
+                    disabled={!this.props.behavesAsForm}>
+                    <DetailAttribute {...this.props}/>
                 </ModalSelector>
                 <OptionallyDisplayed display={this.shouldDisplayError()}>
                     <View>

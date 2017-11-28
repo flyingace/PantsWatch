@@ -42,7 +42,7 @@ export const DetailBadge = (props) => {
 export const DetailAttribute = (props) => {
     const rowStyle = {flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginBottom: 2, paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'};
     const iconStyle = {flex: 0, marginRight: 5, color: 'grey'};
-    const labelStyle = { flex: 0, width: 150, fontSize: 20, textAlign: 'left', color: 'slategrey', marginRight: 30 };
+    const labelStyle = { flex: 0, width: 120, fontSize: 20, textAlign: 'left', color: 'slategrey', marginRight: 30 };
     const valueStyle = { flex: 2, fontSize: 20, textAlign: 'left', color: 'black' };
 
     return (
@@ -79,6 +79,6 @@ const optionallyRenderColorCircle = (label, value, wearLimit, hexValue) => {
     }
 
     return (
-        <Icon name={'circle'} color={circleColor} style={{ flex: 1, fontSize: 30, textAlign: 'center' }}/>
+        <Icon name={'circle'} color={circleColor} style={{ flex: 0,  padding: 0, marginRight: 10, marginLeft: 10, fontSize: 30, textAlign: 'center' }}/>
     )
 };

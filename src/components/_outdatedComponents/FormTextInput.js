@@ -5,7 +5,7 @@ import {
     TextInput,
     View
 } from 'react-native';
-import { OptionallyDisplayed }  from './FormComponents';
+import { OptionallyDisplayed }  from '../FormComponents/FormComponents';
 import FormStyles from '../../styles/FormStyles';
 
 class FormTextInput extends React.Component {

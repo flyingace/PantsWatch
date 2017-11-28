@@ -1,4 +1,5 @@
 import DB from '../../db.js';
+import moment from 'moment';
 
 export const ADDING_OPTION = 'ADDING_OPTION';
 export const CLEAR_FORM_DATA = 'CLEAR_FORM_DATA';
@@ -21,6 +22,8 @@ export const SET_PANTS_SELECTED = 'SET_PANTS_SELECTED';
 export const SETTING_PANTS = 'SETING_PANTS';
 export const SET_FORM_DATA = 'SET_FORM_DATA';
 export const UPDATING_PANTS = 'UPDATING_PANTS';
+export const RECEIVE_PANTS_DATA = 'RECEIVE_PANTS_DATA';
+export const DELETE_PANTS = 'DELETE_PANTS';
 
 export function settingPants() {
     return { type: SETTING_PANTS };
@@ -130,6 +133,29 @@ export function updatePantsData(formData) {
     };
 }
 
+export function resetWearCount(pantsId) {
+    return (dispatch) => {
+        DB.pants.update_id(pantsId, { pantsWearCount: 0 }, (data) => {
+            dispatch(receivePantsData(data.pants));
+        });
+    };
+}
+
+export function deletePants(pantsId) {
+    return (dispatch) => {
+        DB.pants.remove_id(pantsId);
+        dispatch(deletePantsData());
+    }
+}
+
+export function receivePantsData(data) {
+    return { type: RECEIVE_PANTS_DATA, state: data };
+}
+
+export function deletePantsData() {
+    return { type: DELETE_PANTS };
+}
+
 export function addOption(category, valueToAdd) {
     return (dispatch) => {
         dispatch(addingOption());
@@ -227,5 +253,26 @@ function modifyDataShape(data) {
         delete row.value;
     });
 
-    return data;
+    return data.rows;
 }
+
+export function selectPants(pantsId) {
+    return (dispatch) => {
+        DB.pants.update({ selected: true }, { selected: false }, (results) => {
+            DB.pants.get_id(pantsId, (result) => {
+                const oldCount = result[0].pantsWearCount || 0;
+                const newCount = oldCount + 1;
+                const lastWorn = moment().format('L');
+
+                DB.pants.update_id(pantsId, {
+                    selected: true,
+                    pantsWearCount: newCount,
+                    lastWornDate: lastWorn
+                }, (data) => {
+                    dispatch(receivePantsData(data.pants));
+                });
+            });
+        });
+    };
+}
+

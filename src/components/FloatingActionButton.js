@@ -16,7 +16,9 @@ class FloatingActionButton extends React.Component {
         super();
     };
 
-    static propTypes = {};
+    static propTypes = {
+        turnOnForm: PropTypes.func
+    };
 
     static defaultProps = {};
 
@@ -48,6 +50,7 @@ class FloatingActionButton extends React.Component {
             setParams({pantsWearCount: 0});
             break;
         case 'update':
+            this.props.turnOnForm(true);
             break;
         case 'delete':
             this.props.deletePants(pantsId);
