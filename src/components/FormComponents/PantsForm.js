@@ -18,12 +18,11 @@ import { FormTile, FormAttribute } from './FormComponents';
 
 import { get, isEmpty } from 'lodash';
 
-import Header from '../Header';
-import FormTextInput from './FormTextInput';
-import FormPicker from './FormPicker';
-import FormSlider from './FormSlider';
+import DetailRow from '../DetailComponents/DetailRow';
+import { DetailAttribute, DetailTile } from "../DetailComponents/DetailComponents";
+import FloatingActionButton from '../FloatingActionButton';
 import FormStyles from '../../styles/FormStyles';
-import BackgroundImage from '../../../assets/backgrounds/redPlaid.png';
+import { setFormData } from "../../actions/FormActions";
 
 const fieldValidations = [
     ruleRunner('pantsName', 'Pants Name', required, minLength(3)),
@@ -46,9 +45,6 @@ class PantsForm extends React.Component {
         retrievePantsData: PropTypes.func,
         validateForm: PropTypes.func,
         submitFormData: PropTypes.func,
-        brandValues: PropTypes.object,
-        colorValues: PropTypes.object,
-        styleValues: PropTypes.object,
         selected: PropTypes.bool
     };
 
@@ -73,7 +69,12 @@ class PantsForm extends React.Component {
         optionType: '',
         showErrors: false,
         validationErrors: {},
-        datePickerIsVisible: false
+        datePickerIsVisible: false,
+        behavesAsForm: false
+    };
+
+    setFormBehavior = (bool) => {
+        this.setState({ behavesAsForm: bool });
     };
 
     componentWillMount() {
@@ -83,6 +84,10 @@ class PantsForm extends React.Component {
 
         if (navigate.state.params && navigate.state.params.updateId) {
             this.props.retrievePantsData(navigate.state.params && navigate.state.params.updateId);
+        }
+
+        if (navigate.state.routeName === 'AddPants') {
+            this.setFormBehavior(true);
         }
 
         //FIXME: A check should be made to see if picker data already exists/is cached
@@ -218,125 +223,81 @@ class PantsForm extends React.Component {
         this.setState({ modalVisible: false });
     };
 
-    /*** RENDER FORM ***/
-    renderForm = () => {
-        return (
-            <View>
-                <FormTextInput
-                    labelText='Pants Name'
-                    fieldName='pantsName'
-                    placeholderText='Name Your Pants'
-                    setFieldValue={this.props.setPantsName}
-                    value={this.props.pantsName}
-                    showError={this.state.showErrors}
-                    errorText={this.errorFor('pantsName')}/>
-                <FormPicker
-                    labelText='Pants Color'
-                    fieldName='pantsColor'
-                    promptText='Choose a Color'
-                    menuOptions={this.props.colorValues}
-                    isEditable={true}
-                    setFieldValue={this.props.setPantsColor}
-                    selectedValue={this.props.pantsColor}
-                    onAddOption={this.onAddOptionSelected}
-                    showError={this.state.showErrors}
-                    errorText={this.errorFor('pantsColor')}/>
-                <FormPicker
-                    labelText='Pants Brand'
-                    fieldName='pantsBrand'
-                    promptText='Choose a Brand'
-                    menuOptions={this.props.brandValues}
-                    isEditable={true}
-                    setFieldValue={this.props.setPantsBrand}
-                    selectedValue={this.props.pantsBrand}
-                    onAddOption={this.onAddOptionSelected}
-                    showError={this.state.showErrors}
-                    errorText={this.errorFor('pantsBrand')}/>
-                <FormPicker
-                    labelText='Pants Style'
-                    fieldName='pantsStyle'
-                    promptText='Choose a Style'
-                    menuOptions={this.props.styleValues}
-                    isEditable={true}
-                    setFieldValue={this.props.setPantsStyle}
-                    selectedValue={this.props.pantsStyle}
-                    onAddOption={this.onAddOptionSelected}
-                    showError={this.state.showErrors}
-                    errorText={this.errorFor('pantsStyle')}/>
-                <FormSlider
-                    labelText='Wear Limit'
-                    fieldName='pantsWearLimit'
-                    onValueChange={this.props.setPantsWearLimit}
-                    value={this.props.pantsWearLimit}/>
-            </View>
-        );
-    };
-
-    renderEditComponents = () => {
-        const navigation = this.props.navigation;
-
-        if (navigation.state.params && navigation.state.params.updateId) {
+    optionallyRenderFormButtons = () => {
+        if (this.state.behavesAsForm) {
             return (
-                <View>
-                    <FormSlider
-                        labelText='Wear Count'
-                        fieldName='pantsWearCount'
-                        onValueChange={this.props.setPantsWearCount}
-                        value={this.props.pantsWearCount}/>
-                    <FormTextInput
-                        labelText='Last Worn Date'
-                        fieldName='lastWornDate'
-                        placeholderText='Last Date You Wore These Pants'
-                        setFieldValue={this.props.setLastWornDate}
-                        value={this.props.lastWornDate}
-                        showError={false}
-                        onFocus={this.showDatePicker}/>
-                    <DateTimePicker
-                        isVisible={this.state.datePickerIsVisible}
-                        mode='date'
-                        onConfirm={this.onDatePickerConfirm}
-                        onCancel={this.onDatePickerCancel}
-                        maximumDate={new Date()}/>
+                <View style={detailStyles.formButtons}>
+                    <View style={detailStyles.formButtonContainer}>
+                        <Button title='Cancel' onPress={() => {this.setFormBehavior(false)}}
+                                style={detailStyles.formButton}/>
+                    </View>
+                    <View style={detailStyles.formButtonContainer}>
+                        <Button title='Submit' onPress={this.onSubmitClicked} color={'green'}
+                                style={detailStyles.formButton}/>
+                    </View>
                 </View>
-            );
+            )
         }
     };
 
-    render () {
-        let pantsName = (isEmpty(this.props.pantsName)) ? 'Name Your Pants' : this.props.pantsName,
-            pantsColor = (isEmpty(this.props.pantsColor)) ? 'Choose a Color' : this.props.pantsColor,
-            pantsColorHex = (isEmpty(this.props.pantsColorHex)) ? '#FEFEFE' : this.props.pantsColorHex,
-            pantsBrand = (isEmpty(this.props.pantsBrand)) ? 'Choose a Brand' : this.props.pantsBrand,
-            pantsStyle = (isEmpty(this.props.pantsStyle)) ? 'Choose a Style' : this.props.pantsStyle,
-            pantsWearLimit = 6,
-            pantsWearCount = 0,
-            lastWornDate = '10/28/2017';
+    optionallyRenderFloatingActionButton = (id) => {
+        if (!this.state.behavesAsForm) {
+            return (
+                <FloatingActionButton {...this.props} pantsId={id} turnOnForm={this.setFormBehavior}/>
+            )
+        }
+    };
 
+    render() {
+        const tempCount = [{ key: 0, label: '0' }, { key: 1, label: '1' }, { key: 2, label: '2' },
+            { key: 3, label: '3' }, { key: 4, label: '4' }, { key: 5, label: '5' }, { key: 6, label: '6' },
+            { key: 7, label: '7' }, { key: 8, label: '8' }, { key: 9, label: '9' }, { key: 10, label: '10' }];
+        const tempLimit = [{ key: 0, label: '0' }, { key: 1, label: '1' }, { key: 2, label: '2' },
+            { key: 3, label: '3' }, { key: 4, label: '4' }, { key: 5, label: '5' }, { key: 6, label: '6' },
+            { key: 7, label: '7' }, { key: 8, label: '8' }, { key: 9, label: '9' }, { key: 10, label: '10' }];
+
+        const newPantsParams = {
+            pantsName: 'Name Your Pants', pantsColor: 'Choose a Color', pantsColorHex: '', pantsBrand: 'Choose a Brand',
+            pantsStyle: 'Choose a Style', pantsWearCount: 0, pantsWearLimit: 6, lastWornDate: '', selected: false
+        };
+
+        const {
+            pantsName, pantsColor, pantsColorHex = '#222222', pantsBrand, pantsStyle, pantsWearCount,
+            pantsWearLimit, lastWornDate, selected, _id
+        } = (this.props.navigation.state.params) ? this.props.navigation.state.params : newPantsParams;
         return (
-            <View style={formStyles.pantsForm}>
-                <View style={formStyles.topFormRow}>
+            <View style={detailStyles.pantsDetail}>
+                <View style={detailStyles.topDetailRow}>
                     <FormTile name={pantsName}/>
+                    {this.optionallyRenderFloatingActionButton(_id)}
                 </View>
-                <ScrollView style={formStyles.bottomFormRow}>
-                    <FormPicker label={'Color'} icon={'color_pallette'} value={pantsColor} menuOptions={this.props.colorValues}/>
-                    <FormPicker label={'Brand'} icon={'brand'} value={pantsBrand} menuOptions={this.props.brandValues}/>
-                    <FormPicker label={'Style'} icon={'style'} value={pantsStyle} menuOptions={this.props.styleValues}/>
-                    <FormAttribute label={'Wear Count'} icon={'count'} value={pantsWearCount} limit={pantsWearLimit}/>
-                    <FormAttribute label={'Wear Limit'} icon={'limit'} value={pantsWearLimit}/>
-                    <FormAttribute label={'Last Worn'} icon={'calendar'} value={lastWornDate}/>
+                <ScrollView style={detailStyles.bottomDetailRow}>
+                    <DetailRow label={'Color'} icon={'color_pallette'} value={pantsColor} hex={pantsColorHex}
+                               data={this.props.colorValues} behavesAsForm={this.state.behavesAsForm}/>
+                    <DetailRow label={'Brand'} icon={'brand'} value={pantsBrand} data={this.props.brandValues}
+                               behavesAsForm={this.state.behavesAsForm}/>
+                    <DetailRow label={'Style'} icon={'style'} value={pantsStyle} data={this.props.styleValues}
+                               behavesAsForm={this.state.behavesAsForm}/>
+                    <DetailRow label={'Wear Count'} icon={'count'} value={pantsWearCount} limit={pantsWearLimit}
+                               data={tempCount} behavesAsForm={this.state.behavesAsForm}/>
+                    <DetailRow label={'Wear Limit'} icon={'limit'} value={pantsWearLimit} data={tempLimit}
+                               behavesAsForm={this.state.behavesAsForm}/>
+                    <DetailAttribute label={'Last Worn'} icon={'calendar'} value={lastWornDate}
+                                     behavesAsForm={this.state.behavesAsForm}/>
+                    {this.optionallyRenderFormButtons()}
                 </ScrollView>
             </View>
         );
     }
 }
 
-const formStyles = StyleSheet.create({
-    pantsForm: {
+const detailStyles = StyleSheet.create({
+    pantsDetail: {
         flex: 1,
         flexDirection: 'column',
         backgroundColor: 'lightgrey'
     },
-    selectedForm: {
+    selectedDetail: {
         flex: 1,
         flexDirection: 'row',
         backgroundColor: 'rgba(255,255,255,.85)',
@@ -346,20 +307,30 @@ const formStyles = StyleSheet.create({
         padding: 3,
         overflow: 'hidden',
     },
-    formColumn: {
+    detailColumn: {
         flex: 1,
         flexDirection: 'column',
     },
-    topFormRow: {
+    topDetailRow: {
         flex: 0,
         flexDirection: 'row',
         paddingBottom: 7
     },
-    bottomFormRow: {
+    bottomDetailRow: {
         flex: 1,
         flexDirection: 'column'
 
+    },
+    formButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    formButtonContainer: {
+        flex: 1
+    },
+    formButton: {
+        color: '#009900'
     }
 });
-
 module.exports = PantsForm;

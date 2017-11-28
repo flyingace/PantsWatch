@@ -14,7 +14,7 @@ export const PantsStack = StackNavigator({
         }
     },
     Details: {
-        screen: PantsDetailPage,
+        screen: PantsFormPage,
         navigationOptions: ({navigation}) => ({
             title: `${navigation.state.params.pantsName.toUpperCase()}`
         })
@@ -39,8 +39,7 @@ export const Drawer = DrawerNavigator(
         AddPants: {
             screen: PantsFormPage,
             navigationOptions: {
-                drawerLabel: 'Add Some Pants',
-                params: {}
+                drawerLabel: 'Add Some Pants'
             }
         },
         WashPants: {

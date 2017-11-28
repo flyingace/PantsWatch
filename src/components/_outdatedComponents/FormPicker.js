@@ -11,7 +11,7 @@ import { differenceWith, forIn, isEqual, values } from 'lodash';
 import DownArrow from '../../../assets/down_arrow.png';
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from '../../config.json';
-import { FormAttribute, OptionallyDisplayed } from "./FormComponents";
+import { FormAttribute, OptionallyDisplayed } from "../FormComponents/FormComponents";
 const Icon = createIconSetFromFontello(fontelloConfig);
 
 class FormPicker extends React.Component {
