@@ -5,8 +5,8 @@ import {
     ListView,
     View
 } from 'react-native';
-import PantsListRow from './PantsListRow';
-import PantsSelectionModal from './PantsSelectionModal';
+import PantsListRow from '../ListComponents/PantsListRow';
+import PantsSelectionModal from '../ListComponents/PantsSelectionModal';
 
 let pantsId;
 

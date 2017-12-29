@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import menuButton from '../../assets/menu.png';
+import menuButton from '../../../assets/menu.png';
 
 class Header extends React.Component {
     constructor() {
@@ -31,7 +31,7 @@ class Header extends React.Component {
     }
 
     render() {
-        const navigate = this.props.navigation.navigate;
+        const navigate = this.props.navigate;
 
         return (
             <View style={styles.container}>
@@ -41,7 +41,6 @@ class Header extends React.Component {
                     <Image source={menuButton}/>
                 </TouchableOpacity>
                 <Text style={styles.pageTitle}>{this.props.pageTitle}</Text>
-                <Image source={menuButton} style={styles.placeHolder}/>
             </View>
         );
     }
@@ -54,20 +53,20 @@ const styles = StyleSheet.create({
         flex: 0,
         flexDirection: 'row',
         alignItems: 'center',
-        maxHeight: 80,
+        maxHeight: 50,
         backgroundColor: 'rgba(255,255,255,.8)',
         borderBottomColor: 'black',
         borderBottomWidth: 2
     },
     menuButton: {
-        flex: 1,
-        padding: 10,
+        flex: 0,
+        padding: 10
     },
     pageTitle: {
         fontFamily: 'HappyFox-Condensed',
-        fontSize: 40,
+        fontSize: 30,
         color: 'black',
-        flex: 2,
+        flex: 3,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center'
@@ -75,6 +74,8 @@ const styles = StyleSheet.create({
     placeHolder: {
         flex: 1,
         padding: 10,
-        opacity: 0
+        opacity: 0,
+        height: 30,
+        width: 30
     }
 });
