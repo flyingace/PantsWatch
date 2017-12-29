@@ -16,9 +16,10 @@ export const DetailTile = (props) => {
     const titleStyle = {flex: 1, fontSize: 45, textAlign: 'left', color: 'black', backgroundColor: 'rgba(255,255,255,.4)', paddingLeft: 10};
 
     return (
-        <Image source={require('../../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={imageStyle}>
+        <View>
+            <Image source={require('../../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={imageStyle}/>
             <Text style={titleStyle}>{props.name}</Text>
-        </Image>
+        </View>
     )
 };
 
