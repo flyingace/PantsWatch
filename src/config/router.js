@@ -1,25 +1,69 @@
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import React from 'react';
 
 import Landing from '../components/Landing';
 import PantsFormPage from '../containers/PantsFormPage';
 import PantsListPage from '../containers/PantsListPage';
 import SettingsPage from '../containers/SettingsPage';
-import PantsDetailPage from '../containers/PantsDetailPage';
+import {MenuIcon} from '../components/MenuIcon';
 
-export const PantsStack = StackNavigator({
+
+export const ListStack = StackNavigator({
     Feed: {
         screen: PantsListPage,
-        navigationOptions: {
-            title: 'View Your Pants',
+        navigationOptions: ({ navigation }) => {
+            return {
+                title: 'See Your Pants',
+                headerLeft: <MenuIcon navigation={navigation}/>
+            }
         }
     },
     Details: {
         screen: PantsFormPage,
-        navigationOptions: ({navigation}) => ({
-            title: `${navigation.state.params.pantsName.toUpperCase()}`
-        })
-    },
+        navigationOptions: ({ navigation }) => {
+            return {
+                title: `${navigation.state.params.pantsName.toUpperCase()}`
+            }
+        }
+    }
 });
+
+export const AddStack = StackNavigator({
+    AddPage: {
+        screen: PantsFormPage,
+        navigationOptions: ({ navigation }) => {
+            return {
+                title: 'Add Some Pants',
+                headerLeft: <MenuIcon navigation={navigation}/>
+            }
+        }
+    }
+});
+
+export const WashStack = StackNavigator({
+    Feed: {
+        screen: PantsListPage,
+        navigationOptions: ({ navigation }) => {
+            return {
+                title: 'Wash Your Pants',
+                headerLeft: <MenuIcon navigation={navigation}/>
+            }
+        }
+    }
+});
+
+export const SettingsStack = StackNavigator({
+    Feed: {
+        screen: SettingsPage,
+        navigationOptions: ({ navigation }) => {
+            return {
+                title: 'Settings',
+                headerLeft: <MenuIcon navigation={navigation}/>
+            }
+        }
+    }
+});
+
 
 export const Drawer = DrawerNavigator(
     //RouteConfig
@@ -27,40 +71,25 @@ export const Drawer = DrawerNavigator(
         Home: {
             screen: Landing,
             navigationOptions: {
-                drawerLabel: 'Home',
+                title: 'Home',
+                tabBarVisible: false
             }
         },
         PantsList: {
-            screen: PantsStack,
-            navigationOptions: {
-                drawerLabel: 'See Your Pants',
-            }
+            screen: ListStack
         },
         AddPants: {
-            screen: PantsFormPage,
-            navigationOptions: {
-                drawerLabel: 'Add Some Pants'
-            }
+            screen: AddStack
         },
         WashPants: {
-            screen: PantsListPage,
-            navigationOptions: {
-                drawerLabel: 'Wash Your Pants'
-            }
+            screen: WashStack
         },
         Settings: {
-            screen: SettingsPage,
-            navigationOptions: {
-                drawerLabel: 'Settings'
-            }
+            screen: SettingsStack
         }
     },
     //DrawerNavigatorConfig
     {
-        drawerWidth: 150,
-        contentOptions: {
-            activeTintColor: '#e91e63',
-            activeBackgroundColor: 'lightgrey'
-        }
+        drawerWidth: 300
     }
 );
