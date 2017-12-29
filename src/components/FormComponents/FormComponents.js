@@ -12,11 +12,12 @@ import fontelloConfig from '../../config.json';
 const Icon = createIconSetFromFontello(fontelloConfig);
 
 export const FormTile = (props) => {
-    const imageStyle = {flex: 1, flexDirection: 'row', alignItems: 'flex-end', height: 280, backgroundColor: '#CCC', overflow:'visible'};
-    const titleStyle = {flex: 1, fontSize: 45, textAlign: 'left', color: 'black', backgroundColor: 'rgba(255,255,255,.4)', paddingLeft: 10};
+    const formTileStyle = {flex: 1, flexDirection: 'row', justifyContent: 'space-around', height: 280, backgroundColor: '#CCC', overflow: 'hidden'};
+    const imageStyle = {flex: 1, height: 280};
+    const titleStyle = {position: 'absolute', left: 0, right: 0, bottom: 0, fontSize: 45, textAlign: 'left', color: 'black', backgroundColor: 'rgba(255,255,255,.4)', paddingHorizontal: 10};
 
     return (
-    <View>
+    <View style={formTileStyle}>
         <Image source={require('../../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={imageStyle}/>
         <Text style={titleStyle}>{props.name}</Text>
     </View>

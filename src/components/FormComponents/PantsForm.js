@@ -314,7 +314,7 @@ const detailStyles = StyleSheet.create({
     topDetailRow: {
         flex: 0,
         flexDirection: 'row',
-        paddingBottom: 7
+        marginBottom: 2
     },
     bottomDetailRow: {
         flex: 1,
