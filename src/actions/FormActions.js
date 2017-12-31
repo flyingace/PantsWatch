@@ -40,9 +40,9 @@ export function setPantsData(formData) {
             pantsColorHex: formData.pantsColorHex,
             pantsBrand: formData.pantsBrand,
             pantsStyle: formData.pantsStyle,
-            pantsWearCount: 0,
+            pantsWearCount: formData.pantsWearCount,
             pantsWearLimit: formData.pantsWearLimit,
-            lastWornDate: '',
+            lastWornDate: formData.lastWornDate,
             selected: false
             // addedOn: value.addedOnDate,
             // notes: value.notes
@@ -101,6 +101,7 @@ export function retrievePantsData(pantsId) {
             dispatch(setPantsId(pantsData._id));
             dispatch(setPantsName(pantsData.pantsName));
             dispatch(setPantsColor(pantsData.pantsColor));
+            dispatch(setPantsColorHex(pantsData.pantsColorHex));
             dispatch(setPantsBrand(pantsData.pantsBrand));
             dispatch(setPantsStyle(pantsData.pantsStyle));
             dispatch(setPantsWearCount(pantsData.pantsWearCount));
@@ -117,7 +118,7 @@ export function setFormData(formData) {
 
 export function updatePantsData(formData) {
     return (dispatch) => {
-        DB.pants.update_id(formData.pantsId, {
+        DB.pants.update_id(formData._id, {
             pantsName: formData.pantsName,
             pantsColor: formData.pantsColor,
             pantsColorHex: formData.pantsColorHex,
