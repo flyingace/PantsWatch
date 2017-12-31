@@ -33,7 +33,7 @@ class DetailRow extends React.Component {
 
     onValueChange(value) {
         if (value !== 'add') {
-            this.props.setFieldValue(value);
+            this.props.setFieldValue(this.props.label, value);
         } else {
             this.props.onAddOption(this.props.fieldName);
         }
@@ -61,7 +61,7 @@ class DetailRow extends React.Component {
                 <ModalSelector
                     data={menuValues}
                     initValue="Select something yummy!"
-                    onChange={this.onValueChange}
+                    onChange={(value) => {this.onValueChange(value)}}
                     disabled={!this.props.behavesAsForm}>
                     <DetailAttribute {...this.props}/>
                 </ModalSelector>

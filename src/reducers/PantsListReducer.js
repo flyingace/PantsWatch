@@ -30,7 +30,6 @@ export default function pantsListReducer(state = initialState, action) {
 
         case RECEIVE_PANTS_DATA:
             const extractedData = extractPantsData(action.state);
-            console.log(extractedData);
 
             state = assign({}, state, {
                 pantsData: extractedData
