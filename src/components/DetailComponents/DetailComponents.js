@@ -5,7 +5,7 @@ import {
     Text,
     View
 } from 'react-native';
-import { BADGE_COLORS } from "../../constants";
+import { BADGE_COLORS, HTML_COLORS } from "../../constants";
 
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from '../../config.json';
@@ -41,10 +41,10 @@ export const DetailBadge = (props) => {
 };
 
 export const DetailAttribute = (props) => {
-    const rowStyle = {flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginBottom: 2, paddingLeft: 10, paddingRight: 10, backgroundColor: 'white'};
-    const iconStyle = {flex: 0, marginRight: 5, color: 'grey'};
-    const labelStyle = { flex: 0, width: 120, fontSize: 20, textAlign: 'left', color: 'slategrey', marginRight: 30 };
-    const valueStyle = { flex: 2, fontSize: 20, textAlign: 'left', color: 'black' };
+    const rowStyle = {flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', height: 50, marginBottom: 2, paddingLeft: 10, paddingRight: 10, backgroundColor: HTML_COLORS.white};
+    const iconStyle = {flex: 0, marginRight: 5, color: HTML_COLORS.gray};
+    const labelStyle = { flex: 0, width: 120, fontSize: 20, textAlign: 'left', color: HTML_COLORS.gray, marginRight: 30 };
+    const valueStyle = { flex: 2, fontSize: 20, textAlign: 'left', color: HTML_COLORS.black };
 
     return (
         <View style={rowStyle}>
@@ -76,7 +76,7 @@ const optionallyRenderColorCircle = (label, value, wearLimit, hexValue) => {
         circleColor = setBadgeColor(value, value);
         break;
     default:
-        circleColor = 'rgba(255,255,255,0)';
+        circleColor = 'transparent';
     }
 
     return (

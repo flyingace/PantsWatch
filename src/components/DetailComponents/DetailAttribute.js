@@ -5,7 +5,7 @@ import {
     Text,
     View
 } from 'react-native';
-import {BADGE_COLORS } from '../../constants';
+import {BADGE_COLORS, HTML_COLORS } from '../../constants';
 
 import { createIconSetFromFontello } from 'react-native-vector-icons';
 import fontelloConfig from '../../config.json';
@@ -83,7 +83,7 @@ const detailAttributeStyles = StyleSheet.create({
         backgroundColor: 'white'
     },
     iconStyle: { flex: 0, marginRight: 5, color: 'grey' },
-    labelStyle: { flex: 0, width: 150, fontSize: 20, textAlign: 'left', color: 'slategrey', marginRight: 30 },
+    labelStyle: { flex: 0, width: 150, fontSize: 20, textAlign: 'left', color: HTML_COLORS.gray, marginRight: 30 },
     valueStyle: { flex: 2, fontSize: 20, textAlign: 'left', color: 'black' },
 
 });

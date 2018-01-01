@@ -17,7 +17,7 @@ import { required, mustChoose, minLength } from '../../utils/rules.js';
 import { FormTile, FormAttribute } from './FormComponents';
 
 import { get, isEmpty } from 'lodash';
-
+import { HTML_COLORS } from "../../constants";
 import DetailRow from '../DetailComponents/DetailRow';
 import { DetailAttribute, DetailTile } from "../DetailComponents/DetailComponents";
 import FloatingActionButton from '../FloatingActionButton';
@@ -73,7 +73,7 @@ class PantsForm extends React.Component {
         behavesAsForm: false,
         pantsName: '',
         pantsColor: 'Choose a Color',
-        pantsColorHex: '#222222',
+        pantsColorHex: HTML_COLORS.gray,
         pantsBrand: 'Choose a Brand',
         pantsStyle: 'Choose a Style',
         pantsWearCount: 0,
@@ -262,7 +262,7 @@ class PantsForm extends React.Component {
     updateField = (field, values) => {
         switch (field) {
         case 'Name':
-            this.setState({ pantsName: values});
+            this.setState({ pantsName: values });
             break;
         case 'Color':
             this.setState({ pantsColor: values.label, pantsColorHex: values.hex });
@@ -296,7 +296,7 @@ class PantsForm extends React.Component {
             { key: 7, label: '7' }, { key: 8, label: '8' }, { key: 9, label: '9' }, { key: 10, label: '10' }];
 
         const {
-            pantsName, pantsColor, pantsColorHex = '#222222', pantsBrand, pantsStyle, pantsWearCount,
+            pantsName, pantsColor, pantsColorHex, pantsBrand, pantsStyle, pantsWearCount,
             pantsWearLimit, lastWornDate, selected, _id, behavesAsForm
         } = this.state;
 
@@ -307,7 +307,7 @@ class PantsForm extends React.Component {
                     {this.optionallyRenderFloatingActionButton(_id)}
                 </View>
                 <ScrollView style={detailStyles.bottomDetailRow}>
-                    <DetailRow label={'Color'} icon={'color_pallette'} value={pantsColor} hex={pantsColorHex}
+                    <DetailRow label={'Color'} icon={'color_pallette'} value={pantsColor} pantsColorHex={pantsColorHex}
                                data={this.props.colorValues} setFieldValue={this.updateField}
                                behavesAsForm={behavesAsForm}/>
                     <DetailRow label={'Brand'} icon={'brand'} value={pantsBrand} data={this.props.brandValues}

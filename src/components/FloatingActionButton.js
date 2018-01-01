@@ -7,6 +7,7 @@ import {
 import Modal from 'react-native-modal';
 import moment from 'moment';
 import { createIconSetFromFontello } from 'react-native-vector-icons';
+import { HTML_COLORS } from "../constants";
 import fontelloConfig from '../config.json';
 
 const Icon = createIconSetFromFontello(fontelloConfig);
@@ -27,7 +28,7 @@ class FloatingActionButton extends React.Component {
     };
 
     toggleModal = (bool) => {
-        this.setState({modalIsVisible: bool})
+        this.setState({ modalIsVisible: bool })
     };
 
     //TODO: I don't like the way that the detail page is being updated by manually passing new values to the
@@ -35,7 +36,7 @@ class FloatingActionButton extends React.Component {
     onButtonPress = (value) => {
         const pantsId = this.props.pantsId;
         const wearCount = this.props.navigation.state.params.pantsWearCount;
-        const {goBack, navigate, setParams} = this.props.navigation;
+        const { goBack, navigate, setParams } = this.props.navigation;
         const todaysDate = moment().format('L');
 
         this.toggleModal(false);
@@ -43,11 +44,11 @@ class FloatingActionButton extends React.Component {
         switch (value) {
         case 'wearing':
             this.props.selectPants(pantsId);
-            setParams({pantsWearCount: wearCount + 1, lastWornDate: todaysDate});
+            setParams({ pantsWearCount: wearCount + 1, lastWornDate: todaysDate });
             break;
         case 'washed':
             this.props.resetWearCount(pantsId);
-            setParams({pantsWearCount: 0});
+            setParams({ pantsWearCount: 0 });
             break;
         case 'update':
             this.props.turnOnForm(true);
@@ -65,42 +66,50 @@ class FloatingActionButton extends React.Component {
     render() {
         return (
             <View style={buttonStyle}>
-                <Icon name={'menu'} size={14} style={iconStyle} onPress={() => this.toggleModal(true)} />
+                <Icon name={'menu'} size={14} style={iconStyle} onPress={() => this.toggleModal(true)}/>
                 <Modal
                     isVisible={this.state.modalIsVisible}
-                    animationIn={ 'slideInRight' }
-                    transparent={ true }
+                    animationIn={'slideInRight'}
+                    transparent={true}
                 >
-                            <Button
-                                onPress={() => {this.onButtonPress('wearing')}}
-                                title="I am wearing these pants"
-                                accessibilityLabel="You are wearing these pants."
-                                color="#66d8ff"
-                            />
-                            <Button
-                                onPress={() => {this.onButtonPress('washed')}}
-                                title="I just washed these pants"
-                                accessibilityLabel="You just washed these pants."
-                                color="#66d8ff"
-                            />
-                            <Button
-                                onPress={() => {this.onButtonPress('update')}}
-                                title="I want to update the info about these pants"
-                                accessibilityLabel="You want to update the info about these pants."
-                                color="#66d8ff"
-                            />
-                            <Button
-                                onPress={() => {this.onButtonPress('delete')}}
-                                title="I'm done with these pants. Get rid of 'em!"
-                                accessibilityLabel="You want to delete these pants."
-                                color="#66d8ff"
-                            />
-                            <Button
-                                onPress={() => this.toggleModal(false)}
-                                title="Uh, my bad. Nevermind"
-                                accessibilityLabel="You don't want to do any of these things and just want to close this window."
-                                color="#66d8ff"
-                            />
+                    <Button
+                        onPress={() => {
+                            this.onButtonPress('wearing')
+                        }}
+                        title="I am wearing these pants"
+                        accessibilityLabel="You are wearing these pants."
+                        color="#66d8ff"
+                    />
+                    <Button
+                        onPress={() => {
+                            this.onButtonPress('washed')
+                        }}
+                        title="I just washed these pants"
+                        accessibilityLabel="You just washed these pants."
+                        color="#66d8ff"
+                    />
+                    <Button
+                        onPress={() => {
+                            this.onButtonPress('update')
+                        }}
+                        title="I want to update the info about these pants"
+                        accessibilityLabel="You want to update the info about these pants."
+                        color="#66d8ff"
+                    />
+                    <Button
+                        onPress={() => {
+                            this.onButtonPress('delete')
+                        }}
+                        title="I'm done with these pants. Get rid of 'em!"
+                        accessibilityLabel="You want to delete these pants."
+                        color="#66d8ff"
+                    />
+                    <Button
+                        onPress={() => this.toggleModal(false)}
+                        title="Uh, my bad. Nevermind"
+                        accessibilityLabel="You don't want to do any of these things and just want to close this window."
+                        color="#66d8ff"
+                    />
                 </Modal>
             </View>
         );
@@ -116,7 +125,7 @@ const buttonStyle = {
     justifyContent: 'center',
     width: 50,
     height: 50,
-    borderColor: 'slategrey',
+    borderColor: HTML_COLORS.slategray,
     borderWidth: 2,
     borderRadius: 25,
     backgroundColor: 'white',
@@ -125,7 +134,7 @@ const buttonStyle = {
     shadowOpacity: 0.8,
     shadowRadius: 2
 };
-const iconStyle = { fontSize: 24, textAlign: 'center', color: 'slategrey' };
+const iconStyle = { fontSize: 24, textAlign: 'center', color: HTML_COLORS.slategray };
 const pickerField = {
     position: 'absolute',
     top: 10,
