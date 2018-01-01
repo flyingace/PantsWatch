@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {
     Image,
     Text,
+    TextInput,
     View
 } from 'react-native';
 import {BADGE_COLORS} from "../../constants";
@@ -19,7 +20,7 @@ export const FormTile = (props) => {
     return (
     <View style={formTileStyle}>
         <Image source={require('../../../assets/PantsPlaceholder.png')} resizeMode={'contain'} style={imageStyle}/>
-        <Text style={titleStyle}>{props.name}</Text>
+        <TextInput style={titleStyle} editable={props.isEditable} placeholder={'Name Your Pants'} underlineColorAndroid={'transparent'} onChangeText={(value) => {props.setFieldValue('Name', value)}}>{props.name}</TextInput>
     </View>
     )
 };

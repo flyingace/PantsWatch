@@ -71,7 +71,7 @@ class PantsForm extends React.Component {
         validationErrors: {},
         datePickerIsVisible: false,
         behavesAsForm: false,
-        pantsName: 'Name Your Pants',
+        pantsName: '',
         pantsColor: 'Choose a Color',
         pantsColorHex: '#222222',
         pantsBrand: 'Choose a Brand',
@@ -162,13 +162,13 @@ class PantsForm extends React.Component {
     };
 
     onSubmitClicked = () => {
-        this.validateAllFields();
-
-        this.setState({ showErrors: true });
-
-        if (Object.keys(this.state.validationErrors).length > 0) {
-            return null;
-        }
+        // this.validateAllFields();
+        //
+        // this.setState({ showErrors: true });
+        //
+        // if (Object.keys(this.state.validationErrors).length > 0) {
+        //     return null;
+        // }
 
         this.submitFormData();
     };
@@ -261,6 +261,9 @@ class PantsForm extends React.Component {
 
     updateField = (field, values) => {
         switch (field) {
+        case 'Name':
+            this.setState({ pantsName: values});
+            break;
         case 'Color':
             this.setState({ pantsColor: values.label, pantsColorHex: values.hex });
             break;
@@ -294,34 +297,34 @@ class PantsForm extends React.Component {
 
         const {
             pantsName, pantsColor, pantsColorHex = '#222222', pantsBrand, pantsStyle, pantsWearCount,
-            pantsWearLimit, lastWornDate, selected, _id
+            pantsWearLimit, lastWornDate, selected, _id, behavesAsForm
         } = this.state;
 
         return (
             <View style={detailStyles.pantsDetail}>
                 <View style={detailStyles.topDetailRow}>
-                    <FormTile name={pantsName}/>
+                    <FormTile name={pantsName} isEditable={behavesAsForm} setFieldValue={this.updateField}/>
                     {this.optionallyRenderFloatingActionButton(_id)}
                 </View>
                 <ScrollView style={detailStyles.bottomDetailRow}>
                     <DetailRow label={'Color'} icon={'color_pallette'} value={pantsColor} hex={pantsColorHex}
                                data={this.props.colorValues} setFieldValue={this.updateField}
-                               behavesAsForm={this.state.behavesAsForm}/>
+                               behavesAsForm={behavesAsForm}/>
                     <DetailRow label={'Brand'} icon={'brand'} value={pantsBrand} data={this.props.brandValues}
                                setFieldValue={this.updateField}
-                               behavesAsForm={this.state.behavesAsForm}/>
+                               behavesAsForm={behavesAsForm}/>
                     <DetailRow label={'Style'} icon={'style'} value={pantsStyle} data={this.props.styleValues}
                                setFieldValue={this.updateField}
-                               behavesAsForm={this.state.behavesAsForm}/>
+                               behavesAsForm={behavesAsForm}/>
                     <DetailRow label={'Wear Count'} icon={'count'} value={pantsWearCount} limit={pantsWearLimit}
                                setFieldValue={this.updateField}
-                               data={tempCount} behavesAsForm={this.state.behavesAsForm}/>
+                               data={tempCount} behavesAsForm={behavesAsForm}/>
                     <DetailRow label={'Wear Limit'} icon={'limit'} value={pantsWearLimit} data={tempLimit}
                                setFieldValue={this.updateField}
-                               behavesAsForm={this.state.behavesAsForm}/>
+                               behavesAsForm={behavesAsForm}/>
                     <DetailAttribute label={'Last Worn'} icon={'calendar'} value={lastWornDate}
                                      setFieldValue={this.updateField}
-                                     behavesAsForm={this.state.behavesAsForm}/>
+                                     behavesAsForm={behavesAsForm}/>
                     {this.optionallyRenderFormButtons()}
                 </ScrollView>
             </View>
