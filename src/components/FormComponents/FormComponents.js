@@ -83,7 +83,7 @@ const optionallyRenderColorCircle = (label, value, wearLimit, hexValue) => {
         iconColor = setBadgeColor(value, value);
         break;
     default:
-        iconColor = 'rgba(255,255,255,0)';
+        iconColor = 'transparent';
     }
 
     return (
