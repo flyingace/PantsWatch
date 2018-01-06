@@ -9,13 +9,14 @@ import {
     View
 } from 'react-native';
 import Modal from 'react-native-modal';
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import moment from 'moment';
 import { DBEvents } from 'react-native-db-models';
 import update from 'immutability-helper';
-import DateTimePicker from 'react-native-modal-datetime-picker';
 import { run, ruleRunner } from '../../utils/ruleRunner.js';
 import { required, mustChoose, minLength } from '../../utils/rules.js';
 import { FormTile, FormAttribute } from './FormComponents';
-
+import FormDateRow from './FormDateRow';
 import { get, isEmpty } from 'lodash';
 import { HTML_COLORS } from "../../constants";
 import DetailRow from '../DetailComponents/DetailRow';
@@ -212,18 +213,19 @@ class PantsForm extends React.Component {
         this.props.updatePantsData(formData);
     };
 
-    onDatePickerConfirm = (datePicked) => {
-        this.setState({ datePickerIsVisible: false });
-        this.props.setLastWornDate(datePicked.toLocaleDateString());
-    };
-
-    onDatePickerCancel = () => {
-        this.setState({ datePickerIsVisible: false });
-    };
-
     showDatePicker = () => {
         this.setState({ datePickerIsVisible: true });
         Keyboard.dismiss();
+    };
+
+    hideDatePicker = () => {
+        this.setState({ datePickerIsVisible: false })
+    };
+
+    onDatePicked = (date) => {
+        const formattedDate = moment(date).format('L');
+        this.updateField('Last Worn', formattedDate);
+        this.hideDatePicker();
     };
 
     showAddOption = () => {
@@ -232,6 +234,14 @@ class PantsForm extends React.Component {
 
     hideAddOption = () => {
         this.setState({ modalVisible: false });
+    };
+
+    optionallyRenderFloatingActionButton = (id) => {
+        if (!this.state.behavesAsForm) {
+            return (
+                <FloatingActionButton {...this.props} pantsId={id} turnOnForm={this.setFormBehavior}/>
+            )
+        }
     };
 
     optionallyRenderFormButtons = () => {
@@ -247,14 +257,6 @@ class PantsForm extends React.Component {
                                 style={detailStyles.formButton}/>
                     </View>
                 </View>
-            )
-        }
-    };
-
-    optionallyRenderFloatingActionButton = (id) => {
-        if (!this.state.behavesAsForm) {
-            return (
-                <FloatingActionButton {...this.props} pantsId={id} turnOnForm={this.setFormBehavior}/>
             )
         }
     };
@@ -280,7 +282,7 @@ class PantsForm extends React.Component {
             this.setState({ pantsWearLimit: Number.parseInt(values.label, 10) });
             break;
         case 'Last Worn':
-            this.setState({ lastWornDate: values.label });
+            this.setState({ lastWornDate: values });
             break;
         default:
             break;
@@ -300,6 +302,7 @@ class PantsForm extends React.Component {
             pantsWearLimit, lastWornDate, selected, _id, behavesAsForm
         } = this.state;
 
+        //TODO: Consider whether DateTimePicker should be an optional render
         return (
             <View style={detailStyles.pantsDetail}>
                 <View style={detailStyles.topDetailRow}>
@@ -322,11 +325,17 @@ class PantsForm extends React.Component {
                     <DetailRow label={'Wear Limit'} icon={'limit'} value={pantsWearLimit} data={tempLimit}
                                setFieldValue={this.updateField}
                                behavesAsForm={behavesAsForm}/>
-                    <DetailAttribute label={'Last Worn'} icon={'calendar'} value={lastWornDate}
-                                     setFieldValue={this.updateField}
-                                     behavesAsForm={behavesAsForm}/>
+                    <FormDateRow label={'Last Worn'} icon={'calendar'} value={lastWornDate}
+                                 behavesAsForm={behavesAsForm}
+                                 showDatePicker={this.showDatePicker}/>
                     {this.optionallyRenderFormButtons()}
                 </ScrollView>
+
+                <DateTimePicker
+                    isVisible={this.state.datePickerIsVisible}
+                    onConfirm={this.onDatePicked}
+                    onCancel={this.hideDatePicker}
+                    maximumDate={new Date()}/>
             </View>
         );
     }
