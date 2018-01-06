@@ -90,6 +90,9 @@ export const Drawer = DrawerNavigator(
     },
     //DrawerNavigatorConfig
     {
-        drawerWidth: 300
+        drawerWidth: 300,
+        drawerOpenRoute: 'DrawerOpen',
+        drawerCloseRoute: 'DrawerClose',
+        drawerToggleRoute: 'DrawerToggle'
     }
 );
